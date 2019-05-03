@@ -1,0 +1,98 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/kisspng-table-clip-art-table-5acb2d7f9e8339.9371932615232648956493.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
+
+[node name="Tavern" type="Node2D"]
+script = ExtResource( 1 )
+table = ExtResource( 2 )
+
+[node name="Count1" type="Label" parent="."]
+margin_left = 22.2982
+margin_top = 42.9007
+margin_right = 109.298
+margin_bottom = 73.9007
+text = "Player Count:
+"
+
+[node name="Table1" type="TextureButton" parent="Count1"]
+margin_left = 7.55067
+margin_top = 31.3808
+margin_right = 807.551
+margin_bottom = 831.381
+rect_scale = Vector2( 0.1, 0.1 )
+texture_normal = ExtResource( 3 )
+
+[node name="Count2" type="Label" parent="."]
+margin_left = 252.853
+margin_top = 176.951
+margin_right = 340.853
+margin_bottom = 190.951
+text = "Player Count: "
+
+[node name="Table2" type="TextureButton" parent="Count2"]
+margin_left = 2.36987
+margin_top = 23.7424
+margin_right = 802.37
+margin_bottom = 823.742
+rect_scale = Vector2( 0.1, 0.1 )
+texture_normal = ExtResource( 3 )
+
+[node name="Count3" type="Label" parent="."]
+margin_left = 41.4202
+margin_top = 317.081
+margin_right = 125.42
+margin_bottom = 331.081
+text = "Player Count:"
+
+[node name="Table3" type="TextureButton" parent="Count3"]
+margin_left = 3.82318
+margin_top = 21.3516
+margin_right = 803.823
+margin_bottom = 821.352
+rect_scale = Vector2( 0.1, 0.1 )
+texture_normal = ExtResource( 3 )
+
+[node name="Count4" type="Label" parent="."]
+margin_left = 234.99
+margin_top = 451.815
+margin_right = 318.99
+margin_bottom = 465.815
+text = "Player Count:"
+
+[node name="Table4" type="TextureButton" parent="Count4"]
+margin_left = 2.34912
+margin_top = 29.1748
+margin_right = 802.349
+margin_bottom = 829.175
+rect_scale = Vector2( 0.1, 0.1 )
+texture_normal = ExtResource( 3 )
+
+[node name="RefreshCountTimer" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[node name="TableRefresh" type="HTTPRequest" parent="RefreshCountTimer"]
+
+[node name="EnterTavern" type="HTTPRequest" parent="."]
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 119.057, 189.985 )
+
+[node name="TavernName" type="Label" parent="."]
+margin_left = -147.147
+margin_top = -349.597
+margin_right = 605.854
+margin_bottom = -284.597
+align = 1
+valign = 1
+
+[connection signal="button_up" from="Count1/Table1" to="." method="_on_Table_button_up" binds= [ 1 ]]
+[connection signal="button_up" from="Count2/Table2" to="." method="_on_Table_button_up" binds= [ 2 ]]
+[connection signal="button_up" from="Count3/Table3" to="." method="_on_Table_button_up" binds= [ 3 ]]
+[connection signal="button_up" from="Count4/Table4" to="." method="_on_Table_button_up" binds= [ 4 ]]
+[connection signal="timeout" from="RefreshCountTimer" to="." method="_on_RefreshCountTimer_timeout"]
+[connection signal="request_completed" from="RefreshCountTimer/TableRefresh" to="." method="_on_TableRefresh_request_completed"]
+[connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]

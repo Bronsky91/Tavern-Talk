@@ -1,0 +1,74 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Register.gd" type="Script" id=1]
+
+[node name="Register" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="EmailLabel" type="Label" parent="."]
+margin_left = 153.222
+margin_top = 29.2731
+margin_right = 207.222
+margin_bottom = 45.2731
+text = "Email:"
+
+[node name="Email" type="LineEdit" parent="EmailLabel"]
+margin_left = -70.0
+margin_top = 52.0
+margin_right = 120.0
+margin_bottom = 85.0
+
+[node name="UsernameLabel" type="Label" parent="."]
+margin_left = 137.612
+margin_top = 149.805
+margin_right = 207.612
+margin_bottom = 163.805
+text = "Username:"
+
+[node name="Username" type="LineEdit" parent="UsernameLabel"]
+margin_left = -53.6755
+margin_top = 50.507
+margin_right = 136.324
+margin_bottom = 83.507
+
+[node name="PasswordLabel" type="Label" parent="."]
+margin_left = 140.181
+margin_top = 272.701
+margin_right = 204.181
+margin_bottom = 286.701
+text = "Password:"
+
+[node name="Password" type="LineEdit" parent="PasswordLabel"]
+margin_left = -61.4173
+margin_top = 41.209
+margin_right = 128.582
+margin_bottom = 74.2091
+secret = true
+
+[node name="ConfirmLabel" type="Label" parent="."]
+margin_left = 118.802
+margin_top = 400.956
+margin_right = 236.802
+margin_bottom = 414.956
+text = "Confirm Password:"
+
+[node name="Confirm" type="LineEdit" parent="ConfirmLabel"]
+margin_left = -34.2631
+margin_top = 47.371
+margin_right = 155.737
+margin_bottom = 80.371
+secret = true
+
+[node name="Sign Up" type="Button" parent="."]
+margin_left = 108.293
+margin_top = 538.005
+margin_right = 247.293
+margin_bottom = 593.005
+text = "Sign Up"
+
+[node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[connection signal="button_up" from="Sign Up" to="." method="_on_Sign_Up_button_up"]
+[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
