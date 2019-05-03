@@ -49,7 +49,6 @@ margin_bottom = 496.12
 text = "Register"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
-
 [connection signal="button_up" from="Sign-In" to="." method="login"]
 [connection signal="button_up" from="Register" to="." method="_on_Register_button_up"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
