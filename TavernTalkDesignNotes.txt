@@ -1,0 +1,7 @@
+Text-Based Tavern Roleplay Game that is played between D&D sessions. Players use their Characters from the GMs D&D campaign to roleplay with eachother while not at the game table. Roleplay chats do not have the expectation of being real-time, meaning you can Roleplay with your D&D group on your mobile device throughout the week whenever! Interactions in the mobile app is designed to be canon in your D&D campaigns. Use your character's actual money for betting, gambling, and gaming at the tables as well! By entering select stats from your Character into the app, you can use those stats for things such as Deception, Intimidation, Sleight of Hand, etc just like you would in a real game with a tap of a button in your RP. Keep in mind your actions may be noticed or heard by others at your table or even other tables!
+
+GM created Tavern (Server)
+Multiple Tables (Chat Rooms)
+One table is a gaming table for mini games?
+Bulletion board for Campaign Hooks and Messages
+GM Mode - NPC Swap, Tavern Admin, etc

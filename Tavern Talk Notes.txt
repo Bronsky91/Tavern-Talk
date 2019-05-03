@@ -1,0 +1,29 @@
+DM Mode Design
+-Menu selection flow
+-In tavern gameplay
+-NPC switch
+
+RP Actions
+-Additional Character data
+-Update API Character Model
+-Use character data for RP actions
+-Action text markup
+
+Game Table Design
+-3 simple games to start
+-Utilize Character data like RP actions
+-Prizes, coin, etc
+
+Character Design
+-Different Race models
+-Different Color Scheme
+
+Game/Chat flow when minimized
+-What chat data gets saved
+-How rejoining a table from pausing the app looks
+-Notifications, when to send
+
+Bulletion Board
+-Game table schedule
+-Posts by players (think animal crossing)
+

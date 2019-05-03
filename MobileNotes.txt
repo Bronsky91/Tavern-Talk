@@ -1,0 +1,6 @@
+Notes for Mobile Dev in Godot:
+
+Andriod: use 750 X 1334, keep aspect ration, stretch mode  = viewport?
+
+
+API logs user in, saves their profile data, and gives them the server IP/PORT
