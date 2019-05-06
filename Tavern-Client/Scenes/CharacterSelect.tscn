@@ -42,7 +42,6 @@ margin_top = 366.471
 margin_right = 242.24
 margin_bottom = 401.471
 text = "Remove Character"
-
 [connection signal="item_selected" from="Characters" to="." method="_on_Characters_item_selected"]
 [connection signal="button_up" from="JoinButton" to="." method="_on_JoinButton_button_up"]
 [connection signal="button_up" from="NewCharacterButton" to="." method="_on_NewCharacterButton_button_up"]

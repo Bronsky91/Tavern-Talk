@@ -5,9 +5,9 @@
 [node name="TavernMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 2.59186
+margin_left = 7.59186
 margin_top = -0.840114
-margin_right = 2.59186
+margin_right = 7.59186
 margin_bottom = -0.840088
 script = ExtResource( 1 )
 
@@ -62,7 +62,14 @@ margin_bottom = 218.521
 
 [node name="HTTPRequestCreate" type="HTTPRequest" parent="."]
 
+[node name="Back" type="Button" parent="."]
+margin_left = 6.0
+margin_top = 9.0
+margin_right = 46.0
+margin_bottom = 33.0
+text = "Back"
 [connection signal="button_up" from="Invite/EnterTavern" to="." method="_on_EnterTavern_button_up"]
 [connection signal="button_up" from="Create/CreateTavern" to="." method="_on_CreateTavern_button_up"]
 [connection signal="request_completed" from="HTTPRequestEnter" to="." method="_on_HTTPRequestEnter_request_completed"]
 [connection signal="request_completed" from="HTTPRequestCreate" to="." method="_on_HTTPRequestCreate_request_completed"]
+[connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]

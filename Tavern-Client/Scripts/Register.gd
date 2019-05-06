@@ -29,3 +29,6 @@ func _on_Sign_Up_button_up():
 		# Add field validation
 		var data = {"email": email.text, "username": username.text, "password": password.text}
 		global.make_post_request($HTTPRequest, 'users', data, false)
+
+func _on_Back_button_up():
+	get_tree().change_scene("Scenes/Login.tscn")

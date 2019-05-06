@@ -8,10 +8,10 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="EmailLabel" type="Label" parent="."]
-margin_left = 153.222
-margin_top = 29.2731
-margin_right = 207.222
-margin_bottom = 45.2731
+margin_left = 154.222
+margin_top = 53.2731
+margin_right = 208.222
+margin_bottom = 69.2731
 text = "Email:"
 
 [node name="Email" type="LineEdit" parent="EmailLabel"]
@@ -21,10 +21,10 @@ margin_right = 120.0
 margin_bottom = 85.0
 
 [node name="UsernameLabel" type="Label" parent="."]
-margin_left = 137.612
-margin_top = 149.805
-margin_right = 207.612
-margin_bottom = 163.805
+margin_left = 138.612
+margin_top = 173.805
+margin_right = 208.612
+margin_bottom = 187.805
 text = "Username:"
 
 [node name="Username" type="LineEdit" parent="UsernameLabel"]
@@ -34,10 +34,10 @@ margin_right = 136.324
 margin_bottom = 83.507
 
 [node name="PasswordLabel" type="Label" parent="."]
-margin_left = 140.181
-margin_top = 272.701
-margin_right = 204.181
-margin_bottom = 286.701
+margin_left = 141.181
+margin_top = 296.701
+margin_right = 205.181
+margin_bottom = 310.701
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="PasswordLabel"]
@@ -48,10 +48,10 @@ margin_bottom = 74.2091
 secret = true
 
 [node name="ConfirmLabel" type="Label" parent="."]
-margin_left = 118.802
-margin_top = 400.956
-margin_right = 236.802
-margin_bottom = 414.956
+margin_left = 119.802
+margin_top = 424.956
+margin_right = 237.802
+margin_bottom = 438.956
 text = "Confirm Password:"
 
 [node name="Confirm" type="LineEdit" parent="ConfirmLabel"]
@@ -62,13 +62,20 @@ margin_bottom = 80.371
 secret = true
 
 [node name="Sign Up" type="Button" parent="."]
-margin_left = 108.293
-margin_top = 538.005
-margin_right = 247.293
-margin_bottom = 593.005
+margin_left = 109.293
+margin_top = 562.005
+margin_right = 248.293
+margin_bottom = 617.005
 text = "Sign Up"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
+[node name="Back" type="Button" parent="."]
+margin_left = 10.0
+margin_top = 9.0
+margin_right = 58.0
+margin_bottom = 31.0
+text = "Back"
 [connection signal="button_up" from="Sign Up" to="." method="_on_Sign_Up_button_up"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
