@@ -72,4 +72,6 @@ func create_table_nodes():
 			new_table.hide()
 			add_child(new_table)
 			new_table.add_to_group("tables")
-			
+
+func _on_Board_button_up():
+		get_tree().change_scene("Scenes/Board.tscn")

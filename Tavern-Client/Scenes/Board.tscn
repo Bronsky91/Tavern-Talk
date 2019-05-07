@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Board.gd" type="Script" id=1]
+[ext_resource path="res://Scenes/Post.tscn" type="PackedScene" id=2]
+
+[node name="Board" type="Node2D"]
+script = ExtResource( 1 )
+post = ExtResource( 2 )
+
+[node name="BoardRequest" type="HTTPRequest" parent="."]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+margin_left = 30.5263
+margin_top = 38.9473
+margin_right = 331.526
+margin_bottom = 518.947
+columns = 2
+
+[node name="BackButton" type="Button" parent="."]
+margin_left = 72.8532
+margin_top = 567.074
+margin_right = 149.853
+margin_bottom = 605.074
+text = "Back"
+
+[node name="NewPost" type="Button" parent="."]
+margin_left = 193.0
+margin_top = 566.0
+margin_right = 271.0
+margin_bottom = 605.0
+text = "New Post"
+[connection signal="request_completed" from="BoardRequest" to="." method="_on_BoardRequest_request_completed"]
+[connection signal="button_up" from="NewPost" to="." method="_on_NewPost_button_up"]

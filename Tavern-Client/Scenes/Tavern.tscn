@@ -89,6 +89,12 @@ margin_bottom = -284.597
 align = 1
 valign = 1
 
+[node name="Board" type="Button" parent="."]
+margin_left = 294.743
+margin_top = 20.3397
+margin_right = 343.743
+margin_bottom = 74.3397
+text = "Board"
 [connection signal="button_up" from="Count1/Table1" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="button_up" from="Count2/Table2" to="." method="_on_Table_button_up" binds= [ 2 ]]
 [connection signal="button_up" from="Count3/Table3" to="." method="_on_Table_button_up" binds= [ 3 ]]
@@ -96,3 +102,4 @@ valign = 1
 [connection signal="timeout" from="RefreshCountTimer" to="." method="_on_RefreshCountTimer_timeout"]
 [connection signal="request_completed" from="RefreshCountTimer/TableRefresh" to="." method="_on_TableRefresh_request_completed"]
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
+[connection signal="button_up" from="Board" to="." method="_on_Board_button_up"]
