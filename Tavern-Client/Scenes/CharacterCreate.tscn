@@ -27,7 +27,7 @@ margin_top = 29.3455
 margin_right = 172.835
 margin_bottom = 76.3455
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="Create" type="HTTPRequest" parent="."]
 
 [node name="Back" type="Button" parent="."]
 margin_left = 9.0
@@ -36,5 +36,5 @@ margin_right = 62.0
 margin_bottom = 38.0
 text = "Back"
 [connection signal="button_up" from="CreateButton" to="." method="_on_CreateButton_button_up"]
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="Create" to="." method="_on_Create_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]

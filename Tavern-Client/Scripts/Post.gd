@@ -17,18 +17,18 @@ func _input(event):
 	if Input.is_action_just_pressed('backspace') and $BodyEdit.cursor_get_line() > 0:
 		$BodyEdit.readonly = false
 	
-func new_post(new, id, body, author):
+func new_post(new, id='', body='', author=''):
 	## Called from Board before post scene is added to scene_tree
 	if new:
 		new_post = true
-		hide_edit(false)
+		$BodyEdit.show()
+		$AuthorEdit.show()
 		$NewEdit.text = 'Post'
 	else:
 		post_id = id
 		write_post(body, author)
 
 func write_post(body, author):
-	print(post_body)
 	post_body.text = body
 	post_author.text = author
 	
@@ -45,11 +45,13 @@ func _on_NewEdit_button_up():
 		hide_edit(true)
 		new_post = false
 		$NewEdit.text = 'Edit'
-		var post_data = {'id': post_id, 'body': $BodyEdit.text, 'author': $AuthorEdit.text}
-		### TODO: Add logic to API that if id == '0', it's a new post otherwise edit it properly
-		print('tavern/' + global.player_data.tavern.id + '/board')
-		print(post_data)
-		global.make_post_request($PostSave, 'tavern/' + global.player_data.tavern.id + '/board', post_data, false)
+		## Conditional to check post_id
+		if post_id == '0':
+			var data = {'board': {"body": $BodyEdit.text, "author": $AuthorEdit.text}}
+			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id, data, false)
+		else:
+			var data = {"id": post_id, "body": $BodyEdit.text, "author": $AuthorEdit.text}
+			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id + '/board', data, false)
 	else:
 		hide_edit(false)
 		$NewEdit.text = 'Post'
@@ -74,4 +76,5 @@ func _on_PostSave_request_completed(result, response_code, headers, body):
 	print(json.result)
 	## Display error if post did not save for some reason
 
-
+func _on_Remove_button_up():
+	$PostSave.request()

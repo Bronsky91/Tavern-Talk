@@ -24,6 +24,10 @@ router.route('/:tavern_id/tables')
 router.route('/:tavern_id/character_remove')
     .patch(tavernController.characterRemove)
 
+router.route('/:tavern_id/board')
+    .get(tavernController.getBoard)
+    .patch(tavernController.updatePost)
+
 router.route('/:tavern_id')
     .get(tavernController.view)
     .patch(tavernController.update)

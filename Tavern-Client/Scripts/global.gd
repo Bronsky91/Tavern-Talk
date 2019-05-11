@@ -26,3 +26,8 @@ func make_post_request(request, url, data, use_ssl):
 	var query = JSON.print(data)
 	var headers = ["Content-Type: application/json"]
 	request.request(api_url + url, headers, use_ssl, HTTPClient.METHOD_POST, query)
+	
+func make_patch_request(request, url, data, use_ssl):
+	var query = JSON.print(data)
+	var headers = ["Content-Type: application/json"]
+	request.request(api_url + url, headers, use_ssl, HTTPClient.METHOD_PATCH, query)

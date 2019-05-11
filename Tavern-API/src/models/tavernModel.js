@@ -10,6 +10,10 @@ const tavernModel = mongoose.Schema({
         character_id: String,
         table: Number // 0 means not at a table currently
         }],
+    board: [{
+        body: String,
+        author: String
+    }]
 });
 
 var Tavern = module.exports = mongoose.model('tavern', tavernModel);

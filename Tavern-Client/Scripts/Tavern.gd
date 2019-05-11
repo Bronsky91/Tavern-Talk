@@ -19,7 +19,6 @@ func enter_tavern(ip, port):
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
-	print('connection setup')
 
 func entered_tavern():
 	print('entered')
@@ -27,6 +26,7 @@ func entered_tavern():
 
 func leave_tavern():
 	get_tree().set_network_peer(null)
+	## Let tavern API know the character left the tavern
 	get_tree().change_scene('Scenes/TavernMenu.tscn')
 
 func _server_disconnected():

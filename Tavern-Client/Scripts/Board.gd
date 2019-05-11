@@ -22,14 +22,12 @@ func populate_posts(posts):
 
 	for key in post_dict:
 		if post_dict[key] != null: ## if the post isn't null, populate it on the board
-			print(post_buttons)
 			post_buttons[key].disabled = false
 			post_buttons[key].visible = true
 
 	
 func _on_BoardRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	print(json.result)
 	var posts = json.result.data
 	populate_posts(posts)
 
