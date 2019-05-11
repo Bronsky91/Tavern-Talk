@@ -18,16 +18,23 @@ margin_top = 136.853
 margin_right = 253.61
 margin_bottom = 427.853
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You list"
 autowrap = true
 max_lines_visible = 17
 
 [node name="Author" type="Label" parent="Body"]
-margin_left = 35.9025
-margin_top = 297.902
-margin_right = 170.902
-margin_bottom = 322.902
+margin_left = 47.0
+margin_top = 298.0
+margin_right = 171.0
+margin_bottom = 323.0
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="Signature" type="Label" parent="Body"]
+margin_left = 36.3463
+margin_top = 301.99
+margin_right = 50.3463
+margin_bottom = 315.99
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "- "
 
 [node name="BodyEdit" type="TextEdit" parent="."]
 visible = false
@@ -35,7 +42,6 @@ margin_left = 94.5125
 margin_top = 138.463
 margin_right = 266.513
 margin_bottom = 421.463
-text = "My money's in that office, right? If she start giving me some bullshit about it ain't there, and we got to go someplace else and get it, I'm gonna shoot you in the head then and there. Then I'm gonna shoot that bitch in the kneecaps, find out where my goddamn money is. She gonna tell me too. Hey, look at me when I'm talking to you, motherfucker. You listen"
 wrap_enabled = true
 
 [node name="AuthorEdit" type="TextEdit" parent="."]
