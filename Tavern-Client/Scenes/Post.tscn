@@ -80,8 +80,11 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Character Limit: 0/356"
 
 [node name="PostSave" type="HTTPRequest" parent="."]
+
+[node name="PostRemove" type="HTTPRequest" parent="."]
 [connection signal="text_changed" from="BodyEdit" to="." method="_on_TextEdit_text_changed"]
 [connection signal="button_up" from="NewEdit" to="." method="_on_NewEdit_button_up"]
 [connection signal="button_up" from="Return" to="." method="_on_Return_button_up"]
 [connection signal="button_up" from="Remove" to="." method="_on_Remove_button_up"]
 [connection signal="request_completed" from="PostSave" to="." method="_on_PostSave_request_completed"]
+[connection signal="request_completed" from="PostRemove" to="." method="_on_PostRemove_request_completed"]

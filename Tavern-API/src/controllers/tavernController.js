@@ -143,8 +143,8 @@ exports.update = function (req, res) {
     if (err) res.send(err);
     tavern.name = req.body.name ? req.body.name : tavern.name;
     //tavern.characters.equal(req.body.characters)
-     // ? tavern.characters.push(req.body.characters)
-      //: tavern.characters;
+    // ? tavern.characters.push(req.body.characters)
+    //: tavern.characters;
     req.body.board ? tavern.board.push(req.body.board) : tavern.board
     // API should probably update the port and IP directly..
     tavern.port = req.body.port ? req.body.port : tavern.port;
@@ -181,21 +181,35 @@ exports.updatePost = function (req, res) {
       "board.$.body": req.body.body,
       "board.$.author": req.body.author
     }
-  }, (err, doc)=>{
-    if(err){
-        console.log(err);
-        return;
+  }, (err, doc) => {
+    if (err) {
+      res.json(err);
+      return;
     }
-    if(doc){
-        console.log(doc);
-        return;
+    if (doc) {
+      res.json(doc);
+      return;
     }
   })
 }
 
+// Handle removing post from board
+exports.removePost = function (req, res) {
+  Tavern.findById(req.params.tavern_id, function (err, tavern) {
+    tavern.board.pull(req.body); // req.body == {_id: post.id}._id
+    // save the contact and check for errors
+    tavern.save(function (err) {
+      if (err) res.json(err);
+      res.json({
+        data: tavern.board
+      });
+    });
+  });
+};
+
 // Handle removing characters from user profile
 exports.characterRemove = function (req, res) {
-  Tavern.findById(req.params.user_id, function (err, tavern) {
+  Tavern.findById(req.params.tavern_id, function (err, tavern) {
     if (err) res.send(err);
     tavern.characters.pull(req.body); // req.body == tavern._id
     // save the contact and check for errors

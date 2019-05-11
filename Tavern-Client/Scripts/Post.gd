@@ -7,11 +7,12 @@ var new_post = false
 var post_limit = 359
 var post_id = '0'
 
-func _ready():
+func _enter_tree():
 	## May need to change to _enter_tree
 	if not new_post:
-		$Limit.text = "Character Limit " + str($BodyEdit.text.length()) + "/358"
 		$NewEdit.text = "Edit"
+	else:
+		$Remove.hide()
 
 func _input(event):
 	if Input.is_action_just_pressed('backspace') and $BodyEdit.cursor_get_line() > 0:
@@ -31,6 +32,7 @@ func new_post(new, id='', body='', author=''):
 func write_post(body, author):
 	post_body.text = body
 	post_author.text = author
+	$Limit.text = "Character Limit " + str(post_body.text.length()) + "/358"
 	
 func _on_TextEdit_text_changed():
 	$Limit.text = "Character Limit " + str($BodyEdit.text.length()) + "/358"
@@ -77,4 +79,11 @@ func _on_PostSave_request_completed(result, response_code, headers, body):
 	## Display error if post did not save for some reason
 
 func _on_Remove_button_up():
-	$PostSave.request()
+	var data = {'_id': post_id}
+	global.make_delete_request($PostRemove, 'tavern/' + global.player_data.tavern.id + '/board', data, false)
+	## TODO: Confirmation Check
+
+func _on_PostRemove_request_completed(result, response_code, headers, body):
+	get_parent().takedown_post(post_id)
+	get_parent().find_node("Board").show()
+	call_deferred("free")

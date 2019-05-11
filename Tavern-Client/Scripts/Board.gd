@@ -1,11 +1,12 @@
 extends Node2D
 
 export(PackedScene) var post_scene
+
 onready var post_buttons = [
  $Board/TextureButton1, $Board/TextureButton2, $Board/TextureButton3, $Board/TextureButton4,
  $Board/TextureButton5, $Board/TextureButton6, $Board/TextureButton7, $Board/TextureButton8
 ]
-var post_dict = {1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null, 8: null}
+var post_dict = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null}
 
 func _ready():
 	## TEMP FOR DEBUG
@@ -24,7 +25,14 @@ func populate_posts(posts):
 		if post_dict[key] != null: ## if the post isn't null, populate it on the board
 			post_buttons[key].disabled = false
 			post_buttons[key].visible = true
+		elif post_dict[key] == null:
+			post_buttons[key].disabled = true
+			post_buttons[key].visible = false
 
+func takedown_post(id):
+	for key in post_dict:
+		if post_dict[key] != null and post_dict[key]['_id'] == id:
+			post_dict[key] = null
 	
 func _on_BoardRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

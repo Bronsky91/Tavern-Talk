@@ -27,6 +27,7 @@ router.route('/:tavern_id/character_remove')
 router.route('/:tavern_id/board')
     .get(tavernController.getBoard)
     .patch(tavernController.updatePost)
+    .delete(tavernController.removePost)
 
 router.route('/:tavern_id')
     .get(tavernController.view)

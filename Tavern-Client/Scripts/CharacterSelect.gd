@@ -42,7 +42,7 @@ func _on_Remove_button_up():
 	var headers = ["Content-Type: application/json"]
 	var data = {"_id": selected_character_id}
 	var query = JSON.print(data)
-	$HTTPRequest.request(global.api_url + 'users/' + global.user_id + '/character_remove', headers, false, HTTPClient.METHOD_PATCH, query)
+	global.make_patch_request($HTTPRequest, 'users/' + global.user_id + '/character_remove', query, false)
 
 func _on_JoinButton_button_up():
 	global.player_data.character.id = selected_character_id
