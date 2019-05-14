@@ -54,6 +54,10 @@ sync func receive_message(c_name, msg):
 sync func whisper():
 	print('whisper called')
 	print(command_params)
+	## First word in params is the whisperee
+	### search patron list
+	#### Rest of params after whisperee is the message, maybe change the text color to indicate this
+	
 ## sync func whisper():
 	# var msg = chat_input.text
 	# chat_input.text = ""
