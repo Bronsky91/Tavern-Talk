@@ -16,7 +16,9 @@ func _on_CreateTavern_button_up():
 			'table': 0
 			}
 		}
-	global.make_post_request($HTTPRequestCreate, 'tavern/taverns', data, false)
+	if len(new_tavern_name) > 0:\
+		## TODO: Error message handling
+		global.make_post_request($HTTPRequestCreate, 'tavern/taverns', data, false)
 
 func _on_HTTPRequestCreate_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

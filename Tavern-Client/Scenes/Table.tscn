@@ -31,4 +31,7 @@ margin_top = 147.0
 margin_right = 359.0
 margin_bottom = 580.0
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
+[connection signal="text_changed" from="ChatInput" to="." method="_on_ChatInput_text_changed"]
+[connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
+[connection signal="item_selected" from="PatronList" to="." method="_on_PatronList_item_selected"]

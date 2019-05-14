@@ -34,7 +34,6 @@ sync func set_current_patrons(id, patron_name):
 	$PatronList.sort_items_by_text()
 
 sync func remove_patron(id):
-	print(id)
 	var patron_that_left
 	for i in current_patrons.size():
 		print(current_patrons)
@@ -46,9 +45,3 @@ sync func remove_patron(id):
 	
 func _on_Leave_button_up():
 	.hide()
-	var patron_that_left
-	for i in current_patrons.size():
-		if current_patrons[i].name == character_name:
-			current_patrons.remove(i)
-			patron_that_left = i
-	$PatronList.remove_item(patron_that_left)
