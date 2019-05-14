@@ -14,16 +14,21 @@ caret_blink = true
 
 [node name="ChatDisplay" type="TextEdit" parent="."]
 margin_top = 3.0
-margin_right = 265.0
+margin_right = 252.0
 margin_bottom = 581.0
 readonly = true
 
 [node name="Leave" type="Button" parent="."]
-margin_left = 267.79
-margin_top = 4.96737
-margin_right = 354.79
-margin_bottom = 147.967
+margin_left = 253.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 148.0
 text = "Leave Table"
 
+[node name="PatronList" type="ItemList" parent="."]
+margin_left = 250.0
+margin_top = 147.0
+margin_right = 359.0
+margin_bottom = 580.0
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]

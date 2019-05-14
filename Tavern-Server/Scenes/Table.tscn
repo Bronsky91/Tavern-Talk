@@ -25,4 +25,9 @@ margin_right = 354.79
 margin_bottom = 147.967
 text = "Leave Table"
 
+[node name="PatronList" type="ItemList" parent="."]
+margin_left = 263.0
+margin_top = 150.0
+margin_right = 356.0
+margin_bottom = 581.0
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
