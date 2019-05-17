@@ -62,30 +62,18 @@ sync func whisper():
 			r_id = patron.id
 	if r_id != null:
 		## Send whisper
-		rpc("receive_whisper", r_id, character_name, recipient, msg)
+		chat_input.text = ""
+		rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, character_name, recipient.capitalize(), msg)
 	else:
 		## TODO: Error message for not finding patron
 		print("patron not found")
-	## First word in params is the whisperee
-	### search patron list
-	#### Rest of params after whisperee is the message, maybe change the text color to indicate this
+
 	
-## sync func whisper():
-	# var msg = chat_input.text
-	# chat_input.text = ""
-	## selected_character_to_whisper_to, assign this variable with a slash command
-	# rpc_id(get_tree().get_network_unique_id(), "receive_message", character_name, msg)
-	### get_tree().get_rpc_sender_id # Check this against which id is sent in the function?
-	### If whoever sent this call doesn't match the id in the function they see the whisper action of both characters
-		### Now also relizing I need to send the receipent of the whispers name in the call as well for this ^
-		# rpc_id(id, "receive_whisper", character_name, 
-	
-sync func receive_whisper(id, c_name, r_name, msg):
-	if msg.length() > 0 and get_tree().get_network_unique_id() == id:
+sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
+	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id or get_tree().get_network_unique_id() == c_id:
 		chat_display.text += c_name + ": " + msg + "\n"
 	else:
-		chat_display.text += c_name + " whispers to " + r_name
-	
+		chat_display.text += c_name + " whispers to " + r_name + "\n"
 
 sync func set_current_patrons(id, patron_name):
 	var patron = {'id': id, 'name': patron_name}

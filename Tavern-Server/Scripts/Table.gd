@@ -6,6 +6,10 @@ onready var chat_input = $ChatInput
 var character_name = global.player_data.character.name
 var table_id = null
 var current_patrons = []
+var chat_commands = ['whisper']
+var command_time = false
+var command_param_start = null
+var command_params = null
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -22,7 +26,30 @@ func _ready():
 sync func receive_message(c_name, msg):
 	if msg.length() > 0:
 		chat_display.text += c_name + ": " + msg + "\n"
+		
+sync func whisper():
+	var params = command_params.split(" ")
+	var recipient = params[0]
+	params.remove(0)
+	var msg = params.join(" ")
+	var r_id = null
+	for patron in current_patrons:
+		if patron.name.to_lower() == recipient.to_lower():
+			r_id = patron.id
+	if r_id != null:
+		## Send whisper
+		chat_input.text = ""
+		rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, character_name, recipient.capitalize(), msg)
+	else:
+		## TODO: Error message for not finding patron
+		print("patron not found")
 
+sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
+	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id or get_tree().get_network_unique_id() == c_id:
+		chat_display.text += c_name + ": " + msg + "\n"
+	else:
+		chat_display.text += c_name + " whispers to " + r_name + "\n"
+		
 sync func receive_action_message(c_name, msg):
 		chat_display.text += c_name + " " + msg + "\n"
 
