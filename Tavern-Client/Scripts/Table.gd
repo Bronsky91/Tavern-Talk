@@ -55,9 +55,17 @@ sync func whisper():
 	var params = command_params.split(" ")
 	var recipient = params[0]
 	params.remove(0)
-	var message = params.join(" ")
-	print(message)
-	
+	var msg = params.join(" ")
+	var r_id = null
+	for patron in current_patrons:
+		if patron.name.to_lower() == recipient.to_lower():
+			r_id = patron.id
+	if r_id != null:
+		## Send whisper
+		rpc("receive_whisper", r_id, character_name, recipient, msg)
+	else:
+		## TODO: Error message for not finding patron
+		print("patron not found")
 	## First word in params is the whisperee
 	### search patron list
 	#### Rest of params after whisperee is the message, maybe change the text color to indicate this
@@ -72,9 +80,11 @@ sync func whisper():
 		### Now also relizing I need to send the receipent of the whispers name in the call as well for this ^
 		# rpc_id(id, "receive_whisper", character_name, 
 	
-## sync func receive_whisper(id, c_name, r_name, msg):
-	#if msg.length() > 0:
-	#	chat_display.text += c_name + ": " + msg + "\n"
+sync func receive_whisper(id, c_name, r_name, msg):
+	if msg.length() > 0 and get_tree().get_network_unique_id() == id:
+		chat_display.text += c_name + ": " + msg + "\n"
+	else:
+		chat_display.text += c_name + " whispers to " + r_name
 	
 
 sync func set_current_patrons(id, patron_name):
