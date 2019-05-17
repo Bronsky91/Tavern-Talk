@@ -52,8 +52,12 @@ sync func receive_message(c_name, msg):
 		chat_display.text += c_name + ": " + msg + "\n"
 
 sync func whisper():
-	print('whisper called')
-	print(command_params)
+	var params = command_params.split(" ")
+	var recipient = params[0]
+	params.remove(0)
+	var message = params.join(" ")
+	print(message)
+	
 	## First word in params is the whisperee
 	### search patron list
 	#### Rest of params after whisperee is the message, maybe change the text color to indicate this
@@ -69,8 +73,8 @@ sync func whisper():
 		# rpc_id(id, "receive_whisper", character_name, 
 	
 ## sync func receive_whisper(id, c_name, r_name, msg):
-	# var msg = chat_input.text
-	# chat_input.text = ""
+	#if msg.length() > 0:
+	#	chat_display.text += c_name + ": " + msg + "\n"
 	
 
 sync func set_current_patrons(id, patron_name):
