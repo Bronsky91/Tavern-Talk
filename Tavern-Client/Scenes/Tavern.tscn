@@ -1,74 +1,216 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/kisspng-table-clip-art-table-5acb2d7f9e8339.9371932615232648956493.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/furniture/Bar_001.png" type="Texture" id=3]
+[ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=4]
+[ext_resource path="res://Assets/furniture/Stool_001.png" type="Texture" id=5]
+[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=6]
+[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Assets/furniture/BulletinBoard_001.png" type="Texture" id=9]
+[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=10]
+[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=11]
+
+[sub_resource type="TileSet" id=1]
+resource_name = "tavern_wall"
+0/name = "Wall_001.png 0"
+0/texture = ExtResource( 10 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 16, 16 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
+
+[sub_resource type="TileSet" id=2]
+resource_name = "floor"
+0/name = "Flooring_001.png 0"
+0/texture = ExtResource( 11 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 32 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [  ]
+0/z_index = 0
 
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
 table = ExtResource( 2 )
 
+[node name="Bar_001" type="Sprite" parent="."]
+position = Vector2( 140, 140 )
+z_index = 2
+z_as_relative = false
+texture = ExtResource( 3 )
+
 [node name="Count1" type="Label" parent="."]
-margin_left = 22.2982
-margin_top = 42.9007
-margin_right = 109.298
-margin_bottom = 73.9007
+margin_left = 29.2592
+margin_top = 210.0
+margin_right = 116.259
+margin_bottom = 241.0
 text = "Player Count:
 "
 
-[node name="Table1" type="TextureButton" parent="Count1"]
-margin_left = 7.55067
-margin_top = 31.3808
-margin_right = 807.551
-margin_bottom = 831.381
-rect_scale = Vector2( 0.1, 0.1 )
-texture_normal = ExtResource( 3 )
+[node name="Table_001" type="Sprite" parent="Count1"]
+position = Vector2( 55.4611, 84.8814 )
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="Stool_001" type="Sprite" parent="Count1/Table_001"]
+position = Vector2( -41.2019, 30.7269 )
+texture = ExtResource( 5 )
+
+[node name="Stool_002" type="Sprite" parent="Count1/Table_001"]
+position = Vector2( -6.98337, 31.4252 )
+texture = ExtResource( 5 )
+
+[node name="Stool_003" type="Sprite" parent="Count1/Table_001"]
+position = Vector2( 24.4418, 32.8218 )
+texture = ExtResource( 5 )
+
+[node name="Stool_004" type="Sprite" parent="Count1/Table_001"]
+position = Vector2( -37.0119, -27.9335 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_006" type="Sprite" parent="Count1/Table_001"]
+position = Vector2( 27.2352, -27.9335 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_005" type="Sprite" parent="Count1/Table_001"]
+position = Vector2( -7.68176, -30.0285 )
+z_as_relative = false
+texture = ExtResource( 5 )
 
 [node name="Count2" type="Label" parent="."]
-margin_left = 252.853
-margin_top = 176.951
-margin_right = 340.853
-margin_bottom = 190.951
+margin_left = 231.882
+margin_top = 277.45
+margin_right = 319.882
+margin_bottom = 291.45
 text = "Player Count: "
 
-[node name="Table2" type="TextureButton" parent="Count2"]
-margin_left = 2.36987
-margin_top = 23.7424
-margin_right = 802.37
-margin_bottom = 823.742
-rect_scale = Vector2( 0.1, 0.1 )
-texture_normal = ExtResource( 3 )
+[node name="Table_002" type="Sprite" parent="Count2"]
+position = Vector2( 56.0096, 83.6645 )
+z_index = 1
+texture = ExtResource( 6 )
+
+[node name="Stool_001" type="Sprite" parent="Count2/Table_002"]
+position = Vector2( -39.1069, 31.4252 )
+texture = ExtResource( 5 )
+
+[node name="Stool_002" type="Sprite" parent="Count2/Table_002"]
+position = Vector2( -6.98331, 32.1235 )
+texture = ExtResource( 5 )
+
+[node name="Stool_003" type="Sprite" parent="Count2/Table_002"]
+position = Vector2( 23.7435, 33.5202 )
+texture = ExtResource( 5 )
+
+[node name="Stool_004" type="Sprite" parent="Count2/Table_002"]
+position = Vector2( 27.2352, -33.5203 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_005" type="Sprite" parent="Count2/Table_002"]
+position = Vector2( -43.2969, -33.5203 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_006" type="Sprite" parent="Count2/Table_002"]
+position = Vector2( -7.6817, -33.5203 )
+z_as_relative = false
+texture = ExtResource( 5 )
 
 [node name="Count3" type="Label" parent="."]
-margin_left = 41.4202
-margin_top = 317.081
-margin_right = 125.42
-margin_bottom = 331.081
+margin_left = 24.3556
+margin_top = 392.115
+margin_right = 108.356
+margin_bottom = 406.115
 text = "Player Count:"
 
-[node name="Table3" type="TextureButton" parent="Count3"]
-margin_left = 3.82318
-margin_top = 21.3516
-margin_right = 803.823
-margin_bottom = 821.352
-rect_scale = Vector2( 0.1, 0.1 )
-texture_normal = ExtResource( 3 )
+[node name="Table_002" type="Sprite" parent="Count3"]
+position = Vector2( 52.8215, 78.7076 )
+z_index = 1
+texture = ExtResource( 4 )
+
+[node name="Stool_001" type="Sprite" parent="Count3/Table_002"]
+position = Vector2( -41.2019, 30.7269 )
+texture = ExtResource( 5 )
+
+[node name="Stool_002" type="Sprite" parent="Count3/Table_002"]
+position = Vector2( -6.98337, 31.4252 )
+texture = ExtResource( 5 )
+
+[node name="Stool_003" type="Sprite" parent="Count3/Table_002"]
+position = Vector2( 24.4418, 32.8218 )
+texture = ExtResource( 5 )
+
+[node name="Stool_004" type="Sprite" parent="Count3/Table_002"]
+position = Vector2( -37.0119, -27.9335 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_006" type="Sprite" parent="Count3/Table_002"]
+position = Vector2( 27.2352, -27.9335 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_005" type="Sprite" parent="Count3/Table_002"]
+position = Vector2( -5.57648, -28.9758 )
+z_as_relative = false
+texture = ExtResource( 5 )
 
 [node name="Count4" type="Label" parent="."]
-margin_left = 234.99
-margin_top = 451.815
-margin_right = 318.99
-margin_bottom = 465.815
+margin_left = 240.253
+margin_top = 488.657
+margin_right = 324.253
+margin_bottom = 502.657
 text = "Player Count:"
 
-[node name="Table4" type="TextureButton" parent="Count4"]
-margin_left = 2.34912
-margin_top = 29.1748
-margin_right = 802.349
-margin_bottom = 829.175
-rect_scale = Vector2( 0.1, 0.1 )
-texture_normal = ExtResource( 3 )
+[node name="Table_003" type="Sprite" parent="Count4"]
+position = Vector2( 51.8492, 73.5105 )
+z_index = 1
+texture = ExtResource( 6 )
+
+[node name="Stool_001" type="Sprite" parent="Count4/Table_003"]
+position = Vector2( -39.1069, 31.4252 )
+texture = ExtResource( 5 )
+
+[node name="Stool_002" type="Sprite" parent="Count4/Table_003"]
+position = Vector2( -6.98331, 32.1235 )
+texture = ExtResource( 5 )
+
+[node name="Stool_003" type="Sprite" parent="Count4/Table_003"]
+position = Vector2( 23.7435, 33.5202 )
+texture = ExtResource( 5 )
+
+[node name="Stool_004" type="Sprite" parent="Count4/Table_003"]
+position = Vector2( 27.2352, -33.5203 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_005" type="Sprite" parent="Count4/Table_003"]
+position = Vector2( -43.2969, -33.5203 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="Stool_006" type="Sprite" parent="Count4/Table_003"]
+position = Vector2( -7.6817, -33.5203 )
+z_as_relative = false
+texture = ExtResource( 5 )
+
+[node name="WallBar_001" type="Sprite" parent="Count4"]
+position = Vector2( -60.2531, -433.657 )
+scale = Vector2( 1, 0.973451 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 7 )
 
 [node name="RefreshCountTimer" type="Timer" parent="."]
 wait_time = 8.0
@@ -78,28 +220,29 @@ autostart = true
 
 [node name="EnterTavern" type="HTTPRequest" parent="."]
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 119.057, 189.985 )
+[node name="Player" parent="." instance=ExtResource( 8 )]
+position = Vector2( 539.456, 320.574 )
 
-[node name="TavernName" type="Label" parent="."]
-margin_left = -147.147
-margin_top = -349.597
-margin_right = 605.854
-margin_bottom = -284.597
-align = 1
-valign = 1
+[node name="Board" type="Sprite" parent="."]
+position = Vector2( 301.257, 65.2815 )
+z_index = 1
+z_as_relative = false
+texture = ExtResource( 9 )
 
-[node name="Board" type="Button" parent="."]
-margin_left = 294.743
-margin_top = 20.3397
-margin_right = 343.743
-margin_bottom = 74.3397
-text = "Board"
-[connection signal="button_up" from="Count1/Table1" to="." method="_on_Table_button_up" binds= [ 1 ]]
-[connection signal="button_up" from="Count2/Table2" to="." method="_on_Table_button_up" binds= [ 2 ]]
-[connection signal="button_up" from="Count3/Table3" to="." method="_on_Table_button_up" binds= [ 3 ]]
-[connection signal="button_up" from="Count4/Table4" to="." method="_on_Table_button_up" binds= [ 4 ]]
+[node name="Wall" type="TileMap" parent="."]
+z_as_relative = false
+tile_set = SubResource( 1 )
+cell_size = Vector2( 16, 16 )
+format = 1
+tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 0, 0, 10, 0, 0, 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 17, 0, 0, 18, 0, 0, 19, 0, 0, 20, 0, 0, 21, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0, 65543, 0, 0, 65544, 0, 0, 65545, 0, 0, 65546, 0, 0, 65547, 0, 0, 65548, 0, 0, 65549, 0, 0, 65550, 0, 0, 65551, 0, 0, 65552, 0, 0, 65553, 0, 0, 65554, 0, 0, 65555, 0, 0, 65556, 0, 0, 65557, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0, 131090, 0, 0, 131091, 0, 0, 131092, 0, 0, 131093, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0, 196626, 0, 0, 196627, 0, 0, 196628, 0, 0, 196629, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0, 262155, 0, 0, 262156, 0, 0, 262157, 0, 0, 262158, 0, 0, 262159, 0, 0, 262160, 0, 0, 262161, 0, 0, 262162, 0, 0, 262163, 0, 0, 262164, 0, 0, 262165, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 327690, 0, 0, 327691, 0, 0, 327692, 0, 0, 327693, 0, 0, 327694, 0, 0, 327695, 0, 0, 327696, 0, 0, 327697, 0, 0, 327698, 0, 0, 327699, 0, 0, 327700, 0, 0, 327701, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 393226, 0, 0, 393227, 0, 0, 393228, 0, 0, 393229, 0, 0, 393230, 0, 0, 393231, 0, 0, 393232, 0, 0, 393233, 0, 0, 393234, 0, 0, 393235, 0, 0, 393236, 0, 0, 393237, 0, 0 )
+
+[node name="Floor" type="TileMap" parent="."]
+z_index = -1
+z_as_relative = false
+tile_set = SubResource( 2 )
+cell_size = Vector2( 64, 32 )
+format = 1
+tile_data = PoolIntArray( 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786437, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1245184, 0, 0, 1245185, 0, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 0, 0 )
 [connection signal="timeout" from="RefreshCountTimer" to="." method="_on_RefreshCountTimer_timeout"]
 [connection signal="request_completed" from="RefreshCountTimer/TableRefresh" to="." method="_on_TableRefresh_request_completed"]
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
-[connection signal="button_up" from="Board" to="." method="_on_Board_button_up"]

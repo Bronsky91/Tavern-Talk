@@ -2,8 +2,6 @@ extends Node2D
 
 export(PackedScene) var table
 
-onready var tavern_name = $TavernName
-
 var character_name = null
 var number_of_tables = null
 var setup_run = true

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Furniture_001.png-7173d2fe8705ecbbed99b20b35dab928.stex"
+path="res://.import/Female_IdleClothes_001.png-5d44ea95dc0fdd1ea40c05e3d39552a5.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Furniture_001.png"
-dest_files=[ "res://.import/Furniture_001.png-7173d2fe8705ecbbed99b20b35dab928.stex" ]
+source_file="res://Assets/Characters/Female_IdleClothes_001.png"
+dest_files=[ "res://.import/Female_IdleClothes_001.png-5d44ea95dc0fdd1ea40c05e3d39552a5.stex" ]
 
 [params]
 
