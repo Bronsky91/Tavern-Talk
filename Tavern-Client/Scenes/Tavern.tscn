@@ -51,7 +51,7 @@ texture = ExtResource( 3 )
 [node name="EnterTavern" type="HTTPRequest" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 539.456, 320.574 )
+position = Vector2( 280, 250 )
 
 [node name="Board" type="Sprite" parent="."]
 position = Vector2( 301.257, 65.2815 )
