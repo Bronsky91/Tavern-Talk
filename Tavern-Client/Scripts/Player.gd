@@ -4,7 +4,6 @@ export (int) var speed = 100
 
 var target = Vector2()
 var velocity = Vector2()
-var network_id = global.player_data.network.id
 
 onready var animate = $AnimationPlayer
 
@@ -13,7 +12,7 @@ func _ready():
 	animate.current_animation = 'walk_up' # Should be idle
 
 func _unhandled_input(event):
-	if event.is_action_pressed('click') and not global.player_data.interacting:
+	if event.is_action_pressed('click'):
 		target = get_global_mouse_position()
 
 func _physics_process(delta):

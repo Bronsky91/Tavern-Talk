@@ -4,32 +4,51 @@ export(PackedScene) var table
 export(PackedScene) var player
 
 var character_name = null
+var player_info = {}
 
 onready var entrance = $Entrance
 
 func _ready():
-	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("connected_to_server", self, "entered_tavern")
+	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null and global.player_data.table_id == 0:
 		character_name = global.player_data.character.name
 		create_table_scenes()
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
 
+func user_exited(id):
+	print('exited')
+	get_node(str(id)).queue_free()
+	player_info.erase(id) # Erase player from info.
+	
 func enter_tavern(ip, port):
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
 
 func entered_tavern():
-	configure_player()
+	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
 
-func configure_player():
-	var new_player = player.instance()
-	new_player.position = entrance.position
-	## TODO: Set player appearence from global.player_data
-	add_child(new_player)
-	global.player_data.network.id = get_tree().get_network_unique_id()
-	
+remote func register_player(id, info):
+	## Register players
+	player_info[id] = info
+	if get_tree().is_network_server():
+		for peer_id in player_info:
+			rpc_id(id, "register_player", peer_id, player_info[peer_id])
+	rpc("configure_player")
+
+remote func configure_player():
+
+	# Load other characters
+	print(player_info)
+	for p in player_info:
+		var new_player = player.instance()
+		new_player.position = entrance.position
+		new_player.set_name(str(p))
+		new_player.set_network_master(p)
+		add_child(new_player)
+		
 func leave_tavern():
 	get_tree().set_network_peer(null)
 	## Let tavern API know the character left the tavern

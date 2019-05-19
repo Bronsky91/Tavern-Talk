@@ -106,14 +106,16 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 6
-frame = 23
+frame = 10
 
 [node name="Hair" type="Sprite" parent="Body"]
 position = Vector2( 7.45058e-009, -1.19209e-007 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 6
-frame = 23
+frame = 10
+
+[node name="Clothes" type="Sprite" parent="Body"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 0.157814, 6.68488 )

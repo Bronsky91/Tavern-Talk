@@ -14,11 +14,7 @@ var player_data = {
 		'code': null,
 		'id': null
 		},
-	'table_id': null,
-	'network':{
-		'id': null
-		},
-	'interacting': false
+	'table_id': null
 	}
 	
 var api_url = 'http://localhost:8080/api/'
