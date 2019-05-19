@@ -1,16 +1,19 @@
 extends Node2D
 
 export(PackedScene) var table
+export(PackedScene) var player
 
 var character_name = null
+
+onready var entrance = $Entrance
 
 func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null and global.player_data.table_id == 0:
 		character_name = global.player_data.character.name
-		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
 		create_table_scenes()
+		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
 
 func enter_tavern(ip, port):
 	var host = NetworkedMultiplayerENet.new()
@@ -18,8 +21,15 @@ func enter_tavern(ip, port):
 	get_tree().set_network_peer(host)
 
 func entered_tavern():
-	global.player_data.network.id = get_tree().get_network_unique_id()
+	configure_player()
 
+func configure_player():
+	var new_player = player.instance()
+	new_player.position = entrance.position
+	## TODO: Set player appearence from global.player_data
+	add_child(new_player)
+	global.player_data.network.id = get_tree().get_network_unique_id()
+	
 func leave_tavern():
 	get_tree().set_network_peer(null)
 	## Let tavern API know the character left the tavern
@@ -43,7 +53,6 @@ func create_table_scenes():
 		new_table.assign(t)
 		new_table.set_name("Table" + str(t))
 		new_table.hide()
-		new_table.z_index = 4
 		add_child(new_table)
 		new_table.add_to_group("tables")
 
