@@ -1,21 +1,21 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/furniture/Bar_001.png" type="Texture" id=3]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Assets/furniture/BulletinBoard_001.png" type="Texture" id=5]
-[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=6]
-[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=7]
-[ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=8]
-[ext_resource path="res://Assets/furniture/Stool_001.png" type="Texture" id=9]
-[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=10]
-[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=11]
+[ext_resource path="res://Assets/furniture/BulletinBoard_001.png" type="Texture" id=4]
+[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=5]
+[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=6]
+[ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=7]
+[ext_resource path="res://Assets/furniture/Stool_001.png" type="Texture" id=8]
+[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=9]
+[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=10]
+[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=11]
 
 [sub_resource type="TileSet" id=1]
 resource_name = "tavern_wall"
 0/name = "Wall_001.png 0"
-0/texture = ExtResource( 6 )
+0/texture = ExtResource( 5 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -28,7 +28,7 @@ resource_name = "tavern_wall"
 [sub_resource type="TileSet" id=2]
 resource_name = "floor"
 0/name = "Flooring_001.png 0"
-0/texture = ExtResource( 7 )
+0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 32 )
@@ -38,26 +38,32 @@ resource_name = "floor"
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 55.3891, 24.1373 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 55.0573, 23.9064 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 58.8055, 25.0987 )
+
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
 table = ExtResource( 2 )
 
 [node name="Bar_001" type="Sprite" parent="."]
 position = Vector2( 140, 140 )
-z_index = 2
+z_index = 5
 z_as_relative = false
 texture = ExtResource( 3 )
 
 [node name="EnterTavern" type="HTTPRequest" parent="."]
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
-position = Vector2( 280, 250 )
-
 [node name="Board" type="Sprite" parent="."]
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
 
 [node name="Wall" type="TileMap" parent="."]
 z_as_relative = false
@@ -78,76 +84,86 @@ tile_data = PoolIntArray( 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0
 editor/display_folded = true
 position = Vector2( 90, 304.133 )
 z_index = 1
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 
 [node name="Stool_001" type="Sprite" parent="Table_001"]
 position = Vector2( -41.2019, 30.7269 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_002" type="Sprite" parent="Table_001"]
 position = Vector2( -6.98337, 31.4252 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_003" type="Sprite" parent="Table_001"]
 position = Vector2( 23, 31 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_004" type="Sprite" parent="Table_001"]
 position = Vector2( -40, -24 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_006" type="Sprite" parent="Table_001"]
 position = Vector2( 23, -24 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_005" type="Sprite" parent="Table_001"]
 position = Vector2( -10, -24.1331 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Join" type="Button" parent="Table_001"]
+visible = false
 margin_left = -50.0
 margin_top = -24.0
 margin_right = 23.0
+disabled = true
 text = "Join Table"
 flat = true
+
+[node name="Area2D" type="Area2D" parent="Table_001"]
+position = Vector2( -56.9892, -24.6309 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table_001/Area2D"]
+position = Vector2( 44.4322, 18.3524 )
+shape = SubResource( 3 )
 
 [node name="Table_002" type="Sprite" parent="."]
 editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 
 [node name="Stool_001" type="Sprite" parent="Table_002"]
 position = Vector2( -41.2019, 30.7269 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_002" type="Sprite" parent="Table_002"]
 position = Vector2( -6.98337, 31.4252 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_003" type="Sprite" parent="Table_002"]
 position = Vector2( 23, 31 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_004" type="Sprite" parent="Table_002"]
 position = Vector2( -40, -24.8669 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_006" type="Sprite" parent="Table_002"]
 position = Vector2( 23, -24.867 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_005" type="Sprite" parent="Table_002"]
 position = Vector2( -10, -24.8669 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
-[node name="Join2" type="Button" parent="Table_002"]
+[node name="Join" type="Button" parent="Table_002"]
+visible = false
 margin_left = -50.0
 margin_top = -21.7309
 margin_right = 23.0
@@ -155,40 +171,48 @@ margin_bottom = 2.26907
 text = "Join Table"
 flat = true
 
+[node name="Area2D" type="Area2D" parent="Table_002"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table_002/Area2D"]
+position = Vector2( -13.0399, -8.21027 )
+shape = SubResource( 4 )
+
 [node name="Table_003" type="Sprite" parent="."]
 editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_001" type="Sprite" parent="Table_003"]
 position = Vector2( -39.1069, 31.4252 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_002" type="Sprite" parent="Table_003"]
 position = Vector2( -6.98331, 32.1235 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_003" type="Sprite" parent="Table_003"]
 position = Vector2( 23.7435, 33.5202 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_004" type="Sprite" parent="Table_003"]
 position = Vector2( 27.2352, -33.5203 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_005" type="Sprite" parent="Table_003"]
 position = Vector2( -43.2969, -33.5203 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_006" type="Sprite" parent="Table_003"]
 position = Vector2( -7.6817, -33.5203 )
 z_as_relative = false
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
-[node name="Join3" type="Button" parent="Table_003"]
+[node name="Join" type="Button" parent="Table_003"]
+visible = false
 margin_left = -47.3183
 margin_top = -20.0
 margin_right = 25.6817
@@ -196,12 +220,28 @@ margin_bottom = 4.0
 text = "Join Table"
 flat = true
 
+[node name="Area2D" type="Area2D" parent="Table_003"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table_003/Area2D"]
+position = Vector2( -11.591, -7.24438 )
+shape = SubResource( 5 )
+
 [node name="WallBar_001" type="Sprite" parent="."]
 position = Vector2( 180, 60 )
 scale = Vector2( 1, 0.973451 )
 z_as_relative = false
-texture = ExtResource( 11 )
+texture = ExtResource( 10 )
+
+[node name="Player" parent="." instance=ExtResource( 11 )]
+position = Vector2( 189.687, 592.901 )
+z_index = 4
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
-[connection signal="button_up" from="Table_002/Join2" to="." method="_on_Table_button_up" binds= [ 2 ]]
-[connection signal="button_up" from="Table_003/Join3" to="." method="_on_Table_button_up" binds= [ 3 ]]
+[connection signal="body_shape_entered" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "001" ]]
+[connection signal="body_shape_exited" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "001" ]]
+[connection signal="button_up" from="Table_002/Join" to="." method="_on_Table_button_up" binds= [ 2 ]]
+[connection signal="body_shape_entered" from="Table_002/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "002" ]]
+[connection signal="body_shape_exited" from="Table_002/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "002" ]]
+[connection signal="button_up" from="Table_003/Join" to="." method="_on_Table_button_up" binds= [ 3 ]]
+[connection signal="body_shape_entered" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "003" ]]
+[connection signal="body_shape_exited" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "003" ]]

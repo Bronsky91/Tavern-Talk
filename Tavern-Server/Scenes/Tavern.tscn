@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -28,6 +28,15 @@ resource_name = "floor"
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 55.3891, 24.1373 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 55.0573, 23.9064 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 58.8055, 25.0987 )
+
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
 table = ExtResource( 2 )
@@ -38,9 +47,6 @@ z_index = 2
 z_as_relative = false
 
 [node name="EnterTavern" type="HTTPRequest" parent="."]
-
-[node name="Player" parent="." instance=ExtResource( 3 )]
-position = Vector2( 539.456, 320.574 )
 
 [node name="Board" type="Sprite" parent="."]
 position = Vector2( 301.257, 65.2815 )
@@ -63,6 +69,7 @@ format = 1
 tile_data = PoolIntArray( 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786437, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1245184, 0, 0, 1245185, 0, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 0, 0 )
 
 [node name="Table_001" type="Sprite" parent="."]
+editor/display_folded = true
 position = Vector2( 90, 304.133 )
 z_index = 1
 
@@ -73,28 +80,38 @@ position = Vector2( -41.2019, 30.7269 )
 position = Vector2( -6.98337, 31.4252 )
 
 [node name="Stool_003" type="Sprite" parent="Table_001"]
-position = Vector2( 24.4418, 32.8218 )
+position = Vector2( 23, 31 )
 
 [node name="Stool_004" type="Sprite" parent="Table_001"]
-position = Vector2( -37.0119, -27.9335 )
+position = Vector2( -40, -24 )
 z_as_relative = false
 
 [node name="Stool_006" type="Sprite" parent="Table_001"]
-position = Vector2( 27.2352, -27.9335 )
+position = Vector2( 23, -24 )
 z_as_relative = false
 
 [node name="Stool_005" type="Sprite" parent="Table_001"]
-position = Vector2( -7.68176, -30.0285 )
+position = Vector2( -10, -24.1331 )
 z_as_relative = false
 
 [node name="Join" type="Button" parent="Table_001"]
+visible = false
 margin_left = -50.0
 margin_top = -24.0
 margin_right = 23.0
+disabled = true
 text = "Join Table"
 flat = true
 
+[node name="Area2D" type="Area2D" parent="Table_001"]
+position = Vector2( -56.9892, -24.6309 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table_001/Area2D"]
+position = Vector2( 44.4322, 18.3524 )
+shape = SubResource( 3 )
+
 [node name="Table_002" type="Sprite" parent="."]
+editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 
@@ -105,21 +122,22 @@ position = Vector2( -41.2019, 30.7269 )
 position = Vector2( -6.98337, 31.4252 )
 
 [node name="Stool_003" type="Sprite" parent="Table_002"]
-position = Vector2( 24.4418, 32.8218 )
+position = Vector2( 23, 31 )
 
 [node name="Stool_004" type="Sprite" parent="Table_002"]
-position = Vector2( -37.0119, -27.9335 )
+position = Vector2( -40, -24.8669 )
 z_as_relative = false
 
 [node name="Stool_006" type="Sprite" parent="Table_002"]
-position = Vector2( 27.2352, -27.9335 )
+position = Vector2( 23, -24.867 )
 z_as_relative = false
 
 [node name="Stool_005" type="Sprite" parent="Table_002"]
-position = Vector2( -7.17706, -31 )
+position = Vector2( -10, -24.8669 )
 z_as_relative = false
 
-[node name="Join2" type="Button" parent="Table_002"]
+[node name="Join" type="Button" parent="Table_002"]
+visible = false
 margin_left = -50.0
 margin_top = -21.7309
 margin_right = 23.0
@@ -127,7 +145,15 @@ margin_bottom = 2.26907
 text = "Join Table"
 flat = true
 
+[node name="Area2D" type="Area2D" parent="Table_002"]
+editor/display_folded = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table_002/Area2D"]
+position = Vector2( -13.0399, -8.21027 )
+shape = SubResource( 4 )
+
 [node name="Table_003" type="Sprite" parent="."]
+editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
 
@@ -152,7 +178,8 @@ z_as_relative = false
 position = Vector2( -7.6817, -33.5203 )
 z_as_relative = false
 
-[node name="Join3" type="Button" parent="Table_003"]
+[node name="Join" type="Button" parent="Table_003"]
+visible = false
 margin_left = -47.3183
 margin_top = -20.0
 margin_right = 25.6817
@@ -160,12 +187,27 @@ margin_bottom = 4.0
 text = "Join Table"
 flat = true
 
+[node name="Area2D" type="Area2D" parent="Table_003"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Table_003/Area2D"]
+position = Vector2( -11.591, -7.24438 )
+shape = SubResource( 5 )
+
 [node name="WallBar_001" type="Sprite" parent="."]
 position = Vector2( 180, 60 )
 scale = Vector2( 1, 0.973451 )
-z_index = 1
 z_as_relative = false
+
+[node name="Player" parent="." instance=ExtResource( 3 )]
+position = Vector2( 189.687, 592.901 )
+z_index = 4
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
-[connection signal="button_up" from="Table_002/Join2" to="." method="_on_Table_button_up" binds= [ 2 ]]
-[connection signal="button_up" from="Table_003/Join3" to="." method="_on_Table_button_up" binds= [ 3 ]]
+[connection signal="body_shape_entered" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "001" ]]
+[connection signal="body_shape_exited" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "001" ]]
+[connection signal="button_up" from="Table_002/Join" to="." method="_on_Table_button_up" binds= [ 2 ]]
+[connection signal="body_shape_entered" from="Table_002/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "002" ]]
+[connection signal="body_shape_exited" from="Table_002/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "002" ]]
+[connection signal="button_up" from="Table_003/Join" to="." method="_on_Table_button_up" binds= [ 3 ]]
+[connection signal="body_shape_entered" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "003" ]]
+[connection signal="body_shape_exited" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "003" ]]

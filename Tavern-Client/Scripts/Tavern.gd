@@ -18,7 +18,7 @@ func enter_tavern(ip, port):
 	get_tree().set_network_peer(host)
 
 func entered_tavern():
-	print('entered')
+	global.player_data.network.id = get_tree().get_network_unique_id()
 
 func leave_tavern():
 	get_tree().set_network_peer(null)
@@ -49,3 +49,11 @@ func create_table_scenes():
 
 func _on_Board_button_up():
 		get_tree().change_scene("Scenes/Board.tscn")
+
+func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
+	get_node('Table_'+table_id+'/Join').visible = true
+	get_node('Table_'+table_id+'/Join').disabled = false
+
+func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
+	get_node('Table_'+table_id+'/Join').visible = false
+	get_node('Table_'+table_id+'/Join').disabled = true
