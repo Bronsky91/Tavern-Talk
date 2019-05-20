@@ -14,7 +14,8 @@ var player_data = {
 		'code': null,
 		'id': null
 		},
-	'table_id': null
+	'table_id': null,
+	'position': null
 	}
 	
 var api_url = 'http://localhost:8080/api/'

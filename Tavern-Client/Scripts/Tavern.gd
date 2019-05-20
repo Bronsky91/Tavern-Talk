@@ -29,25 +29,29 @@ func enter_tavern(ip, port):
 
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
-
+	
 remote func register_player(id, info):
 	## Register players
 	player_info[id] = info
+	print(player_info[id])
 	if get_tree().is_network_server():
 		for peer_id in player_info:
 			rpc_id(id, "register_player", peer_id, player_info[peer_id])
 	rpc("configure_player")
 
 remote func configure_player():
-
 	# Load other characters
-	print(player_info)
 	for p in player_info:
-		var new_player = player.instance()
-		new_player.position = entrance.position
-		new_player.set_name(str(p))
-		new_player.set_network_master(p)
-		add_child(new_player)
+		if not get_node_or_null(str(p)):
+			var new_player = player.instance()
+			if player_info[p].position == null:
+				new_player.position = entrance.position
+			else:
+				new_player.position = player_info[p].position
+			new_player.set_name(str(p))
+			new_player.set_network_master(p)
+			add_child(new_player)
+	print_tree()
 		
 func leave_tavern():
 	get_tree().set_network_peer(null)

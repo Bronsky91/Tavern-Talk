@@ -12,6 +12,7 @@ var port = null
 var tavern_code = null
 var tavern_id = null
 var player_info = {}
+var registered = false
 
 func _ready():
 	get_tree().connect("connected_to_server", self, "enter_room")
@@ -42,24 +43,29 @@ func user_exited(id):
 	print('exited')
 	get_node(str(id)).queue_free()
 	player_info.erase(id) # Erase player from info.
-	print_tree()
 	
 remote func register_player(id, info):
 	## Register players
+	print(id)
 	player_info[id] = info
 	if get_tree().is_network_server():
 		for peer_id in player_info:
-			rpc_id(id, "register_player", peer_id, player_info[peer_id])
-	rpc("configure_player")
+			print('peer_id: '+str(peer_id))
+			rpc("register_player", peer_id, player_info[peer_id])
+		rpc("configure_player")
 
 remote func configure_player():
 	# Load other characters
 	for p in player_info:
-		var new_player = player.instance()
-		new_player.position = entrance.position
-		new_player.set_name(str(p))
-		new_player.set_network_master(p)
-		add_child(new_player)
+		if not get_node_or_null(str(p)):
+			var new_player = player.instance()
+			if player_info[p].position == null:
+				new_player.position = entrance.position
+			else:
+				new_player.position = player_info[p].position
+			new_player.set_name(str(p))
+			new_player.set_network_master(p)
+			add_child(new_player)
 		
 func _server_disconnected():
 	leave_tavern()
