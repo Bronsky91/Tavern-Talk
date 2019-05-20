@@ -52,11 +52,12 @@ remote func register_player(id, info):
 		for peer_id in player_info:
 			print('peer_id: '+str(peer_id))
 			rpc("register_player", peer_id, player_info[peer_id])
-		rpc("configure_player")
+	rpc("configure_player")
 
 remote func configure_player():
 	# Load other characters
 	for p in player_info:
+		print('p :'+str(p))
 		if not get_node_or_null(str(p)):
 			var new_player = player.instance()
 			if player_info[p].position == null:

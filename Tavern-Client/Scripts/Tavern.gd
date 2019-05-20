@@ -51,7 +51,6 @@ remote func configure_player():
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			add_child(new_player)
-	print_tree()
 		
 func leave_tavern():
 	get_tree().set_network_peer(null)
