@@ -5,6 +5,7 @@ var player_data = {
 	'character': {
 		'id': null,
 		'name': null,
+		'gender': null,
 		## More stats
 		},
 	'tavern': {

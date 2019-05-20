@@ -22,9 +22,9 @@ margin_bottom = 335.324
 
 [node name="JoinButton" type="Button" parent="."]
 margin_left = 130.157
-margin_top = 437.018
+margin_top = 372.037
 margin_right = 220.157
-margin_bottom = 474.018
+margin_bottom = 409.037
 text = "Continue"
 
 [node name="NewCharacterButton" type="Button" parent="."]
@@ -34,16 +34,16 @@ margin_right = 227.723
 margin_bottom = 556.078
 text = "New Character"
 
-[node name="HTTPRequest" type="HTTPRequest" parent="."]
+[node name="CharacterFetch" type="HTTPRequest" parent="."]
 
 [node name="Remove" type="Button" parent="."]
-margin_left = 114.24
-margin_top = 366.471
-margin_right = 242.24
-margin_bottom = 401.471
+margin_left = 110.89
+margin_top = 442.505
+margin_right = 238.89
+margin_bottom = 477.505
 text = "Remove Character"
 [connection signal="item_selected" from="Characters" to="." method="_on_Characters_item_selected"]
 [connection signal="button_up" from="JoinButton" to="." method="_on_JoinButton_button_up"]
 [connection signal="button_up" from="NewCharacterButton" to="." method="_on_NewCharacterButton_button_up"]
-[connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
+[connection signal="request_completed" from="CharacterFetch" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="button_up" from="Remove" to="." method="_on_Remove_button_up"]

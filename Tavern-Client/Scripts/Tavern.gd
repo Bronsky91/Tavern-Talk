@@ -7,6 +7,7 @@ var character_name = null
 var player_info = {}
 
 onready var entrance = $Entrance
+onready var board_button = $Board/BoardButton
 
 func _ready():
 	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
@@ -50,8 +51,14 @@ remote func configure_player():
 				new_player.position = player_info[p].position
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
+			character_apply(new_player)
 			add_child(new_player)
-		
+
+func character_apply(c):
+	var c_data = global.player_data.character
+	#Spawns character with global.player_data.character stats
+	c.get_node("Body").set_texture(load("res://Assets/Characters/"+c_data.gender+"_Idle.png"))
+	
 func leave_tavern():
 	get_tree().set_network_peer(null)
 	## Let tavern API know the character left the tavern
@@ -88,3 +95,13 @@ func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_
 func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
 	get_node('Table_'+table_id+'/Join').visible = false
 	get_node('Table_'+table_id+'/Join').disabled = true
+
+
+func _on_BoardArea_body_entered(body):
+	board_button.visible = true
+	board_button.disable = false
+
+
+func _on_BoardArea_body_exited(body):
+	board_button.visible = false
+	board_button.disable = true

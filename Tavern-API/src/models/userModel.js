@@ -5,7 +5,8 @@ const userModel = mongoose.Schema({
     email: { type: String },
     password: { type: String },
     characters: [{
-        name : String
+        name : String,
+        gender: String,
     }],
 });
 

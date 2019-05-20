@@ -8,24 +8,37 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="CreateButton" type="Button" parent="."]
-margin_left = 126.45
-margin_top = 371.344
-margin_right = 231.45
-margin_bottom = 428.344
+margin_left = 125.001
+margin_top = 495.947
+margin_right = 230.001
+margin_bottom = 552.947
 text = "Create"
 
 [node name="NameLabel" type="Label" parent="."]
-margin_left = 124.242
-margin_top = 197.125
-margin_right = 230.242
-margin_bottom = 234.125
-text = "Character Name:"
+margin_left = 149.839
+margin_top = 118.886
+margin_right = 255.839
+margin_bottom = 155.886
+text = " Name:"
 
 [node name="Name" type="LineEdit" parent="NameLabel"]
-margin_left = -52.1651
+margin_left = -80.6597
 margin_top = 29.3455
-margin_right = 172.835
+margin_right = 144.34
 margin_bottom = 76.3455
+
+[node name="GenderLabel" type="Label" parent="."]
+margin_left = 154.064
+margin_top = 216.366
+margin_right = 269.064
+margin_bottom = 230.366
+text = "Gender:"
+
+[node name="Gender" type="ItemList" parent="GenderLabel"]
+margin_left = -78.6367
+margin_top = 23.517
+margin_right = 132.363
+margin_bottom = 72.517
 
 [node name="Create" type="HTTPRequest" parent="."]
 
@@ -35,6 +48,14 @@ margin_top = 12.0
 margin_right = 62.0
 margin_bottom = 38.0
 text = "Back"
+
+[node name="Label" type="Label" parent="."]
+margin_left = 121.223
+margin_top = 30.9094
+margin_right = 234.223
+margin_bottom = 44.9094
+text = "Character Details:"
 [connection signal="button_up" from="CreateButton" to="." method="_on_CreateButton_button_up"]
+[connection signal="item_selected" from="GenderLabel/Gender" to="." method="_on_Gender_item_selected"]
 [connection signal="request_completed" from="Create" to="." method="_on_Create_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
