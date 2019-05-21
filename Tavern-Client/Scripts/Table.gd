@@ -9,7 +9,6 @@ var current_patrons = []
 var chat_commands = ['whisper']
 var command_time = false
 var command_param_start = null
-var command_params = null
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -25,8 +24,9 @@ func assign(_table_id):
 
 func _on_ChatInput_text_entered(new_text):
 	if command_time and command_param_start != null:
-		command_params = new_text.substr(command_param_start, len(new_text)-1)
-		slash_commands(new_text)
+		var command_params = new_text.substr(command_param_start, len(new_text)-1)
+		command_params = command_params.split(" ")
+		slash_commands(new_text, command_params)
 	else:
 		send_message(new_text)
 
@@ -38,10 +38,10 @@ func _on_ChatInput_text_changed(new_text):
 	if command_time and new_text.substr(len(new_text)-1, len(new_text)-1) == " " and command_param_start == null:
 		command_param_start = len(chat_input.text)
 		
-func slash_commands(text):
+func slash_commands(text, params):
 	var command = text.split(" ")[0].substr(1, len(text)-1)
 	if chat_commands.has(command):
-		call(command)
+		call(command, params)
 		
 func send_message(msg):
 	chat_input.text = ""
@@ -51,8 +51,7 @@ sync func receive_message(c_name, msg):
 	if msg.length() > 0:
 		chat_display.text += c_name + ": " + msg + "\n"
 
-sync func whisper():
-	var params = command_params.split(" ")
+sync func whisper(params):
 	var recipient = params[0]
 	params.remove(0)
 	var msg = params.join(" ")
@@ -113,5 +112,3 @@ func _on_PatronList_item_selected(index):
 	chat_input.text = command
 	chat_input.grab_focus()
 	chat_input.caret_position = len(command)
-
-
