@@ -8,6 +8,7 @@ sync func whisper(params):
 	var msg = params.join(" ")
 	var r_id = null
 	for patron in table.get_current_patrons():
+		print(recipient)
 		if patron.name.to_lower() == recipient.to_lower():
 			r_id = patron.id
 	if r_id != null:
@@ -19,12 +20,13 @@ sync func whisper(params):
 		print("patron not found")
 		
 func throw(params):
+	print(params)
 	var strength = global.player_data.character.stats.strength
 	var dex = global.player_data.character.stats.dex
 	var object = params[0]
 	var msg = ""
 	if strength > 12:
-		msg = "throws their "+object+ " across the room hitting the wall with a loud thud."
+		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ " across the room hitting the wall with a loud thud."
 	elif dex > 14:
 		msg = "throws their "+object+ ", narrowly missing "+table.find_random_patron().name
 	else:

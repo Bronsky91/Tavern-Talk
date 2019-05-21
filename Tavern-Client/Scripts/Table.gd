@@ -31,8 +31,11 @@ func assign(_table_id):
 
 func _on_ChatInput_text_entered(new_text):
 	if command_time and command_param_start != null:
+		print(new_text)
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
+		print(command_params)
 		command_params = command_params.split(" ")
+		command_param_start = null # Resets command param
 		slash_commands(new_text, command_params)
 	else:
 		send_message(new_text)
