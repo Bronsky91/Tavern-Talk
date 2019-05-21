@@ -7,12 +7,11 @@
 [ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=5]
 [ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=6]
 
-
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.0901
 height = 42.8873
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=2]
 length = 1.28
 loop = true
 step = 0.7
@@ -41,7 +40,7 @@ tracks/1/keys = {
 "values": [ 18, 19, 20, 21, 22, 23 ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=3]
 length = 1.28
 loop = true
 tracks/0/type = "value"
@@ -69,7 +68,7 @@ tracks/1/keys = {
 "values": [ 12, 13, 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=4]
 length = 1.28
 loop = true
 step = 0.7
@@ -126,7 +125,7 @@ anims/idle_down = ExtResource( 2 )
 anims/idle_left = ExtResource( 3 )
 anims/idle_right = ExtResource( 4 )
 anims/idle_up = ExtResource( 5 )
-anims/walk_down = SubResource( 5 )
+anims/walk_down = SubResource( 2 )
 anims/walk_left = ExtResource( 6 )
-anims/walk_right = SubResource( 6 )
-anims/walk_up = SubResource( 7 )
+anims/walk_right = SubResource( 3 )
+anims/walk_up = SubResource( 4 )
