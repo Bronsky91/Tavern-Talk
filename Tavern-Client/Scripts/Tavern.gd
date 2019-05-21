@@ -58,6 +58,7 @@ func character_apply(c):
 	var c_data = global.player_data.character
 	#Spawns character with global.player_data.character stats
 	c.get_node("Body").set_texture(load("res://Assets/Characters/"+c_data.gender+"_Idle.png"))
+	c.get_node("Body/Hair").set_texture(load("res://Assets/Characters/"+c_data.gender+"_IdleHair_001.png"))
 	
 func leave_tavern():
 	get_tree().set_network_peer(null)
