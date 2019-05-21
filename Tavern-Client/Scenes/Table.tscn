@@ -1,7 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Table.gd" type="Script" id=1]
-[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Fonts/OpenSans-Italic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Resources/Fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Resources/Fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 4 )
 
 [node name="Table" type="Node2D"]
 z_index = 6
@@ -15,11 +27,18 @@ margin_right = 358.0
 margin_bottom = 638.0
 caret_blink = true
 
-[node name="ChatDisplay" type="TextEdit" parent="."]
+[node name="ChatDisplay" type="RichTextLabel" parent="."]
 margin_top = 3.0
 margin_right = 252.0
 margin_bottom = 581.0
-readonly = true
+focus_mode = 2
+custom_fonts/italics_font = SubResource( 1 )
+custom_fonts/bold_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 3 )
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+override_selected_font_color = true
 
 [node name="Leave" type="Button" parent="."]
 margin_left = 253.0
@@ -35,7 +54,7 @@ margin_right = 359.0
 margin_bottom = 580.0
 
 [node name="Commands" type="Node" parent="."]
-script = ExtResource( 2 )
+script = ExtResource( 5 )
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
 [connection signal="text_changed" from="ChatInput" to="." method="_on_ChatInput_text_changed"]
 [connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]

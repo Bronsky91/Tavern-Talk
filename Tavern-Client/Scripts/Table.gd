@@ -22,7 +22,10 @@ func _ready():
 	
 func get_current_patrons():
 	return current_patrons
-	
+
+func new_line():
+	chat_display.bbcode_text += "\n"
+
 func assign(_table_id):
 	table_id = _table_id
 
@@ -53,14 +56,19 @@ func send_message(msg):
 
 sync func receive_message(c_name, msg):
 	if msg.length() > 0:
-		chat_display.text += c_name + ": " + msg + "\n"
-
+		var new_line = c_name + ": " + msg
+		chat_display.bbcode_text += new_line
+		new_line()
 	
 sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id or get_tree().get_network_unique_id() == c_id:
-		chat_display.text += c_name + ": " + msg + "\n"
+		var new_line = c_name + ": " + msg
+		new_line = '[color=#cc379f]'+new_line+'[/color]'
+		chat_display.bbcode_text += new_line
+		new_line()
+		
 	else:
-		chat_display.text += c_name + " whispers to " + r_name + "\n"
+		chat_display.bbcode_text += c_name + " whispers to " + r_name + "\n"
 
 sync func set_current_patrons(id, patron_name):
 	var patron = {'id': id, 'name': patron_name}
@@ -79,7 +87,10 @@ sync func remove_patron(id):
 	$PatronList.remove_item(patron_that_left)
 
 sync func receive_action_message(c_name, msg):
-	chat_display.text += c_name + " " + msg + "\n"
+	var new_line = c_name + " " + msg
+	print('[i]'+new_line+'[/i]')
+	chat_display.bbcode_text += '[i]'+new_line+'[/i]'
+	new_line()
 
 func _on_Leave_button_up():
 	.hide()
