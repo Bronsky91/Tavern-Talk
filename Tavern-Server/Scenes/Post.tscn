@@ -1,0 +1,90 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Post.gd" type="Script" id=1]
+[ext_resource path="res://Assets/post.png" type="Texture" id=2]
+
+[node name="Post" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 179.207, 302.25 )
+rotation = 1.5708
+scale = Vector2( 0.198946, 0.31611 )
+texture = ExtResource( 2 )
+
+[node name="Body" type="Label" parent="."]
+margin_left = 105.61
+margin_top = 136.853
+margin_right = 253.61
+margin_bottom = 427.853
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+autowrap = true
+max_lines_visible = 17
+
+[node name="Author" type="Label" parent="Body"]
+margin_left = 47.0
+margin_top = 298.0
+margin_right = 171.0
+margin_bottom = 323.0
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+
+[node name="Signature" type="Label" parent="Body"]
+margin_left = 36.3463
+margin_top = 301.99
+margin_right = 50.3463
+margin_bottom = 315.99
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "- "
+
+[node name="BodyEdit" type="TextEdit" parent="."]
+visible = false
+margin_left = 94.5125
+margin_top = 138.463
+margin_right = 266.513
+margin_bottom = 421.463
+wrap_enabled = true
+
+[node name="AuthorEdit" type="TextEdit" parent="."]
+visible = false
+margin_left = 155.0
+margin_top = 428.0
+margin_right = 262.0
+margin_bottom = 468.0
+
+[node name="NewEdit" type="Button" parent="."]
+margin_left = 83.0
+margin_top = 426.61
+margin_right = 133.0
+margin_bottom = 446.61
+
+[node name="Return" type="Button" parent="."]
+margin_left = 81.585
+margin_top = 452.415
+margin_right = 135.585
+margin_bottom = 472.415
+text = "Return"
+
+[node name="Remove" type="Button" parent="."]
+margin_left = 138.416
+margin_top = 549.993
+margin_right = 219.416
+margin_bottom = 569.993
+text = "Take Down"
+
+[node name="Limit" type="Label" parent="."]
+margin_left = 113.6
+margin_top = 519.65
+margin_right = 251.6
+margin_bottom = 536.65
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Character Limit: 0/356"
+
+[node name="PostSave" type="HTTPRequest" parent="."]
+
+[node name="PostRemove" type="HTTPRequest" parent="."]
+[connection signal="text_changed" from="BodyEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="button_up" from="NewEdit" to="." method="_on_NewEdit_button_up"]
+[connection signal="button_up" from="Return" to="." method="_on_Return_button_up"]
+[connection signal="button_up" from="Remove" to="." method="_on_Remove_button_up"]
+[connection signal="request_completed" from="PostSave" to="." method="_on_PostSave_request_completed"]
+[connection signal="request_completed" from="PostRemove" to="." method="_on_PostRemove_request_completed"]

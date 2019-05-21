@@ -46,8 +46,7 @@ func _on_NewPost_button_up():
 	add_child(new_post)
 	
 func _on_BackButton_button_up():
-	#get_tree().change_scene("Scenes/Tavern.tscn")
-	queue_free()
+	get_tree().change_scene("Scenes/Tavern.tscn")
 
 func _on_TextureButton_button_up(num):
 	var post_data = post_dict[num]

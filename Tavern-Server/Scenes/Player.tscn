@@ -1,9 +1,14 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Characters/Female_Walk.png" type="Texture" id=2]
 [ext_resource path="res://Assets/Characters/Female_WalkHair_001.png" type="Texture" id=3]
-[ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=4]
+[ext_resource path="res://Resources/Animations/Player.tres" type="Animation" id=4]
+[ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=5]
+[ext_resource path="res://Resources/Animations/idle_down.tres" type="Animation" id=6]
+[ext_resource path="res://Resources/Animations/idle_left.tres" type="Animation" id=7]
+[ext_resource path="res://Resources/Animations/idle_right.tres" type="Animation" id=8]
+[ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=9]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 12.0901
@@ -106,14 +111,14 @@ script = ExtResource( 1 )
 texture = ExtResource( 2 )
 vframes = 4
 hframes = 6
-frame = 10
+frame = 12
 
 [node name="Hair" type="Sprite" parent="Body"]
 position = Vector2( 7.45058e-009, -1.19209e-007 )
 texture = ExtResource( 3 )
 vframes = 4
 hframes = 6
-frame = 10
+frame = 12
 
 [node name="Clothes" type="Sprite" parent="Body"]
 
@@ -123,7 +128,13 @@ shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.2
+anims/Player = ExtResource( 4 )
+anims/female_human = ExtResource( 5 )
+anims/idle_down = ExtResource( 6 )
+anims/idle_left = ExtResource( 7 )
+anims/idle_right = ExtResource( 8 )
+anims/idle_up = ExtResource( 9 )
 anims/walk_down = SubResource( 2 )
-anims/walk_left = ExtResource( 4 )
+anims/walk_left = ExtResource( 5 )
 anims/walk_right = SubResource( 3 )
 anims/walk_up = SubResource( 4 )

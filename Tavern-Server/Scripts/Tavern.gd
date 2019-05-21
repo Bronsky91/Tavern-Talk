@@ -4,8 +4,10 @@ const MAX_USERS = 20
 
 export(PackedScene) var table
 export(PackedScene) var player
+export(PackedScene) var board
 
 onready var entrance = $Entrance
+onready var board_button = $Board/BoardButton
 
 var character_name = null
 var port = null
@@ -93,3 +95,22 @@ func _on_EnterTavern_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var data = json.result.data
 	tavern_id = data._id
+
+func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
+	get_node('Table_'+table_id+'/Join').visible = true
+	get_node('Table_'+table_id+'/Join').disabled = false
+
+func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
+	get_node('Table_'+table_id+'/Join').visible = false
+	get_node('Table_'+table_id+'/Join').disabled = true
+
+
+func _on_BoardArea_body_entered(body):
+	board_button.visible = true
+	board_button.disabled = false
+
+
+func _on_BoardArea_body_exited(body):
+	board_button.visible = false
+	board_button.disabled = true
+	

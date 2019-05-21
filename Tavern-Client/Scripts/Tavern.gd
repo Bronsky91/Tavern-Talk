@@ -2,6 +2,7 @@ extends Node2D
 
 export(PackedScene) var table
 export(PackedScene) var player
+export(PackedScene) var board
 
 var character_name = null
 var player_info = {}
@@ -87,7 +88,9 @@ func create_table_scenes():
 		new_table.add_to_group("tables")
 
 func _on_Board_button_up():
-		get_tree().change_scene("Scenes/Board.tscn")
+	#get_tree().change_scene("Scenes/Board.tscn")
+	var board_instance = board.instance()
+	add_child(board_instance)
 
 func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
 	get_node('Table_'+table_id+'/Join').visible = true
@@ -100,9 +103,9 @@ func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_i
 
 func _on_BoardArea_body_entered(body):
 	board_button.visible = true
-	board_button.disable = false
+	board_button.disabled = false
 
 
 func _on_BoardArea_body_exited(body):
 	board_button.visible = false
-	board_button.disable = true
+	board_button.disabled = true
