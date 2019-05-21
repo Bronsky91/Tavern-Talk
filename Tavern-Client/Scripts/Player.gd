@@ -22,31 +22,16 @@ puppet func update_pos(id, pos, tar, animation):
 	if animate.current_animation != animation:
 			animate.current_animation = animation
 	if 'walk' in animate.current_animation:
-		$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Walk.png"))
-		$Body.vframes = 4
-		$Body.hframes = 6
-		$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_WalkHair_001.png"))
-		$Body/Hair.vframes = 4
-		$Body/Hair.hframes = 6
+		walking(true)
 	else:
-		$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Idle.png"))
-		$Body.vframes = 4
-		$Body.hframes = 4
-		$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_IdleHair_001.png"))
-		$Body/Hair.vframes = 4
-		$Body/Hair.hframes = 4
+		walking(false)
 		
 func _physics_process(delta):
 	if is_network_master():
 		velocity = (target - position).normalized() * speed
 		if (target - position).length() > 5: 
 			move_and_slide(velocity)
-			$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Walk.png"))
-			$Body.vframes = 4
-			$Body.hframes = 6
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_WalkHair_001.png"))
-			$Body/Hair.vframes = 4
-			$Body/Hair.hframes = 6
+			walking(true)
 			if velocity.angle() > -2 and velocity.angle() < -1:
 				animate.current_animation = 'walk_up'
 			if velocity.angle() > 1 and velocity.angle() < 2:
@@ -57,12 +42,7 @@ func _physics_process(delta):
 				animate.current_animation = 'walk_right'
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 		else:
-			$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Idle.png"))
-			$Body.vframes = 4
-			$Body.hframes = 4
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_IdleHair_001.png"))
-			$Body/Hair.vframes = 4
-			$Body/Hair.hframes = 4
+			walking(false)
 			if animate.current_animation == 'walk_up':
 				animate.current_animation = 'idle_up'
 			if animate.current_animation == 'walk_down':
@@ -73,3 +53,18 @@ func _physics_process(delta):
 				animate.current_animation = 'idle_right'
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 			
+func walking(yes):
+		if yes:
+			$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Walk.png"))
+			$Body.vframes = 4
+			$Body.hframes = 6
+			$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_WalkHair_001.png"))
+			$Body/Hair.vframes = 4
+			$Body/Hair.hframes = 6
+		else:
+			$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Idle.png"))
+			$Body.vframes = 4
+			$Body.hframes = 4
+			$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_IdleHair_001.png"))
+			$Body/Hair.vframes = 4
+			$Body/Hair.hframes = 4
