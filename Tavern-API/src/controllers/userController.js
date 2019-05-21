@@ -90,9 +90,7 @@ exports.characterRemove = function (req, res) {
     // save the contact and check for errors
             user.save(function (err) {
                 if (err) res.json(err);
-                res.json({
-                    data: user
-                });
+                res.sendStatus(404);
             });
         });
     };

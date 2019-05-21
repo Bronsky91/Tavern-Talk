@@ -7,6 +7,13 @@ margin_right = 40.0
 margin_bottom = 40.0
 script = ExtResource( 1 )
 
+[node name="Title" type="Label" parent="."]
+margin_left = 121.223
+margin_top = 30.9094
+margin_right = 234.223
+margin_bottom = 44.9094
+text = "Character Details:"
+
 [node name="CreateButton" type="Button" parent="."]
 margin_left = 125.001
 margin_top = 495.947
@@ -16,9 +23,9 @@ text = "Create"
 
 [node name="NameLabel" type="Label" parent="."]
 margin_left = 149.839
-margin_top = 118.886
+margin_top = 90.0
 margin_right = 255.839
-margin_bottom = 155.886
+margin_bottom = 127.0
 text = " Name:"
 
 [node name="Name" type="LineEdit" parent="NameLabel"]
@@ -29,16 +36,16 @@ margin_bottom = 76.3455
 
 [node name="GenderLabel" type="Label" parent="."]
 margin_left = 154.064
-margin_top = 216.366
+margin_top = 180.0
 margin_right = 269.064
-margin_bottom = 230.366
+margin_bottom = 194.0
 text = "Gender:"
 
 [node name="Gender" type="ItemList" parent="GenderLabel"]
-margin_left = -78.6367
-margin_top = 23.517
-margin_right = 132.363
-margin_bottom = 72.517
+margin_left = -39.3974
+margin_top = 20.6193
+margin_right = 78.6026
+margin_bottom = 69.6193
 
 [node name="Create" type="HTTPRequest" parent="."]
 
@@ -49,12 +56,19 @@ margin_right = 62.0
 margin_bottom = 38.0
 text = "Back"
 
-[node name="Label" type="Label" parent="."]
-margin_left = 121.223
-margin_top = 30.9094
-margin_right = 234.223
-margin_bottom = 44.9094
-text = "Character Details:"
+[node name="Stats" type="Label" parent="."]
+margin_left = 160.0
+margin_top = 280.0
+margin_right = 200.0
+margin_bottom = 294.0
+text = "Stats:"
+
+[node name="Tree" type="Tree" parent="Stats"]
+margin_left = -110.0
+margin_top = 34.0
+margin_right = 170.0
+margin_bottom = 181.0
+columns = 2
 [connection signal="button_up" from="CreateButton" to="." method="_on_CreateButton_button_up"]
 [connection signal="item_selected" from="GenderLabel/Gender" to="." method="_on_Gender_item_selected"]
 [connection signal="request_completed" from="Create" to="." method="_on_Create_request_completed"]

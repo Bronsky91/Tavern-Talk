@@ -7,6 +7,13 @@ const userModel = mongoose.Schema({
     characters: [{
         name : String,
         gender: String,
+        stats: {
+            str: {type: Number},
+            dex: {type: Number},
+            con: {type: Number},
+            wis: {type: Number},
+            cha: {type: Number}
+        },
     }],
 });
 
