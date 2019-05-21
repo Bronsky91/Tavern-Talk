@@ -86,12 +86,16 @@ sync func remove_patron(id):
 			break
 	$PatronList.remove_item(patron_that_left)
 
-func find_random_patron(exception=null):
+func find_random_patron():
+	## Finds a random patron at the table, if there's only one
+	### character at the table then it's selected
+	### if the character that calls the function finds itself
+	### the function runs again until it finds someone else
 	var random_patron = current_patrons[randi()%len(current_patrons)]
 	if len(current_patrons) == 1:
 		return random_patron
 	if random_patron.name == character_name:
-		find_random_patron(character_name)
+		find_random_patron()
 	else:
 		return random_patron
 	
