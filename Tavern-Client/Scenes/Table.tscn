@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/Table.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=2]
 
 [node name="Table" type="Node2D"]
 z_index = 6
@@ -32,6 +33,9 @@ margin_left = 250.0
 margin_top = 147.0
 margin_right = 359.0
 margin_bottom = 580.0
+
+[node name="Commands" type="Node" parent="."]
+script = ExtResource( 2 )
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
 [connection signal="text_changed" from="ChatInput" to="." method="_on_ChatInput_text_changed"]
 [connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]

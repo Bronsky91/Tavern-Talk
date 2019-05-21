@@ -2,11 +2,12 @@ extends Node2D
 
 onready var chat_display = $ChatDisplay
 onready var chat_input = $ChatInput
+onready var cmd = get_node("Commands")
 
 var character_name = global.player_data.character.name
 var table_id = null
 var current_patrons = []
-var chat_commands = ['whisper']
+var chat_commands = ['whisper', 'test']
 var command_time = false
 var command_param_start = null
 
@@ -18,6 +19,9 @@ class SortPatronNames:
 
 func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	
+func get_current_patrons():
+	return current_patrons
 	
 func assign(_table_id):
 	table_id = _table_id
@@ -41,7 +45,7 @@ func _on_ChatInput_text_changed(new_text):
 func slash_commands(text, params):
 	var command = text.split(" ")[0].substr(1, len(text)-1)
 	if chat_commands.has(command):
-		call(command, params)
+		cmd.call(command, params)
 		
 func send_message(msg):
 	chat_input.text = ""
@@ -50,22 +54,6 @@ func send_message(msg):
 sync func receive_message(c_name, msg):
 	if msg.length() > 0:
 		chat_display.text += c_name + ": " + msg + "\n"
-
-sync func whisper(params):
-	var recipient = params[0]
-	params.remove(0)
-	var msg = params.join(" ")
-	var r_id = null
-	for patron in current_patrons:
-		if patron.name.to_lower() == recipient.to_lower():
-			r_id = patron.id
-	if r_id != null:
-		## Send whisper
-		chat_input.text = ""
-		rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, character_name, recipient.capitalize(), msg)
-	else:
-		## TODO: Error message for not finding patron
-		print("patron not found")
 
 	
 sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
