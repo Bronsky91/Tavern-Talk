@@ -67,7 +67,7 @@ func _on_CreateButton_button_up():
 			"name": character_name.text,
 			"gender": gender,
 			"stats":{
-				"str": strength.get_range(1),
+				"strength": strength.get_range(1),
 				"dex": dex.get_range(1),
 				"con": con.get_range(1),
 				"wis": wis.get_range(1),

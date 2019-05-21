@@ -7,7 +7,7 @@ onready var cmd = get_node("Commands")
 var character_name = global.player_data.character.name
 var table_id = null
 var current_patrons = []
-var chat_commands = ['whisper', 'test']
+var chat_commands = ['whisper', 'throw']
 var command_time = false
 var command_param_start = null
 
@@ -86,6 +86,19 @@ sync func remove_patron(id):
 			break
 	$PatronList.remove_item(patron_that_left)
 
+func find_random_patron(exception=null):
+	var random_patron = current_patrons[randi()%len(current_patrons)]
+	if len(current_patrons) == 1:
+		return random_patron
+	if random_patron.name == character_name:
+		find_random_patron(character_name)
+	else:
+		return random_patron
+	
+func send_action_message(msg):
+	chat_input.text = ""
+	rpc("receive_action_message", character_name, msg)
+	
 sync func receive_action_message(c_name, msg):
 	var new_line = c_name + " " + msg
 	print('[i]'+new_line+'[/i]')

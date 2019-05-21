@@ -8,7 +8,7 @@ const userModel = mongoose.Schema({
         name : String,
         gender: String,
         stats: {
-            str: {type: Number},
+            strength: {type: Number},
             dex: {type: Number},
             con: {type: Number},
             wis: {type: Number},

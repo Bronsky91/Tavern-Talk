@@ -6,7 +6,13 @@ var player_data = {
 		'id': null,
 		'name': null,
 		'gender': null,
-		## More stats
+		'stats':{
+			'strength': null,
+			'dex': null,
+			'con': null,
+			'wis': null,
+			'char': null
+			}
 		},
 	'tavern': {
 		'port': null,

@@ -44,4 +44,5 @@ func _on_Remove_button_up():
 
 func _on_JoinButton_button_up():
 	global.player_data.character = selected_character
+	print(global.player_data.character)
 	get_tree().change_scene("Scenes/TavernMenu.tscn")

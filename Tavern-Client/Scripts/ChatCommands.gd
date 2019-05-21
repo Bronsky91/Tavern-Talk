@@ -17,3 +17,17 @@ sync func whisper(params):
 	else:
 		## TODO: Error message for not finding patron
 		print("patron not found")
+		
+func throw(params):
+	var strength = global.player_data.character.stats.strength
+	var dex = global.player_data.character.stats.dex
+	var object = params[0]
+	var msg = ""
+	if strength > 12:
+		msg = "throws their "+object+ " across the room hitting the wall with a loud thud."
+	elif dex > 14:
+		msg = "throws their "+object+ ", narrowly missing "+table.find_random_patron().name
+	else:
+		msg = "throws their "+object+ ", the barmaid yells \"You're weak!\""
+	print(msg)
+	table.send_action_message(msg)
