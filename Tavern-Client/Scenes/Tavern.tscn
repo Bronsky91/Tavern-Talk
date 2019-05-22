@@ -82,7 +82,7 @@ flat = true
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 1 )
 
 [node name="PostCheck" type="HTTPRequest" parent="Board"]
@@ -254,7 +254,21 @@ z_as_relative = false
 texture = ExtResource( 12 )
 
 [node name="Entrance" type="Position2D" parent="."]
-position = Vector2( 191.449, 620.966 )
+position = Vector2( 161.023, 620.966 )
+
+[node name="Chat" type="Button" parent="."]
+margin_left = 313.496
+margin_top = 609.604
+margin_right = 358.496
+margin_bottom = 635.604
+text = "Chat"
+
+[node name="ChatEnter" type="LineEdit" parent="."]
+visible = false
+margin_left = 183.0
+margin_top = 609.0
+margin_right = 312.0
+margin_bottom = 636.0
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Board/BoardButton" to="." method="_on_Board_button_up"]
 [connection signal="body_entered" from="Board/BoardArea" to="." method="_on_BoardArea_body_entered"]
@@ -269,3 +283,5 @@ position = Vector2( 191.449, 620.966 )
 [connection signal="button_up" from="Table_003/Join" to="." method="_on_Table_button_up" binds= [ 3 ]]
 [connection signal="body_shape_entered" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "003" ]]
 [connection signal="body_shape_exited" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "003" ]]
+[connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
+[connection signal="text_entered" from="ChatEnter" to="." method="_on_ChatEnter_text_entered"]

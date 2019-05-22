@@ -108,7 +108,7 @@ hframes = 6
 frame = 20
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-009, -1.19209e-007 )
+position = Vector2( 7.45058e-09, -1.19209e-07 )
 vframes = 4
 hframes = 4
 frame = 15
@@ -129,3 +129,15 @@ anims/walk_down = SubResource( 2 )
 anims/walk_left = ExtResource( 6 )
 anims/walk_right = SubResource( 3 )
 anims/walk_up = SubResource( 4 )
+
+[node name="ChatBubble" type="RichTextLabel" parent="."]
+margin_left = -68.3204
+margin_top = -67.335
+margin_right = 68.6796
+margin_bottom = -21.335
+bbcode_enabled = true
+scroll_active = false
+
+[node name="ChatTimer" type="Timer" parent="ChatBubble"]
+wait_time = 5.0
+[connection signal="timeout" from="ChatBubble/ChatTimer" to="." method="_on_ChatTimer_timeout"]

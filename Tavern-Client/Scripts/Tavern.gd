@@ -129,3 +129,15 @@ func _on_PostCheck_request_completed(result, response_code, headers, body):
 		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_002.png"))
 	else:
 		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
+
+sync func chat_enter_view(show, id):
+	if id == get_tree().get_network_unique_id():
+		$ChatEnter.visible = true
+	
+func _on_Chat_button_up():
+	rpc("chat_enter_view", true, get_tree().get_network_unique_id())
+
+func _on_ChatEnter_text_entered(new_text):
+	get_node(str(get_tree().get_network_unique_id())).chat(new_text)
+	$ChatEnter.clear()
+	rpc("chat_enter_view", false, get_tree().get_network_unique_id())

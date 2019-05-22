@@ -70,3 +70,12 @@ func walking(yes):
 			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_001.png"))
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 4
+
+func chat(msg):
+	$ChatBubble.bbcode_text = ""
+	msg = "[center]"+msg+"[/center]"
+	$ChatBubble.bbcode_text = msg
+	$ChatBubble/ChatTimer.start(5)
+
+func _on_ChatTimer_timeout():
+	$ChatBubble.clear()
