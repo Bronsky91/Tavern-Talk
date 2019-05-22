@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -49,6 +49,9 @@ extents = Vector2( 55.0573, 23.9064 )
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 58.8055, 25.0987 )
 
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 35.8139, 10.6617 )
+
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
 table = ExtResource( 2 )
@@ -82,7 +85,7 @@ flat = true
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 1 )
 
 [node name="PostCheck" type="HTTPRequest" parent="Board"]
@@ -294,7 +297,7 @@ z_as_relative = false
 texture = ExtResource( 12 )
 
 [node name="Entrance" type="Position2D" parent="."]
-position = Vector2( 180, 620.966 )
+position = Vector2( 189.523, 631.355 )
 
 [node name="Chat" type="Button" parent="."]
 margin_left = 320.0
@@ -309,6 +312,21 @@ margin_left = 210.0
 margin_top = 616.0
 margin_right = 318.0
 margin_bottom = 640.0
+
+[node name="Exit" type="Area2D" parent="."]
+position = Vector2( 189.506, 632.58 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
+position = Vector2( -0.17305, -4.15582 )
+shape = SubResource( 7 )
+
+[node name="LeaveButton" type="Button" parent="Exit"]
+margin_left = -138.704
+margin_top = -15.3729
+margin_right = -37.7045
+margin_bottom = 4.62714
+text = "Leave Tavern?"
+flat = true
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Board/BoardButton" to="." method="_on_Board_button_up"]
 [connection signal="body_entered" from="Board/BoardArea" to="." method="_on_BoardArea_body_entered"]
@@ -328,3 +346,6 @@ margin_bottom = 640.0
 [connection signal="timeout" from="Table_003/CanvasLayer/TableChat/TableChatTimer" to="." method="_on_TableChatTimer_timeout"]
 [connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
 [connection signal="text_entered" from="ChatEnter" to="." method="_on_ChatEnter_text_entered"]
+[connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
+[connection signal="body_exited" from="Exit" to="." method="_on_Exit_body_exited"]
+[connection signal="button_up" from="Exit/LeaveButton" to="." method="_on_LeaveButton_button_up"]

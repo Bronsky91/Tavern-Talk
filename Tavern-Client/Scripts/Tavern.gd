@@ -157,3 +157,22 @@ sync func t_chat(msg, table_id):
 
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
+
+sync func leave_button_view(show, id):
+	if show:
+		if id == get_tree().get_network_unique_id():
+			$Exit/LeaveButton.visible = true
+			$Exit/LeaveButton.disabled = false
+	else:
+		if id == get_tree().get_network_unique_id():
+			$Exit/LeaveButton.visible = false
+			$Exit/LeaveButton.disabled = true
+	
+func _on_Exit_body_entered(body):
+	rpc("leave_button_view", true, int(body.name))
+
+func _on_Exit_body_exited(body):
+	rpc("leave_button_view", false, int(body.name))
+
+func _on_LeaveButton_button_up():
+	leave_tavern()
