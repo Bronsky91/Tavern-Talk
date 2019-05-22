@@ -71,8 +71,12 @@ func walking(yes):
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 4
 
+sync func receive_tavern_chat(msg, id):
+	get_parent().get_node(str(id)).chat(msg)
+
 func chat(msg):
 	$ChatBubble.bbcode_text = ""
+	$ChatBubble.hint_tooltip = msg
 	msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
 	$ChatBubble/ChatTimer.start(5)

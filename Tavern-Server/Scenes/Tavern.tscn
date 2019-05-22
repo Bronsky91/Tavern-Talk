@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/furniture/Bar_001.png" type="Texture" id=5]
-[ext_resource path="res://Assets/furniture/BulletinBoardA_001.png" type="Texture" id=6]
+[ext_resource path="res://Assets/furniture/BulletinBoard_001.png" type="Texture" id=6]
 [ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=7]
 [ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=8]
 [ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=9]
@@ -75,6 +75,7 @@ margin_left = -29.0
 margin_top = -8.0
 margin_right = 28.0
 margin_bottom = 20.0
+disabled = true
 text = "View"
 flat = true
 
@@ -82,10 +83,8 @@ flat = true
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 1 )
-
-[node name="PostCheck" type="HTTPRequest" parent="Board"]
 
 [node name="Wall" type="TileMap" parent="."]
 z_as_relative = false
@@ -103,6 +102,7 @@ format = 1
 tile_data = PoolIntArray( 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786437, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1245184, 0, 0, 1245185, 0, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 0, 0 )
 
 [node name="Table_001" type="Sprite" parent="."]
+editor/display_folded = true
 position = Vector2( 90, 304.133 )
 z_index = 1
 texture = ExtResource( 9 )
@@ -254,26 +254,11 @@ z_as_relative = false
 texture = ExtResource( 12 )
 
 [node name="Entrance" type="Position2D" parent="."]
-position = Vector2( 161.023, 620.966 )
-
-[node name="Chat" type="Button" parent="."]
-margin_left = 313.496
-margin_top = 609.604
-margin_right = 358.496
-margin_bottom = 635.604
-text = "Chat"
-
-[node name="ChatEnter" type="LineEdit" parent="."]
-visible = false
-margin_left = 183.0
-margin_top = 609.0
-margin_right = 312.0
-margin_bottom = 636.0
+position = Vector2( 190, 620 )
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Board/BoardButton" to="." method="_on_Board_button_up"]
 [connection signal="body_entered" from="Board/BoardArea" to="." method="_on_BoardArea_body_entered"]
 [connection signal="body_exited" from="Board/BoardArea" to="." method="_on_BoardArea_body_exited"]
-[connection signal="request_completed" from="Board/PostCheck" to="." method="_on_PostCheck_request_completed"]
 [connection signal="button_up" from="Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="body_shape_entered" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "001" ]]
 [connection signal="body_shape_exited" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "001" ]]
@@ -283,5 +268,3 @@ margin_bottom = 636.0
 [connection signal="button_up" from="Table_003/Join" to="." method="_on_Table_button_up" binds= [ 3 ]]
 [connection signal="body_shape_entered" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "003" ]]
 [connection signal="body_shape_exited" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "003" ]]
-[connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
-[connection signal="text_entered" from="ChatEnter" to="." method="_on_ChatEnter_text_entered"]

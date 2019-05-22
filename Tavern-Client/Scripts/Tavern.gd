@@ -131,13 +131,18 @@ func _on_PostCheck_request_completed(result, response_code, headers, body):
 		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
 
 sync func chat_enter_view(show, id):
-	if id == get_tree().get_network_unique_id():
-		$ChatEnter.visible = true
-	
+	if show:
+		if id == get_tree().get_network_unique_id():
+			$ChatEnter.visible = true
+			$ChatEnter.grab_focus()
+	else:
+		if id == get_tree().get_network_unique_id():
+			$ChatEnter.visible = false
+			
 func _on_Chat_button_up():
 	rpc("chat_enter_view", true, get_tree().get_network_unique_id())
 
 func _on_ChatEnter_text_entered(new_text):
-	get_node(str(get_tree().get_network_unique_id())).chat(new_text)
+	get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
 	$ChatEnter.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
