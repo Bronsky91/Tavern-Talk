@@ -22,6 +22,7 @@ func make_get_request(url, use_ssl):
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if response_code == 404:
+		make_get_request(global.api_url + 'users/' + global.player_data.user_id, false)
 		return
 	else:
 		var characters = json.result.data.characters
@@ -37,12 +38,9 @@ func _on_Characters_item_selected(index):
 			selected_character = c
 
 func _on_Remove_button_up():
-	var headers = ["Content-Type: application/json"]
 	var data = {"_id": selected_character._id}
-	var query = JSON.print(data)
-	global.make_patch_request($CharacterFetch, 'users/' + global.player_data.user_id + '/character_remove', query, false)
+	global.make_patch_request($CharacterFetch, 'users/' + global.player_data.user_id + '/character_remove', data, false)
 
 func _on_JoinButton_button_up():
 	global.player_data.character = selected_character
-	print(global.player_data.character)
 	get_tree().change_scene("Scenes/TavernMenu.tscn")
