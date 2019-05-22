@@ -31,16 +31,21 @@ func throw(params):
 	elif dex > 14:
 		msg = "throws their "+object+ ", narrowly missing "+table.find_random_patron().name
 	else:
-		msg = "throws their "+object+ ", the barmaid yells \"You're weak!\""
+		msg = "throws their "+object+ ", the barmaid yells, \"You're weak!\""
 	print(msg)
-	table.send_action_message(msg)
+	table.send_broadcast(msg)
 	
 func e(params):
 	## Custom emote function
 	var msg = params.join(" ")
 	table.send_action_message(msg)
 	
+func eb(params):
+	## Custom emote broadcast function
+	var msg = params.join(" ")
+	table.send_action_message(msg)
+	
 func yell(params):
 	var msg = params.join(" ")
-	msg = "\""+msg+"\""
-	table.send_broadcast(msg, "yells")
+	msg = " yells, "+"\""+msg+"\""
+	table.send_broadcast(msg)

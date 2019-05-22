@@ -10,7 +10,7 @@ var current_patrons = []
 var command_time = false
 var command_param_start = null
 
-var chat_commands = ['whisper', 'throw', 'e', 'yell']
+var chat_commands = ['whisper', 'throw', 'e', 'eb', 'yell']
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -58,20 +58,20 @@ func send_message(msg):
 	chat_input.text = ""
 	rpc("receive_message", character_name, msg)
 	
-func send_broadcast(msg, action):
+func send_broadcast(msg):
 	chat_input.text = ""
 	for t in get_tree().get_nodes_in_group("tables"):
-		t.rpc("receive_broadcast_message", character_name, msg, action, table_id)
+		t.rpc("receive_broadcast_message", character_name, msg, table_id)
 
-sync func receive_broadcast_message(c_name, msg, action, t_id):
+sync func receive_broadcast_message(c_name, msg, t_id):
 	if msg.length() > 0:
 		if table_id == t_id:
-			var new_line = c_name +" "+ action +" "+ msg
-			chat_display.bbcode_text += new_line
+			var new_line = c_name +" "+ msg
+			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
 			new_line()
 		else:
-			var new_line = "A patron from another table "+ action +" "+ msg
-			chat_display.bbcode_text += new_line
+			var new_line = "A patron from another table "+ msg
+			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
 			new_line()
 
 sync func receive_message(c_name, msg):
@@ -120,8 +120,7 @@ func send_action_message(msg):
 	
 sync func receive_action_message(c_name, msg):
 	var new_line = c_name + " " + msg
-	print('[i]'+new_line+'[/i]')
-	chat_display.bbcode_text += '[i]'+new_line+'[/i]'
+	chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
 	new_line()
 
 func _on_Leave_button_up():
