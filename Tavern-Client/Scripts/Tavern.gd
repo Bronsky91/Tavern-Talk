@@ -86,18 +86,31 @@ func _on_Board_button_up():
 	var board_instance = board.instance()
 	add_child(board_instance)
 
+sync func table_join_view(show, table_id):
+	print(table_id)
+	if show:
+		get_node('Table_'+table_id+'/Join').visible = true
+		get_node('Table_'+table_id+'/Join').disabled = false
+	else:
+		get_node('Table_'+table_id+'/Join').visible = false
+		get_node('Table_'+table_id+'/Join').disabled = true
+		
+sync func board_view(show):
+	if show:
+		board_button.visible = true
+		board_button.disabled = false
+	else:
+		board_button.visible = false
+		board_button.disabled = true
+
 func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
-	get_node('Table_'+table_id+'/Join').visible = true
-	get_node('Table_'+table_id+'/Join').disabled = false
+	rpc_id(int(body.name), "table_join_view", true, table_id)
 
 func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
-	get_node('Table_'+table_id+'/Join').visible = false
-	get_node('Table_'+table_id+'/Join').disabled = true
+	rpc_id(int(body.name), "table_join_view", false, table_id)
 
 func _on_BoardArea_body_entered(body):
-	board_button.visible = true
-	board_button.disabled = false
+	rpc_id(int(body.name), "board_view", true)
 
 func _on_BoardArea_body_exited(body):
-	board_button.visible = false
-	board_button.disabled = true
+	rpc_id(int(body.name), "board_view", false)

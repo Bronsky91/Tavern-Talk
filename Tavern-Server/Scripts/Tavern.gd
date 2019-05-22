@@ -96,21 +96,21 @@ func _on_EnterTavern_request_completed(result, response_code, headers, body):
 	var data = json.result.data
 	tavern_id = data._id
 
-func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
-	get_node('Table_'+table_id+'/Join').visible = true
-	get_node('Table_'+table_id+'/Join').disabled = false
+#func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
+#	get_node('Table_'+table_id+'/Join').visible = true
+#	get_node('Table_'+table_id+'/Join').disabled = false
 
-func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
-	get_node('Table_'+table_id+'/Join').visible = false
-	get_node('Table_'+table_id+'/Join').disabled = true
-
-
-func _on_BoardArea_body_entered(body):
-	board_button.visible = true
-	board_button.disabled = false
+#func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
+#	get_node('Table_'+table_id+'/Join').visible = false
+#	get_node('Table_'+table_id+'/Join').disabled = true
 
 
-func _on_BoardArea_body_exited(body):
-	board_button.visible = false
-	board_button.disabled = true
+#func _on_BoardArea_body_entered(body):
+#	board_button.visible = true
+#	board_button.disabled = false
+
+
+#func _on_BoardArea_body_exited(body):
+#	board_button.visible = false
+#	board_button.disabled = true
 	
