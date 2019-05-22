@@ -42,4 +42,5 @@ func e(params):
 	
 func yell(params):
 	var msg = params.join(" ")
+	msg = "\""+msg+"\""
 	table.send_broadcast(msg, "yells")

@@ -10,7 +10,7 @@ var current_patrons = []
 var command_time = false
 var command_param_start = null
 
-var chat_commands = ['whisper', 'throw', 'e']
+var chat_commands = ['whisper', 'throw', 'e', 'yell']
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -61,15 +61,20 @@ func send_message(msg):
 func send_broadcast(msg, action):
 	chat_input.text = ""
 	for t in get_tree().get_nodes_in_group("tables"):
-		t.rpc("receive_broadcast_message", character_name, msg, action)
+		t.rpc("receive_broadcast_message", character_name, msg, action, table_id)
 
-sync func receive_broadcast_message(c_name, msg, action):
+sync func receive_broadcast_message(c_name, msg, action, t_id):
 	if msg.length() > 0:
-		var new_line = "A patron from another table"+ action + msg
-		chat_display.bbcode_text += new_line
-		new_line()
+		if table_id == t_id:
+			var new_line = c_name +" "+ action +" "+ msg
+			chat_display.bbcode_text += new_line
+			new_line()
+		else:
+			var new_line = "A patron from another table "+ action +" "+ msg
+			chat_display.bbcode_text += new_line
+			new_line()
 
-sync func reve_message(c_name, msg):
+sync func receive_message(c_name, msg):
 	if msg.length() > 0:
 		var new_line = c_name + ": " + msg
 		chat_display.bbcode_text += new_line
@@ -101,10 +106,6 @@ sync func remove_patron(id):
 	$PatronList.remove_item(patron_that_left)
 
 func find_random_patron():
-	## Finds a random patron at the table, if there's only one
-	### character at the table then it's selected
-	### if the character that calls the function finds itself
-	### the function runs again until it finds someone else
 	var random_patron = current_patrons[randi()%len(current_patrons)]
 	if len(current_patrons) == 1:
 		return random_patron
