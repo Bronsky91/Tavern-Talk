@@ -4,12 +4,14 @@ export (int) var speed = 100
 
 var target = Vector2()
 var velocity = Vector2()
+var gender = null
 
 onready var animate = $AnimationPlayer
 
 func _ready():
 	target = position
 	animate.current_animation = 'idle_up'
+	walking(false)
 	
 func _unhandled_input(event):
 	if event.is_action_pressed('click'):
@@ -55,16 +57,16 @@ func _physics_process(delta):
 			
 func walking(yes):
 		if yes:
-			$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Walk.png"))
+			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk.png"))
 			$Body.vframes = 4
 			$Body.hframes = 6
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_WalkHair_001.png"))
+			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_WalkHair_001.png"))
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 6
 		else:
-			$Body.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_Idle.png"))
+			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle.png"))
 			$Body.vframes = 4
 			$Body.hframes = 4
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+global.player_data.character.gender+"_IdleHair_001.png"))
+			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_001.png"))
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 4

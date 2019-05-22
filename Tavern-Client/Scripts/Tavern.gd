@@ -50,16 +50,10 @@ remote func configure_player():
 				new_player.position = entrance.position
 			else:
 				new_player.position = player_info[p].position
+			new_player.gender = player_info[p].character.gender
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
-			character_apply(new_player)
 			add_child(new_player)
-
-func character_apply(c):
-	var c_data = global.player_data.character
-	#Spawns character with global.player_data.character stats
-	c.get_node("Body").set_texture(load("res://Assets/Characters/"+c_data.gender+"_Idle.png"))
-	c.get_node("Body/Hair").set_texture(load("res://Assets/Characters/"+c_data.gender+"_IdleHair_001.png"))
 	
 func leave_tavern():
 	get_tree().set_network_peer(null)
