@@ -146,3 +146,14 @@ func _on_ChatEnter_text_entered(new_text):
 	get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
 	$ChatEnter.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
+
+sync func t_chat(msg, table_id):
+	var table_chat = get_node("Table_00"+table_id+"/CanvasLayer/TableChat")
+	table_chat.bbcode_text = ""
+	table_chat.hint_tooltip = msg
+	msg = "[center]"+msg+"[/center]"
+	table_chat.bbcode_text = msg
+	table_chat.get_child().start(5)
+
+func _on_TableChatTimer_timeout():
+	get_parent().clear()

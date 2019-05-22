@@ -65,6 +65,7 @@ func send_broadcast(msg):
 
 sync func receive_broadcast_message(c_name, msg, t_id):
 	if msg.length() > 0:
+		get_parent().rpc("t_chat", msg, t_id)
 		if table_id == t_id:
 			var new_line = c_name +" "+ msg
 			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
