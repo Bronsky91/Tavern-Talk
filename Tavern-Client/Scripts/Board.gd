@@ -12,7 +12,6 @@ func _ready():
 	## TEMP FOR DEBUG
 	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
 	###
-	$Board/BoardRequest.request(global.api_url + 'tavern/' + global.player_data.tavern.id + '/board')
 
 func populate_posts(posts):
 	## Populates post_dic with the _ids of all posts
@@ -35,6 +34,7 @@ func takedown_post(id):
 			post_dict[key] = null
 	
 func _on_BoardRequest_request_completed(result, response_code, headers, body):
+	print(response_code)
 	var json = JSON.parse(body.get_string_from_utf8())
 	var posts = json.result.data
 	populate_posts(posts)
@@ -61,4 +61,4 @@ func _on_Board_visibility_changed():
 	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
 	###
 	if $Board.visible == true:
-		$Board/BoardRequest.request(global.api_url + 'tavern/' + global.player_data.tavern.id + '/board')
+		global.make_get_request($Board/BoardRequest, 'tavern/' + global.player_data.tavern.id + '/board', false)

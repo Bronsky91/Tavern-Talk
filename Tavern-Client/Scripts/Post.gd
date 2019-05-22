@@ -8,7 +8,6 @@ var post_limit = 359
 var post_id = '0'
 
 func _enter_tree():
-	## May need to change to _enter_tree
 	if not new_post:
 		$NewEdit.text = "Edit"
 	else:

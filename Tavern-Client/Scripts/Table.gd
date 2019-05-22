@@ -77,7 +77,10 @@ sync func receive_broadcast_message(c_name, msg, t_id):
 sync func receive_message(c_name, msg):
 	if msg.length() > 0:
 		var new_line = c_name + ": " + msg
-		chat_display.bbcode_text += new_line
+		if c_name == character_name:
+			chat_display.bbcode_text += '[b]'+new_line+'[/b]'
+		else:
+			chat_display.bbcode_text += new_line
 		new_line()
 	
 sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
