@@ -3,6 +3,7 @@ extends Node
 onready var table = get_parent()
 
 sync func whisper(params):
+	print(params)
 	var recipient = params[0]
 	params.remove(0)
 	var msg = params.join(" ")
@@ -33,3 +34,12 @@ func throw(params):
 		msg = "throws their "+object+ ", the barmaid yells \"You're weak!\""
 	print(msg)
 	table.send_action_message(msg)
+	
+func e(params):
+	## Custom emote function
+	var msg = params.join(" ")
+	table.send_action_message(msg)
+	
+func yell(params):
+	var msg = params.join(" ")
+	table.send_broadcast(msg, "yells")

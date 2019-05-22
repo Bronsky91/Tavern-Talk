@@ -70,7 +70,7 @@ func join_table(table_id):
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
-	
+
 func create_table_scenes():
 	for t in range(1, 4):
 		# instance packed scene
@@ -94,11 +94,9 @@ func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_i
 	get_node('Table_'+table_id+'/Join').visible = false
 	get_node('Table_'+table_id+'/Join').disabled = true
 
-
 func _on_BoardArea_body_entered(body):
 	board_button.visible = true
 	board_button.disabled = false
-
 
 func _on_BoardArea_body_exited(body):
 	board_button.visible = false

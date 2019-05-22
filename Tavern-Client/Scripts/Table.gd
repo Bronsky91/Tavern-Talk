@@ -7,9 +7,10 @@ onready var cmd = get_node("Commands")
 var character_name = global.player_data.character.name
 var table_id = null
 var current_patrons = []
-var chat_commands = ['whisper', 'throw']
 var command_time = false
 var command_param_start = null
+
+var chat_commands = ['whisper', 'throw', 'e']
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -56,8 +57,19 @@ func slash_commands(text, params):
 func send_message(msg):
 	chat_input.text = ""
 	rpc("receive_message", character_name, msg)
+	
+func send_broadcast(msg, action):
+	chat_input.text = ""
+	for t in get_tree().get_nodes_in_group("tables"):
+		t.rpc("receive_broadcast_message", character_name, msg, action)
 
-sync func receive_message(c_name, msg):
+sync func receive_broadcast_message(c_name, msg, action):
+	if msg.length() > 0:
+		var new_line = "A patron from another table"+ action + msg
+		chat_display.bbcode_text += new_line
+		new_line()
+
+sync func reve_message(c_name, msg):
 	if msg.length() > 0:
 		var new_line = c_name + ": " + msg
 		chat_display.bbcode_text += new_line
@@ -69,7 +81,6 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 		new_line = '[color=#cc379f]'+new_line+'[/color]'
 		chat_display.bbcode_text += new_line
 		new_line()
-		
 	else:
 		chat_display.bbcode_text += c_name + " whispers to " + r_name + "\n"
 
@@ -124,10 +135,11 @@ func _on_Table_visibility_changed():
 		rpc("remove_patron", get_tree().get_network_unique_id())
 
 func _on_PatronList_item_selected(index):
+	pass
 	## TODO: May want to change this logic to just call the whisper function and set params manually
 	## Currently does not work
-	chat_input.text = ""
-	var command = "/whisper {name} ".format({"name": $PatronList.get_item_text(index)})
-	chat_input.text = command
-	chat_input.grab_focus()
-	chat_input.caret_position = len(command)
+	#chat_input.text = ""
+	#var command = "/whisper {name} ".format({"name": $PatronList.get_item_text(index)})
+	#chat_input.text = command
+	#chat_input.grab_focus()
+	#chat_input.caret_position = len(command)

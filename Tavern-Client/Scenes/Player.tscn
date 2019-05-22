@@ -108,7 +108,7 @@ hframes = 6
 frame = 20
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-009, -1.19209e-007 )
+position = Vector2( 7.45058e-09, -1.19209e-07 )
 vframes = 4
 hframes = 4
 frame = 15
