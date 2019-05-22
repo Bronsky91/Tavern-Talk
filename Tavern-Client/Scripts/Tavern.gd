@@ -96,13 +96,14 @@ sync func table_join_view(show, id, table_id):
 			get_node('Table_'+table_id+'/Join').visible = false
 			get_node('Table_'+table_id+'/Join').disabled = true
 		
-sync func board_view(show):
-	if show:
-		board_button.visible = true
-		board_button.disabled = false
-	else:
-		board_button.visible = false
-		board_button.disabled = true
+sync func board_view(show, id):
+	if get_tree().get_network_unique_id() == int(id):
+		if show:
+			board_button.visible = true
+			board_button.disabled = false
+		else:
+			board_button.visible = false
+			board_button.disabled = true
 
 func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
 	rpc("table_join_view", true, body.name, table_id)
