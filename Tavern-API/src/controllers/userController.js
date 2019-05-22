@@ -79,7 +79,6 @@ exports.update = function (req, res) {
 // Handle removing characters from user profile
 exports.characterRemove = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
-        console.log(req)
         if (err)
             res.send(err);
         user.characters.pull(req.body)

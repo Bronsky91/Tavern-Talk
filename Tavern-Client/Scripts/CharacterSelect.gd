@@ -7,7 +7,7 @@ var character_list_data = []
 var selected_character = {}
 
 func _ready():
-	make_get_request(global.api_url + 'users/' + global.player_data.user_id, false)
+	global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)
 
 func populate_characters(characters):
 	character_list.clear()
@@ -15,14 +15,10 @@ func populate_characters(characters):
 		character_list_data.append(character)
 		character_list.add_item(character.name)
 	
-func make_get_request(url, use_ssl):
-	var headers = ["Content-Type: application/json"]
-	$CharacterFetch.request(url)
-	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if response_code == 404:
-		make_get_request(global.api_url + 'users/' + global.player_data.user_id, false)
+		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)
 		return
 	else:
 		var characters = json.result.data.characters

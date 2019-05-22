@@ -13,7 +13,7 @@ func _ready():
 	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
 	###
 	$Board/BoardRequest.request(global.api_url + 'tavern/' + global.player_data.tavern.id + '/board')
-	
+
 func populate_posts(posts):
 	## Populates post_dic with the _ids of all posts
 	var post_num = 0
@@ -46,7 +46,7 @@ func _on_NewPost_button_up():
 	add_child(new_post)
 	
 func _on_BackButton_button_up():
-	#get_tree().change_scene("Scenes/Tavern.tscn")
+	get_parent().update_board_texture()
 	queue_free()
 
 func _on_TextureButton_button_up(num):

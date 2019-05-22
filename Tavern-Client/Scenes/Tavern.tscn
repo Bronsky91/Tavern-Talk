@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/furniture/Bar_001.png" type="Texture" id=5]
-[ext_resource path="res://Assets/furniture/BulletinBoard_001.png" type="Texture" id=6]
+[ext_resource path="res://Assets/furniture/BulletinBoardA_001.png" type="Texture" id=6]
 [ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=7]
 [ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=8]
 [ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=9]
@@ -82,8 +82,10 @@ flat = true
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 1 )
+
+[node name="PostCheck" type="HTTPRequest" parent="Board"]
 
 [node name="Wall" type="TileMap" parent="."]
 z_as_relative = false
@@ -253,11 +255,12 @@ z_as_relative = false
 texture = ExtResource( 12 )
 
 [node name="Entrance" type="Position2D" parent="."]
-position = Vector2( 190, 620 )
+position = Vector2( 191.449, 620.966 )
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Board/BoardButton" to="." method="_on_Board_button_up"]
 [connection signal="body_entered" from="Board/BoardArea" to="." method="_on_BoardArea_body_entered"]
 [connection signal="body_exited" from="Board/BoardArea" to="." method="_on_BoardArea_body_exited"]
+[connection signal="request_completed" from="Board/PostCheck" to="." method="_on_PostCheck_request_completed"]
 [connection signal="button_up" from="Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="body_shape_entered" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "001" ]]
 [connection signal="body_shape_exited" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "001" ]]

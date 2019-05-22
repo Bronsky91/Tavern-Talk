@@ -30,6 +30,10 @@ var api_url = 'http://localhost:8080/api/'
 func _ready():
 	pass 
 	
+func make_get_request(request, url, use_ssl):
+	var headers = ["Content-Type: application/json"]
+	request.request(api_url + url, headers, use_ssl, HTTPClient.METHOD_GET)
+	
 func make_post_request(request, url, data, use_ssl):
 	var query = JSON.print(data)
 	var headers = ["Content-Type: application/json"]

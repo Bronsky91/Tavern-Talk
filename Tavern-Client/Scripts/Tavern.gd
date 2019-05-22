@@ -15,9 +15,11 @@ func _ready():
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null and global.player_data.table_id == 0:
+		update_board_texture()
 		character_name = global.player_data.character.name
 		create_table_scenes()
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
+		
 
 func user_exited(id):
 	print('exited')
@@ -82,7 +84,6 @@ func create_table_scenes():
 		new_table.add_to_group("tables")
 
 func _on_Board_button_up():
-	#get_tree().change_scene("Scenes/Board.tscn")
 	var board_instance = board.instance()
 	add_child(board_instance)
 
@@ -114,3 +115,16 @@ func _on_BoardArea_body_entered(body):
 
 func _on_BoardArea_body_exited(body):
 	rpc_id(int(body.name), "board_view", false)
+	
+func update_board_texture():
+	global.make_get_request($Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board', false)
+
+func _on_PostCheck_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	var post_number = len(json.result.data)
+	if post_number == 0:
+		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
+	elif post_number < 6:
+		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_002.png"))
+	else:
+		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
