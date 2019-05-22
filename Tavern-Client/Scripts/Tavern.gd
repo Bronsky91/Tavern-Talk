@@ -148,7 +148,7 @@ func _on_ChatEnter_text_entered(new_text):
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 
 sync func t_chat(msg, table_id):
-	var table_chat = get_node("Table_00"+table_id+"/CanvasLayer/TableChat")
+	var table_chat = get_node("Table_00"+str(table_id)+"/CanvasLayer/TableChat")
 	table_chat.bbcode_text = ""
 	table_chat.hint_tooltip = msg
 	msg = "[center]"+msg+"[/center]"

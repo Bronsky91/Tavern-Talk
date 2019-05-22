@@ -82,7 +82,7 @@ flat = true
 editor/display_folded = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 1 )
 
 [node name="PostCheck" type="HTTPRequest" parent="Board"]
