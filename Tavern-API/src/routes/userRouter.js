@@ -20,6 +20,11 @@ router.route('/login')
 router.route('/users/:user_id/character_remove')
     .patch(userController.characterRemove)
 
+router.route('/users/:user_id/taverns')
+    .get(userController.viewTaverns)
+    .post(userController.addTavern)
+    .delete(userController.removeTavern)
+
 router.route('/users/:user_id')
     .get(userController.view)
     .patch(userController.update)

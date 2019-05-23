@@ -14,6 +14,9 @@ router.route('/taverns')
     .get(tavernController.index)
     .post(tavernController.new)
 
+router.route('/check')
+    .post(tavernController.check)
+    
 router.route('/enter')    
     .post(tavernController.enter)
 

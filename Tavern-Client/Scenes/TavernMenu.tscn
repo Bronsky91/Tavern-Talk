@@ -12,10 +12,10 @@ margin_bottom = -0.840088
 script = ExtResource( 1 )
 
 [node name="Invite" type="Label" parent="."]
-margin_left = 130.711
-margin_top = 89.1527
-margin_right = 211.711
-margin_bottom = 116.153
+margin_left = 135.04
+margin_top = 302.119
+margin_right = 216.04
+margin_bottom = 329.12
 text = "Invite Code:"
 
 [node name="InviteCode" type="LineEdit" parent="Invite"]
@@ -24,18 +24,18 @@ margin_top = 26.5594
 margin_right = 128.213
 margin_bottom = 66.5594
 
-[node name="EnterTavern" type="Button" parent="Invite"]
-margin_left = -23.7744
-margin_top = 81.8609
-margin_right = 111.226
-margin_bottom = 137.861
-text = "Enter Tavern"
+[node name="AddTavern" type="Button" parent="Invite"]
+margin_left = -28.0
+margin_top = 82.0
+margin_right = 107.0
+margin_bottom = 127.0
+text = "Add Tavern"
 
 [node name="Create" type="Label" parent="."]
-margin_left = 113.074
-margin_top = 358.048
-margin_right = 232.074
-margin_bottom = 372.048
+margin_left = 111.775
+margin_top = 460.636
+margin_right = 230.775
+margin_bottom = 474.636
 text = "No Code (Friends)?"
 
 [node name="NewTavern" type="LineEdit" parent="Create"]
@@ -46,10 +46,10 @@ margin_bottom = 74.261
 placeholder_text = "Tavern Name..."
 
 [node name="CreateTavern" type="Button" parent="Create"]
-margin_left = -10.9451
-margin_top = 97.0668
-margin_right = 131.055
-margin_bottom = 163.067
+margin_left = -11.0
+margin_top = 97.0
+margin_right = 131.0
+margin_bottom = 149.0
 text = "Create Tavern"
 
 [node name="Code" type="Label" parent="Create"]
@@ -62,14 +62,44 @@ margin_bottom = 218.521
 
 [node name="HTTPRequestCreate" type="HTTPRequest" parent="."]
 
+[node name="HTTPRequestTaverns" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestAddTavern" type="HTTPRequest" parent="."]
+
+[node name="HTTPRequestTavernCheck" type="HTTPRequest" parent="."]
+
 [node name="Back" type="Button" parent="."]
 margin_left = 6.0
 margin_top = 9.0
 margin_right = 46.0
 margin_bottom = 33.0
 text = "Back"
-[connection signal="button_up" from="Invite/EnterTavern" to="." method="_on_EnterTavern_button_up"]
+
+[node name="Visited" type="Label" parent="."]
+margin_left = 119.036
+margin_top = 29.4344
+margin_right = 237.036
+margin_bottom = 43.4344
+text = "Previously Visited:"
+
+[node name="TavernList" type="ItemList" parent="Visited"]
+margin_left = -30.0
+margin_top = 29.0
+margin_right = 149.0
+margin_bottom = 189.0
+
+[node name="Enter" type="Button" parent="Visited"]
+margin_left = -8.22433
+margin_top = 202.145
+margin_right = 126.776
+margin_bottom = 247.145
+text = "Enter Tavern"
+[connection signal="button_up" from="Invite/AddTavern" to="." method="_on_AddTavern_button_up"]
 [connection signal="button_up" from="Create/CreateTavern" to="." method="_on_CreateTavern_button_up"]
 [connection signal="request_completed" from="HTTPRequestEnter" to="." method="_on_HTTPRequestEnter_request_completed"]
 [connection signal="request_completed" from="HTTPRequestCreate" to="." method="_on_HTTPRequestCreate_request_completed"]
+[connection signal="request_completed" from="HTTPRequestTaverns" to="." method="_on_HTTPRequestTaverns_request_completed"]
+[connection signal="request_completed" from="HTTPRequestTavernCheck" to="." method="_on_HTTPRequestTavernCheck_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
+[connection signal="item_selected" from="Visited/TavernList" to="." method="_on_TavernList_item_selected"]
+[connection signal="button_up" from="Visited/Enter" to="." method="_on_Enter_button_up"]

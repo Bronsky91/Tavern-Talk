@@ -11,7 +11,6 @@ onready var entrance = $Entrance
 onready var board_button = $Board/BoardButton
 
 func _ready():
-	get_tree().connect("network_peer_disconnected", self, "_player_disconnected")
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null and global.player_data.table_id == 0:
@@ -19,7 +18,6 @@ func _ready():
 		character_name = global.player_data.character.name
 		create_table_scenes()
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
-		
 
 func user_exited(id):
 	print('exited')
@@ -37,7 +35,6 @@ func entered_tavern():
 remote func register_player(id, info):
 	## Register players
 	player_info[id] = info
-	print(player_info[id])
 	if get_tree().is_network_server():
 		for peer_id in player_info:
 			rpc_id(id, "register_player", peer_id, player_info[peer_id])

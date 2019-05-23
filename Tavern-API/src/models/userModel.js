@@ -15,6 +15,10 @@ const userModel = mongoose.Schema({
             cha: {type: Number}
         },
     }],
+    taverns: [{
+        name: String,
+        code: String
+    }]
 });
 
 var User = module.exports = mongoose.model('user', userModel);

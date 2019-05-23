@@ -34,7 +34,6 @@ func takedown_post(id):
 			post_dict[key] = null
 	
 func _on_BoardRequest_request_completed(result, response_code, headers, body):
-	print(response_code)
 	var json = JSON.parse(body.get_string_from_utf8())
 	var posts = json.result.data
 	populate_posts(posts)

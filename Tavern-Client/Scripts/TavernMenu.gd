@@ -2,10 +2,23 @@ extends Control
 
 onready var invite_code = $Invite/InviteCode
 onready var new_tavern_name = $Create/NewTavern
+onready var tavern_list = $Visited/TavernList
 
-func _on_EnterTavern_button_up():
-	var data = {"code": invite_code.text}
-	global.make_post_request($HTTPRequestEnter, 'tavern/enter', data, false)
+var tavern_list_data = []
+var selected_tavern
+
+func _ready():
+	global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns', false)
+	
+func _on_AddTavern_button_up():
+	var data = {'code': invite_code.text}
+	global.make_post_request($HTTPRequestTavernCheck, 'tavern/check', data, false )
+
+func find_tavern(t):
+	for tavern in tavern_list_data:
+		if t.code == tavern.code:
+			return true
+	return false
 
 func _on_CreateTavern_button_up():
 	var data = {
@@ -16,7 +29,7 @@ func _on_CreateTavern_button_up():
 			'table': 0
 			}
 		}
-	if len(new_tavern_name) > 0:\
+	if len(new_tavern_name) > 0:
 		## TODO: Error message handling
 		global.make_post_request($HTTPRequestCreate, 'tavern/taverns', data, false)
 
@@ -32,7 +45,13 @@ func _on_HTTPRequestCreate_request_completed(result, response_code, headers, bod
 		'id': data._id
 		}
 	global.player_data.table_id = 0
-	get_tree().change_scene("Scenes/Tavern.tscn")
+	var tavern =  {
+		'name': data.name,
+		'code': data.code
+		}
+	tavern_list_data.append(tavern)
+	tavern_list.add_item(tavern.name)
+	global.make_post_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'taverns', tavern, false)
 
 func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body):
 	if response_code == 200:
@@ -50,3 +69,35 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 
 func _on_Back_button_up():
 	get_tree().change_scene('Scenes/CharacterSelect.tscn')
+	
+func populate_tavern_list(taverns):
+	tavern_list.clear()
+	for tavern in taverns:
+		tavern_list_data.append(tavern)
+		tavern_list.add_item(tavern.name)
+
+func _on_HTTPRequestTaverns_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	populate_tavern_list(json.result.data)
+
+func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	if response_code != 404:
+		var tavern = json.result.data
+		if not find_tavern(tavern):
+			tavern_list_data.append(tavern)
+			tavern_list.add_item(tavern.name)
+			global.make_post_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', tavern, false)
+
+func _on_Enter_button_up():
+	if selected_tavern != null:
+		global.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern, false )
+	else:
+		pass
+		# TODO: Error handling
+
+func _on_TavernList_item_selected(index):
+	var t_name = tavern_list.get_item_text(index)
+	for t in tavern_list_data:
+		if t.name == t_name:
+			selected_tavern = t

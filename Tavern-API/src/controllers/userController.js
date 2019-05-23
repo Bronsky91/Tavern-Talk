@@ -95,7 +95,43 @@ exports.characterRemove = function (req, res) {
     });
 };
 
-// Handle delete contact
+// Handle removing characters from user profile
+exports.removeTavern = function (req, res) {
+    User.findById(req.params.user_id, function (err, user) {
+        if (err)
+            res.send(err);
+        user.taverns.pull(req.body)
+        // save the contact and check for errors
+        user.save(function (err) {
+            if (err) res.json(err);
+            res.sendStatus(404);
+        });
+    });
+};
+
+exports.addTavern = function (req, res) {
+    User.findById(req.params.user_id, function (err, user){
+        if (err)
+            res.send(err);
+        user.taverns.push(req.body)
+        user.save(function (err){
+            if (err) res.json(err);
+            res.sendStatus(200)
+        })
+    })
+};
+
+exports.viewTaverns = function (req, res){
+    User.findById(req.params.user_id, function(err, user){
+        if (err)
+            res.send(err);
+        res.json({
+            data: user.taverns
+        });
+    })
+}
+
+// Handle delete user
 exports.delete = function (req, res) {
     User.deleteOne({
         _id: req.params.user_id

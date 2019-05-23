@@ -52,6 +52,19 @@ exports.enter = function (req, res) {
   });
 };
 
+// Handle user entering tavern
+exports.check = function (req, res) {
+  Tavern.findOne({ code: req.body.code }, function (err, tavern) {
+    if (err) return next(err);
+    if (!tavern) return res.sendStatus(404);
+    else {
+      return res.json({
+        data: tavern
+      });
+    }
+  });
+};
+
 exports.tables = function (req, res) {
   Tavern.findById(req.params.tavern_id, function (err, tavern) {
     if (err) {
@@ -130,7 +143,7 @@ exports.new = function (req, res) {
 // Handle view tavern info
 exports.view = function (req, res) {
   Tavern.findById(req.params.tavern_id, function (err, tavern) {
-    if (err) res.send(err);
+    if (err) res.sendStatus(404);
     res.json({
       data: tavern
     });
