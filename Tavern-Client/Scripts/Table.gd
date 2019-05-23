@@ -91,7 +91,8 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 		chat_display.bbcode_text += new_line
 		new_line()
 	else:
-		chat_display.bbcode_text += c_name + " whispers to " + r_name + "\n"
+		chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
+		new_line()
 
 sync func set_current_patrons(id, patron_name):
 	var patron = {'id': id, 'name': patron_name}

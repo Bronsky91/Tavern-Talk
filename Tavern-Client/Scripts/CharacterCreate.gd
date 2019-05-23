@@ -11,7 +11,6 @@ var con = null
 var wis = null
 var cha = null
 
-
 var gender = ""
 
 func _ready():

@@ -43,7 +43,7 @@ func e(params):
 func eb(params):
 	## Custom emote broadcast function
 	var msg = params.join(" ")
-	table.send_action_message(msg)
+	table.send_broadcast(msg)
 	
 func yell(params):
 	var msg = params.join(" ")
