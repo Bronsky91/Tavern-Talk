@@ -345,6 +345,7 @@ flat = true
 [connection signal="body_shape_exited" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "003" ]]
 [connection signal="timeout" from="Table_003/CanvasLayer/TableChat/TableChatTimer" to="." method="_on_TableChatTimer_timeout"]
 [connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
+[connection signal="text_changed" from="ChatEnter" to="." method="_on_ChatEnter_text_changed"]
 [connection signal="text_entered" from="ChatEnter" to="." method="_on_ChatEnter_text_entered"]
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
 [connection signal="body_exited" from="Exit" to="." method="_on_Exit_body_exited"]

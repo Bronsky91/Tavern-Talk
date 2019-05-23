@@ -20,21 +20,23 @@ class SortPatronNames:
 
 func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+
+func assign(_table_id):
+	## Called upon creation of node
+	table_id = _table_id
 	
 func get_current_patrons():
+	## Helper for other nodes
 	return current_patrons
+
+### Text input and commands ###
 
 func new_line():
 	chat_display.bbcode_text += "\n"
 
-func assign(_table_id):
-	table_id = _table_id
-
 func _on_ChatInput_text_entered(new_text):
 	if command_time and command_param_start != null:
-		print(new_text)
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
-		print(command_params)
 		command_params = command_params.split(" ")
 		command_param_start = null # Resets command param
 		slash_commands(new_text, command_params)
@@ -53,46 +55,8 @@ func slash_commands(text, params):
 	var command = text.split(" ")[0].substr(1, len(text)-1)
 	if chat_commands.has(command):
 		cmd.call(command, params)
-		
-func send_message(msg):
-	chat_input.text = ""
-	rpc("receive_message", character_name, msg)
-	
-func send_broadcast(msg):
-	chat_input.text = ""
-	for t in get_tree().get_nodes_in_group("tables"):
-		t.rpc("receive_broadcast_message", character_name, msg, table_id)
 
-sync func receive_broadcast_message(c_name, msg, t_id):
-	if msg.length() > 0:
-		#get_parent().rpc("t_chat", msg, t_id) Waiting to find a better implementation
-		if table_id == t_id:
-			var new_line = c_name +" "+ msg
-			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
-			new_line()
-		else:
-			var new_line = "A patron from another table "+ msg
-			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
-			new_line()
-
-sync func receive_message(c_name, msg):
-	if msg.length() > 0:
-		var new_line = c_name + ": " + msg
-		if c_name == character_name:
-			chat_display.bbcode_text += '[b]'+new_line+'[/b]'
-		else:
-			chat_display.bbcode_text += new_line
-		new_line()
-	
-sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
-	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id or get_tree().get_network_unique_id() == c_id:
-		var new_line = c_name + ": " + msg
-		new_line = '[color=#cc379f]'+new_line+'[/color]'
-		chat_display.bbcode_text += new_line
-		new_line()
-	else:
-		chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
-		new_line()
+### Table Patrons ###
 
 sync func set_current_patrons(id, patron_name):
 	var patron = {'id': id, 'name': patron_name}
@@ -119,6 +83,52 @@ func find_random_patron():
 	else:
 		return random_patron
 	
+### Send and Receive Messages in Chat ###
+
+func send_message(msg):
+	chat_input.text = ""
+	rpc("receive_message", character_name, msg)
+	
+func send_broadcast(msg):
+	chat_input.text = ""
+	for t in get_tree().get_nodes_in_group("tables"):
+		t.rpc("receive_broadcast_message", character_name, msg, table_id)
+
+sync func receive_broadcast_message(c_name, msg, t_id):
+	if msg.length() > 0:
+		#get_parent().rpc("t_chat", msg, t_id) # References Tavern.gd t_chat function, not being used yet
+		if table_id == t_id:
+			var new_line = c_name +" "+ msg
+			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
+			new_line()
+		elif t_id == 0:
+			var new_line = "A patron in the tavern "+ msg
+			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
+			new_line()
+		else:
+			var new_line = "A patron from another table "+ msg
+			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
+			new_line()
+
+sync func receive_message(c_name, msg):
+	if msg.length() > 0:
+		var new_line = c_name + ": " + msg
+		if c_name == character_name:
+			chat_display.bbcode_text += '[b]'+new_line+'[/b]'
+		else:
+			chat_display.bbcode_text += new_line
+		new_line()
+	
+sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
+	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id or get_tree().get_network_unique_id() == c_id:
+		var new_line = c_name + ": " + msg
+		new_line = '[color=#cc379f]'+new_line+'[/color]'
+		chat_display.bbcode_text += new_line
+		new_line()
+	else:
+		chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
+		new_line()
+
 func send_action_message(msg):
 	chat_input.text = ""
 	rpc("receive_action_message", character_name, msg)
@@ -127,6 +137,8 @@ sync func receive_action_message(c_name, msg):
 	var new_line = c_name + " " + msg
 	chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
 	new_line()
+
+### Entering and Leaving Table ### 
 
 func _on_Leave_button_up():
 	.hide()
@@ -139,8 +151,12 @@ func _on_Table_visibility_changed():
 		rpc("receive_action_message", character_name, "leaves the table")
 		rpc("remove_patron", get_tree().get_network_unique_id())
 
-func _on_PatronList_item_selected(index):
-	pass
+
+
+### Patron List at Table ###
+
+#func _on_PatronList_item_selected(index):
+#	pass
 	## TODO: May want to change this logic to just call the whisper function and set params manually
 	## Currently does not work
 	#chat_input.text = ""

@@ -9,6 +9,7 @@ var player_info = {}
 
 onready var entrance = $Entrance
 onready var board_button = $Board/BoardButton
+onready var chat_input = $ChatEnter
 
 func _ready():
 	get_tree().connect("connected_to_server", self, "entered_tavern")
@@ -32,6 +33,8 @@ func enter_tavern(ip, port):
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
 	
+### Network Player Registration ###
+
 remote func register_player(id, info):
 	## Register players
 	player_info[id] = info
@@ -62,6 +65,8 @@ func leave_tavern():
 func _server_disconnected():
 	leave_tavern()
 	
+### Tables ###
+	
 func _on_Table_button_up(table_id):
 	join_table(table_id)
 	
@@ -80,10 +85,6 @@ func create_table_scenes():
 		add_child(new_table)
 		new_table.add_to_group("tables")
 
-func _on_Board_button_up():
-	var board_instance = board.instance()
-	add_child(board_instance)
-
 sync func table_join_view(show, id, table_id):
 	if get_tree().get_network_unique_id() == int(id):
 		if show:
@@ -92,7 +93,19 @@ sync func table_join_view(show, id, table_id):
 		else:
 			get_node('Table_'+table_id+'/Join').visible = false
 			get_node('Table_'+table_id+'/Join').disabled = true
+
+func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
+	rpc("table_join_view", true, body.name, table_id)
+
+func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
+	rpc("table_join_view", false, body.name, table_id)
+
+### Bulletin Board ###
 		
+func _on_Board_button_up():
+	var board_instance = board.instance()
+	add_child(board_instance)
+	
 sync func board_view(show, id):
 	if get_tree().get_network_unique_id() == int(id):
 		if show:
@@ -101,13 +114,7 @@ sync func board_view(show, id):
 		else:
 			board_button.visible = false
 			board_button.disabled = true
-
-func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
-	rpc("table_join_view", true, body.name, table_id)
-
-func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
-	rpc("table_join_view", false, body.name, table_id)
-
+			
 func _on_BoardArea_body_entered(body):
 	rpc("board_view", true, body.name)
 
@@ -127,33 +134,7 @@ func _on_PostCheck_request_completed(result, response_code, headers, body):
 	else:
 		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
 
-sync func chat_enter_view(show, id):
-	if show:
-		if id == get_tree().get_network_unique_id():
-			$ChatEnter.visible = true
-			$ChatEnter.grab_focus()
-	else:
-		if id == get_tree().get_network_unique_id():
-			$ChatEnter.visible = false
-			
-func _on_Chat_button_up():
-	rpc("chat_enter_view", true, get_tree().get_network_unique_id())
-
-func _on_ChatEnter_text_entered(new_text):
-	get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
-	$ChatEnter.clear()
-	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
-
-sync func t_chat(msg, table_id):
-	var table_chat = get_node("Table_00"+str(table_id)+"/CanvasLayer/TableChat")
-	table_chat.bbcode_text = ""
-	table_chat.hint_tooltip = msg
-	msg = "[center]"+msg+"[/center]"
-	table_chat.bbcode_text = msg
-	table_chat.get_child().start(5)
-
-func _on_TableChatTimer_timeout():
-	get_parent().clear()
+### Leaving Tavern ###
 
 sync func leave_button_view(show, id):
 	if show:
@@ -173,3 +154,72 @@ func _on_Exit_body_exited(body):
 
 func _on_LeaveButton_button_up():
 	leave_tavern()
+	
+	
+### Tavern Chat ###
+
+sync func chat_enter_view(show, id):
+	if show:
+		if id == get_tree().get_network_unique_id():
+			$ChatEnter.visible = true
+			$ChatEnter.grab_focus()
+	else:
+		if id == get_tree().get_network_unique_id():
+			$ChatEnter.visible = false
+			
+func _on_Chat_button_up():
+	rpc("chat_enter_view", true, get_tree().get_network_unique_id())
+	
+var command_time = false
+var command_param_start = null
+var chat_commands = ['yell']
+
+func slash_commands(text, params):
+	var command = text.split(" ")[0].substr(1, len(text)-1)
+	if chat_commands.has(command):
+		pass
+		call(command, params)
+
+func _on_ChatEnter_text_entered(new_text):
+	if command_time and command_param_start != null:
+		var command_params = new_text.substr(command_param_start, len(new_text)-1)
+		command_params = command_params.split(" ")
+		command_param_start = null # Resets command param
+		slash_commands(new_text, command_params)
+	else:
+		get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
+		$ChatEnter.clear()
+		rpc("chat_enter_view", false, get_tree().get_network_unique_id())
+
+func _on_ChatEnter_text_changed(new_text):
+	if chat_input.text.substr(0,1) == "/":
+		command_time = true
+	else:
+		command_time = false
+	if command_time and new_text.substr(len(new_text)-1, len(new_text)-1) == " " and command_param_start == null:
+		command_param_start = len(chat_input.text)
+
+### Tavern Chat Commands ###
+
+func yell(params):
+	var msg = params.join(" ")
+	var tav_msg = '[color=#ff4f6d]'+msg+'[/color]' ## Increase font or change color to Red maybe?
+	var table_msg = "yells, "+"\""+msg+"\""
+	get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
+	$ChatEnter.clear()
+	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
+	for t in get_tree().get_nodes_in_group("tables"):
+		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
+
+
+### Not currently being implemented - on hold ###
+sync func t_chat(msg, table_id):
+	var table_chat = get_node("Table_00"+str(table_id)+"/CanvasLayer/TableChat")
+	table_chat.bbcode_text = ""
+	table_chat.hint_tooltip = msg
+	msg = "[center]"+msg+"[/center]"
+	table_chat.bbcode_text = msg
+	table_chat.get_child().start(5)
+	
+func _on_TableChatTimer_timeout():
+	get_parent().clear()

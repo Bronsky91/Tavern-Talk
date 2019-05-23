@@ -13,6 +13,8 @@ func _ready():
 	animate.current_animation = 'idle_up'
 	walking(false)
 	
+### Movement ###
+
 func _unhandled_input(event):
 	if event.is_action_pressed('click'):
 		target = get_global_mouse_position()
@@ -71,10 +73,12 @@ func walking(yes):
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 4
 
-sync func receive_tavern_chat(msg, id):
-	get_parent().get_node(str(id)).chat(msg)
+### Chatting ###
 
-func chat(msg):
+sync func receive_tavern_chat(msg, id):
+	get_parent().get_node(str(id)).overhead_chat(msg)
+
+func overhead_chat(msg):
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
 	msg = "[center]"+msg+"[/center]"
