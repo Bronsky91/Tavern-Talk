@@ -1,5 +1,6 @@
 extends Control
 
+onready var menu = get_parent()
 onready var invite_code = $Invite/InviteCode
 onready var new_tavern_name = $Create/NewTavern
 onready var tavern_list = $Visited/TavernList
@@ -8,7 +9,7 @@ var tavern_list_data = []
 var selected_tavern
 
 func _ready():
-	global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns', false)
+	pass
 	
 func _on_AddTavern_button_up():
 	var data = {'code': invite_code.text}
@@ -68,7 +69,7 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 		get_tree().change_scene('Scenes/Tavern.tscn')
 
 func _on_Back_button_up():
-	get_tree().change_scene('Scenes/CharacterSelect.tscn')
+	menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
 	
 func populate_tavern_list(taverns):
 	tavern_list.clear()
@@ -101,3 +102,7 @@ func _on_TavernList_item_selected(index):
 	for t in tavern_list_data:
 		if t.name == t_name:
 			selected_tavern = t
+
+func _on_TavernMenu_visibility_changed():
+	if visible == true:
+		global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns', false)

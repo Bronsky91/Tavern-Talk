@@ -1,5 +1,6 @@
 extends Control
 
+onready var menu = get_parent()
 # listitem node that holds selectable character choices
 onready var character_list = $Characters
 
@@ -7,7 +8,7 @@ var character_list_data = []
 var selected_character = {}
 
 func _ready():
-	global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)
+	pass
 
 func populate_characters(characters):
 	character_list.clear()
@@ -17,15 +18,15 @@ func populate_characters(characters):
 	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
+	print(json)
 	if response_code == 404:
 		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)
-		return
 	else:
 		var characters = json.result.data.characters
 		populate_characters(characters)
 
 func _on_NewCharacterButton_button_up():
-	get_tree().change_scene("Scenes/CharacterCreate.tscn")
+	menu.change_menu_scene(self, menu.get_node('CharacterCreate'))
 
 func _on_Characters_item_selected(index):
 	var c_name = character_list.get_item_text(index)
@@ -39,4 +40,8 @@ func _on_Remove_button_up():
 
 func _on_JoinButton_button_up():
 	global.player_data.character = selected_character
-	get_tree().change_scene("Scenes/TavernMenu.tscn")
+	menu.change_menu_scene(self, menu.get_node('TavernMenu'))
+
+func _on_CharacterSelect_visibility_changed():
+	if visible == true:
+		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)

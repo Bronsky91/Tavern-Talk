@@ -1,5 +1,6 @@
 extends Control
 
+onready var menu = get_parent()
 onready var character_name = $NameLabel/Name
 onready var gender_list = $GenderLabel/Gender
 onready var stat_tree = $Stats/Tree
@@ -56,9 +57,9 @@ func _ready():
 	cha.set_range_config ( 1, 1, 22, 1)
 	cha.set_range (1, 10)
 
-func _on_Create_request_completed(result, response_code, headers, body):\
+func _on_Create_request_completed(result, response_code, headers, body):
 	if response_code == 200:
-		get_tree().change_scene('Scenes/CharacterSelect.tscn')
+		menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
 
 func _on_CreateButton_button_up():
 	var data = {
@@ -77,7 +78,7 @@ func _on_CreateButton_button_up():
 	global.make_patch_request($Create, 'users/' + global.player_data.user_id, data, false)
 
 func _on_Back_button_up():
-	get_tree().change_scene("Scenes/CharacterSelect.tscn")
+	menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
 
 func _on_Gender_item_selected(index):
 	gender = gender_list.get_item_text(index)

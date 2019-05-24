@@ -1,5 +1,6 @@
 extends Control
 
+onready var menu = get_parent()
 onready var email = $EmailLabel/Email
 onready var username = $UsernameLabel/Username
 onready var password = $PasswordLabel/Password
@@ -17,7 +18,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		var json = JSON.parse(body.get_string_from_utf8())
 		global.user_id = json.result.id
 		hide()
-		get_tree().change_scene("Scenes/CharacterSelect.tscn")
+		menu.change_menu_scene(self, menu.get_node("CharacterSelect"))
 
 func _on_Sign_Up_button_up():
 	if (email.text != "" and
@@ -31,4 +32,4 @@ func _on_Sign_Up_button_up():
 		global.make_post_request($HTTPRequest, 'users', data, false)
 
 func _on_Back_button_up():
-	get_tree().change_scene("Scenes/Login.tscn")
+	menu.change_menu_scene(self, menu.get_node("Login"))
