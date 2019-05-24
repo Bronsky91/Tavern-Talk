@@ -1,8 +1,23 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/Table.gd" type="Script" id=1]
+[ext_resource path="res://Resources/Fonts/OpenSans-Italic.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Resources/Fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Resources/Fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=3]
+font_data = ExtResource( 4 )
 
 [node name="Table" type="Node2D"]
+z_index = 6
+z_as_relative = false
 script = ExtResource( 1 )
 
 [node name="ChatInput" type="LineEdit" parent="."]
@@ -12,22 +27,46 @@ margin_right = 358.0
 margin_bottom = 638.0
 caret_blink = true
 
-[node name="ChatDisplay" type="TextEdit" parent="."]
+[node name="ChatDisplay" type="RichTextLabel" parent="."]
 margin_top = 3.0
-margin_right = 265.0
+margin_right = 252.0
 margin_bottom = 581.0
-readonly = true
+focus_mode = 2
+custom_fonts/italics_font = SubResource( 1 )
+custom_fonts/bold_font = SubResource( 2 )
+custom_fonts/normal_font = SubResource( 3 )
+custom_colors/default_color = Color( 0.682353, 0.670588, 0.686275, 1 )
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+override_selected_font_color = true
 
 [node name="Leave" type="Button" parent="."]
-margin_left = 267.79
-margin_top = 4.96737
-margin_right = 354.79
-margin_bottom = 147.967
+margin_left = 253.0
+margin_top = 5.0
+margin_right = 355.0
+margin_bottom = 148.0
 text = "Leave Table"
 
 [node name="PatronList" type="ItemList" parent="."]
-margin_left = 263.0
-margin_top = 150.0
-margin_right = 356.0
-margin_bottom = 581.0
+margin_left = 251.166
+margin_top = 148.166
+margin_right = 360.166
+margin_bottom = 581.166
+
+[node name="AcceptDialog" type="ConfirmationDialog" parent="."]
+margin_left = 93.6711
+margin_top = 234.667
+margin_right = 293.671
+margin_bottom = 314.667
+popup_exclusive = true
+window_title = ""
+
+[node name="Commands" type="Node" parent="."]
+script = ExtResource( 5 )
+[connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
+[connection signal="text_changed" from="ChatInput" to="." method="_on_ChatInput_text_changed"]
+[connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
+[connection signal="item_selected" from="PatronList" to="." method="_on_PatronList_item_selected"]
+[connection signal="confirmed" from="AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]

@@ -48,3 +48,10 @@ func make_delete_request(request, url, data, use_ssl):
 	var query = JSON.print(data)
 	var headers = ["Content-Type: application/json"]
 	request.request(api_url + url, headers, use_ssl, HTTPClient.METHOD_DELETE, query)
+
+func calc_stat_mod(score):
+	if score < 10:
+		return (((score - 10) / 2) + 10) - 10
+	else:
+		return (score - 10) / 2
+		

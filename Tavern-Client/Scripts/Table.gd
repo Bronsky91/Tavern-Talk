@@ -1,5 +1,7 @@
 extends Node2D
 
+export(PackedScene) var armwrestle_node
+
 onready var chat_display = $ChatDisplay
 onready var chat_input = $ChatInput
 onready var cmd = get_node("Commands")
@@ -10,7 +12,7 @@ var current_patrons = []
 var command_time = false
 var command_param_start = null
 
-var chat_commands = ['whisper', 'throw', 'e', 'eb', 'yell']
+var chat_commands = ['whisper', 'throw', 'e', 'eb', 'yell', 'armwrestle']
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -58,8 +60,8 @@ func slash_commands(text, params):
 
 ### Table Patrons ###
 
-sync func set_current_patrons(id, patron_name):
-	var patron = {'id': id, 'name': patron_name}
+sync func set_current_patrons(id, patron_name, stats):
+	var patron = {'id': id, 'name': patron_name, 'stats': stats}
 	current_patrons.append(patron)
 	current_patrons.sort_custom(SortPatronNames, "sort")
 	$PatronList.add_item(patron.name)
@@ -82,6 +84,11 @@ func find_random_patron():
 		find_random_patron()
 	else:
 		return random_patron
+		
+func find_patron_by_name(name):
+	for patron in current_patrons:
+		if patron.name.to_lower() == name.to_lower():
+			return patron
 	
 ### Send and Receive Messages in Chat ###
 
@@ -146,12 +153,37 @@ func _on_Leave_button_up():
 func _on_Table_visibility_changed():
 	if visible == true:
 		rpc("receive_action_message", character_name, "sits at the table")
-		rpc("set_current_patrons", get_tree().get_network_unique_id(), character_name)
+		rpc("set_current_patrons", get_tree().get_network_unique_id(), character_name, global.player_data.character.stats)
 	else:
 		rpc("receive_action_message", character_name, "leaves the table")
 		rpc("remove_patron", get_tree().get_network_unique_id())
 
+### Games ###
+var players = {}
 
+func set_players(p):
+	players = {} # Clears any old players
+	var i = 1
+	for player in p:
+		players[i] = player
+		i += 1
+
+sync func ask_for_aw(player1, player2):
+	set_players([player1, player2])
+	print(players)
+	if character_name != players[1].name:
+		$AcceptDialog.window_title = "Arm Wrestle!"
+		$AcceptDialog.dialog_text = "Accept Arm Wrestle from "+players[1].name.capitalize()+"?"
+		$AcceptDialog.popup_centered()
+
+sync func armwrestle(player1, player2):
+	var aw_node = armwrestle_node.instance()
+	aw_node.initiate(player1, player2)
+	aw_node.z_index = 6
+	add_child(aw_node)
+
+func _on_AcceptDialog_confirmed():
+	rpc("armwrestle", players[1], players[2])
 
 ### Patron List at Table ###
 
@@ -164,3 +196,5 @@ func _on_Table_visibility_changed():
 	#chat_input.text = command
 	#chat_input.grab_focus()
 	#chat_input.caret_position = len(command)
+
+

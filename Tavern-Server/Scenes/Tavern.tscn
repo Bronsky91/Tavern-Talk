@@ -5,20 +5,19 @@
 [ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/furniture/Bar_001.png" type="Texture" id=5]
-[ext_resource path="res://Assets/furniture/BulletinBoard_001.png" type="Texture" id=6]
-[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=7]
-[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=8]
-[ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=9]
-[ext_resource path="res://Assets/furniture/Stool_001.png" type="Texture" id=10]
-[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=11]
-[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=12]
+[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=6]
+[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=7]
+[ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=8]
+[ext_resource path="res://Assets/furniture/Stool_001.png" type="Texture" id=9]
+[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=10]
+[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=11]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 41.5271, 32.6797 )
 
 [sub_resource type="TileSet" id=2]
 0/name = "Wall_001.png 0"
-0/texture = ExtResource( 7 )
+0/texture = ExtResource( 6 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -30,7 +29,7 @@ extents = Vector2( 41.5271, 32.6797 )
 
 [sub_resource type="TileSet" id=3]
 0/name = "Flooring_001.png 0"
-0/texture = ExtResource( 8 )
+0/texture = ExtResource( 7 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 32 )
@@ -48,6 +47,9 @@ extents = Vector2( 55.0573, 23.9064 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 58.8055, 25.0987 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 35.8139, 10.6617 )
 
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
@@ -67,7 +69,6 @@ texture = ExtResource( 5 )
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 6 )
 
 [node name="BoardButton" type="Button" parent="Board"]
 visible = false
@@ -75,7 +76,6 @@ margin_left = -29.0
 margin_top = -8.0
 margin_right = 28.0
 margin_bottom = 20.0
-disabled = true
 text = "View"
 flat = true
 
@@ -85,6 +85,8 @@ editor/display_folded = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Board/BoardArea"]
 position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 1 )
+
+[node name="PostCheck" type="HTTPRequest" parent="Board"]
 
 [node name="Wall" type="TileMap" parent="."]
 z_as_relative = false
@@ -102,37 +104,36 @@ format = 1
 tile_data = PoolIntArray( 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 327680, 0, 0, 327681, 0, 0, 327682, 0, 0, 327683, 0, 0, 327684, 0, 0, 327685, 0, 0, 393216, 0, 0, 393217, 0, 0, 393218, 0, 0, 393219, 0, 0, 393220, 0, 0, 393221, 0, 0, 458752, 0, 0, 458753, 0, 0, 458754, 0, 0, 458755, 0, 0, 458756, 0, 0, 458757, 0, 0, 524288, 0, 0, 524289, 0, 0, 524290, 0, 0, 524291, 0, 0, 524292, 0, 0, 524293, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 655360, 0, 0, 655361, 0, 0, 655362, 0, 0, 655363, 0, 0, 655364, 0, 0, 655365, 0, 0, 720896, 0, 0, 720897, 0, 0, 720898, 0, 0, 720899, 0, 0, 720900, 0, 0, 720901, 0, 0, 786432, 0, 0, 786433, 0, 0, 786434, 0, 0, 786435, 0, 0, 786436, 0, 0, 786437, 0, 0, 851968, 0, 0, 851969, 0, 0, 851970, 0, 0, 851971, 0, 0, 851972, 0, 0, 851973, 0, 0, 917504, 0, 0, 917505, 0, 0, 917506, 0, 0, 917507, 0, 0, 917508, 0, 0, 917509, 0, 0, 983040, 0, 0, 983041, 0, 0, 983042, 0, 0, 983043, 0, 0, 983044, 0, 0, 983045, 0, 0, 1048576, 0, 0, 1048577, 0, 0, 1048578, 0, 0, 1048579, 0, 0, 1048580, 0, 0, 1048581, 0, 0, 1114112, 0, 0, 1114113, 0, 0, 1114114, 0, 0, 1114115, 0, 0, 1114116, 0, 0, 1114117, 0, 0, 1179648, 0, 0, 1179649, 0, 0, 1179650, 0, 0, 1179651, 0, 0, 1179652, 0, 0, 1179653, 0, 0, 1245184, 0, 0, 1245185, 0, 0, 1245186, 0, 0, 1245187, 0, 0, 1245188, 0, 0, 1245189, 0, 0 )
 
 [node name="Table_001" type="Sprite" parent="."]
-editor/display_folded = true
 position = Vector2( 90, 304.133 )
 z_index = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_001" type="Sprite" parent="Table_001"]
 position = Vector2( -41.2019, 30.7269 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_002" type="Sprite" parent="Table_001"]
 position = Vector2( -6.98337, 31.4252 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_003" type="Sprite" parent="Table_001"]
 position = Vector2( 23, 31 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_004" type="Sprite" parent="Table_001"]
 position = Vector2( -40, -24 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_006" type="Sprite" parent="Table_001"]
 position = Vector2( 23, -24 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_005" type="Sprite" parent="Table_001"]
 position = Vector2( -10, -24.1331 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Join" type="Button" parent="Table_001"]
 visible = false
@@ -144,44 +145,58 @@ text = "Join Table"
 flat = true
 
 [node name="Area2D" type="Area2D" parent="Table_001"]
+visible = false
 position = Vector2( -56.9892, -24.6309 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Table_001/Area2D"]
 position = Vector2( 44.4322, 18.3524 )
 shape = SubResource( 4 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Table_001"]
+
+[node name="TableChat" type="RichTextLabel" parent="Table_001/CanvasLayer"]
+margin_left = 21.0142
+margin_top = 255.897
+margin_right = 134.014
+margin_bottom = 305.897
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+
+[node name="TableChatTimer" type="Timer" parent="Table_001/CanvasLayer/TableChat"]
+
 [node name="Table_002" type="Sprite" parent="."]
 editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
 [node name="Stool_001" type="Sprite" parent="Table_002"]
 position = Vector2( -41.2019, 30.7269 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_002" type="Sprite" parent="Table_002"]
 position = Vector2( -6.98337, 31.4252 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_003" type="Sprite" parent="Table_002"]
 position = Vector2( 23, 31 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_004" type="Sprite" parent="Table_002"]
 position = Vector2( -40, -24.8669 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_006" type="Sprite" parent="Table_002"]
 position = Vector2( 23, -24.867 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_005" type="Sprite" parent="Table_002"]
 position = Vector2( -10, -24.8669 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Join" type="Button" parent="Table_002"]
 visible = false
@@ -199,38 +214,51 @@ editor/display_folded = true
 position = Vector2( -13.0399, -8.21027 )
 shape = SubResource( 5 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Table_002"]
+
+[node name="TableChat" type="RichTextLabel" parent="Table_002/CanvasLayer"]
+margin_left = 212.771
+margin_top = 319.095
+margin_right = 325.771
+margin_bottom = 369.095
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+
+[node name="TableChatTimer" type="Timer" parent="Table_002/CanvasLayer/TableChat"]
+
 [node name="Table_003" type="Sprite" parent="."]
 editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
-texture = ExtResource( 11 )
+texture = ExtResource( 10 )
 
 [node name="Stool_001" type="Sprite" parent="Table_003"]
 position = Vector2( -39.1069, 31.4252 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_002" type="Sprite" parent="Table_003"]
 position = Vector2( -6.98331, 32.1235 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_003" type="Sprite" parent="Table_003"]
 position = Vector2( 23.7435, 33.5202 )
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_004" type="Sprite" parent="Table_003"]
 position = Vector2( 27.2352, -33.5203 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_005" type="Sprite" parent="Table_003"]
 position = Vector2( -43.2969, -33.5203 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Stool_006" type="Sprite" parent="Table_003"]
 position = Vector2( -7.6817, -33.5203 )
 z_as_relative = false
-texture = ExtResource( 10 )
+texture = ExtResource( 9 )
 
 [node name="Join" type="Button" parent="Table_003"]
 visible = false
@@ -247,24 +275,76 @@ flat = true
 position = Vector2( -11.591, -7.24438 )
 shape = SubResource( 6 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="Table_003"]
+
+[node name="TableChat" type="RichTextLabel" parent="Table_003/CanvasLayer"]
+margin_left = 21.0142
+margin_top = 440.728
+margin_right = 134.014
+margin_bottom = 490.728
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+
+[node name="TableChatTimer" type="Timer" parent="Table_003/CanvasLayer/TableChat"]
+
 [node name="WallBar_001" type="Sprite" parent="."]
 position = Vector2( 180, 60 )
 scale = Vector2( 1, 0.973451 )
 z_as_relative = false
-texture = ExtResource( 12 )
+texture = ExtResource( 11 )
 
 [node name="Entrance" type="Position2D" parent="."]
-position = Vector2( 190, 620 )
+position = Vector2( 189.523, 631.355 )
+
+[node name="Chat" type="Button" parent="."]
+margin_left = 320.0
+margin_top = 620.0
+margin_right = 360.0
+margin_bottom = 640.0
+text = "Chat"
+
+[node name="ChatEnter" type="LineEdit" parent="."]
+visible = false
+margin_left = 210.0
+margin_top = 616.0
+margin_right = 318.0
+margin_bottom = 640.0
+
+[node name="Exit" type="Area2D" parent="."]
+position = Vector2( 189.506, 632.58 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
+position = Vector2( -0.17305, -4.15582 )
+shape = SubResource( 7 )
+
+[node name="LeaveButton" type="Button" parent="Exit"]
+margin_left = -138.704
+margin_top = -15.3729
+margin_right = -37.7045
+margin_bottom = 4.62714
+text = "Leave Tavern?"
+flat = true
 [connection signal="request_completed" from="EnterTavern" to="." method="_on_EnterTavern_request_completed"]
 [connection signal="button_up" from="Board/BoardButton" to="." method="_on_Board_button_up"]
 [connection signal="body_entered" from="Board/BoardArea" to="." method="_on_BoardArea_body_entered"]
 [connection signal="body_exited" from="Board/BoardArea" to="." method="_on_BoardArea_body_exited"]
+[connection signal="request_completed" from="Board/PostCheck" to="." method="_on_PostCheck_request_completed"]
 [connection signal="button_up" from="Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="body_shape_entered" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "001" ]]
 [connection signal="body_shape_exited" from="Table_001/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "001" ]]
+[connection signal="timeout" from="Table_001/CanvasLayer/TableChat/TableChatTimer" to="." method="_on_TableChatTimer_timeout"]
 [connection signal="button_up" from="Table_002/Join" to="." method="_on_Table_button_up" binds= [ 2 ]]
 [connection signal="body_shape_entered" from="Table_002/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "002" ]]
 [connection signal="body_shape_exited" from="Table_002/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "002" ]]
+[connection signal="timeout" from="Table_002/CanvasLayer/TableChat/TableChatTimer" to="." method="_on_TableChatTimer_timeout"]
 [connection signal="button_up" from="Table_003/Join" to="." method="_on_Table_button_up" binds= [ 3 ]]
 [connection signal="body_shape_entered" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_entered" binds= [ "003" ]]
 [connection signal="body_shape_exited" from="Table_003/Area2D" to="." method="_on_Area2D_body_shape_exited" binds= [ "003" ]]
+[connection signal="timeout" from="Table_003/CanvasLayer/TableChat/TableChatTimer" to="." method="_on_TableChatTimer_timeout"]
+[connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
+[connection signal="text_changed" from="ChatEnter" to="." method="_on_ChatEnter_text_changed"]
+[connection signal="text_entered" from="ChatEnter" to="." method="_on_ChatEnter_text_entered"]
+[connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
+[connection signal="body_exited" from="Exit" to="." method="_on_Exit_body_exited"]
+[connection signal="button_up" from="Exit/LeaveButton" to="." method="_on_LeaveButton_button_up"]
