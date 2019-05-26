@@ -27,4 +27,4 @@ func login():
 	global.make_post_request($HTTPRequest, 'login', data, false)
 
 func _on_Register_button_up():
-	menu.change_menu_scene(self, $Register)
+	menu.change_menu_scene(self, menu.get_node("Register"))

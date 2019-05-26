@@ -1,7 +1,9 @@
 extends Control
 
+onready var animate = $AnimationPlayer
+
 func _ready():
-	pass
+	animate.current_animation = 'sign_swing'
 
 func change_menu_scene(current_scene, new_scene):
 	current_scene.visible = false

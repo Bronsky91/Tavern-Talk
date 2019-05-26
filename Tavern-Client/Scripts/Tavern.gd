@@ -21,7 +21,6 @@ func _ready():
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
 
 func user_exited(id):
-	print('exited')
 	get_node(str(id)).queue_free()
 	player_info.erase(id) # Erase player from info.
 	
@@ -84,6 +83,7 @@ func create_table_scenes():
 		new_table.hide()
 		add_child(new_table)
 		new_table.add_to_group("tables")
+		# 
 
 sync func table_join_view(show, id, table_id):
 	if get_tree().get_network_unique_id() == int(id):

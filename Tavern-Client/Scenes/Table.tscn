@@ -30,9 +30,10 @@ margin_bottom = 638.0
 caret_blink = true
 
 [node name="ChatDisplay" type="RichTextLabel" parent="."]
-margin_top = 3.0
-margin_right = 252.0
-margin_bottom = 581.0
+margin_left = 0.701477
+margin_top = 1.59709
+margin_right = 252.701
+margin_bottom = 579.597
 focus_mode = 2
 custom_fonts/italics_font = SubResource( 1 )
 custom_fonts/bold_font = SubResource( 2 )
@@ -51,9 +52,9 @@ margin_bottom = 148.0
 text = "Leave Table"
 
 [node name="PatronList" type="ItemList" parent="."]
-margin_left = 251.166
+margin_left = 248.36
 margin_top = 148.166
-margin_right = 360.166
+margin_right = 357.36
 margin_bottom = 581.166
 
 [node name="Commands" type="Node" parent="."]
@@ -61,10 +62,11 @@ script = ExtResource( 6 )
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="."]
 visible = true
-margin_left = 93.6711
-margin_top = 234.667
-margin_right = 293.671
-margin_bottom = 314.667
+margin_left = 26.8036
+margin_top = 235.983
+margin_right = 326.804
+margin_bottom = 375.983
+rect_min_size = Vector2( 300, 140 )
 popup_exclusive = true
 window_title = ""
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]

@@ -1,0 +1,41 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/CreateTavern.gd" type="Script" id=1]
+
+[node name="CreateTavern" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[node name="Title" type="Label" parent="."]
+margin_left = 120.875
+margin_top = 249.721
+margin_right = 244.875
+margin_bottom = 280.721
+text = "Create New Tavern
+"
+
+[node name="NewTavern" type="LineEdit" parent="Title"]
+margin_left = -5.0
+margin_top = 32.0
+margin_right = 125.0
+margin_bottom = 63.0
+
+[node name="CreateTavern" type="Button" parent="Title"]
+margin_left = 8.4227
+margin_top = 84.7667
+margin_right = 111.423
+margin_bottom = 112.767
+text = "Create"
+
+[node name="HTTPRequestCreate" type="HTTPRequest" parent="."]
+
+[node name="Back" type="Button" parent="."]
+margin_left = 15.828
+margin_top = 92.4666
+margin_right = 69.828
+margin_bottom = 112.467
+text = "Back"
+[connection signal="button_up" from="Title/CreateTavern" to="." method="_on_CreateTavern_button_up"]
+[connection signal="request_completed" from="HTTPRequestCreate" to="." method="_on_HTTPRequestCreate_request_completed"]
+[connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]

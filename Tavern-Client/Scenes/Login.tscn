@@ -42,10 +42,10 @@ margin_bottom = 347.642
 text = "Sign In"
 
 [node name="Register" type="Button" parent="."]
-margin_left = 128.449
-margin_top = 457.12
-margin_right = 244.449
-margin_bottom = 496.12
+margin_left = 127.748
+margin_top = 399.6
+margin_right = 243.748
+margin_bottom = 438.6
 text = "Register"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]

@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/TavernMenu.gd" type="Script" id=1]
+
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [node name="TavernMenu" type="Control"]
 anchor_right = 1.0
@@ -12,55 +14,26 @@ margin_bottom = -0.840088
 script = ExtResource( 1 )
 
 [node name="Invite" type="Label" parent="."]
-margin_left = 135.04
-margin_top = 302.119
-margin_right = 216.04
-margin_bottom = 329.12
+margin_left = 135.148
+margin_top = 375.733
+margin_right = 216.148
+margin_bottom = 402.734
 text = "Invite Code:"
 
 [node name="InviteCode" type="LineEdit" parent="Invite"]
-margin_left = -40.7868
-margin_top = 26.5594
-margin_right = 128.213
-margin_bottom = 66.5594
+margin_left = -40.0702
+margin_top = 22.9762
+margin_right = 128.93
+margin_bottom = 62.9762
 
 [node name="AddTavern" type="Button" parent="Invite"]
-margin_left = -28.0
-margin_top = 82.0
-margin_right = 107.0
-margin_bottom = 127.0
+margin_left = -19.8295
+margin_top = 75.5503
+margin_right = 112.17
+margin_bottom = 110.55
 text = "Add Tavern"
 
-[node name="Create" type="Label" parent="."]
-margin_left = 111.775
-margin_top = 460.636
-margin_right = 230.775
-margin_bottom = 474.636
-text = "No Code (Friends)?"
-
-[node name="NewTavern" type="LineEdit" parent="Create"]
-margin_left = -15.8601
-margin_top = 37.261
-margin_right = 142.14
-margin_bottom = 74.261
-placeholder_text = "Tavern Name..."
-
-[node name="CreateTavern" type="Button" parent="Create"]
-margin_left = -11.0
-margin_top = 97.0
-margin_right = 131.0
-margin_bottom = 149.0
-text = "Create Tavern"
-
-[node name="Code" type="Label" parent="Create"]
-margin_left = 8.77014
-margin_top = 191.521
-margin_right = 121.77
-margin_bottom = 218.521
-
 [node name="HTTPRequestEnter" type="HTTPRequest" parent="."]
-
-[node name="HTTPRequestCreate" type="HTTPRequest" parent="."]
 
 [node name="HTTPRequestTaverns" type="HTTPRequest" parent="."]
 
@@ -69,37 +42,48 @@ margin_bottom = 218.521
 [node name="HTTPRequestTavernCheck" type="HTTPRequest" parent="."]
 
 [node name="Back" type="Button" parent="."]
-margin_left = 6.0
-margin_top = 9.0
-margin_right = 46.0
-margin_bottom = 33.0
+margin_left = 8.1499
+margin_top = 80.5944
+margin_right = 50.1499
+margin_bottom = 104.594
 text = "Back"
 
 [node name="Visited" type="Label" parent="."]
-margin_left = 119.036
-margin_top = 29.4344
-margin_right = 237.036
-margin_bottom = 43.4344
+margin_left = 114.469
+margin_top = 179.341
+margin_right = 232.469
+margin_bottom = 198.341
 text = "Previously Visited:"
 
 [node name="TavernList" type="ItemList" parent="Visited"]
-margin_left = -30.0
-margin_top = 29.0
-margin_right = 149.0
-margin_bottom = 189.0
+margin_left = -10.0
+margin_top = 37.0
+margin_right = 129.0
+margin_bottom = 116.0
+custom_styles/bg = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+same_column_width = true
+fixed_column_width = 140
+icon_mode = 0
 
 [node name="Enter" type="Button" parent="Visited"]
-margin_left = -8.22433
-margin_top = 202.145
-margin_right = 126.776
-margin_bottom = 247.145
+margin_left = -7.54228
+margin_top = 130.899
+margin_right = 127.458
+margin_bottom = 175.899
 text = "Enter Tavern"
+
+[node name="Create" type="Button" parent="."]
+margin_left = 103.423
+margin_top = 517.828
+margin_right = 252.423
+margin_bottom = 567.828
+text = "Create New Tavern"
 [connection signal="button_up" from="Invite/AddTavern" to="." method="_on_AddTavern_button_up"]
-[connection signal="button_up" from="Create/CreateTavern" to="." method="_on_CreateTavern_button_up"]
 [connection signal="request_completed" from="HTTPRequestEnter" to="." method="_on_HTTPRequestEnter_request_completed"]
-[connection signal="request_completed" from="HTTPRequestCreate" to="." method="_on_HTTPRequestCreate_request_completed"]
 [connection signal="request_completed" from="HTTPRequestTaverns" to="." method="_on_HTTPRequestTaverns_request_completed"]
 [connection signal="request_completed" from="HTTPRequestTavernCheck" to="." method="_on_HTTPRequestTavernCheck_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
 [connection signal="item_selected" from="Visited/TavernList" to="." method="_on_TavernList_item_selected"]
 [connection signal="button_up" from="Visited/Enter" to="." method="_on_Enter_button_up"]
+[connection signal="button_up" from="Create" to="." method="_on_Create_button_up"]

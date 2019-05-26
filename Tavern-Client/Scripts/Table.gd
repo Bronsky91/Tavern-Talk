@@ -60,7 +60,7 @@ func slash_commands(text, params):
 
 ### Table Patrons ###
 
-sync func set_current_patrons(id, patron_name, stats):
+sync func set_patron(id, patron_name, stats):
 	var patron = {'id': id, 'name': patron_name, 'stats': stats}
 	current_patrons.append(patron)
 	current_patrons.sort_custom(SortPatronNames, "sort")
@@ -153,7 +153,7 @@ func _on_Leave_button_up():
 func _on_Table_visibility_changed():
 	if visible == true:
 		rpc("receive_action_message", character_name, "sits at the table")
-		rpc("set_current_patrons", get_tree().get_network_unique_id(), character_name, global.player_data.character.stats)
+		rpc("set_patron", get_tree().get_network_unique_id(), character_name, global.player_data.character.stats)
 	else:
 		rpc("receive_action_message", character_name, "leaves the table")
 		rpc("remove_patron", get_tree().get_network_unique_id())
