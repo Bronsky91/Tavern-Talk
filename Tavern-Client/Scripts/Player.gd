@@ -33,7 +33,7 @@ puppet func update_pos(id, pos, tar, animation):
 func _physics_process(delta):
 	if is_network_master():
 		velocity = (target - position).normalized() * speed
-		if (target - position).length() > 5: 
+		if (target - position).length() > 30: 
 			move_and_slide(velocity)
 			walking(true)
 			if velocity.angle() > -2 and velocity.angle() < -1:

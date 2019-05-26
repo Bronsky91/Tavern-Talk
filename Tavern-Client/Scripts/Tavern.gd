@@ -8,7 +8,7 @@ var character_name = null
 var player_info = {}
 
 onready var entrance = $Entrance
-onready var board_button = $Board/BoardButton
+onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $ChatEnter
 
 func _ready():
@@ -45,6 +45,7 @@ remote func register_player(id, info):
 remote func configure_player():
 	# Load other characters
 	for p in player_info:
+		print(str(p))
 		if not get_node_or_null(str(p)):
 			var new_player = player.instance()
 			if player_info[p].position == null:
@@ -54,7 +55,7 @@ remote func configure_player():
 			new_player.gender = player_info[p].character.gender
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
-			add_child(new_player)
+			$YSort.add_child(new_player)
 	
 func leave_tavern():
 	get_tree().set_network_peer(null)
@@ -88,11 +89,11 @@ func create_table_scenes():
 sync func table_join_view(show, id, table_id):
 	if get_tree().get_network_unique_id() == int(id):
 		if show:
-			get_node('Table_'+table_id+'/Join').visible = true
-			get_node('Table_'+table_id+'/Join').disabled = false
+			get_node('YSort/Table_'+table_id+'/Join').visible = true
+			get_node('YSort/Table_'+table_id+'/Join').disabled = false
 		else:
-			get_node('Table_'+table_id+'/Join').visible = false
-			get_node('Table_'+table_id+'/Join').disabled = true
+			get_node('YSort/Table_'+table_id+'/Join').visible = false
+			get_node('YSort/Table_'+table_id+'/Join').disabled = true
 
 func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
 	rpc("table_join_view", true, body.name, table_id)
@@ -122,15 +123,15 @@ func _on_BoardArea_body_exited(body):
 	rpc( "board_view", false, body.name)
 	
 func update_board_texture():
-	global.make_get_request($Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board', false)
+	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board', false)
 
 func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var post_number = len(json.result.data)
 	if post_number == 0:
-		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
+		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
 	elif post_number < 6:
-		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_002.png"))
+		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_002.png"))
 	else:
 		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
 
@@ -223,3 +224,7 @@ sync func t_chat(msg, table_id):
 	
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
+
+
+func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
+	print(area.get_parent().name)
