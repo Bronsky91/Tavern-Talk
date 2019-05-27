@@ -7,7 +7,7 @@
 [ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=5]
 [ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=6]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 length = 1.28
 loop = true
 step = 0.7
@@ -34,39 +34,39 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 18, 19, 20, 21, 22, 23 ]
+}
+
+[sub_resource type="Animation" id=2]
+length = 1.28
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Body:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15, 16, 17 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Body/Hair:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15, 16, 17 ]
 }
 
 [sub_resource type="Animation" id=3]
 length = 1.28
 loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 12, 13, 14, 15, 16, 17 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/Hair:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 12, 13, 14, 15, 16, 17 ]
-}
-
-[sub_resource type="Animation" id=4]
-length = 1.28
-loop = true
 step = 0.7
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:frame")
@@ -93,7 +93,7 @@ tracks/1/keys = {
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 12.0901
 height = 42.8873
 
@@ -126,10 +126,10 @@ anims/idle_down = ExtResource( 2 )
 anims/idle_left = ExtResource( 3 )
 anims/idle_right = ExtResource( 4 )
 anims/idle_up = ExtResource( 5 )
-anims/walk_down = SubResource( 2 )
+anims/walk_down = SubResource( 1 )
 anims/walk_left = ExtResource( 6 )
-anims/walk_right = SubResource( 3 )
-anims/walk_up = SubResource( 4 )
+anims/walk_right = SubResource( 2 )
+anims/walk_up = SubResource( 3 )
 
 [node name="FullBody" type="Area2D" parent="."]
 collision_layer = 2
@@ -137,7 +137,7 @@ collision_mask = 2
 
 [node name="SoftCollision" type="CollisionShape2D" parent="FullBody"]
 position = Vector2( 0, -0.669907 )
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="ChatBubble" type="RichTextLabel" parent="."]
 margin_left = -50.0

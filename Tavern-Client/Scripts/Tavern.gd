@@ -84,7 +84,7 @@ func create_table_scenes():
 		new_table.hide()
 		add_child(new_table)
 		new_table.add_to_group("tables")
-		# 
+
 
 sync func table_join_view(show, id, table_id):
 	if get_tree().get_network_unique_id() == int(id):
@@ -95,11 +95,11 @@ sync func table_join_view(show, id, table_id):
 			get_node('YSort/Table_'+table_id+'/Join').visible = false
 			get_node('YSort/Table_'+table_id+'/Join').disabled = true
 
-func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
-	rpc("table_join_view", true, body.name, table_id)
-
-func _on_Area2D_body_shape_exited(body_id, body, body_shape, area_shape, table_id):
-	rpc("table_join_view", false, body.name, table_id)
+func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape, table_id):
+	rpc("table_join_view", true, area.get_parent().name, table_id)
+	
+func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_id):
+	rpc("table_join_view", false, area.get_parent().name, table_id)
 
 ### Bulletin Board ###
 		
@@ -115,12 +115,12 @@ sync func board_view(show, id):
 		else:
 			board_button.visible = false
 			board_button.disabled = true
-			
-func _on_BoardArea_body_entered(body):
-	rpc("board_view", true, body.name)
 
-func _on_BoardArea_body_exited(body):
-	rpc( "board_view", false, body.name)
+func _on_BoardArea_area_shape_entered(area_id, area, area_shape, self_shape):
+	rpc("board_view", true, area.get_parent().name)
+
+func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
+	rpc("board_view", true, area.get_parent().name)
 	
 func update_board_texture():
 	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board', false)
@@ -188,7 +188,7 @@ func _on_ChatEnter_text_entered(new_text):
 		command_param_start = null # Resets command param
 		slash_commands(new_text, command_params)
 	else:
-		get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
+		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
 		$ChatEnter.clear()
 		rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 
@@ -225,6 +225,3 @@ sync func t_chat(msg, table_id):
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
 
-
-func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape):
-	print(area.get_parent().name)
