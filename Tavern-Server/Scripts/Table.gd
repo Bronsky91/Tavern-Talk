@@ -21,6 +21,17 @@ func _ready():
 	
 func assign(_table_id):
 	table_id = _table_id
+	
+func get_current_patrons():
+	## Helper for other nodes
+	return current_patrons
+	
+func get_table_id():
+	return table_id
+
+func set_table_patrons(patron_list):
+	for p in patron_list:
+		set_patron(p.id, p.name, p.stats)
 
 func _on_ChatInput_text_entered(new_text):
 	if command_time and command_param_start != null:
@@ -74,8 +85,10 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 	else:
 		chat_display.text += c_name + " whispers to " + r_name + "\n"
 
-sync func set_current_patrons(id, patron_name):
-	var patron = {'id': id, 'name': patron_name}
+### Table Patrons ###
+
+sync func set_patron(id, patron_name, stats):
+	var patron = {'id': id, 'name': patron_name, 'stats': stats}
 	current_patrons.append(patron)
 	current_patrons.sort_custom(SortPatronNames, "sort")
 	$PatronList.add_item(patron.name)

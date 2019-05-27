@@ -31,7 +31,7 @@ func enter_tavern(ip, port):
 
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
-	
+	rpc_id(0, "register_tables")
 ### Network Player Registration ###
 
 remote func register_player(id, info):
@@ -42,16 +42,13 @@ remote func register_player(id, info):
 			rpc_id(id, "register_player", peer_id, player_info[peer_id])
 	rpc("configure_player")
 	
-remote func register_tables(id, table):
-	if not get_tree().is_network_server():
-		for patron in table:
-			table.set_patron(patron)
-	if get_tree().is_network_server():
-		for t in get_tree().get_nodes_in_group("tables"):
-			var patrons
-			patrons = t.get_current_patrons()
-			for peer_id in player_info:
-				rpc_id(id, "register_tables", peer_id, patrons)
+remote func register_tables(tables=null):
+	print('tables ')
+	print(tables)
+	for t in get_tree().get_nodes_in_group("tables"):
+		for tb in tables:
+			if tb.id == t.get_table_id():
+				t.set_table_patrons(tb.patrons)
 
 remote func configure_player():
 	# Load other characters

@@ -29,6 +29,7 @@ func _ready():
 	port = 3000
 	tavern_code = "jLRYB"
 	host_tavern(port)
+	create_table_scenes()
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
 	global.make_post_request($EnterTavern, 'tavern/enter', {"code": tavern_code}, false)
 	
@@ -43,12 +44,11 @@ func leave_tavern():
 
 func user_exited(id):
 	print('exited')
-	get_node(str(id)).queue_free()
+	get_node("YSort/"+str(id)).queue_free()
 	player_info.erase(id) # Erase player from info.
 	
 remote func register_player(id, info):
 	## Register players
-	print(id)
 	player_info[id] = info
 	if get_tree().is_network_server():
 		for peer_id in player_info:
@@ -56,16 +56,15 @@ remote func register_player(id, info):
 			rpc("register_player", peer_id, player_info[peer_id])
 	rpc("configure_player")
 	
-remote func register_tables(id, table):
-	if not get_tree().is_network_server():
-		for patron in table:
-			table.set_patron(patron)
+remote func register_tables(tables=null):
 	if get_tree().is_network_server():
+		var tables_list = []
 		for t in get_tree().get_nodes_in_group("tables"):
-			var patrons
-			patrons = t.get_current_patrons()
-			for peer_id in player_info:
-				rpc_id(id, "register_tables", peer_id, patrons)
+			var table_dict = {}
+			table_dict['patrons'] = t.get_current_patrons()
+			table_dict['id'] = t.get_table_id()
+			tables_list.append(table_dict)
+		rpc_id(get_tree().get_rpc_sender_id(), "register_tables", tables_list)
 
 remote func configure_player():
 	# Load other characters

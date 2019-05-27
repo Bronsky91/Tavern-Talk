@@ -30,7 +30,14 @@ func assign(_table_id):
 func get_current_patrons():
 	## Helper for other nodes
 	return current_patrons
+	
+func get_table_id():
+	return table_id
 
+func set_table_patrons(patron_list):
+	for p in patron_list:
+		set_patron(p.id, p.name, p.stats)
+		
 ### Text input and commands ###
 
 func new_line():
