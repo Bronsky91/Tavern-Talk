@@ -20,16 +20,16 @@ extents = Vector2( 90.4676, 21.1664 )
 extents = Vector2( 18.7686, 32.5031 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 55.3891, 24.1373 )
+extents = Vector2( 72.557, 37.8545 )
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 57.553, 14.4354 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 55.0573, 23.9064 )
+extents = Vector2( 73.0399, 41.7897 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 58.8055, 25.0987 )
+extents = Vector2( 74.2727, 42.7556 )
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 41.5271, 32.6797 )
@@ -93,7 +93,6 @@ position = Vector2( -79.7709, -22.9407 )
 shape = SubResource( 2 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 90, 304.133 )
 z_index = 1
 texture = ExtResource( 6 )
@@ -164,7 +163,6 @@ position = Vector2( -13.5558, -3.12827 )
 shape = SubResource( 4 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 6 )
@@ -234,7 +232,6 @@ position = Vector2( -2.08551, 28.1544 )
 shape = SubResource( 4 )
 
 [node name="Table_003" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
 texture = ExtResource( 8 )
@@ -324,7 +321,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 7 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]

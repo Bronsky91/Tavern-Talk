@@ -70,8 +70,7 @@ remote func register_tables(id, table):
 remote func configure_player():
 	# Load other characters
 	for p in player_info:
-		print('p :'+str(p))
-		if not get_node_or_null(str(p)):
+		if not $YSort.get_node_or_null(str(p)):
 			var new_player = player.instance()
 			if player_info[p].position == null:
 				new_player.position = entrance.position
@@ -79,7 +78,7 @@ remote func configure_player():
 				new_player.position = player_info[p].position
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
-			add_child(new_player)
+			$YSort.add_child(new_player)
 		
 func _server_disconnected():
 	leave_tavern()

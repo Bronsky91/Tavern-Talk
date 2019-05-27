@@ -56,7 +56,7 @@ remote func register_tables(id, table):
 remote func configure_player():
 	# Load other characters
 	for p in player_info:
-		if not get_node_or_null(str(p)):
+		if not $YSort.get_node_or_null(str(p)):
 			var new_player = player.instance()
 			if player_info[p].position == null:
 				new_player.position = entrance.position
