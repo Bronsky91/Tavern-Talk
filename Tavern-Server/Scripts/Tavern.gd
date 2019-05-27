@@ -55,6 +55,17 @@ remote func register_player(id, info):
 			print('peer_id: '+str(peer_id))
 			rpc("register_player", peer_id, player_info[peer_id])
 	rpc("configure_player")
+	
+remote func register_tables(id, table):
+	if not get_tree().is_network_server():
+		for patron in table:
+			table.set_patron(patron)
+	if get_tree().is_network_server():
+		for t in get_tree().get_nodes_in_group("tables"):
+			var patrons
+			patrons = t.get_current_patrons()
+			for peer_id in player_info:
+				rpc_id(id, "register_tables", peer_id, patrons)
 
 remote func configure_player():
 	# Load other characters

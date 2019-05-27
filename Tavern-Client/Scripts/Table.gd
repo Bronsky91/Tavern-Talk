@@ -159,6 +159,7 @@ func _on_Table_visibility_changed():
 		rpc("remove_patron", get_tree().get_network_unique_id())
 
 ### Games ###
+
 var players = {}
 
 func set_players(p):
@@ -170,7 +171,6 @@ func set_players(p):
 
 sync func ask_for_aw(player1, player2):
 	set_players([player1, player2])
-	print(players)
 	if character_name != players[1].name:
 		$AcceptDialog.window_title = "Arm Wrestle!"
 		$AcceptDialog.dialog_text = "Accept Arm Wrestle from "+players[1].name.capitalize()+"?"
@@ -184,6 +184,7 @@ sync func armwrestle(player1, player2):
 
 func _on_AcceptDialog_confirmed():
 	rpc("armwrestle", players[1], players[2])
+
 
 ### Patron List at Table ###
 
