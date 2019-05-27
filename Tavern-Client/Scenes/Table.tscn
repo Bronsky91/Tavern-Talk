@@ -60,8 +60,9 @@ margin_bottom = 581.166
 [node name="Commands" type="Node" parent="."]
 script = ExtResource( 6 )
 
-[node name="AcceptDialog" type="ConfirmationDialog" parent="."]
-visible = true
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 26.8036
 margin_top = 235.983
 margin_right = 326.804
@@ -74,4 +75,5 @@ window_title = ""
 [connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
 [connection signal="item_selected" from="PatronList" to="." method="_on_PatronList_item_selected"]
-[connection signal="confirmed" from="AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
+[connection signal="confirmed" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
+[connection signal="popup_hide" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_popup_hide"]

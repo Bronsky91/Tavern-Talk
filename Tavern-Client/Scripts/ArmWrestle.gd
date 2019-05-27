@@ -6,6 +6,8 @@ var left_player = {}
 var right_player ={}
 
 var end = false
+var start = false
+var countdown = 3
 
 func _ready():
 	pass
@@ -13,10 +15,16 @@ func _ready():
 func _process(delta):
 	pass
 
+func spectator():
+	$WrestleTap.visible = false
+	$WrestleTap.disabled = true
+
 func initiate(l, r):
 	## Called from table, each player's network id and stat mod is passed through
 	left_player = l
+	$Player1.text = left_player.name
 	right_player = r
+	$Player2.text = right_player.name
 
 sync func tap(left_player, mod):
 	if p_bar.value != 100 or p_bar.value != 0:
@@ -33,16 +41,29 @@ func _on_WrestleTap_button_down():
 	
 sync func declare_winner(winner):
 	$WrestleTap.disabled = true
-	if winner.id == get_tree().get_network_unique_id():
-		print('you win!')
-	else:
-		print('you lose :(')
+	$WrestleTap.visible = false
+	$Winner.text = "THE WINNER IS " + winner.to_upper()
+	$Winner.visible = true
+	$Close.disabled = false
+	$Close.visible = true
+
+func _on_ProgressBar_value_changed(value):
+	if value == 100 and not end:
+		end = true
+		rpc("declare_winner", left_player.name)
+	elif value == 0 and not end:
+		end = true
+		rpc("declare_winner", right_player.name)
+
+func _on_Close_button_up():
 	queue_free()
 
-func _on_ProgressBar_changed():
-	if p_bar.value == 100 and not end:
-		end = true
-		rpc("declare_winner", left_player)
-	elif p_bar.value == 0 and not end:
-		end = true
-		rpc("declare_winner", right_player)
+func _on_Countdown_timeout():
+	if start:
+		$WrestleTap.disabled = false
+		$Countdown.stop()
+		$CountdownLabel.hide()
+	$CountdownLabel.text = "Starting in.. " + str(countdown)
+	countdown -= 1
+	if countdown == 0:
+		start = true

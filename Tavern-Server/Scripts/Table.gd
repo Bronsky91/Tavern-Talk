@@ -18,6 +18,10 @@ class SortPatronNames:
 
 func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
+	get_tree().connect("network_peer_disconnected", self, "user_exited")
+	
+func user_exited(id):
+	rpc("remove_patron", id)
 	
 func assign(_table_id):
 	table_id = _table_id
@@ -101,10 +105,6 @@ sync func remove_patron(id):
 			current_patrons.remove(i)
 			patron_that_left = i
 			break
-	$PatronList.remove_item(patron_that_left)
-
-sync func receive_action_message(c_name, msg):
-	chat_display.text += c_name + " " + msg + "\n"
 
 func _on_Leave_button_up():
 	.hide()
@@ -125,5 +125,3 @@ func _on_PatronList_item_selected(index):
 	chat_input.text = command
 	chat_input.grab_focus()
 	chat_input.caret_position = len(command)
-
-

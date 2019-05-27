@@ -58,7 +58,7 @@ func armwrestle(params):
 	else:
 		var c_obj = {'id': challenger.id, 'name': challenger.name, 'mod': global.calc_stat_mod(challenger.stats.strength)}
 		var i_obj = {'id': initiator.id, 'name': initiator.name, 'mod': global.calc_stat_mod(initiator.stats.strength)}
-		table.rpc("ask_for_aw", i_obj, c_obj)
+		table.rpc_id(challenger.id, "ask_for_aw", i_obj, c_obj)
 	## display popup for acceptance of challengers screen and popup for waiting on initiator's screen
 	## Once accepted the armwrestle scene is shown
 	#### Make a sync function in table script for displaying the armwrestle scene over the table for each player

@@ -22,7 +22,12 @@ class SortPatronNames:
 
 func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
-
+	get_tree().connect("network_peer_disconnected", self, "user_exited")
+	
+func user_exited(id):
+	rpc("receive_action_message", character_name, "leaves the table")
+	rpc("remove_patron", id)
+	
 func assign(_table_id):
 	## Called upon creation of node
 	table_id = _table_id
@@ -176,21 +181,30 @@ func set_players(p):
 		players[i] = player
 		i += 1
 
-sync func ask_for_aw(player1, player2):
+remote func ask_for_aw(player1, player2):
 	set_players([player1, player2])
 	if character_name != players[1].name:
-		$AcceptDialog.window_title = "Arm Wrestle!"
-		$AcceptDialog.dialog_text = "Accept Arm Wrestle from "+players[1].name.capitalize()+"?"
-		$AcceptDialog.popup_centered()
+		$CanvasLayer/AcceptDialog.window_title = "Arm Wrestle!"
+		$CanvasLayer/AcceptDialog.dialog_text = "Accept Arm Wrestle from "+players[1].name.capitalize()+"?"
+		$CanvasLayer/AcceptDialog.popup_centered()
 
 sync func armwrestle(player1, player2):
 	var aw_node = armwrestle_node.instance()
-	aw_node.initiate(player1, player2)
-	aw_node.z_index = 6
+	if character_name == player1.name or character_name == player2.name:
+		aw_node.initiate(player1, player2)
+	else:
+		aw_node.spectator()
 	add_child(aw_node)
 
+remote func clear_chat():
+	chat_input.text = ""
+	
 func _on_AcceptDialog_confirmed():
 	rpc("armwrestle", players[1], players[2])
+
+func _on_AcceptDialog_popup_hide():
+	#TODO: Display table system message that armwrestle was declined
+	rpc_id(players[1].id, "clear_chat")
 
 
 ### Patron List at Table ###
@@ -204,5 +218,4 @@ func _on_AcceptDialog_confirmed():
 	#chat_input.text = command
 	#chat_input.grab_focus()
 	#chat_input.caret_position = len(command)
-
 
