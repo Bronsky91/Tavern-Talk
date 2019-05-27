@@ -7,9 +7,9 @@
 [node name="TavernMenu" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_left = 7.59186
+margin_left = 8.20117
 margin_top = -0.840114
-margin_right = 7.59186
+margin_right = 8.20117
 margin_bottom = -0.840088
 script = ExtResource( 1 )
 
@@ -67,11 +67,18 @@ fixed_column_width = 140
 icon_mode = 0
 
 [node name="Enter" type="Button" parent="Visited"]
-margin_left = -7.54228
-margin_top = 130.899
-margin_right = 127.458
-margin_bottom = 175.899
+margin_left = -32.6702
+margin_top = 131.157
+margin_right = 62.3298
+margin_bottom = 176.157
 text = "Enter Tavern"
+
+[node name="Remove" type="Button" parent="Visited"]
+margin_left = 67.3298
+margin_top = 131.157
+margin_right = 162.33
+margin_bottom = 176.157
+text = "Remove "
 
 [node name="Create" type="Button" parent="."]
 margin_left = 103.423
@@ -86,4 +93,5 @@ text = "Create New Tavern"
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
 [connection signal="item_selected" from="Visited/TavernList" to="." method="_on_TavernList_item_selected"]
 [connection signal="button_up" from="Visited/Enter" to="." method="_on_Enter_button_up"]
+[connection signal="button_up" from="Visited/Remove" to="." method="_on_Remove_button_up"]
 [connection signal="button_up" from="Create" to="." method="_on_Create_button_up"]

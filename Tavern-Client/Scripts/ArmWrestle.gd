@@ -21,9 +21,9 @@ func initiate(l, r):
 sync func tap(left_player, mod):
 	if p_bar.value != 100 or p_bar.value != 0:
 		if left_player:
-			p_bar.value += 1 * mod
+			p_bar.value += mod if mod > 0 else (1 - (-0.2 * mod))
 		else:
-			p_bar.value -= 1 * mod
+			p_bar.value -= mod if mod > 0 else (1 - (-0.2 * mod))
 
 func _on_WrestleTap_button_down():
 	if left_player.id == get_tree().get_network_unique_id():

@@ -36,6 +36,12 @@ margin_top = 92.4666
 margin_right = 69.828
 margin_bottom = 112.467
 text = "Back"
+
+[node name="Error" type="Label" parent="."]
+margin_left = 112.909
+margin_top = 386.219
+margin_right = 242.909
+margin_bottom = 416.219
 [connection signal="button_up" from="Title/CreateTavern" to="." method="_on_CreateTavern_button_up"]
 [connection signal="request_completed" from="HTTPRequestCreate" to="." method="_on_HTTPRequestCreate_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]

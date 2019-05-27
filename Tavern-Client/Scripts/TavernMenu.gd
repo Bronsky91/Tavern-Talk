@@ -6,6 +6,7 @@ onready var tavern_list = $Visited/TavernList
 
 var tavern_list_data = []
 var selected_tavern
+var selected_tavern_index
 
 func _ready():
 	pass
@@ -62,8 +63,15 @@ func _on_Enter_button_up():
 	else:
 		pass
 		# TODO: Error handling
+		
+func _on_Remove_button_up():
+	if selected_tavern != null:
+		global.make_delete_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', selected_tavern, false)
+		tavern_list.remove_item(selected_tavern_index)
+		tavern_list_data.erase(selected_tavern)
 
 func _on_TavernList_item_selected(index):
+	selected_tavern_index = index
 	var t_name = tavern_list.get_item_text(index)
 	for t in tavern_list_data:
 		if t.name == t_name:
