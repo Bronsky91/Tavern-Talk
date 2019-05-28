@@ -25,28 +25,25 @@ var player_data = {
 	'position': null
 	}
 	
-var api_url = 'https://localhost:8080/api/'
-
+var api_url = 'https://warlock.tech/api/'
+var headers = ["Content-Type: application/json",
+				"Authorization: Basic YWRtaW46c3RyaWZlbG9yZA=="]
 func _ready():
 	pass 
 	
 func make_get_request(request, url):
-	var headers = ["Content-Type: application/json"]
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_GET)
 	
 func make_post_request(request, url, data):
 	var query = JSON.print(data)
-	var headers = ["Content-Type: application/json"]
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_POST, query)
 	
 func make_patch_request(request, url, data):
 	var query = JSON.print(data)
-	var headers = ["Content-Type: application/json"]
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_PATCH, query)
 	
 func make_delete_request(request, url, data):
 	var query = JSON.print(data)
-	var headers = ["Content-Type: application/json"]
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_DELETE, query)
 
 func calc_stat_mod(score):

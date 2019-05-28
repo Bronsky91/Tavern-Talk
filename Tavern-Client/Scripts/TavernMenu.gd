@@ -35,6 +35,7 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 		}
 		global.player_data.table_id = 0
 		visible = false
+		print(global.player_data.tavern)
 		get_tree().change_scene('Scenes/Tavern.tscn')
 
 func _on_Back_button_up():

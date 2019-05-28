@@ -18,7 +18,7 @@ var player_data = {
 	'position': null
 	}
 	
-var api_url = 'https://localhost:8080/api/'
+var api_url = 'https://warlock.tech/api/'
 
 func _ready():
 	pass 

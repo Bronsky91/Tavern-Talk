@@ -2,7 +2,7 @@ Tavern = require("../models/tavernModel");
 const cmd = require("node-cmd");
 
 const PORTS = [3000, 3001, 3002, 3003];
-const IP_ADDRESSSES = ["127.0.0.1"];
+const IP_ADDRESSSES = ["178.128.184.201"];
 
 function checkPorts(arr) {
   return PORTS.filter(p => !arr.includes(p));
@@ -41,9 +41,8 @@ exports.enter = function (req, res) {
     if (!tavern) return res.sendStatus(401);
     else {
       // spin up godot server using tavern port
-      // cmd.run(
-      //"godot --path /mnt/c/Users/breed/Documents/MobileGames/Tavern-Talk-Server-v2/ -d ---" +
-      //  tavern.port
+      //cmd.run(
+      //"godot --path ../Tavern-Server/ -d ---" +tavern.port
       //);
       return res.json({
         data: tavern

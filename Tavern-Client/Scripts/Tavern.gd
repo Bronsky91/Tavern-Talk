@@ -14,11 +14,12 @@ onready var chat_input = $ChatEnter
 func _ready():
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
-	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null and global.player_data.table_id == 0:
+	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null:
 		update_board_texture()
 		character_name = global.player_data.character.name
 		create_table_scenes()
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
+		print('finished ready')
 
 func user_exited(id):
 	get_node(str(id)).queue_free()
@@ -28,10 +29,12 @@ func enter_tavern(ip, port):
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
+	print(host.get_connection_status())
 
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
 	rpc_id(0, "register_tables")
+	print('entered_tavern function')
 ### Network Player Registration ###
 
 remote func register_player(id, info):
