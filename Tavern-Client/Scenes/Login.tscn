@@ -49,6 +49,12 @@ margin_bottom = 438.6
 text = "Register"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
+
+[node name="Error" type="Label" parent="."]
+margin_left = 143.0
+margin_top = 367.0
+margin_right = 228.0
+margin_bottom = 381.0
 [connection signal="button_up" from="Sign-In" to="." method="login"]
 [connection signal="button_up" from="Register" to="." method="_on_Register_button_up"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

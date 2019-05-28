@@ -16,8 +16,9 @@ func _ready():
 ### Movement ###
 
 func _unhandled_input(event):
-	if event.is_action_pressed('click'):
-		target = get_global_mouse_position()
+	if event is InputEventScreenTouch or event.is_action_pressed('click'):
+		target = event.position
+
 
 puppet func update_pos(id, pos, tar, animation):
 	position = pos

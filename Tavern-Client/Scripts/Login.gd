@@ -9,6 +9,7 @@ func _ready():
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	print(response_code)
+	$Error.text = str(result)
 	if response_code == 401:
 		return
 		## TODO add error message for incorrect login

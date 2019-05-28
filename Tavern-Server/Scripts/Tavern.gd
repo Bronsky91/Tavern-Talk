@@ -22,16 +22,13 @@ func _ready():
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
-	#port = OS.get_cmdline_args()[0]
-	#port = port.replace("---", "")
-	#tavern_code = OS.get_cmdline_args()[1]
-	#tavern_code = port.replace("---", "")
-	port = 3000
-	tavern_code = "jLRYB"
+	port = OS.get_cmdline_args()[0]
+	port = port.replace("---", "")
+	#port = 3000
+	print(OS.get_cmdline_args())
+	print(port)
 	host_tavern(port)
 	create_table_scenes()
-	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
-	global.make_post_request($EnterTavern, 'tavern/enter', {"code": tavern_code})
 	
 func host_tavern(port):
 	var host = NetworkedMultiplayerENet.new()
@@ -41,7 +38,9 @@ func host_tavern(port):
 func leave_tavern():
 	get_tree().set_network_peer(null)
 	## Close server
-
+func entered_tavern():
+	print('user entered tavern')
+	
 func user_exited(id):
 	print('exited')
 	get_node("YSort/"+str(id)).queue_free()

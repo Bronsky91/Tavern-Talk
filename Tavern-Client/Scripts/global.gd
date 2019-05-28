@@ -22,7 +22,8 @@ var player_data = {
 		'id': null
 		},
 	'table_id': null,
-	'position': null
+	'position': null,
+	'last_scene': null
 	}
 	
 var api_url = 'https://warlock.tech/api/'

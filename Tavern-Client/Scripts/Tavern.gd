@@ -12,6 +12,7 @@ onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $ChatEnter
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null:
@@ -20,12 +21,23 @@ func _ready():
 		create_table_scenes()
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
 		print('finished ready')
-
+		
+func _notification(notif):
+    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_pressed()
+    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_pressed()
+		
+func _on_Back_pressed():
+	pass
+	
 func user_exited(id):
 	get_node(str(id)).queue_free()
 	player_info.erase(id) # Erase player from info.
 	
 func enter_tavern(ip, port):
+	print(ip)
+	print(port)
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
@@ -130,7 +142,7 @@ func _on_BoardArea_area_shape_entered(area_id, area, area_shape, self_shape):
 	rpc("board_view", true, area.get_parent().name)
 
 func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
-	rpc("board_view", true, area.get_parent().name)
+	rpc("board_view", false, area.get_parent().name)
 	
 func update_board_texture():
 	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board')
