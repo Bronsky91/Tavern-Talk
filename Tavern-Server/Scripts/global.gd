@@ -18,12 +18,12 @@ var player_data = {
 	'position': null
 	}
 	
-var api_url = 'http://localhost:8080/api/'
+var api_url = 'https://localhost:8080/api/'
 
 func _ready():
 	pass 
 	
-func make_post_request(request, url, data, use_ssl):
+func make_post_request(request, url, data):
 	var query = JSON.print(data)
 	var headers = ["Content-Type: application/json"]
-	request.request(api_url + url, headers, use_ssl, HTTPClient.METHOD_POST, query)
+	request.request(api_url + url, headers, false, HTTPClient.METHOD_POST, query)

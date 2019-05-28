@@ -31,7 +31,7 @@ func _ready():
 	host_tavern(port)
 	create_table_scenes()
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
-	global.make_post_request($EnterTavern, 'tavern/enter', {"code": tavern_code}, false)
+	global.make_post_request($EnterTavern, 'tavern/enter', {"code": tavern_code})
 	
 func host_tavern(port):
 	var host = NetworkedMultiplayerENet.new()

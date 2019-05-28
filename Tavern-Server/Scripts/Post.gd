@@ -50,10 +50,10 @@ func _on_NewEdit_button_up():
 		## Conditional to check post_id
 		if post_id == '0':
 			var data = {'board': {"body": $BodyEdit.text, "author": $AuthorEdit.text}}
-			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id, data, false)
+			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id, data)
 		else:
 			var data = {"id": post_id, "body": $BodyEdit.text, "author": $AuthorEdit.text}
-			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id + '/board', data, false)
+			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id + '/board', data)
 	else:
 		hide_edit(false)
 		$NewEdit.text = 'Post'
@@ -80,7 +80,7 @@ func _on_PostSave_request_completed(result, response_code, headers, body):
 
 func _on_Remove_button_up():
 	var data = {'_id': post_id}
-	global.make_delete_request($PostRemove, 'tavern/' + global.player_data.tavern.id + '/board', data, false)
+	global.make_delete_request($PostRemove, 'tavern/' + global.player_data.tavern.id + '/board', data)
 	## TODO: Confirmation Check
 
 func _on_PostRemove_request_completed(result, response_code, headers, body):

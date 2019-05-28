@@ -19,7 +19,7 @@ func populate_characters(characters):
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if response_code == 404:
-		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)
+		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id)
 	else:
 		var characters = json.result.data.characters
 		populate_characters(characters)
@@ -35,7 +35,7 @@ func _on_Characters_item_selected(index):
 
 func _on_Remove_button_up():
 	var data = {"_id": selected_character._id}
-	global.make_patch_request($CharacterFetch, 'users/' + global.player_data.user_id + '/character_remove', data, false)
+	global.make_patch_request($CharacterFetch, 'users/' + global.player_data.user_id + '/character_remove', data)
 
 func _on_JoinButton_button_up():
 	global.player_data.character = selected_character
@@ -43,4 +43,4 @@ func _on_JoinButton_button_up():
 
 func _on_CharacterSelect_visibility_changed():
 	if visible == true:
-		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id, false)
+		global.make_get_request($CharacterFetch, 'users/' + global.player_data.user_id)

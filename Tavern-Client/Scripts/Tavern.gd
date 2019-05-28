@@ -130,7 +130,7 @@ func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
 	rpc("board_view", true, area.get_parent().name)
 	
 func update_board_texture():
-	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board', false)
+	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board')
 
 func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

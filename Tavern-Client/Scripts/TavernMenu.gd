@@ -9,12 +9,12 @@ var selected_tavern
 var selected_tavern_index
 
 func _ready():
-	#global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns', false)
+	#global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns'
 	pass
 	
 func _on_AddTavern_button_up():
 	var data = {'code': invite_code.text}
-	global.make_post_request($HTTPRequestTavernCheck, 'tavern/check', data, false )
+	global.make_post_request($HTTPRequestTavernCheck, 'tavern/check', data )
 
 func find_tavern(t):
 	for tavern in tavern_list_data:
@@ -57,18 +57,18 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 		if not find_tavern(tavern):
 			tavern_list_data.append(tavern)
 			tavern_list.add_item(tavern.name)
-			global.make_post_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', tavern, false)
+			global.make_post_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', tavern)
 
 func _on_Enter_button_up():
 	if selected_tavern != null:
-		global.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern, false )
+		global.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern)
 	else:
 		pass
 		# TODO: Error handling
 		
 func _on_Remove_button_up():
 	if selected_tavern != null:
-		global.make_delete_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', selected_tavern, false)
+		global.make_delete_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', selected_tavern)
 		tavern_list.remove_item(selected_tavern_index)
 		tavern_list_data.erase(selected_tavern)
 
@@ -81,7 +81,7 @@ func _on_TavernList_item_selected(index):
 
 func _on_TavernMenu_visibility_changed():
 	if visible == true:
-		global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns', false)
+		global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns')
 
 func _on_Create_button_up():
 	menu.change_menu_scene(self, menu.get_node('CreateTavern'))

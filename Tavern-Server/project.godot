@@ -31,6 +31,10 @@ window/handheld/orientation="portrait"
 window/stretch/mode="viewport"
 "window/Emulate Touchscreen"=true
 
+[network]
+
+ssl/certificates="res://SSL/ssstudios.crt"
+
 [rendering]
 
 quality/driver/driver_name="GLES2"

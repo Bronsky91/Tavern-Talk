@@ -60,4 +60,4 @@ func _on_Board_visibility_changed():
 	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
 	###
 	if $Board.visible == true:
-		global.make_get_request($Board/BoardRequest, 'tavern/' + global.player_data.tavern.id + '/board', false)
+		global.make_get_request($Board/BoardRequest, 'tavern/' + global.player_data.tavern.id + '/board')

@@ -95,7 +95,7 @@ exports.characterRemove = function (req, res) {
     });
 };
 
-// Handle removing characters from user profile
+// Handle removing taerns from user profile
 exports.removeTavern = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)

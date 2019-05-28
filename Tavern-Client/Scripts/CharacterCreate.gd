@@ -75,7 +75,7 @@ func _on_CreateButton_button_up():
 			}
 		}
 	}
-	global.make_patch_request($Create, 'users/' + global.player_data.user_id, data, false)
+	global.make_patch_request($Create, 'users/' + global.player_data.user_id, data)
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node('CharacterSelect'))

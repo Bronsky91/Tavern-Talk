@@ -29,7 +29,7 @@ func _on_Sign_Up_button_up():
 		## TODO:
 		# Add field validation
 		var data = {"email": email.text, "username": username.text, "password": password.text}
-		global.make_post_request($HTTPRequest, 'users', data, false)
+		global.make_post_request($HTTPRequest, 'users', data)
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node("Login"))
