@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
 const userModel = mongoose.Schema({
-    username: { type: String },
-    email: { type: String },
-    password: { type: String },
+    username: { type: String, required: true, unique: true },
+    passwordHash: { type: String, required: true },
+    email: {type: String},
     characters: [{
         name : String,
         gender: String,
@@ -21,6 +21,7 @@ const userModel = mongoose.Schema({
     }]
 });
 
+    
 var User = module.exports = mongoose.model('user', userModel);
 
 module.exports.get = function (callback, limit) {

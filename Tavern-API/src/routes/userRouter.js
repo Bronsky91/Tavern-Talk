@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router();
 const userController = require('../controllers/userController');
 
-router.route('/')
+router.route('/',)
     .get((req, res) => {
         res.json({
             status: 'API is working',
@@ -14,7 +14,7 @@ router.route('/users')
     .get(userController.index)
     .post(userController.new)
 
-router.route('/login')    
+router.route('/login')
     .post(userController.login)
 
 router.route('/users/:user_id/character_remove')
@@ -30,7 +30,7 @@ router.route('/users/:user_id')
     .patch(userController.update)
     .put(userController.update)
     .delete(userController.delete);
-    
+
 
 // Export API routes
 module.exports = router;

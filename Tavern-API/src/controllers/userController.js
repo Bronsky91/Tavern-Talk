@@ -1,4 +1,5 @@
-User = require('../models/userModel');
+const User = require('../models/userModel');
+const bcrypt = require('bcryptjs')
 
 // Handle index actions
 exports.index = function (req, res) {
@@ -18,29 +19,30 @@ exports.index = function (req, res) {
 
 // Handle user login
 exports.login = function (req, res) {
-    User.findOne({ username: req.body.username, password: req.body.password }, function (err, user) {
-        if (err) return next(err);
-        if (!user) return res.sendStatus(401)
-
-        return res.json({
-            id: user._id
-        });
+    User.findOne({ username: req.body.username},
+         function (err, user) {
+            if(!user) {
+                return res.status(401).send({ message: "The username does not exist" });
+            }
+            if(!bcrypt.compareSync(req.body.password, user.passwordHash)) {
+                return res.status(401).send({ message: "The password is invalid" });
+            }
+            res.json(user);
     });
 };
 
 // Handle create user actions
 exports.new = function (req, res) {
     var user = new User();
-    user.username = req.body.username ? req.body.username : user.username;
-    user.characters = req.body.characters;
+    user.username = req.body.username;
     user.email = req.body.email;
-    user.password = req.body.password;
+    user.passwordHash = bcrypt.hashSync(req.body.password, 10);
     // save the user and check for errors
     user.save(function (err) {
-        // if (err)
-        //     res.json(err);
+        //if (err)
+          //  res.sendStatus(500);
         res.json({
-            id: user._id
+            data: user
         });
     });
 };

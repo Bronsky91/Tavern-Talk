@@ -16,7 +16,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		return
 	else:
 		var json = JSON.parse(body.get_string_from_utf8())
-		global.user_id = json.result.id
+		print(json.result)
+		global.player_data.user_id = json.result.id
 		hide()
 		menu.change_menu_scene(self, menu.get_node("CharacterSelect"))
 
