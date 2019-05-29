@@ -6,6 +6,7 @@ export(PackedScene) var board
 
 var character_name = null
 var player_info = {}
+var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
 
 onready var entrance = $Entrance
 onready var board_button = $YSort/Board/BoardButton
@@ -78,11 +79,25 @@ remote func configure_player():
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
+			
+func change_scene_manually():
+    # Remove the current level
+	var root = get_tree().get_root()
+	var tavern = root.get_node("Tavern")
+	root.remove_child(tavern)
+	tavern.call_deferred("free")
+	
+	# Add the next level
+	var tavern_menu_resource = load("res://Scenes/MainMenu.tscn")
+	var tavern_menu = tavern_menu_resource.instance()
+	tavern_menu.get_node('Login').visible = false
+	tavern_menu.get_node('TavernMenu').visible = true
+	root.add_child(tavern_menu)
 	
 func leave_tavern():
 	get_tree().set_network_peer(null)
 	## Let tavern API know the character left the tavern
-	get_tree().change_scene('Scenes/TavernMenu.tscn')
+	change_scene_manually()
 
 func _server_disconnected():
 	leave_tavern()

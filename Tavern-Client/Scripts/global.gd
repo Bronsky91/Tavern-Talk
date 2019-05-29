@@ -31,7 +31,7 @@ var headers = ["Content-Type: application/json",
 				"Authorization: Basic YWRtaW46c3RyaWZlbG9yZA=="]
 func _ready():
 	pass 
-	
+
 func make_get_request(request, url):
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_GET)
 	
