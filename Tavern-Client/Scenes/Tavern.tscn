@@ -252,6 +252,7 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 95.9963, 279.173 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -335,6 +336,7 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 16 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -416,6 +418,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
 texture = ExtResource( 19 )
@@ -495,6 +498,7 @@ position = Vector2( -20.8452, -17.4072 )
 texture = ExtResource( 16 )
 
 [node name="Board" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
@@ -519,8 +523,6 @@ position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 8 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
-
-[node name="EnterTavern" type="HTTPRequest" parent="."]
 
 [node name="Wall" type="TileMap" parent="."]
 z_as_relative = false
@@ -598,6 +600,8 @@ flat = true
 [node name="Welcomemat_001" type="Sprite" parent="Exit"]
 position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 26 )
+[connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
+[connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="area_shape_entered" from="YSort/Table_002/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "002" ]]
 [connection signal="area_shape_exited" from="YSort/Table_002/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "002" ]]

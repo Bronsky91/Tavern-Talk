@@ -26,6 +26,7 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 	if response_code == 200:
 		var json = JSON.parse(body.get_string_from_utf8())
 		var data = json.result.data
+		global.make_post_request($SpinTavern, 'tavern/'+data._id+'/server', {})
 		global.player_data.tavern = {
 			'port': data.port,
 			'ip': data.ip,
@@ -35,8 +36,6 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 		}
 		global.player_data.table_id = 0
 		visible = false
-		print(global.player_data.tavern)
-		get_tree().change_scene('Scenes/Tavern.tscn')
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
@@ -61,10 +60,11 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 			global.make_post_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', tavern)
 
 func _on_Enter_button_up():
-	if selected_tavern != null:
+	print(global.player_data.tavern )
+	if selected_tavern != null and global.player_data.tavern.id == null:
 		global.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern)
 	else:
-		pass
+		global.make_post_request($SpinTavern, 'tavern/'+global.player_data.tavern.id+'/server', {})
 		# TODO: Error handling
 		
 func _on_Remove_button_up():
@@ -86,3 +86,12 @@ func _on_TavernMenu_visibility_changed():
 
 func _on_Create_button_up():
 	menu.change_menu_scene(self, menu.get_node('CreateTavern'))
+
+func _on_SpinTavern_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	print(result)
+	print(json)
+	print(json.result)
+	if json.result.data != null:
+		get_parent().call_deferred("free")	
+		get_tree().change_scene('Scenes/Tavern.tscn')

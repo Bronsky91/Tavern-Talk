@@ -1,8 +1,11 @@
 Tavern = require("../models/tavernModel");
 const cmd = require("node-cmd");
+const { spawnSync } = require('child_process');
 
 const PORTS = [3000, 3001, 3002, 3003];
 const IP_ADDRESSSES = ["178.128.184.201"];
+
+// var godot_servers = {};
 
 function checkPorts(arr) {
   return PORTS.filter(p => !arr.includes(p));
@@ -37,18 +40,84 @@ exports.index = function (req, res) {
 // Handle user entering tavern
 exports.enter = function (req, res) {
   Tavern.findOne({ code: req.body.code }, function (err, tavern) {
-    if (err) return next(err);
+    if (err) return (err);
+    if (!tavern) return res.sendStatus(401);
+    return res.json({
+      data: tavern
+    });
+  });
+};
+
+var exec = require('child_process').exec;
+function execute(command, callback) {
+  exec(command, function (error, stdout, stderr) { callback(stdout); });
+};
+
+exports.spin = function (req, res) {
+  Tavern.findById(req.params.tavern_id, function (err, tavern) {
+    if (err) return (err);
     if (!tavern) return res.sendStatus(401);
     else {
+      execute("lsof -i :" + tavern.port, function (port) {
+        console.log(port.split(' ')[21])
+        if (port.split(' ')[21] == undefined) {
+          cmd.run(
+            "godot --path ../Tavern-Server/ -d ---" + tavern.port
+          );
+          return res.json({
+            data: 'Server Starting'
+          });
+        } else {
+          return res.json({
+            data: 'Server Up'
+          })
+        }
+      })
+      /*
       // spin up godot server using tavern port
-      //cmd.run(
-      //"godot --path ../Tavern-Server/ -d ---" +tavern.port
-      //);
-      return res.json({
-        data: tavern
-      });
+      if (godot_servers[tavern.id] == undefined) {
+        let godot_tavern = cmd.run(
+          "godot --path ../Tavern-Server/ -d ---" + tavern.port
+        );
+        //let godot_tavern = spawn('godot', ['-d', '---' + tavern.port]);
+        godot_servers[tavern.id] = godot_tavern.pid
+        //console.log(godot_servers[tavern.id])
+        return res.json({
+          data: 'Server Starting'
+        });
+     */
     }
   });
+};
+
+// Handle kill tavern godot server
+exports.kill = function (req, res) {
+  Tavern.findById(req.params.tavern_id, function (err, tavern) {
+    if (err) res.sendStatus(404)
+    else {
+      execute("lsof -i :" + tavern.port, function (port) {
+        console.log(port.split(' ')[21])
+        if (port.split(' ')[21] != undefined) {
+          //console.log(godot_servers)
+          //cmd.run("kill " + godot_servers[tavern.id])
+
+          cmd.run("kill " + port.split(' ')[21])
+
+          //godot_servers[tavern.id].kill()
+          //delete godot_servers[tavern.id]
+          //console.log(godot_servers)
+          res.json({
+            data: "Sever going down"
+          });
+        } else {
+          res.json({
+            data: "Server not up"
+          });
+        }
+      })
+
+    }
+  })
 };
 
 // Handle user entering tavern
@@ -142,7 +211,7 @@ exports.new = function (req, res) {
 // Handle view tavern info
 exports.view = function (req, res) {
   Tavern.findById(req.params.tavern_id, function (err, tavern) {
-    if (err) res.sendStatus(404);
+    if (err) res.sendStatus(404)
     res.json({
       data: tavern
     });
