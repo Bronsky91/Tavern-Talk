@@ -60,19 +60,25 @@ func _physics_process(delta):
 			
 func walking(yes):
 		if yes:
-			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk.png"))
+			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk_001.png"))
 			$Body.vframes = 4
 			$Body.hframes = 6
 			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_WalkHair_001.png"))
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 6
+			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_WalkEyes_001.png"))
+			$Body/Eyes.vframes = 4
+			$Body/Eyes.hframes = 6
 		else:
-			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle.png"))
+			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_001.png"))
 			$Body.vframes = 4
 			$Body.hframes = 4
 			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_001.png"))
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 4
+			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_001.png"))
+			$Body/Eyes.vframes = 4
+			$Body/Eyes.hframes = 4
 
 ### Chatting ###
 
