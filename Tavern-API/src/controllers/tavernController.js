@@ -73,19 +73,6 @@ exports.spin = function (req, res) {
           })
         }
       })
-      /*
-      // spin up godot server using tavern port
-      if (godot_servers[tavern.id] == undefined) {
-        let godot_tavern = cmd.run(
-          "godot --path ../Tavern-Server/ -d ---" + tavern.port
-        );
-        //let godot_tavern = spawn('godot', ['-d', '---' + tavern.port]);
-        godot_servers[tavern.id] = godot_tavern.pid
-        //console.log(godot_servers[tavern.id])
-        return res.json({
-          data: 'Server Starting'
-        });
-     */
     }
   });
 };
@@ -98,14 +85,7 @@ exports.kill = function (req, res) {
       execute("lsof -i :" + tavern.port, function (port) {
         console.log(port.split(' ')[21])
         if (port.split(' ')[21] != undefined) {
-          //console.log(godot_servers)
-          //cmd.run("kill " + godot_servers[tavern.id])
-
           cmd.run("kill " + port.split(' ')[21])
-
-          //godot_servers[tavern.id].kill()
-          //delete godot_servers[tavern.id]
-          //console.log(godot_servers)
           res.json({
             data: "Sever going down"
           });
