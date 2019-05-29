@@ -12,6 +12,9 @@ func _ready():
 	## TEMP FOR DEBUG
 	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
 	###
+	$Board/BulletinBoard_Wallpaper.set_texture(load("res://Assets/Backgrounds/BulletinBoard_Wallpaper_001.png"))
+	$Board/BulletinBoard_Wallpaper/BulletinBoardBG.set_texture(load("res://Assets/Backgrounds/BulletinBoardA_BG.png"))
+	get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
 
 func populate_posts(posts):
 	## Populates post_dic with the _ids of all posts
@@ -46,6 +49,7 @@ func _on_NewPost_button_up():
 	
 func _on_BackButton_button_up():
 	get_parent().update_board_texture()
+	get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
 	queue_free()
 
 func _on_TextureButton_button_up(num):

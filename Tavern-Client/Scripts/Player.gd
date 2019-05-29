@@ -5,6 +5,7 @@ export (int) var speed = 100
 var target = Vector2()
 var velocity = Vector2()
 var gender = null
+var busy
 
 onready var animate = $AnimationPlayer
 
@@ -16,10 +17,9 @@ func _ready():
 ### Movement ###
 
 func _unhandled_input(event):
-	if event is InputEventScreenTouch or event.is_action_pressed('click'):
+	if not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
 		target = event.position
-
-
+	
 puppet func update_pos(id, pos, tar, animation):
 	position = pos
 	target = tar

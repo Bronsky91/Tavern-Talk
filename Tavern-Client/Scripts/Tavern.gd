@@ -21,7 +21,6 @@ func _ready():
 		character_name = global.player_data.character.name
 		create_table_scenes()
 		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
-		print('finished ready')
 		
 func _notification(notif):
     if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
@@ -37,17 +36,13 @@ func user_exited(id):
 	player_info.erase(id) # Erase player from info.
 	
 func enter_tavern(ip, port):
-	print(ip)
-	print(port)
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
-	print(host.get_connection_status())
 
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
 	rpc_id(0, "register_tables")
-	print('entered_tavern function')
 ### Network Player Registration ###
 
 remote func register_player(id, info):
@@ -59,8 +54,6 @@ remote func register_player(id, info):
 	rpc("configure_player")
 	
 remote func register_tables(tables=null):
-	print('tables ')
-	print(tables)
 	for t in get_tree().get_nodes_in_group("tables"):
 		for tb in tables:
 			if tb.id == t.get_table_id():

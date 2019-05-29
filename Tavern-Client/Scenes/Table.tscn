@@ -59,9 +59,9 @@ text = "Leave Table"
 
 [node name="PatronList" type="ItemList" parent="."]
 margin_left = 280.0
-margin_top = 47.0
+margin_top = 90.0
 margin_right = 359.0
-margin_bottom = 236.0
+margin_bottom = 279.0
 custom_styles/bg = SubResource( 4 )
 
 [node name="Commands" type="Node" parent="."]

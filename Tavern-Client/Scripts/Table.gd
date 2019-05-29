@@ -164,9 +164,11 @@ func _on_Leave_button_up():
 	
 func _on_Table_visibility_changed():
 	if visible == true:
+		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
 		rpc("receive_action_message", character_name, "sits at the table")
 		rpc("set_patron", get_tree().get_network_unique_id(), character_name, global.player_data.character.stats)
 	else:
+		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
 		rpc("receive_action_message", character_name, "leaves the table")
 		rpc("remove_patron", get_tree().get_network_unique_id())
 
