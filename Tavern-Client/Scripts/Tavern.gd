@@ -29,7 +29,17 @@ func _notification(notif):
         _on_Back_pressed()
 		
 func _on_Back_pressed():
-	pass
+	for t in get_tree().get_nodes_in_group("tables"):
+		if t.visible == true:
+			t.hide()
+			return
+	if get_node('Tavern/BoardScene') != null:
+		get_node('Tavern/BoardScene').queue_free()
+		return
+	$CanvasLayer/AcceptDialog.popup_centered()
+	
+func _on_AcceptDialog_confirmed():
+	leave_tavern()
 	
 func user_exited(id):
 	get_node(str(id)).queue_free()

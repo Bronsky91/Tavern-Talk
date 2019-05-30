@@ -117,7 +117,7 @@ sync func receive_broadcast_message(c_name, msg, t_id):
 	if msg.length() > 0:
 		#get_parent().rpc("t_chat", msg, t_id) # References Tavern.gd t_chat function, not being used yet
 		if table_id == t_id:
-			var new_line = c_name +" "+ msg
+			var new_line = "["+c_name+"]" +" "+ msg
 			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
 			new_line()
 		elif t_id == 0:
@@ -131,7 +131,7 @@ sync func receive_broadcast_message(c_name, msg, t_id):
 
 sync func receive_message(c_name, msg):
 	if msg.length() > 0:
-		var new_line = c_name + ": " + msg
+		var new_line = "["+c_name+"]" + ": " + msg
 		if c_name == character_name:
 			chat_display.bbcode_text += '[b]'+new_line+'[/b]'
 		else:
@@ -139,8 +139,13 @@ sync func receive_message(c_name, msg):
 		new_line()
 	
 sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
-	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id or get_tree().get_network_unique_id() == c_id:
-		var new_line = c_name + ": " + msg
+	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id:
+		var new_line = "["+c_name+"] whispers" + ": " + msg
+		new_line = '[color=#cc379f]'+new_line+'[/color]'
+		chat_display.bbcode_text += new_line
+		new_line()
+	if get_tree().get_network_unique_id() == c_id:
+		var new_line = "To: ["+r_name+"]" + ": " + msg
 		new_line = '[color=#cc379f]'+new_line+'[/color]'
 		chat_display.bbcode_text += new_line
 		new_line()

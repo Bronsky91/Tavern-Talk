@@ -200,6 +200,7 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -335,7 +336,6 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 16 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -598,6 +598,17 @@ flat = true
 [node name="Welcomemat_001" type="Sprite" parent="Exit"]
 position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 26 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
+margin_left = 37.1573
+margin_top = 340.112
+margin_right = 337.157
+margin_bottom = 415.112
+rect_min_size = Vector2( 200, 75 )
+resizable = true
+dialog_text = "Do you wish to leave the tavern?"
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
 [connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
@@ -619,3 +630,4 @@ texture = ExtResource( 26 )
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
 [connection signal="body_exited" from="Exit" to="." method="_on_Exit_body_exited"]
 [connection signal="button_up" from="Exit/LeaveButton" to="." method="_on_LeaveButton_button_up"]
+[connection signal="confirmed" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]

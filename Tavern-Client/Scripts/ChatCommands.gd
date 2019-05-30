@@ -25,12 +25,12 @@ func throw(params):
 	var dex = global.player_data.character.stats.dex
 	var object = params[0]
 	var msg = ""
-	if strength > 12:
+	if strength > 14:
 		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ " across the room hitting the wall with a loud thud."
 	elif dex > 14:
-		msg = "throws their "+object+ ", narrowly missing "+table.find_random_patron().name
+		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ ", narrowly missing "+table.find_random_patron().name
 	else:
-		msg = "throws their "+object+ ", the barmaid yells, \"You're weak!\""
+		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ ", the barmaid yells, \"You're weak!\""
 	print(msg)
 	table.send_broadcast(msg)
 	
