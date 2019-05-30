@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Animations/idle_down.tres" type="Animation" id=2]
+[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=2]
 [ext_resource path="res://Resources/Animations/idle_left.tres" type="Animation" id=3]
 [ext_resource path="res://Resources/Animations/idle_right.tres" type="Animation" id=4]
 [ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=5]
@@ -10,7 +10,7 @@
 [sub_resource type="Animation" id=1]
 length = 1.28
 loop = true
-step = 0.7
+step = 0.21
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
@@ -42,6 +42,18 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 18, 19, 20, 21, 22, 23 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Clothes:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
@@ -82,6 +94,18 @@ tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 12, 13, 14, 15, 16, 17 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Clothes:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
 "update": 1,
@@ -128,6 +152,18 @@ tracks/2/keys = {
 "update": 1,
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
+tracks/3/type = "value"
+tracks/3/path = NodePath("Body/Clothes:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.21, 0.42, 0.63, 0.84, 1.05 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 7, 8, 9, 10, 11 ]
+}
 
 [sub_resource type="CapsuleShape2D" id=4]
 radius = 12.0901
@@ -146,18 +182,20 @@ script = ExtResource( 1 )
 position = Vector2( 0, -9 )
 vframes = 4
 hframes = 6
+frame = 11
 
 [node name="Hair" type="Sprite" parent="Body"]
 position = Vector2( 7.45058e-09, -1.19209e-07 )
 vframes = 4
 hframes = 4
-
-[node name="Clothes" type="Sprite" parent="Body"]
+frame = 11
 
 [node name="Eyes" type="Sprite" parent="Body"]
 vframes = 4
 hframes = 4
-frame = 14
+frame = 11
+
+[node name="Clothes" type="Sprite" parent="Body"]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.2

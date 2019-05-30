@@ -417,7 +417,6 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
 texture = ExtResource( 19 )
@@ -483,6 +482,10 @@ shape = SubResource( 6 )
 position = Vector2( -11.8847, -6.10394 )
 texture = ExtResource( 20 )
 
+[node name="Mug_002" type="Sprite" parent="YSort/Table_003"]
+position = Vector2( -22.6156, -16.522 )
+texture = ExtResource( 16 )
+
 [node name="Join" type="Button" parent="YSort/Table_003"]
 visible = false
 margin_left = -47.3183
@@ -491,10 +494,6 @@ margin_right = 25.6817
 margin_bottom = 0.901855
 text = "Join Table"
 flat = true
-
-[node name="Mug_002" type="Sprite" parent="YSort/Table_003"]
-position = Vector2( -20.8452, -17.4072 )
-texture = ExtResource( 16 )
 
 [node name="Board" type="Sprite" parent="YSort"]
 editor/display_folded = true

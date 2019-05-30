@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/CharacterCreate.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Animations/idle_down.tres" type="Animation" id=2]
+[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=2]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -106,6 +106,7 @@ frame = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Step2/Body"]
 anims/idle_down = ExtResource( 2 )
+anims/idle_down_menu = ExtResource( 2 )
 
 [node name="Cycle" type="Label" parent="Step2"]
 margin_left = 63.0

@@ -99,7 +99,7 @@ func _on_Step2_visibility_changed():
 		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(hair)+".png"))
 		$Step2/Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_00"+str(eyes)+".png"))
 		$Step2/Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(clothes)+".png"))
-		animate.current_animation = "idle_down"
+		animate.current_animation = "idle_down_menu"
 
 func _on_Skin_button_up():
 	if skin < 3:
