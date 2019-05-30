@@ -41,7 +41,7 @@ func _on_HTTPRequestCreate_request_completed(result, response_code, headers, bod
 	menu.get_node("TavernMenu").tavern_list_data.append(tavern)
 	menu.get_node("TavernMenu").tavern_list.add_item(tavern.name)
 	global.make_post_request(menu.get_node("TavernMenu/HTTPRequestAddTavern"), 'users/'+global.player_data.user_id+'taverns', tavern)
-	menu.change_menu_scene(self, menu.get_node('TavernMenu'))
+	$Title/Label/Code.bbcode_text = "[center][b]"+data.code+"[/b][/center]"
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node('TavernMenu'))

@@ -28,6 +28,22 @@ margin_right = 111.423
 margin_bottom = 112.767
 text = "Create"
 
+[node name="Label" type="Label" parent="Title"]
+margin_left = 19.125
+margin_top = 150.279
+margin_right = 96.125
+margin_bottom = 164.279
+text = "Invite Code:"
+
+[node name="Code" type="RichTextLabel" parent="Title/Label"]
+margin_left = -20.0
+margin_top = 30.237
+margin_right = 97.0
+margin_bottom = 68.237
+focus_mode = 2
+bbcode_enabled = true
+selection_enabled = true
+
 [node name="HTTPRequestCreate" type="HTTPRequest" parent="."]
 
 [node name="Back" type="Button" parent="."]
@@ -39,9 +55,9 @@ text = "Back"
 
 [node name="Error" type="Label" parent="."]
 margin_left = 112.909
-margin_top = 386.219
+margin_top = 490.0
 margin_right = 242.909
-margin_bottom = 416.219
+margin_bottom = 520.0
 [connection signal="button_up" from="Title/CreateTavern" to="." method="_on_CreateTavern_button_up"]
 [connection signal="request_completed" from="HTTPRequestCreate" to="." method="_on_HTTPRequestCreate_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]

@@ -14,6 +14,12 @@ const userModel = mongoose.Schema({
             wis: {type: Number},
             cha: {type: Number}
         },
+        style: {
+            skin: {type: Number},
+            hair: {type: Number},
+            eyes: {type: Number},
+            clothes: {type: Number}
+        }
     }],
     taverns: [{
         name: String,
