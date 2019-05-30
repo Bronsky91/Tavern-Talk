@@ -12,7 +12,7 @@ var current_patrons = []
 var command_time = false
 var command_param_start = null
 
-var chat_commands = ['whisper', 'throw', 'e', 'eb', 'yell', 'armwrestle']
+var chat_commands = ['help', 'whisper', 'throw', 'e', 'eb', 'yell', 'armwrestle']
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -62,8 +62,8 @@ func _on_ChatInput_text_changed(new_text):
 		command_time = true
 	else:
 		command_time = false
-	if command_time and new_text.substr(len(new_text)-1, len(new_text)-1) == " " and command_param_start == null:
-		command_param_start = len(chat_input.text)
+	if command_time and new_text.substr(1, len(new_text)) in chat_commands:
+		command_param_start = len(chat_input.text) + 1
 		
 func slash_commands(text, params):
 	var command = text.split(" ")[0].substr(1, len(text)-1)
@@ -86,7 +86,8 @@ sync func remove_patron(id):
 			current_patrons.remove(i)
 			patron_that_left = i
 			break
-	$PatronList.remove_item(patron_that_left)
+	if patron_that_left != null:
+		$PatronList.remove_item(patron_that_left)
 
 func find_random_patron():
 	var random_patron = current_patrons[randi()%len(current_patrons)]
@@ -113,11 +114,15 @@ func send_broadcast(msg):
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, msg, table_id)
 
+func send_system_message(id, msg):
+	chat_input.text = ""
+	receive_system_message(msg)
+
 sync func receive_broadcast_message(c_name, msg, t_id):
 	if msg.length() > 0:
 		#get_parent().rpc("t_chat", msg, t_id) # References Tavern.gd t_chat function, not being used yet
 		if table_id == t_id:
-			var new_line = "["+c_name+"]" +" "+ msg
+			var new_line = c_name + " "+ msg
 			chat_display.bbcode_text += '[color=#ff893f]'+'[i]'+new_line+'[/i]'+'[/color]'
 			new_line()
 		elif t_id == 0:
@@ -131,11 +136,17 @@ sync func receive_broadcast_message(c_name, msg, t_id):
 
 sync func receive_message(c_name, msg):
 	if msg.length() > 0:
-		var new_line = "["+c_name+"]" + ": " + msg
+		var new_line = "["+c_name+"]: " + msg
 		if c_name == character_name:
 			chat_display.bbcode_text += '[b]'+new_line+'[/b]'
 		else:
 			chat_display.bbcode_text += new_line
+		new_line()
+
+func receive_system_message(msg):
+	if msg.length() > 0:
+		var new_line = "[System]: " + msg
+		chat_display.bbcode_text += '[color=#ffe700]'+new_line+'[/color]'
 		new_line()
 	
 sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
@@ -211,6 +222,8 @@ func _on_AcceptDialog_confirmed():
 
 func _on_AcceptDialog_popup_hide():
 	#TODO: Display table system message that armwrestle was declined
+	for player in players:
+		send_system_message(player.id, "Arm wrestle has been declined, womp womp")
 	rpc_id(players[1].id, "clear_chat")
 
 

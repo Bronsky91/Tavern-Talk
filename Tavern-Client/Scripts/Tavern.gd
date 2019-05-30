@@ -42,7 +42,8 @@ func _on_AcceptDialog_confirmed():
 	leave_tavern()
 	
 func user_exited(id):
-	get_node(str(id)).queue_free()
+	if get_node(str(id)) != null:
+		get_node(str(id)).queue_free()
 	player_info.erase(id) # Erase player from info.
 	
 func enter_tavern(ip, port):
@@ -247,7 +248,7 @@ func yell(params):
 	var msg = params.join(" ")
 	var tav_msg = '[color=#ff4f6d]'+msg+'[/color]' ## Increase font or change color to Red maybe?
 	var table_msg = "yells, "+"\""+msg+"\""
-	get_node(str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
+	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
 	$ChatEnter.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):

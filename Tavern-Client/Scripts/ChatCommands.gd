@@ -2,6 +2,24 @@ extends Node
 
 onready var table = get_parent()
 
+var command_dict = {'whisper': 'Whisper something to another patron at the table, careful though it may not be as secret as you think',
+	'throw':  'Shortcut command to throw an object, /throw object_name to execute',
+	'e': 'Emote, type out what you would like your character to do as an action, no need to type your name',
+	'eb': 'Same as Emote, but will broadcast your action to the whole tavern',
+	'yell': 'Yell something, the tavern will all hear it',
+	 'armwrestle': 'Challenge another patron at the table to an arm wrestle, /armwrestle patron_name to execute'
+}
+
+func help(params):
+	var cmd = params[0]
+	if cmd in table.chat_commands:
+		table.send_system_message(get_tree().get_network_unique_id(), cmd + " - "+ command_dict[cmd])
+	else:
+		var cmd_list = "Type /help and any command name to find out more.\n\n"
+		for command in command_dict:
+			cmd_list += command + "\n"
+		table.send_system_message(get_tree().get_network_unique_id(), cmd_list)
+
 sync func whisper(params):
 	print(params)
 	var recipient = params[0]
@@ -20,7 +38,6 @@ sync func whisper(params):
 		print("patron not found")
 		
 func throw(params):
-	print(params)
 	var strength = global.player_data.character.stats.strength
 	var dex = global.player_data.character.stats.dex
 	var object = params[0]

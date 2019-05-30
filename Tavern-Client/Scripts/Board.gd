@@ -9,9 +9,6 @@ onready var post_buttons = [
 var post_dict = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null}
 
 func _ready():
-	## TEMP FOR DEBUG
-	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
-	###
 	$Board/BulletinBoard_Wallpaper.set_texture(load("res://Assets/Backgrounds/BulletinBoard_Wallpaper_001.png"))
 	$Board/BulletinBoard_Wallpaper/BulletinBoardBG.set_texture(load("res://Assets/Backgrounds/BulletinBoardA_BG.png"))
 	get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
@@ -44,7 +41,6 @@ func _on_BoardRequest_request_completed(result, response_code, headers, body):
 func _on_NewPost_button_up():
 	var new_post = post_scene.instance()
 	new_post.new_post(true)
-	$Board.hide()
 	add_child(new_post)
 	
 func _on_BackButton_button_up():
@@ -57,7 +53,6 @@ func _on_TextureButton_button_up(num):
 	var new_post = post_scene.instance()
 	add_child(new_post)
 	new_post.new_post(false, post_data._id, post_data.body, post_data.author)
-	$Board.hide()
 	
 func _on_Board_visibility_changed():
 	## TEMP FOR DEBUG
