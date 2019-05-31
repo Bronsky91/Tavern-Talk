@@ -12,7 +12,7 @@ var current_patrons = []
 var command_time = false
 var command_param_start = null
 
-var chat_commands = ['help', 'whisper', 'throw', 'e', 'eb', 'yell', 'armwrestle']
+var chat_commands = ['help', 'w', 'throw', 'e', 'eb', 'yell', 'armwrestle']
 
 class SortPatronNames:
 	static func sort(a, b):
@@ -161,9 +161,29 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 		chat_display.bbcode_text += new_line
 		new_line()
 	else:
-		chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
-		new_line()
+		for patron in current_patrons:
+			if patron.id == get_tree().get_network_unique_id() and (c_id != get_tree().get_network_unique_id() or r_id != get_tree().get_network_unique_id()):
+				if patron.stats.wis > 11:
+				# if a patron at the table has the wisdom they can hear random words of the whisper based on stat mod
+					var broken_msg = msg.split(" ")
+					chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers "+ random_sneak(broken_msg ,global.calc_stat_mod(patron.stats.wis)) +" to " + r_name +'[/i]'+'[/color]'
+				chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
+				new_line()
 
+func random_sneak(b_m, max_sneak):
+	if max_sneak > len(b_m):
+	# if your max_sneak is greater than the message length just return the whole message
+		return b_m.join(" ")
+	else:
+		var sneak_words = []
+		while len(sneak_words) < max_sneak:
+			if not b_m[rand_range(1, len(b_m))] in sneak_words:
+				sneak_words.append(b_m[rand_range(1, len(b_m))])
+		var sneak_msg = ""
+		for sneak in sneak_words:
+			sneak_msg = sneak_msg + "..."+sneak+" "
+		return sneak_msg
+	
 func send_action_message(msg):
 	chat_input.text = ""
 	rpc("receive_action_message", character_name, msg)

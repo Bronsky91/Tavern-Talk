@@ -12,6 +12,8 @@ var sitting = false
 var sat_down = false
 var stool
 var current_table_id = null
+var h_sit_anim
+var v_sit_anim
 
 onready var animate = $AnimationPlayer
 
@@ -54,7 +56,7 @@ func _physics_process(delta):
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 		elif (target - position).length() < movement_buffer and sitting == true and sat_down == false:
 			use_texture('sitting')
-			animate.current_animation = 'left_sit_back'
+			animate.current_animation = 'sit_'+v_sit_anim
 			sat_down = true
 			$AnimationTimer.start(1.1)
 			stool.z_index = 1
@@ -99,16 +101,16 @@ func use_texture(animation):
 			$Body/Clothes.vframes = 4
 			$Body/Clothes.hframes = 4
 		elif animation == 'sitting':
-			$Body.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_Sit_00"+str(style.skin)+".png"))
+			$Body.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_Sit_00"+str(style.skin)+".png"))
 			$Body.vframes = 4
 			$Body.hframes = 9
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_SitHair_00"+str(style.hair)+".png"))
+			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitHair_00"+str(style.hair)+".png"))
 			$Body/Hair.vframes = 4
 			$Body/Hair.hframes = 9
-			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_SitEyes_00"+str(style.eyes)+".png"))
+			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitEyes_00"+str(style.eyes)+".png"))
 			$Body/Eyes.vframes = 4
 			$Body/Eyes.hframes = 9
-			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_SitClothes_00"+str(style.clothes)+".png"))
+			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitClothes_00"+str(style.clothes)+".png"))
 			$Body/Clothes.vframes = 4
 			$Body/Clothes.hframes = 9
 

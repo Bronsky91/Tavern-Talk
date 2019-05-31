@@ -18,6 +18,7 @@ func _process(delta):
 func spectator():
 	$WrestleTap.visible = false
 	$WrestleTap.disabled = true
+	p_bar.z_index = 0
 
 func initiate(l, r):
 	## Called from table, each player's network id and stat mod is passed through

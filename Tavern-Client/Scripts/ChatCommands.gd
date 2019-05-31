@@ -2,7 +2,7 @@ extends Node
 
 onready var table = get_parent()
 
-var command_dict = {'whisper': 'Whisper something to another patron at the table, careful though it may not be as secret as you think',
+var command_dict = {'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think',
 	'throw':  'Shortcut command to throw an object, /throw object_name to execute',
 	'e': 'Emote, type out what you would like your character to do as an action, no need to type your name',
 	'eb': 'Same as Emote, but will broadcast your action to the whole tavern',
@@ -20,8 +20,7 @@ func help(params):
 			cmd_list += command + "\n"
 		table.send_system_message(get_tree().get_network_unique_id(), cmd_list)
 
-sync func whisper(params):
-	print(params)
+func w(params):
 	var recipient = params[0]
 	params.remove(0)
 	var msg = params.join(" ")
@@ -34,9 +33,8 @@ sync func whisper(params):
 		table.get_node("ChatInput").text = ""
 		table.rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, global.player_data.character.name, recipient.capitalize(), msg)
 	else:
-		## TODO: Error message for not finding patron
-		print("patron not found")
-		
+		table.send_system_message(get_tree().get_network_unique_id(), "That patron isn't at table")
+
 func throw(params):
 	var strength = global.player_data.character.stats.strength
 	var dex = global.player_data.character.stats.dex
@@ -70,8 +68,7 @@ func armwrestle(params):
 	var challenger = table.find_patron_by_name(params[0])
 	var initiator = table.find_patron_by_name(table.character_name)
 	if challenger.name == initiator.name:
-		pass
-		## TODO: system message saying the player must choose someone other themselves
+		table.send_system_message(initiator.id, "Can't armwrestle yourself, sorry!")
 	else:
 		var c_obj = {'id': challenger.id, 'name': challenger.name, 'mod': global.calc_stat_mod(challenger.stats.strength)}
 		var i_obj = {'id': initiator.id, 'name': initiator.name, 'mod': global.calc_stat_mod(initiator.stats.strength)}

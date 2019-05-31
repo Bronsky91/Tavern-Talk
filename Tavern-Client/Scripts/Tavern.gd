@@ -134,17 +134,52 @@ func _server_disconnected():
 	leave_tavern()
 	
 ### Tables ###
+func get_min(arr):
+	arr.sort()
+	return arr[0]
 	
-func _on_Table_button_up(table_id):
-	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
+func find_closest_stool(table_id, patron):
+	# dictionary of available stools and their positions
+	var stool_pos_dict = {}
+	#loop through all stools for availablity
 	for stool in stool_count[table_id]:
-		var stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if stool_count[table_id][stool] == null:
-			stool_count[table_id][stool] = patron
-			patron.sit_down(stool_pos, stool_node, table_id)
-			#join_table(table_id)
-			break
+		# if stool is available set the stool number as key and distance from patron as value
+			stool_pos_dict[(stool_node.get_global_position() - patron.position).length()] = stool
+	
+	return stool_pos_dict[get_min(stool_pos_dict.keys())]
+	
+func _on_Table_button_up(table_id):
+	#for stool in stool_count[table_id]:
+	var stool_pos
+	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
+	var stool = find_closest_stool(table_id, patron)
+	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
+	## Replace stool_node assignment to function on finding the closest available stool
+	if stool > 4:
+		# if the stool is on the bottom row use back animation
+		patron.v_sit_anim = 'front'
+	else:
+		# Else it's the top row and use the front animation
+		patron.v_sit_anim = 'back'
+# if stool is empty 
+	if patron.position.x > stool_node.get_global_position().x:
+		patron.h_sit_anim = 'Right'
+		# if the player is to the right of the stool use right animation and stool position
+		if stool == 6 or stool == 3:
+			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_global_position()
+		else:
+			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool+1)+"/L_P").get_global_position()
+	else:
+		patron.h_sit_anim = 'Left'
+		# player is to the left of the stool
+		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
+	stool_count[table_id][stool] = patron
+	print(stool)
+	print(stool_count[table_id])
+	patron.sit_down(stool_pos, stool_node, table_id)
+		
 	
 func join_table(table_id):
 	for t in get_tree().get_nodes_in_group("tables"):
@@ -154,10 +189,11 @@ func join_table(table_id):
 func leaving_table(table_id):
 	for stool in stool_count[table_id]:
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
-		if stool_count[table_id][stool].name == str(get_tree().get_network_unique_id()):
-			stool_count[table_id][stool].stand_up(stool_node)
-			stool_count[table_id][stool] = null
-			break
+		if stool_count[table_id][stool] != null:
+			if stool_count[table_id][stool].name == str(get_tree().get_network_unique_id()):
+				stool_count[table_id][stool].stand_up(stool_node)
+				stool_count[table_id][stool] = null
+				break
 
 func create_table_scenes():
 	for t in range(1, 4):

@@ -1,70 +1,16 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
-[ext_resource path="res://Assets/Characters/Male_LeftSide_Sit_001.png" type="Texture" id=2]
-[ext_resource path="res://Assets/Characters/Male_LeftSide_SitHair_001.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Characters/Male_LeftSide_SitEyes_001.png" type="Texture" id=4]
-[ext_resource path="res://Assets/Characters/Male_LeftSide_SitClothes_001.png" type="Texture" id=5]
-[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=6]
-[ext_resource path="res://Resources/Animations/idle_left.tres" type="Animation" id=7]
-[ext_resource path="res://Resources/Animations/idle_right.tres" type="Animation" id=8]
-[ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=9]
-[ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=10]
-
-[sub_resource type="Animation" id=1]
-resource_name = "left_sit_back"
-length = 2.0
-tracks/0/type = "value"
-tracks/0/path = NodePath("Body:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Body/Hair:frame")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("Body/Eyes:frame")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("Body/Clothes:frame")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
-"update": 1,
-"values": [ 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
-}
+[ext_resource path="res://Assets/Characters/Female_RightSide_Sit_001.png" type="Texture" id=2]
+[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=3]
+[ext_resource path="res://Resources/Animations/idle_left.tres" type="Animation" id=4]
+[ext_resource path="res://Resources/Animations/idle_right.tres" type="Animation" id=5]
+[ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=6]
+[ext_resource path="res://Scenes/Player.tres" type="Animation" id=7]
+[ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=8]
 
 [sub_resource type="Animation" id=2]
-resource_name = "left_sit_front"
+resource_name = "sit_front"
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:frame")
@@ -295,37 +241,35 @@ frame = 17
 
 [node name="Hair" type="Sprite" parent="Body"]
 position = Vector2( 7.45058e-09, -1.19209e-07 )
-texture = ExtResource( 3 )
 vframes = 4
 hframes = 9
 frame = 17
 
 [node name="Eyes" type="Sprite" parent="Body"]
-texture = ExtResource( 4 )
 vframes = 4
 hframes = 9
 frame = 17
 
 [node name="Clothes" type="Sprite" parent="Body"]
-texture = ExtResource( 5 )
 vframes = 4
 hframes = 9
 frame = 17
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.2
-anims/idle_down = ExtResource( 6 )
-anims/idle_left = ExtResource( 7 )
-anims/idle_right = ExtResource( 8 )
-anims/idle_up = ExtResource( 9 )
-anims/left_sit_back = SubResource( 1 )
-anims/left_sit_front = SubResource( 2 )
+anims/idle_down = ExtResource( 3 )
+anims/idle_left = ExtResource( 4 )
+anims/idle_right = ExtResource( 5 )
+anims/idle_up = ExtResource( 6 )
+anims/sit_back = ExtResource( 7 )
+anims/sit_front = SubResource( 2 )
 anims/walk_down = SubResource( 3 )
-anims/walk_left = ExtResource( 10 )
+anims/walk_left = ExtResource( 8 )
 anims/walk_right = SubResource( 4 )
 anims/walk_up = SubResource( 5 )
 
 [node name="FullBody" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -344,6 +288,7 @@ scroll_active = false
 [node name="ChatTimer" type="Timer" parent="ChatBubble"]
 
 [node name="LowerBody" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0, 18 )
 shape = SubResource( 7 )
 
