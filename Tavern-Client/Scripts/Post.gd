@@ -83,4 +83,5 @@ func _on_Remove_button_up():
 
 func _on_PostRemove_request_completed(result, response_code, headers, body):
 	get_parent().takedown_post(post_id)
+	global.make_get_request(get_node("/root/Tavern/BoardScene/Board/BoardRequest"), 'tavern/' + global.player_data.tavern.id + '/board')
 	call_deferred("free")

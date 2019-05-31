@@ -252,17 +252,19 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
-position = Vector2( 95.9963, 279.173 )
+editor/display_folded = true
+position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="YSort/Table_001"]
+editor/display_folded = true
 
 [node name="TableChat" type="RichTextLabel" parent="YSort/Table_001/CanvasLayer"]
 margin_left = 25.2297
-margin_top = 269.333
+margin_top = 269.54
 margin_right = 138.23
-margin_bottom = 319.333
+margin_bottom = 319.54
 mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
@@ -281,14 +283,17 @@ position = Vector2( -6.98337, 31.4252 )
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_002"]
-position = Vector2( -21.4321, -0.698303 )
+position = Vector2( -22.0986, -21.2267 )
 
 [node name="Stool_003" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( 23, 31 )
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_003"]
-position = Vector2( -19.839, 0 )
+position = Vector2( -19.839, -21.3727 )
+
+[node name="R_P" type="Position2D" parent="YSort/Table_001/Stool_003"]
+position = Vector2( 11.0037, -20.2955 )
 
 [node name="Stool_004" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -40, -24 )
@@ -296,7 +301,7 @@ z_as_relative = false
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_004"]
-position = Vector2( -18.839, -14.5 )
+position = Vector2( -18.839, -7 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( 23, -24 )
@@ -304,7 +309,10 @@ z_as_relative = false
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_006"]
-position = Vector2( -19.839, -14.5 )
+position = Vector2( -19.6942, -5.2955 )
+
+[node name="R_P" type="Position2D" parent="YSort/Table_001/Stool_006"]
+position = Vector2( 11.0037, -5.173 )
 
 [node name="Stool_005" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -10, -24.1331 )
@@ -312,7 +320,7 @@ z_as_relative = false
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_005"]
-position = Vector2( -21.3597, -14.3669 )
+position = Vector2( -20.9963, -5.03991 )
 
 [node name="Area2D" type="Area2D" parent="YSort/Table_001"]
 visible = false
@@ -336,7 +344,7 @@ position = Vector2( -12.9556, -11.3775 )
 texture = ExtResource( 14 )
 
 [node name="Mug_005" type="Sprite" parent="YSort/Table_001"]
-position = Vector2( 29.8058, -17.1436 )
+position = Vector2( 26.2839, -19.2955 )
 texture = ExtResource( 15 )
 
 [node name="Join" type="Button" parent="YSort/Table_001"]
@@ -353,7 +361,6 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 16 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -515,7 +522,6 @@ text = "Join Table"
 flat = true
 
 [node name="Board" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
@@ -619,6 +625,7 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 26 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573

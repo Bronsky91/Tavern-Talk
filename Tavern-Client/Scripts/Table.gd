@@ -177,6 +177,7 @@ sync func receive_action_message(c_name, msg):
 
 func _on_Leave_button_up():
 	.hide()
+	get_parent().leaving_table(table_id)
 	
 func _on_Table_visibility_changed():
 	if visible == true:

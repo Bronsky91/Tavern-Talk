@@ -11,6 +11,7 @@ var movement_buffer = 30
 var sitting = false
 var sat_down = false
 var stool
+var current_table_id = null
 
 onready var animate = $AnimationPlayer
 
@@ -39,7 +40,6 @@ puppet func update_pos(id, pos, tar, animation):
 func _physics_process(delta):
 	if is_network_master():
 		velocity = (target - position).normalized() * speed
-		#print((target - position).length())
 		if (target - position).length() > movement_buffer: 
 			move_and_slide(velocity)
 			use_texture('walking')
@@ -56,7 +56,7 @@ func _physics_process(delta):
 			use_texture('sitting')
 			animate.current_animation = 'left_sit_back'
 			sat_down = true
-			$AnimationTimer.start()
+			$AnimationTimer.start(1.1)
 			stool.z_index = 1
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 		elif (target - position).length() < movement_buffer and sitting == false:
@@ -112,12 +112,23 @@ func use_texture(animation):
 			$Body/Clothes.vframes = 4
 			$Body/Clothes.hframes = 9
 
-func sit_down(t, _stool):
+func sit_down(t, _stool, table_id):
 	stool = _stool
+	current_table_id = table_id
 	$LowerBody.disabled = true
 	movement_buffer = 1
 	target = t
+	sat_down = false
 	sitting = true
+	
+func stand_up(_stool):
+	stool = _stool
+	$LowerBody.disabled = false
+	movement_buffer = 30
+	animate.play_backwards(animate.current_animation)
+	$AnimationTimer.start(.7)
+	rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+	
 ### Chatting ###
 
 sync func receive_tavern_chat(msg, id):
@@ -134,10 +145,17 @@ func _on_ChatTimer_timeout():
 	$ChatBubble.clear()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	print('sit' in 'left_sit_back')
-	if 'left_sit_back' == anim_name:
+	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
 		animate.stop()
-
+		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+		get_node("/root/Tavern").join_table(current_table_id)
+	else:
+		current_table_id = null
+		sitting = false
+		stool.z_index = 0
 
 func _on_Timer_timeout():
-	stool.z_index = 0
+	if stool.z_index == 1:
+		stool.z_index = 0
+	else:
+		stool.z_index = 1

@@ -12,6 +12,7 @@ func _ready():
 	$Board/BulletinBoard_Wallpaper.set_texture(load("res://Assets/Backgrounds/BulletinBoard_Wallpaper_001.png"))
 	$Board/BulletinBoard_Wallpaper/BulletinBoardBG.set_texture(load("res://Assets/Backgrounds/BulletinBoardA_BG.png"))
 	get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
+	global.make_get_request($Board/BoardRequest, 'tavern/' + global.player_data.tavern.id + '/board')
 
 func populate_posts(posts):
 	## Populates post_dic with the _ids of all posts
@@ -55,8 +56,5 @@ func _on_TextureButton_button_up(num):
 	new_post.new_post(false, post_data._id, post_data.body, post_data.author)
 	
 func _on_Board_visibility_changed():
-	## TEMP FOR DEBUG
-	global.player_data.tavern.id = "5cbf609bcfa4e90275f81e4c"
-	###
 	if $Board.visible == true:
 		global.make_get_request($Board/BoardRequest, 'tavern/' + global.player_data.tavern.id + '/board')

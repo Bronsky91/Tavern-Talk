@@ -56,6 +56,7 @@ func _on_Back_pressed():
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.visible == true:
 			t.hide()
+			leaving_table(t.table_id)
 			return
 	if get_node('Tavern/BoardScene') != null:
 		get_node('Tavern/BoardScene').queue_free()
@@ -78,6 +79,7 @@ func enter_tavern(ip, port):
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
 	rpc_id(0, "register_tables")
+	
 ### Network Player Registration ###
 
 remote func register_player(id, info):
@@ -138,18 +140,24 @@ func _on_Table_button_up(table_id):
 	for stool in stool_count[table_id]:
 		var stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
-		if patron != stool_count[table_id][stool] or stool_count[table_id][stool] == null:
+		if stool_count[table_id][stool] == null:
 			stool_count[table_id][stool] = patron
-			print(stool_count)
-			patron.sit_down(stool_pos, stool_node)
+			patron.sit_down(stool_pos, stool_node, table_id)
+			#join_table(table_id)
 			break
-		
-	#join_table(table_id)
 	
 func join_table(table_id):
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
+
+func leaving_table(table_id):
+	for stool in stool_count[table_id]:
+		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
+		if stool_count[table_id][stool].name == str(get_tree().get_network_unique_id()):
+			stool_count[table_id][stool].stand_up(stool_node)
+			stool_count[table_id][stool] = null
+			break
 
 func create_table_scenes():
 	for t in range(1, 4):
@@ -160,7 +168,6 @@ func create_table_scenes():
 		new_table.hide()
 		add_child(new_table)
 		new_table.add_to_group("tables")
-
 
 sync func table_join_view(show, id, table_id):
 	if get_tree().get_network_unique_id() == int(id):
@@ -197,13 +204,15 @@ func _on_BoardArea_area_shape_entered(area_id, area, area_shape, self_shape):
 
 func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
 	rpc("board_view", false, area.get_parent().name)
-	
+
 func update_board_texture():
 	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board')
 
 func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var post_number = len(json.result.data)
+	print(json.result.data)
+	print(post_number)
 	if post_number == 0:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
 	elif post_number < 6:
