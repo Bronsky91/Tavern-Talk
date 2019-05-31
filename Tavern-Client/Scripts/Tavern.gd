@@ -8,6 +8,30 @@ var character_name = null
 var player_info = {}
 var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
 
+var stool_count = {
+	1: { # table_id
+		1: null, # stool number
+		2: null,
+		3: null,
+		4: null,
+		5: null
+	},
+	2: { # table_id
+		1: null, # stool number
+		2: null,
+		3: null,
+		4: null,
+		5: null
+	},
+	3: { # table_id
+		1: null, # stool number
+		2: null,
+		3: null,
+		4: null,
+		5: null
+	}
+}
+
 onready var entrance = $Entrance
 onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $ChatEnter
@@ -110,7 +134,16 @@ func _server_disconnected():
 ### Tables ###
 	
 func _on_Table_button_up(table_id):
-	join_table(table_id)
+	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
+	for stool in stool_count[table_id]:
+		var stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
+		if patron != stool_count[table_id][stool] or stool_count[table_id][stool] == null:
+			stool_count[table_id][stool] = patron
+			print(stool_count)
+			patron.sit_down(stool_pos)
+			break
+		
+	#join_table(table_id)
 	
 func join_table(table_id):
 	for t in get_tree().get_nodes_in_group("tables"):

@@ -7,13 +7,16 @@ var velocity = Vector2()
 var gender = null
 var style = null
 var busy
+var movement_buffer = 30
+var sitting = false
+var sat_down = false
 
 onready var animate = $AnimationPlayer
 
 func _ready():
 	target = position
 	animate.current_animation = 'idle_up'
-	walking(false)
+	use_texture('idle')
 	
 ### Movement ###
 
@@ -28,16 +31,17 @@ puppet func update_pos(id, pos, tar, animation):
 	if animate.current_animation != animation:
 			animate.current_animation = animation
 	if 'walk' in animate.current_animation:
-		walking(true)
+		use_texture('walking')
 	else:
-		walking(false)
+		use_texture('idle')
 		
 func _physics_process(delta):
 	if is_network_master():
 		velocity = (target - position).normalized() * speed
-		if (target - position).length() > 30: 
+		#print((target - position).length())
+		if (target - position).length() > movement_buffer: 
 			move_and_slide(velocity)
-			walking(true)
+			use_texture('walking')
 			if velocity.angle() > -2 and velocity.angle() < -1:
 				animate.current_animation = 'walk_up'
 			if velocity.angle() > 1 and velocity.angle() < 2:
@@ -47,8 +51,13 @@ func _physics_process(delta):
 			if velocity.angle() > -1 and velocity.angle() < 1:
 				animate.current_animation = 'walk_right'
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
-		else:
-			walking(false)
+		elif (target - position).length() < movement_buffer and sitting == true and sat_down == false:
+			use_texture('sitting')
+			animate.current_animation = 'left_sit_back'
+			sat_down = true
+			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+		elif (target - position).length() < movement_buffer and sitting == false:
+			use_texture('idle')
 			if animate.current_animation == 'walk_up':
 				animate.current_animation = 'idle_up'
 			if animate.current_animation == 'walk_down':
@@ -59,8 +68,8 @@ func _physics_process(delta):
 				animate.current_animation = 'idle_right'
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 			
-func walking(yes):
-		if yes:
+func use_texture(animation):
+		if animation == 'walking':
 			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk_00"+str(style.skin)+".png"))
 			$Body.vframes = 4
 			$Body.hframes = 6
@@ -73,7 +82,7 @@ func walking(yes):
 			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_WalkClothes_00"+str(style.clothes)+".png"))
 			$Body/Clothes.vframes = 4
 			$Body/Clothes.hframes = 6
-		else:
+		elif animation == 'idle':
 			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(style.skin)+".png"))
 			$Body.vframes = 4
 			$Body.hframes = 4
@@ -86,7 +95,25 @@ func walking(yes):
 			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(style.clothes)+".png"))
 			$Body/Clothes.vframes = 4
 			$Body/Clothes.hframes = 4
+		elif animation == 'sitting':
+			$Body.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_Sit_00"+str(style.skin)+".png"))
+			$Body.vframes = 4
+			$Body.hframes = 9
+			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_SitHair_00"+str(style.hair)+".png"))
+			$Body/Hair.vframes = 4
+			$Body/Hair.hframes = 9
+			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_SitEyes_00"+str(style.eyes)+".png"))
+			$Body/Eyes.vframes = 4
+			$Body/Eyes.hframes = 9
+			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_LeftSide_SitClothes_00"+str(style.clothes)+".png"))
+			$Body/Clothes.vframes = 4
+			$Body/Clothes.hframes = 9
 
+func sit_down(t):
+	$LowerBody.disabled = true
+	movement_buffer = 1
+	target = t
+	sitting = true
 ### Chatting ###
 
 sync func receive_tavern_chat(msg, id):
@@ -101,3 +128,8 @@ func overhead_chat(msg):
 
 func _on_ChatTimer_timeout():
 	$ChatBubble.clear()
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	print('sit' in 'left_sit_back')
+	if 'left_sit_back' == anim_name:
+		animate.stop()

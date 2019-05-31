@@ -200,7 +200,6 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
-editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -257,32 +256,64 @@ position = Vector2( 95.9963, 279.173 )
 z_index = 1
 texture = ExtResource( 12 )
 
+[node name="CanvasLayer" type="CanvasLayer" parent="YSort/Table_001"]
+editor/display_folded = true
+
+[node name="TableChat" type="RichTextLabel" parent="YSort/Table_001/CanvasLayer"]
+margin_left = 25.4963
+margin_top = 273.102
+margin_right = 138.497
+margin_bottom = 323.102
+mouse_filter = 2
+bbcode_enabled = true
+scroll_active = false
+
+[node name="TableChatTimer" type="Timer" parent="YSort/Table_001/CanvasLayer/TableChat"]
+
 [node name="Stool_001" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -41.2019, 30.7269 )
 texture = ExtResource( 13 )
+
+[node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_001"]
+position = Vector2( -21.583, -9.8999 )
 
 [node name="Stool_002" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -6.98337, 31.4252 )
 texture = ExtResource( 13 )
 
+[node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_002"]
+position = Vector2( -21.4321, -0.698303 )
+
 [node name="Stool_003" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( 23, 31 )
 texture = ExtResource( 13 )
+
+[node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_003"]
+position = Vector2( -19.839, 0 )
 
 [node name="Stool_004" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -40, -24 )
 z_as_relative = false
 texture = ExtResource( 13 )
 
+[node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_004"]
+position = Vector2( -18.839, -14.5 )
+
 [node name="Stool_006" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( 23, -24 )
 z_as_relative = false
 texture = ExtResource( 13 )
 
+[node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_006"]
+position = Vector2( -19.839, -14.5 )
+
 [node name="Stool_005" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -10, -24.1331 )
 z_as_relative = false
 texture = ExtResource( 13 )
+
+[node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_005"]
+position = Vector2( -21.3597, -14.3669 )
 
 [node name="Area2D" type="Area2D" parent="YSort/Table_001"]
 visible = false
@@ -293,19 +324,6 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Table_001/Area2D"]
 position = Vector2( 44.4322, 18.3524 )
 shape = SubResource( 3 )
-
-[node name="CanvasLayer" type="CanvasLayer" parent="YSort/Table_001"]
-
-[node name="TableChat" type="RichTextLabel" parent="YSort/Table_001/CanvasLayer"]
-margin_left = 23.0997
-margin_top = 273.102
-margin_right = 136.1
-margin_bottom = 323.102
-mouse_filter = 2
-bbcode_enabled = true
-scroll_active = false
-
-[node name="TableChatTimer" type="Timer" parent="YSort/Table_001/CanvasLayer/TableChat"]
 
 [node name="StaticBody2D" type="StaticBody2D" parent="YSort/Table_001"]
 visible = false
@@ -336,6 +354,7 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 16 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -417,6 +436,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 87.3183, 480 )
 z_index = 1
 texture = ExtResource( 19 )
@@ -426,11 +446,11 @@ position = Vector2( -39.1069, 31.4252 )
 texture = ExtResource( 13 )
 
 [node name="Stool_002" type="Sprite" parent="YSort/Table_003"]
-position = Vector2( -6.98331, 32.1235 )
+position = Vector2( -7.3183, 31 )
 texture = ExtResource( 13 )
 
 [node name="Stool_003" type="Sprite" parent="YSort/Table_003"]
-position = Vector2( 23.7435, 30.0573 )
+position = Vector2( 26.9838, 31 )
 texture = ExtResource( 13 )
 
 [node name="Stool_004" type="Sprite" parent="YSort/Table_003"]
@@ -517,7 +537,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
 visible = false
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 8 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
