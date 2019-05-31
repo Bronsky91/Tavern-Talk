@@ -10,6 +10,7 @@ var busy
 var movement_buffer = 30
 var sitting = false
 var sat_down = false
+var stool
 
 onready var animate = $AnimationPlayer
 
@@ -55,6 +56,8 @@ func _physics_process(delta):
 			use_texture('sitting')
 			animate.current_animation = 'left_sit_back'
 			sat_down = true
+			$AnimationTimer.start()
+			stool.z_index = 1
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 		elif (target - position).length() < movement_buffer and sitting == false:
 			use_texture('idle')
@@ -109,7 +112,8 @@ func use_texture(animation):
 			$Body/Clothes.vframes = 4
 			$Body/Clothes.hframes = 9
 
-func sit_down(t):
+func sit_down(t, _stool):
+	stool = _stool
 	$LowerBody.disabled = true
 	movement_buffer = 1
 	target = t
@@ -133,3 +137,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	print('sit' in 'left_sit_back')
 	if 'left_sit_back' == anim_name:
 		animate.stop()
+
+
+func _on_Timer_timeout():
+	stool.z_index = 0

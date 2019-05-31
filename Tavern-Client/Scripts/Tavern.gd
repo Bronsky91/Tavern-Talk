@@ -137,10 +137,11 @@ func _on_Table_button_up(table_id):
 	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
 	for stool in stool_count[table_id]:
 		var stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
+		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if patron != stool_count[table_id][stool] or stool_count[table_id][stool] == null:
 			stool_count[table_id][stool] = patron
 			print(stool_count)
-			patron.sit_down(stool_pos)
+			patron.sit_down(stool_pos, stool_node)
 			break
 		
 	#join_table(table_id)

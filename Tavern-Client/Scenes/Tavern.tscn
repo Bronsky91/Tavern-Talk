@@ -257,13 +257,12 @@ z_index = 1
 texture = ExtResource( 12 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="YSort/Table_001"]
-editor/display_folded = true
 
 [node name="TableChat" type="RichTextLabel" parent="YSort/Table_001/CanvasLayer"]
-margin_left = 25.4963
-margin_top = 273.102
-margin_right = 138.497
-margin_bottom = 323.102
+margin_left = 25.2297
+margin_top = 269.333
+margin_right = 138.23
+margin_bottom = 319.333
 mouse_filter = 2
 bbcode_enabled = true
 scroll_active = false
@@ -275,7 +274,7 @@ position = Vector2( -41.2019, 30.7269 )
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_001/Stool_001"]
-position = Vector2( -21.583, -9.8999 )
+position = Vector2( -20.25, -21.0996 )
 
 [node name="Stool_002" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( -6.98337, 31.4252 )
@@ -333,7 +332,7 @@ position = Vector2( -13.5558, -3.12827 )
 shape = SubResource( 4 )
 
 [node name="TableCloth" type="Sprite" parent="YSort/Table_001"]
-position = Vector2( -11.8892, -9.51132 )
+position = Vector2( -12.9556, -11.3775 )
 texture = ExtResource( 14 )
 
 [node name="Mug_005" type="Sprite" parent="YSort/Table_001"]
@@ -537,7 +536,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
 visible = false
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 8 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
