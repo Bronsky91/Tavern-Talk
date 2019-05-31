@@ -9,7 +9,7 @@
 [ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=7]
 
 [sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.588235 )
+bg_color = Color( 0.6, 0.6, 0.6, 0.458824 )
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.403922 )
@@ -36,7 +36,7 @@ position = Vector2( 180, 320 )
 texture = ExtResource( 3 )
 
 [node name="ChatInput" type="LineEdit" parent="."]
-margin_top = 590.0
+margin_top = 610.0
 margin_right = 360.0
 margin_bottom = 640.0
 custom_styles/normal = SubResource( 1 )

@@ -14,21 +14,24 @@ var stool_count = {
 		2: null,
 		3: null,
 		4: null,
-		5: null
+		5: null,
+		6: null
 	},
 	2: { # table_id
 		1: null, # stool number
 		2: null,
 		3: null,
 		4: null,
-		5: null
+		5: null,
+		6: null
 	},
 	3: { # table_id
-		1: null, # stool number
+		1: null, # stool number: patron_node
 		2: null,
 		3: null,
 		4: null,
-		5: null
+		5: null,
+		6: null
 	}
 }
 
@@ -144,10 +147,11 @@ func find_closest_stool(table_id, patron):
 	#loop through all stools for availablity
 	for stool in stool_count[table_id]:
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
+		print(stool)
 		if stool_count[table_id][stool] == null:
 		# if stool is available set the stool number as key and distance from patron as value
 			stool_pos_dict[(stool_node.get_global_position() - patron.position).length()] = stool
-	
+	print(stool_pos_dict)
 	return stool_pos_dict[get_min(stool_pos_dict.keys())]
 	
 func _on_Table_button_up(table_id):
@@ -157,7 +161,7 @@ func _on_Table_button_up(table_id):
 	var stool = find_closest_stool(table_id, patron)
 	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 	## Replace stool_node assignment to function on finding the closest available stool
-	if stool > 4:
+	if stool >= 4:
 		# if the stool is on the bottom row use back animation
 		patron.v_sit_anim = 'front'
 	else:
@@ -176,8 +180,7 @@ func _on_Table_button_up(table_id):
 		# player is to the left of the stool
 		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
 	stool_count[table_id][stool] = patron
-	print(stool)
-	print(stool_count[table_id])
+	print(stool_node.name)
 	patron.sit_down(stool_pos, stool_node, table_id)
 		
 	
@@ -247,8 +250,6 @@ func update_board_texture():
 func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var post_number = len(json.result.data)
-	print(json.result.data)
-	print(post_number)
 	if post_number == 0:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
 	elif post_number < 6:
