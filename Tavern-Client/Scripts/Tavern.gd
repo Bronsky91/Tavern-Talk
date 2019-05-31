@@ -180,7 +180,6 @@ func _on_Table_button_up(table_id):
 		# player is to the left of the stool
 		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
 	stool_count[table_id][stool] = patron
-	print(stool_node.name)
 	patron.sit_down(stool_pos, stool_node, table_id)
 		
 	

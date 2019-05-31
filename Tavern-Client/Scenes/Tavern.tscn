@@ -502,10 +502,10 @@ position = Vector2( 26.9838, 31 )
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_003/Stool_003"]
-position = Vector2( -18.3058, -19.406 )
+position = Vector2( -19.3021, -19.406 )
 
 [node name="R_P" type="Position2D" parent="YSort/Table_003/Stool_003"]
-position = Vector2( 7.97811, -19.406 )
+position = Vector2( 10.573, -19.406 )
 
 [node name="Stool_004" type="Sprite" parent="YSort/Table_003"]
 position = Vector2( -37.3183, -30 )

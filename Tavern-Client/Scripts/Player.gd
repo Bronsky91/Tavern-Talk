@@ -59,7 +59,8 @@ func _physics_process(delta):
 			animate.current_animation = 'sit_'+v_sit_anim
 			sat_down = true
 			$AnimationTimer.start(1.1)
-			stool.z_index = 1
+			if v_sit_anim == 'back':
+				stool.z_index = 1
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 		elif (target - position).length() < movement_buffer and sitting == false:
 			use_texture('idle')
@@ -74,45 +75,45 @@ func _physics_process(delta):
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 			
 func use_texture(animation):
-		if animation == 'walking':
-			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk_00"+str(style.skin)+".png"))
-			$Body.vframes = 4
-			$Body.hframes = 6
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_WalkHair_00"+str(style.hair)+".png"))
-			$Body/Hair.vframes = 4
-			$Body/Hair.hframes = 6
-			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_WalkEyes_00"+str(style.eyes)+".png"))
-			$Body/Eyes.vframes = 4
-			$Body/Eyes.hframes = 6
-			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_WalkClothes_00"+str(style.clothes)+".png"))
-			$Body/Clothes.vframes = 4
-			$Body/Clothes.hframes = 6
-		elif animation == 'idle':
-			$Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(style.skin)+".png"))
-			$Body.vframes = 4
-			$Body.hframes = 4
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(style.hair)+".png"))
-			$Body/Hair.vframes = 4
-			$Body/Hair.hframes = 4
-			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_00"+str(style.eyes)+".png"))
-			$Body/Eyes.vframes = 4
-			$Body/Eyes.hframes = 4
-			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(style.clothes)+".png"))
-			$Body/Clothes.vframes = 4
-			$Body/Clothes.hframes = 4
-		elif animation == 'sitting':
-			$Body.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_Sit_00"+str(style.skin)+".png"))
-			$Body.vframes = 4
-			$Body.hframes = 9
-			$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitHair_00"+str(style.hair)+".png"))
-			$Body/Hair.vframes = 4
-			$Body/Hair.hframes = 9
-			$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitEyes_00"+str(style.eyes)+".png"))
-			$Body/Eyes.vframes = 4
-			$Body/Eyes.hframes = 9
-			$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitClothes_00"+str(style.clothes)+".png"))
-			$Body/Clothes.vframes = 4
-			$Body/Clothes.hframes = 9
+	if animation == 'walking':
+		$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk_00"+str(style.skin)+".png"))
+		$Body.vframes = 4
+		$Body.hframes = 6
+		$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_WalkHair_00"+str(style.hair)+".png"))
+		$Body/Hair.vframes = 4
+		$Body/Hair.hframes = 6
+		$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_WalkEyes_00"+str(style.eyes)+".png"))
+		$Body/Eyes.vframes = 4
+		$Body/Eyes.hframes = 6
+		$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_WalkClothes_00"+str(style.clothes)+".png"))
+		$Body/Clothes.vframes = 4
+		$Body/Clothes.hframes = 6
+	elif animation == 'idle':
+		$Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(style.skin)+".png"))
+		$Body.vframes = 4
+		$Body.hframes = 4
+		$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(style.hair)+".png"))
+		$Body/Hair.vframes = 4
+		$Body/Hair.hframes = 4
+		$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_00"+str(style.eyes)+".png"))
+		$Body/Eyes.vframes = 4
+		$Body/Eyes.hframes = 4
+		$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(style.clothes)+".png"))
+		$Body/Clothes.vframes = 4
+		$Body/Clothes.hframes = 4
+	elif animation == 'sitting':
+		$Body.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_Sit_00"+str(style.skin)+".png"))
+		$Body.vframes = 4
+		$Body.hframes = 9
+		$Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitHair_00"+str(style.hair)+".png"))
+		$Body/Hair.vframes = 4
+		$Body/Hair.hframes = 9
+		$Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitEyes_00"+str(style.eyes)+".png"))
+		$Body/Eyes.vframes = 4
+		$Body/Eyes.hframes = 9
+		$Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_"+h_sit_anim+"Side_SitClothes_00"+str(style.clothes)+".png"))
+		$Body/Clothes.vframes = 4
+		$Body/Clothes.hframes = 9
 
 func sit_down(t, _stool, table_id):
 	stool = _stool
@@ -148,16 +149,21 @@ func _on_ChatTimer_timeout():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
+	# if animation is playing normally
 		animate.stop()
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 		get_node("/root/Tavern").join_table(current_table_id)
 	else:
+	# Else the animation is playing backwards and player is standing up
+		animate.stop()
+		animate.current_animation = 'idle_left'
 		current_table_id = null
 		sitting = false
 		stool.z_index = 0
 
 func _on_Timer_timeout():
-	if stool.z_index == 1:
-		stool.z_index = 0
-	else:
-		stool.z_index = 1
+	if v_sit_anim == 'back':
+		if stool.z_index == 1:
+			stool.z_index = 0
+		else:
+			stool.z_index = 1
