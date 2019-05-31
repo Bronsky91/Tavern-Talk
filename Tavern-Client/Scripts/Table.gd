@@ -6,7 +6,7 @@ onready var chat_display = $ChatDisplay
 onready var chat_input = $ChatInput
 onready var cmd = get_node("Commands")
 
-var character_name = global.player_data.character.name
+var character_name = g.player_data.character.name
 var table_id = null
 var current_patrons = []
 var command_time = false
@@ -166,7 +166,7 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 				if patron.stats.wis > 11:
 				# if a patron at the table has the wisdom they can hear random words of the whisper based on stat mod
 					var broken_msg = msg.split(" ")
-					chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers "+ random_sneak(broken_msg ,global.calc_stat_mod(patron.stats.wis)) +" to " + r_name +'[/i]'+'[/color]'
+					chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers "+ random_sneak(broken_msg ,g.calc_stat_mod(patron.stats.wis)) +" to " + r_name +'[/i]'+'[/color]'
 				chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
 				new_line()
 
@@ -203,7 +203,7 @@ func _on_Table_visibility_changed():
 	if visible == true:
 		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
 		rpc("receive_action_message", character_name, "sits at the table")
-		rpc("set_patron", get_tree().get_network_unique_id(), character_name, global.player_data.character.stats)
+		rpc("set_patron", get_tree().get_network_unique_id(), character_name, g.player_data.character.stats)
 	else:
 		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
 		rpc("receive_action_message", character_name, "leaves the table")

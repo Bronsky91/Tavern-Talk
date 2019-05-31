@@ -49,10 +49,10 @@ func _on_NewEdit_button_up():
 		## Conditional to check post_id
 		if post_id == '0':
 			var data = {'board': {"body": $BodyEdit.text, "author": $AuthorEdit.text}}
-			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id, data)
+			g.make_patch_request($PostSave, 'tavern/' + g.player_data.tavern.id, data)
 		else:
 			var data = {"id": post_id, "body": $BodyEdit.text, "author": $AuthorEdit.text}
-			global.make_patch_request($PostSave, 'tavern/' + global.player_data.tavern.id + '/board', data)
+			g.make_patch_request($PostSave, 'tavern/' + g.player_data.tavern.id + '/board', data)
 	else:
 		hide_edit(false)
 		$NewEdit.text = 'Post'
@@ -73,15 +73,15 @@ func _on_Return_button_up():
 	
 func _on_PostSave_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	global.make_get_request(get_node("/root/Tavern/BoardScene/Board/BoardRequest"), 'tavern/' + global.player_data.tavern.id + '/board')
+	g.make_get_request(get_node("/root/Tavern/BoardScene/Board/BoardRequest"), 'tavern/' + g.player_data.tavern.id + '/board')
 	## Display error if post did not save for some reason
 
 func _on_Remove_button_up():
 	var data = {'_id': post_id}
-	global.make_delete_request($PostRemove, 'tavern/' + global.player_data.tavern.id + '/board', data)
+	g.make_delete_request($PostRemove, 'tavern/' + g.player_data.tavern.id + '/board', data)
 	## TODO: Confirmation Check
 
 func _on_PostRemove_request_completed(result, response_code, headers, body):
 	get_parent().takedown_post(post_id)
-	global.make_get_request(get_node("/root/Tavern/BoardScene/Board/BoardRequest"), 'tavern/' + global.player_data.tavern.id + '/board')
+	g.make_get_request(get_node("/root/Tavern/BoardScene/Board/BoardRequest"), 'tavern/' + g.player_data.tavern.id + '/board')
 	call_deferred("free")

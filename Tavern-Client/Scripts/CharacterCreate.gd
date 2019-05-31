@@ -140,4 +140,4 @@ func _on_Create_button_up():
 		'eyes': eyes,
 		'clothes': clothes
 	}
-	global.make_patch_request($Create, 'users/' + global.player_data.user_id, character_data)
+	g.make_patch_request($Create, 'users/' + g.player_data.user_id, character_data)

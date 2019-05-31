@@ -17,7 +17,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	else:
 		var json = JSON.parse(body.get_string_from_utf8())
 		print(json.result)
-		global.player_data.user_id = json.result.id
+		g.player_data.user_id = json.result.id
 		hide()
 		menu.change_menu_scene(self, menu.get_node("CharacterSelect"))
 
@@ -30,7 +30,7 @@ func _on_Sign_Up_button_up():
 		## TODO:
 		# Add field validation
 		var data = {"email": email.text, "username": username.text, "password": password.text}
-		global.make_post_request($HTTPRequest, 'users', data)
+		g.make_post_request($HTTPRequest, 'users', data)
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node("Login"))

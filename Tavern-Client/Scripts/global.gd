@@ -29,8 +29,16 @@ var player_data = {
 var api_url = 'https://warlock.tech/api/'
 var headers = ["Content-Type: application/json",
 				"Authorization: Basic YWRtaW46c3RyaWZlbG9yZA=="]
+				
+var screen_scale
+
+onready var viewport = get_viewport()
+
 func _ready():
-	pass 
+	var window_size = OS.get_window_size()
+	var scale_x = floor(window_size.x / viewport.size.x)
+	var scale_y = floor(window_size.y / viewport.size.y)
+	screen_scale = max(1, min(scale_x, scale_y))
 
 func make_get_request(request, url):
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_GET)
@@ -52,4 +60,9 @@ func calc_stat_mod(score):
 		return (((score - 10) / 2) + 10) - 10
 	else:
 		return (score - 10) / 2
-		
+
+func is_lower_than_keyboard(ledit):
+	return ledit.get_global_position().y < get_keyboard_height()
+
+func get_keyboard_height():
+	return OS.get_virtual_keyboard_height() / screen_scale

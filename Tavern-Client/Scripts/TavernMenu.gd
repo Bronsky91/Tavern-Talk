@@ -9,12 +9,12 @@ var selected_tavern
 var selected_tavern_index
 
 func _ready():
-	#global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns'
+	#g.make_get_request($HTTPRequestTaverns, 'users/'+g.player_data.user_id+'/taverns'
 	pass
 	
 func _on_AddTavern_button_up():
 	var data = {'code': invite_code.text}
-	global.make_post_request($HTTPRequestTavernCheck, 'tavern/check', data )
+	g.make_post_request($HTTPRequestTavernCheck, 'tavern/check', data )
 
 func find_tavern(t):
 	for tavern in tavern_list_data:
@@ -26,15 +26,15 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 	if response_code == 200:
 		var json = JSON.parse(body.get_string_from_utf8())
 		var data = json.result.data
-		global.make_post_request($SpinTavern, 'tavern/'+data._id+'/server', {})
-		global.player_data.tavern = {
+		g.make_post_request($SpinTavern, 'tavern/'+data._id+'/server', {})
+		g.player_data.tavern = {
 			'port': data.port,
 			'ip': data.ip,
 			'name': data.name,
 			'code': data.code,
 			'id': data._id
 		}
-		global.player_data.table_id = 0
+		g.player_data.table_id = 0
 		visible = false
 
 func _on_Back_button_up():
@@ -57,19 +57,19 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 		if not find_tavern(tavern):
 			tavern_list_data.append(tavern)
 			tavern_list.add_item(tavern.name)
-			global.make_post_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', tavern)
+			g.make_post_request($HTTPRequestAddTavern, 'users/'+g.player_data.user_id+'/taverns', tavern)
 
 func _on_Enter_button_up():
-	print(global.player_data.tavern )
-	if selected_tavern != null and global.player_data.tavern.id == null:
-		global.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern)
+	print(g.player_data.tavern )
+	if selected_tavern != null and g.player_data.tavern.id == null:
+		g.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern)
 	else:
-		global.make_post_request($SpinTavern, 'tavern/'+global.player_data.tavern.id+'/server', {})
+		g.make_post_request($SpinTavern, 'tavern/'+g.player_data.tavern.id+'/server', {})
 		# TODO: Error handling
 		
 func _on_Remove_button_up():
 	if selected_tavern != null:
-		global.make_delete_request($HTTPRequestAddTavern, 'users/'+global.player_data.user_id+'/taverns', selected_tavern)
+		g.make_delete_request($HTTPRequestAddTavern, 'users/'+g.player_data.user_id+'/taverns', selected_tavern)
 		tavern_list.remove_item(selected_tavern_index)
 		tavern_list_data.erase(selected_tavern)
 
@@ -82,7 +82,7 @@ func _on_TavernList_item_selected(index):
 
 func _on_TavernMenu_visibility_changed():
 	if visible == true:
-		global.make_get_request($HTTPRequestTaverns, 'users/'+global.player_data.user_id+'/taverns')
+		g.make_get_request($HTTPRequestTaverns, 'users/'+g.player_data.user_id+'/taverns')
 
 func _on_Create_button_up():
 	menu.change_menu_scene(self, menu.get_node('CreateTavern'))

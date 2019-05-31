@@ -43,11 +43,11 @@ func _ready():
 	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
-	if global.player_data.tavern.ip != null and global.player_data.tavern.port != null:
+	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
 		update_board_texture()
-		character_name = global.player_data.character.name
+		character_name = g.player_data.character.name
 		create_table_scenes()
-		enter_tavern(global.player_data.tavern.ip, global.player_data.tavern.port)
+		enter_tavern(g.player_data.tavern.ip, g.player_data.tavern.port)
 		
 func _notification(notif):
     if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
@@ -80,7 +80,7 @@ func enter_tavern(ip, port):
 	get_tree().set_network_peer(host)
 
 func entered_tavern():
-	rpc("register_player", get_tree().get_network_unique_id(), global.player_data)
+	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
 	
 ### Network Player Registration ###
@@ -150,7 +150,7 @@ func find_closest_stool(table_id, patron):
 		print(stool)
 		if stool_count[table_id][stool] == null:
 		# if stool is available set the stool number as key and distance from patron as value
-			stool_pos_dict[(stool_node.get_global_position() - patron.position).length()] = stool
+			stool_pos_dict[(stool_node.get_g_position() - patron.position).length()] = stool
 	print(stool_pos_dict)
 	return stool_pos_dict[get_min(stool_pos_dict.keys())]
 	
@@ -168,17 +168,17 @@ func _on_Table_button_up(table_id):
 		# Else it's the top row and use the front animation
 		patron.v_sit_anim = 'back'
 # if stool is empty 
-	if patron.position.x > stool_node.get_global_position().x:
+	if patron.position.x > stool_node.get_g_position().x:
 		patron.h_sit_anim = 'Right'
 		# if the player is to the right of the stool use right animation and stool position
 		if stool == 6 or stool == 3:
-			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_global_position()
+			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_g_position()
 		else:
-			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool+1)+"/L_P").get_global_position()
+			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool+1)+"/L_P").get_g_position()
 	else:
 		patron.h_sit_anim = 'Left'
 		# player is to the left of the stool
-		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
+		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_g_position()
 	stool_count[table_id][stool] = patron
 	patron.sit_down(stool_pos, stool_node, table_id)
 		
@@ -244,7 +244,7 @@ func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
 	rpc("board_view", false, area.get_parent().name)
 
 func update_board_texture():
-	global.make_get_request($YSort/Board/PostCheck, 'tavern/' + global.player_data.tavern.id +'/board')
+	g.make_get_request($YSort/Board/PostCheck, 'tavern/' + g.player_data.tavern.id +'/board')
 
 func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

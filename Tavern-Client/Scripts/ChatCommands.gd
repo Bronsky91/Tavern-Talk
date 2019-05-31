@@ -31,21 +31,21 @@ func w(params):
 	if r_id != null:
 		## Send whisper
 		table.get_node("ChatInput").text = ""
-		table.rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, global.player_data.character.name, recipient.capitalize(), msg)
+		table.rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, g.player_data.character.name, recipient.capitalize(), msg)
 	else:
 		table.send_system_message(get_tree().get_network_unique_id(), "That patron isn't at table")
 
 func throw(params):
-	var strength = global.player_data.character.stats.strength
-	var dex = global.player_data.character.stats.dex
+	var strength = g.player_data.character.stats.strength
+	var dex = g.player_data.character.stats.dex
 	var object = params[0]
 	var msg = ""
 	if strength > 14:
-		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ " across the room hitting the wall with a loud thud."
+		msg = "throws "+ ("his " if g.player_data.character.gender == "Male" else "her ")+object+ " across the room hitting the wall with a loud thud."
 	elif dex > 14:
-		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ ", narrowly missing "+table.find_random_patron().name
+		msg = "throws "+ ("his " if g.player_data.character.gender == "Male" else "her ")+object+ ", narrowly missing "+table.find_random_patron().name
 	else:
-		msg = "throws "+ ("his " if global.player_data.character.gender == "Male" else "her ")+object+ ", the barmaid yells, \"You're weak!\""
+		msg = "throws "+ ("his " if g.player_data.character.gender == "Male" else "her ")+object+ ", the barmaid yells, \"You're weak!\""
 	print(msg)
 	table.send_broadcast(msg)
 	
@@ -70,8 +70,8 @@ func armwrestle(params):
 	if challenger.name == initiator.name:
 		table.send_system_message(initiator.id, "Can't armwrestle yourself, sorry!")
 	else:
-		var c_obj = {'id': challenger.id, 'name': challenger.name, 'mod': global.calc_stat_mod(challenger.stats.strength)}
-		var i_obj = {'id': initiator.id, 'name': initiator.name, 'mod': global.calc_stat_mod(initiator.stats.strength)}
+		var c_obj = {'id': challenger.id, 'name': challenger.name, 'mod': g.calc_stat_mod(challenger.stats.strength)}
+		var i_obj = {'id': initiator.id, 'name': initiator.name, 'mod': g.calc_stat_mod(initiator.stats.strength)}
 		table.rpc_id(challenger.id, "ask_for_aw", i_obj, c_obj)
 	## display popup for acceptance of challengers screen and popup for waiting on initiator's screen
 	## Once accepted the armwrestle scene is shown
