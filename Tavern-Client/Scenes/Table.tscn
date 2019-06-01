@@ -8,7 +8,7 @@
 [ext_resource path="res://Resources/Fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://Resources/Fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=7]
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.403922 )
@@ -22,7 +22,7 @@ font_data = ExtResource( 6 )
 [sub_resource type="DynamicFont" id=5]
 font_data = ExtResource( 7 )
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 1, 1, 1, 0.917647 )
 
 [sub_resource type="DynamicFontData" id=7]
@@ -53,7 +53,7 @@ margin_left = 280.0
 margin_top = 90.0
 margin_right = 359.0
 margin_bottom = 279.0
-custom_styles/bg = SubResource( 6 )
+custom_styles/bg = SubResource( 1 )
 
 [node name="Commands" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -89,7 +89,7 @@ margin_left = 1.0
 margin_top = 598.0
 margin_right = 361.0
 margin_bottom = 638.0
-custom_styles/normal = SubResource( 1 )
+custom_styles/normal = SubResource( 6 )
 custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 caret_blink = true

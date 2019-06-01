@@ -60,7 +60,7 @@ func _notification(notif):
         _on_Back_pressed()
     if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
         _on_Back_pressed()
-		
+
 func _on_Back_pressed():
 	if chat_input.visible == true:
 		chat_input.clear()

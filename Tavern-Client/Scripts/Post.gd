@@ -6,8 +6,10 @@ onready var post_author = $Body/Author
 var new_post = false
 var post_limit = 359
 var post_id = '0'
+var author_input_y_pos
 
 func _enter_tree():
+	author_input_y_pos = $AuthorEdit.rect_position.y
 	if not new_post:
 		$NewEdit.text = "Edit"
 	else:
@@ -17,6 +19,15 @@ func _input(event):
 	if Input.is_action_just_pressed('backspace') and $BodyEdit.cursor_get_line() > 0:
 		$BodyEdit.readonly = false
 	
+func _process(delta):
+	raise_text_edit($AuthorEdit, author_input_y_pos)
+	
+func raise_text_edit(input, input_y_pos):
+	if input.has_focus():
+		input.rect_position.y = g.get_top_of_keyboard_pos() - input.get_size().y
+	else:
+		input.rect_position.y = input_y_pos
+		
 func new_post(new, id='', body='', author=''):
 	## Called from Board before post scene is added to scene_tree
 	if new:

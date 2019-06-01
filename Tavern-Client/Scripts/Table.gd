@@ -34,7 +34,7 @@ func raise_text_edit(input):
 	else:
 		chat_input.rect_position.y = g.viewport.size.y - 30
 		chat_display.rect_size.y = g.viewport.size.y - 40
-		
+
 func user_exited(id):
 	rpc("receive_action_message", character_name, "leaves the table")
 	rpc("remove_patron", id)

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Post.gd" type="Script" id=1]
 [ext_resource path="res://Assets/post.png" type="Texture" id=2]
+[ext_resource path="res://post_text_edit.tres" type="StyleBox" id=3]
 
 [node name="Post" type="Node2D"]
 script = ExtResource( 1 )
@@ -37,19 +38,21 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "- "
 
 [node name="BodyEdit" type="TextEdit" parent="."]
-visible = false
 margin_left = 94.5125
 margin_top = 138.463
 margin_right = 266.513
 margin_bottom = 421.463
+custom_styles/normal = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 wrap_enabled = true
 
 [node name="AuthorEdit" type="TextEdit" parent="."]
-visible = false
 margin_left = 155.0
 margin_top = 428.0
 margin_right = 262.0
 margin_bottom = 468.0
+custom_styles/normal = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="NewEdit" type="Button" parent="."]
 margin_left = 83.0
