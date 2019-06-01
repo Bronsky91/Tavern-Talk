@@ -1,29 +1,35 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Table.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/ArmWrestle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Backgrounds/TableBG_001.png" type="Texture" id=3]
-[ext_resource path="res://Resources/Fonts/OpenSans-Italic.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Resources/Fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://Resources/Fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=4]
+[ext_resource path="res://Resources/Fonts/OpenSans-Italic.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Resources/Fonts/OpenSans-Bold.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Resources/Fonts/OpenSans-Regular.ttf" type="DynamicFontData" id=7]
 
-[sub_resource type="StyleBoxFlat" id=1]
-bg_color = Color( 0.6, 0.6, 0.6, 0.458824 )
+[sub_resource type="StyleBoxEmpty" id=6]
 
 [sub_resource type="StyleBoxFlat" id=2]
 bg_color = Color( 0, 0, 0, 0.403922 )
 
 [sub_resource type="DynamicFont" id=3]
-font_data = ExtResource( 4 )
-
-[sub_resource type="DynamicFont" id=4]
 font_data = ExtResource( 5 )
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 font_data = ExtResource( 6 )
 
-[sub_resource type="StyleBoxEmpty" id=6]
+[sub_resource type="DynamicFont" id=5]
+font_data = ExtResource( 7 )
+
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 1, 1, 1, 0.917647 )
+
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://Resources/Fonts/OpenSans-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+font_data = SubResource( 7 )
 
 [node name="Table" type="Node2D"]
 z_index = 6
@@ -34,28 +40,6 @@ armwrestle_node = ExtResource( 2 )
 [node name="TableBG_001" type="Sprite" parent="."]
 position = Vector2( 180, 320 )
 texture = ExtResource( 3 )
-
-[node name="ChatInput" type="LineEdit" parent="."]
-margin_top = 610.0
-margin_right = 360.0
-margin_bottom = 640.0
-custom_styles/normal = SubResource( 1 )
-caret_blink = true
-
-[node name="ChatDisplay" type="RichTextLabel" parent="."]
-margin_left = 1.0
-margin_top = 2.0
-margin_right = 253.0
-margin_bottom = 590.0
-focus_mode = 2
-custom_styles/normal = SubResource( 2 )
-custom_fonts/italics_font = SubResource( 3 )
-custom_fonts/bold_font = SubResource( 4 )
-custom_fonts/normal_font = SubResource( 5 )
-bbcode_enabled = true
-scroll_following = true
-selection_enabled = true
-override_selected_font_color = true
 
 [node name="Leave" type="Button" parent="."]
 margin_left = 270.0
@@ -72,7 +56,7 @@ margin_bottom = 279.0
 custom_styles/bg = SubResource( 6 )
 
 [node name="Commands" type="Node" parent="."]
-script = ExtResource( 7 )
+script = ExtResource( 4 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -84,10 +68,35 @@ margin_bottom = 375.983
 rect_min_size = Vector2( 300, 140 )
 popup_exclusive = true
 window_title = ""
+
+[node name="ChatDisplay" type="RichTextLabel" parent="."]
+margin_left = 1.0
+margin_top = 10.0
+margin_right = 253.0
+margin_bottom = 600.0
+focus_mode = 2
+custom_styles/normal = SubResource( 2 )
+custom_fonts/italics_font = SubResource( 3 )
+custom_fonts/bold_font = SubResource( 4 )
+custom_fonts/normal_font = SubResource( 5 )
+bbcode_enabled = true
+scroll_following = true
+selection_enabled = true
+override_selected_font_color = true
+
+[node name="ChatInput" type="LineEdit" parent="."]
+margin_left = 1.0
+margin_top = 598.0
+margin_right = 361.0
+margin_bottom = 638.0
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = SubResource( 8 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+caret_blink = true
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
-[connection signal="text_changed" from="ChatInput" to="." method="_on_ChatInput_text_changed"]
-[connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
 [connection signal="item_selected" from="PatronList" to="." method="_on_PatronList_item_selected"]
 [connection signal="confirmed" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
 [connection signal="popup_hide" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_popup_hide"]
+[connection signal="text_changed" from="ChatInput" to="." method="_on_ChatInput_text_changed"]
+[connection signal="text_entered" from="ChatInput" to="." method="_on_ChatInput_text_entered"]

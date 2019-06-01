@@ -30,7 +30,7 @@ func w(params):
 			r_id = patron.id
 	if r_id != null:
 		## Send whisper
-		table.get_node("ChatInput").text = ""
+		table.get_node("CanvasLayer/ChatInput").text = ""
 		table.rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, g.player_data.character.name, recipient.capitalize(), msg)
 	else:
 		table.send_system_message(get_tree().get_network_unique_id(), "That patron isn't at table")

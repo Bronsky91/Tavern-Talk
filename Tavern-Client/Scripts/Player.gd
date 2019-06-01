@@ -28,7 +28,7 @@ func _unhandled_input(event):
 	if not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
 		target = event.position
 	
-puppet func update_pos(id, pos, tar, animation):
+puppet func update_pos(id, pos, tar, animation, _h_sit_anim="Left", _v_sit_anim=null):
 	position = pos
 	target = tar
 	get_node("/root/Tavern").player_info[id].position = pos
@@ -36,8 +36,14 @@ puppet func update_pos(id, pos, tar, animation):
 			animate.current_animation = animation
 	if 'walk' in animate.current_animation:
 		use_texture('walking')
-	else:
+	elif 'idle' in animate.current_animation:
 		use_texture('idle')
+	elif 'sit' in animate.current_animation:
+		v_sit_anim = _h_sit_anim 
+		h_sit_anim = _v_sit_anim
+		use_texture('sitting')
+		#$AnimationTimer.start(1.1)
+		## Need to rethink how stools and sitting animations will be communicated via RPC
 		
 func _physics_process(delta):
 	if is_network_master():
@@ -61,7 +67,7 @@ func _physics_process(delta):
 			$AnimationTimer.start(1.1)
 			if v_sit_anim == 'back':
 				stool.z_index = 1
-			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation, v_sit_anim, h_sit_anim)
 		elif (target - position).length() < movement_buffer and sitting == false:
 			use_texture('idle')
 			if animate.current_animation == 'walk_up':
@@ -160,6 +166,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		current_table_id = null
 		sitting = false
 		stool.z_index = 0
+	rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
 
 func _on_Timer_timeout():
 	if v_sit_anim == 'back':

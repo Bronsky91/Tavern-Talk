@@ -4,9 +4,14 @@ export(PackedScene) var table
 export(PackedScene) var player
 export(PackedScene) var board
 
+onready var entrance = $Entrance
+onready var board_button = $YSort/Board/BoardButton
+onready var chat_input = $CanvasLayer/ChatEnter
+
 var character_name = null
 var player_info = {}
 var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
+var chat_input_in_use = false
 
 var stool_count = {
 	1: { # table_id
@@ -35,9 +40,6 @@ var stool_count = {
 	}
 }
 
-onready var entrance = $Entrance
-onready var board_button = $YSort/Board/BoardButton
-onready var chat_input = $ChatEnter
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -49,6 +51,10 @@ func _ready():
 		create_table_scenes()
 		enter_tavern(g.player_data.tavern.ip, g.player_data.tavern.port)
 		
+func _process(delta):
+	if chat_input.has_focus():
+		chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
+		
 func _notification(notif):
     if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
         _on_Back_pressed()
@@ -56,6 +62,10 @@ func _notification(notif):
         _on_Back_pressed()
 		
 func _on_Back_pressed():
+	if chat_input.visible == true:
+		chat_input.clear()
+		chat_input.visible = false
+		
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.visible == true:
 			t.hide()
@@ -137,6 +147,9 @@ func _server_disconnected():
 	leave_tavern()
 	
 ### Tables ###
+sync func update_stool_count(_stool_count):
+	stool_count = _stool_count
+
 func get_min(arr):
 	arr.sort()
 	return arr[0]
@@ -147,11 +160,9 @@ func find_closest_stool(table_id, patron):
 	#loop through all stools for availablity
 	for stool in stool_count[table_id]:
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
-		print(stool)
 		if stool_count[table_id][stool] == null:
 		# if stool is available set the stool number as key and distance from patron as value
-			stool_pos_dict[(stool_node.get_g_position() - patron.position).length()] = stool
-	print(stool_pos_dict)
+			stool_pos_dict[(stool_node.get_global_position() - patron.position).length()] = stool
 	return stool_pos_dict[get_min(stool_pos_dict.keys())]
 	
 func _on_Table_button_up(table_id):
@@ -168,20 +179,20 @@ func _on_Table_button_up(table_id):
 		# Else it's the top row and use the front animation
 		patron.v_sit_anim = 'back'
 # if stool is empty 
-	if patron.position.x > stool_node.get_g_position().x:
+	if patron.position.x > stool_node.get_global_position().x:
 		patron.h_sit_anim = 'Right'
 		# if the player is to the right of the stool use right animation and stool position
 		if stool == 6 or stool == 3:
-			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_g_position()
+			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_global_position()
 		else:
-			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool+1)+"/L_P").get_g_position()
+			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool+1)+"/L_P").get_global_position()
 	else:
 		patron.h_sit_anim = 'Left'
 		# player is to the left of the stool
-		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_g_position()
+		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
 	stool_count[table_id][stool] = patron
 	patron.sit_down(stool_pos, stool_node, table_id)
-		
+	rpc("update_stool_count", stool_count)
 	
 func join_table(table_id):
 	for t in get_tree().get_nodes_in_group("tables"):
@@ -195,6 +206,7 @@ func leaving_table(table_id):
 			if stool_count[table_id][stool].name == str(get_tree().get_network_unique_id()):
 				stool_count[table_id][stool].stand_up(stool_node)
 				stool_count[table_id][stool] = null
+				rpc("update_stool_count", stool_count)
 				break
 
 func create_table_scenes():
@@ -280,17 +292,14 @@ func _on_LeaveButton_button_up():
 	
 ### Tavern Chat ###
 
-sync func chat_enter_view(show, id):
-	if show:
-		if id == get_tree().get_network_unique_id():
-			$ChatEnter.visible = true
-			$ChatEnter.grab_focus()
-	else:
-		if id == get_tree().get_network_unique_id():
-			$ChatEnter.visible = false
+func chat_enter_view():
+	chat_input.visible = true
+	chat_input.grab_focus()
+	chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
+	chat_input_in_use = true
 			
 func _on_Chat_button_up():
-	rpc("chat_enter_view", true, get_tree().get_network_unique_id())
+	chat_enter_view()
 	
 var command_time = false
 var command_param_start = null
@@ -303,6 +312,9 @@ func slash_commands(text, params):
 		call(command, params)
 
 func _on_ChatEnter_text_entered(new_text):
+	chat_input.clear()
+	chat_input.visible = false
+	chat_input_in_use = false
 	if command_time and command_param_start != null:
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
 		command_params = command_params.split(" ")
@@ -310,16 +322,15 @@ func _on_ChatEnter_text_entered(new_text):
 		slash_commands(new_text, command_params)
 	else:
 		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
-		$ChatEnter.clear()
-		rpc("chat_enter_view", false, get_tree().get_network_unique_id())
+		
 
 func _on_ChatEnter_text_changed(new_text):
 	if chat_input.text.substr(0,1) == "/":
 		command_time = true
 	else:
 		command_time = false
-	if command_time and new_text.substr(len(new_text)-1, len(new_text)-1) == " " and command_param_start == null:
-		command_param_start = len(chat_input.text)
+	if command_time and new_text.substr(1, len(new_text)) in chat_commands:
+		command_param_start = len(chat_input.text) + 1
 
 ### Tavern Chat Commands ###
 
@@ -328,7 +339,7 @@ func yell(params):
 	var tav_msg = '[color=#ff4f6d]'+msg+'[/color]' ## Increase font or change color to Red maybe?
 	var table_msg = "yells, "+"\""+msg+"\""
 	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
-	$ChatEnter.clear()
+	chat_input.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
@@ -345,3 +356,5 @@ sync func t_chat(msg, table_id):
 	
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
+
+

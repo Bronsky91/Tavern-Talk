@@ -24,6 +24,17 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	
+func _process(delta):
+	raise_text_edit(chat_input)
+		
+func raise_text_edit(input):
+	if input.has_focus():
+		input.rect_position.y = g.get_top_of_keyboard_pos() - input.get_size().y
+		chat_display.rect_size.y = input.rect_position.y + input.get_size().y
+	else:
+		chat_input.rect_position.y = g.viewport.size.y - 30
+		chat_display.rect_size.y = g.viewport.size.y - 40
+		
 func user_exited(id):
 	rpc("receive_action_message", character_name, "leaves the table")
 	rpc("remove_patron", id)

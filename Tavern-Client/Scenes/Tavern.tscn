@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -26,6 +26,7 @@
 [ext_resource path="res://Assets/furniture/WallBar_002.png" type="Texture" id=24]
 [ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=25]
 [ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=26]
+[ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=27]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 90.4676, 21.1664 )
@@ -190,8 +191,14 @@ extents = Vector2( 41.5271, 32.6797 )
 [sub_resource type="RectangleShape2D" id=12]
 extents = Vector2( 179.774, 56.1848 )
 
-[sub_resource type="RectangleShape2D" id=13]
+[sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 35.8139, 10.6617 )
+
+[sub_resource type="StyleBoxFlat" id=13]
+bg_color = Color( 1, 1, 1, 0.823529 )
+
+[sub_resource type="DynamicFont" id=14]
+font_data = ExtResource( 27 )
 
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
@@ -252,6 +259,7 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -366,6 +374,7 @@ z_index = 1
 texture = ExtResource( 12 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="YSort/Table_002"]
+editor/display_folded = true
 
 [node name="TableChat" type="RichTextLabel" parent="YSort/Table_002/CanvasLayer"]
 margin_left = 212.771
@@ -387,7 +396,7 @@ position = Vector2( -41.2019, 30.7269 )
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_001"]
-position = Vector2( -18.7981, -17.6149 )
+position = Vector2( -18.8517, -17.6149 )
 
 [node name="Stool_002" type="Sprite" parent="YSort/Table_002"]
 position = Vector2( -10.6458, 30 )
@@ -420,7 +429,7 @@ z_as_relative = false
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-05 )
+position = Vector2( -20, -9.15527e-005 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 position = Vector2( 23, -24.867 )
@@ -466,7 +475,8 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
-position = Vector2( 87.3183, 480 )
+editor/display_folded = true
+position = Vector2( 87.3183, 480.902 )
 z_index = 1
 texture = ExtResource( 19 )
 
@@ -505,7 +515,7 @@ texture = ExtResource( 13 )
 position = Vector2( -19.3021, -19.406 )
 
 [node name="R_P" type="Position2D" parent="YSort/Table_003/Stool_003"]
-position = Vector2( 10.573, -19.406 )
+position = Vector2( 15, -20.406 )
 
 [node name="Stool_004" type="Sprite" parent="YSort/Table_003"]
 position = Vector2( -37.3183, -30 )
@@ -532,7 +542,7 @@ texture = ExtResource( 13 )
 position = Vector2( -20.3332, 0 )
 
 [node name="R_P" type="Position2D" parent="YSort/Table_003/Stool_006"]
-position = Vector2( 7.10143, -1.478 )
+position = Vector2( 11.5284, -2.478 )
 
 [node name="Area2D" type="Area2D" parent="YSort/Table_003"]
 visible = false
@@ -569,6 +579,7 @@ text = "Join Table"
 flat = true
 
 [node name="Board" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
@@ -589,7 +600,7 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
 visible = false
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 8 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -635,21 +646,6 @@ shape = SubResource( 12 )
 [node name="Entrance" type="Position2D" parent="."]
 position = Vector2( 189.523, 631.355 )
 
-[node name="Chat" type="Button" parent="."]
-margin_left = 320.0
-margin_top = 620.0
-margin_right = 360.0
-margin_bottom = 640.0
-text = "Chat"
-
-[node name="ChatEnter" type="LineEdit" parent="."]
-visible = false
-margin_left = 210.0
-margin_top = 616.0
-margin_right = 318.0
-margin_bottom = 640.0
-caret_blink = true
-
 [node name="Exit" type="Area2D" parent="."]
 editor/display_folded = true
 position = Vector2( 189.506, 632.58 )
@@ -657,7 +653,7 @@ position = Vector2( 189.506, 632.58 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
 visible = false
 position = Vector2( -0.17305, -4.15582 )
-shape = SubResource( 13 )
+shape = SubResource( 15 )
 
 [node name="LeaveButton" type="Button" parent="Exit"]
 margin_left = -124.796
@@ -672,7 +668,6 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 26 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -682,6 +677,24 @@ margin_bottom = 415.112
 rect_min_size = Vector2( 200, 75 )
 resizable = true
 dialog_text = "Do you wish to leave the tavern?"
+
+[node name="ChatEnter" type="LineEdit" parent="CanvasLayer"]
+visible = false
+margin_left = 3.0
+margin_top = 610.0
+margin_right = 360.0
+margin_bottom = 640.0
+custom_styles/normal = SubResource( 13 )
+custom_fonts/font = SubResource( 14 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+caret_blink = true
+
+[node name="Chat" type="Button" parent="."]
+margin_left = 290.0
+margin_top = 600.0
+margin_right = 360.0
+margin_bottom = 640.0
+text = "Chat"
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
 [connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
@@ -697,10 +710,10 @@ dialog_text = "Do you wish to leave the tavern?"
 [connection signal="area_shape_entered" from="YSort/Board/BoardArea" to="." method="_on_BoardArea_area_shape_entered"]
 [connection signal="area_shape_exited" from="YSort/Board/BoardArea" to="." method="_on_BoardArea_area_shape_exited"]
 [connection signal="request_completed" from="YSort/Board/PostCheck" to="." method="_on_PostCheck_request_completed"]
-[connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
-[connection signal="text_changed" from="ChatEnter" to="." method="_on_ChatEnter_text_changed"]
-[connection signal="text_entered" from="ChatEnter" to="." method="_on_ChatEnter_text_entered"]
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
 [connection signal="body_exited" from="Exit" to="." method="_on_Exit_body_exited"]
 [connection signal="button_up" from="Exit/LeaveButton" to="." method="_on_LeaveButton_button_up"]
 [connection signal="confirmed" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
+[connection signal="text_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_changed"]
+[connection signal="text_entered" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_entered"]
+[connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
