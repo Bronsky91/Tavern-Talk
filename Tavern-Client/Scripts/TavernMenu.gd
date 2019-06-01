@@ -101,3 +101,9 @@ func _on_SpinTavern_request_completed(result, response_code, headers, body):
 	if json.result.data != null:
 		get_parent().call_deferred("free")	
 		get_tree().change_scene('Scenes/Tavern.tscn')
+		
+func _notification(notif):
+    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_button_up()
+    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_button_up()

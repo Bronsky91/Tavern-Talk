@@ -3,9 +3,10 @@ extends Control
 onready var menu = get_parent()
 # listitem node that holds selectable character choices
 onready var character_list = $Characters
+onready var delete_confirm = $CanvasLayer/ConfirmationDialog
 
 var character_list_data = []
-var selected_character = {}
+var selected_character = {'_id': null}
 
 func _ready():
 	pass
@@ -31,22 +32,52 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		populate_characters(characters)
 
 func _on_NewCharacterButton_button_up():
+	menu.get_node('CharacterCreate').edit_mode = false
+	menu.get_node('CharacterCreate').character_data = {}
 	menu.change_menu_scene(self, menu.get_node('CharacterCreate'))
 
 func _on_Characters_item_selected(index):
+	$Error.text = ""
 	var c_name = character_list.get_item_text(index)
 	for c in character_list_data:
 		if c.name == c_name:
 			selected_character = c
+			
+func _on_Edit_button_up():
+	if selected_character._id != null:
+		menu.get_node('CharacterCreate').edit_mode = true
+		menu.get_node('CharacterCreate').character_data = selected_character
+		menu.get_node('CharacterCreate').c_id = selected_character._id
+		menu.change_menu_scene(self, menu.get_node('CharacterCreate'))
+	else:
+		$Error.text = "Select a character to edit"
 
 func _on_Remove_button_up():
-	var data = {"_id": selected_character._id}
-	g.make_patch_request($CharacterFetch, 'users/' + g.player_data.user_id + '/character_remove', data)
-
+	if selected_character._id != null:
+		delete_confirm.dialog_text = "Are you sure you wish to delete the Character: "+selected_character.name+"?"
+		delete_confirm.popup_centered()
+	
 func _on_JoinButton_button_up():
-	g.player_data.character = selected_character
-	menu.change_menu_scene(self, menu.get_node('TavernMenu'))
+	if selected_character._id == null:
+		$Error.text = "A Character must be selected before continuing"
+	else:
+		g.player_data.character = selected_character
+		menu.change_menu_scene(self, menu.get_node('TavernMenu'))
 
 func _on_CharacterSelect_visibility_changed():
 	if visible == true:
 		g.make_get_request($CharacterFetch, 'users/' + g.player_data.user_id)
+
+func _on_Back_button_up():
+	selected_character = {'_id': null}
+	menu.change_menu_scene(self, menu.get_node('Login'))
+
+func _notification(notif):
+    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_button_up()
+    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_button_up()
+
+func _on_ConfirmationDialog_confirmed():
+	var data = {"_id": selected_character._id}
+	g.make_patch_request($CharacterFetch, 'users/' + g.player_data.user_id + '/character_remove', data)

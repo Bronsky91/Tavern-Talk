@@ -51,3 +51,9 @@ func _on_HTTPRequestCreate_request_completed(result, response_code, headers, bod
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node('TavernMenu'))
+	
+func _notification(notif):
+    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_button_up()
+    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_button_up()

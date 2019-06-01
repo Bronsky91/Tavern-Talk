@@ -42,7 +42,6 @@ margin_right = 135.0
 margin_bottom = 61.0
 
 [node name="GenderLabel" type="Label" parent="Step1"]
-editor/display_folded = true
 margin_left = 160.0
 margin_top = 260.0
 margin_right = 275.0
@@ -105,7 +104,7 @@ hframes = 4
 frame = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Step2/Body"]
-anims/idle_down = ExtResource( 2 )
+root_node = NodePath("../..")
 anims/idle_down_menu = ExtResource( 2 )
 
 [node name="Cycle" type="Label" parent="Step2"]
@@ -149,6 +148,7 @@ margin_top = 540.0
 margin_right = 230.0
 margin_bottom = 580.0
 text = "Create"
+[connection signal="visibility_changed" from="." to="." method="_on_CharacterCreate_visibility_changed"]
 [connection signal="button_up" from="Step1/Appearance" to="." method="_on_CreateButton_button_up"]
 [connection signal="item_selected" from="Step1/GenderLabel/Gender" to="." method="_on_Gender_item_selected"]
 [connection signal="request_completed" from="Create" to="." method="_on_Create_request_completed"]

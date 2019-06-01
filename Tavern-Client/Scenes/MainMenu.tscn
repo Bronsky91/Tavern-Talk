@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Backgrounds/TavernSign_Sky001.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scenes/CharacterSelect.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/TavernMenu.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scenes/CreateTavern.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Assets/Backgrounds/TavernSign_Logo.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=1]
 resource_name = "sign_swing"
@@ -21,6 +22,18 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
+"times": PoolRealArray( 2, 2.4, 2.8, 3.2, 5.2, 5.6, 6 ),
+"transitions": PoolRealArray( 3.99999, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 1, 2, 3, 4, 5, 6, 0 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("TavernSign_Logo:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
 "times": PoolRealArray( 2, 2.4, 2.8, 3.2, 5.2, 5.6, 6 ),
 "transitions": PoolRealArray( 3.99999, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
@@ -40,6 +53,7 @@ texture = ExtResource( 3 )
 hframes = 7
 
 [node name="Login" parent="." instance=ExtResource( 4 )]
+visible = false
 margin_top = 74.4531
 margin_bottom = 114.453
 
@@ -64,5 +78,10 @@ visible = false
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/sign_swing = SubResource( 1 )
+
+[node name="TavernSign_Logo" type="Sprite" parent="."]
+position = Vector2( 180, 330 )
+texture = ExtResource( 10 )
+hframes = 7
 [connection signal="visibility_changed" from="CharacterSelect" to="CharacterSelect" method="_on_CharacterSelect_visibility_changed"]
 [connection signal="visibility_changed" from="TavernMenu" to="TavernMenu" method="_on_TavernMenu_visibility_changed"]

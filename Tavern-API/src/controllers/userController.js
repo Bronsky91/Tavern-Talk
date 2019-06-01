@@ -58,7 +58,7 @@ exports.view = function (req, res) {
     });
 };
 
-// Handle update contact info
+// Handle user update 
 exports.update = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)

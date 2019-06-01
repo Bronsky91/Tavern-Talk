@@ -19,7 +19,9 @@ var hair = 1
 var eyes = 1
 var clothes = 1
 
+var c_id
 var character_data = {}
+var edit_mode
 
 func _ready():
 	gender_list.add_item("Male")
@@ -64,6 +66,7 @@ func _ready():
 	cha.set_range_config ( 1, 1, 22, 1)
 	cha.set_range (1, 10)
 	
+		
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = g.distance_to_raise(get_focus_owner())
@@ -73,34 +76,48 @@ func _process(delta):
 func _on_Create_request_completed(result, response_code, headers, body):
 	if response_code == 200:
 		menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
+		$Step1.visible = true
+		$Step2.visible = false
+	if edit_mode and response_code == 404:
+		g.make_patch_request($Create, 'users/' + g.player_data.user_id, character_data)
 
 func _on_CreateButton_button_up():
-	character_data = {
-		"characters": {
-			"name": character_name.text,
-			"gender": gender,
-			"stats":{
-				"strength": strength.get_range(1),
-				"dex": dex.get_range(1),
-				"con": con.get_range(1),
-				"wis": wis.get_range(1),
-				"cha": cha.get_range(1)
+	if gender and character_name:
+		character_data = {
+			"characters": {
+				"name": character_name.text,
+				"gender": gender,
+				"stats":{
+					"strength": strength.get_range(1),
+					"dex": dex.get_range(1),
+					"con": con.get_range(1),
+					"wis": wis.get_range(1),
+					"cha": cha.get_range(1)
+				}
 			}
 		}
-	}
-	$Step1.visible = false
-	$Step2.visible = true
+		$Step1.visible = false
+		$Step2.visible = true
 	
-
+func _notification(notif):
+    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Back_button_up()
+    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Back_button_up()
+		
 func _on_Back_button_up():
-	menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
+	if $Step2.visible == true:
+		$Step2.hide()
+		$Step1.show()
+	else:
+		character_data = {}
+		menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
 
 func _on_Gender_item_selected(index):
 	gender = gender_list.get_item_text(index)
 
 func _on_Step2_visibility_changed():
 	if $Step2.visible == true:
-		
 		$Step2/Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(skin)+".png"))
 		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(hair)+".png"))
 		$Step2/Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_00"+str(eyes)+".png"))
@@ -146,4 +163,41 @@ func _on_Create_button_up():
 		'eyes': eyes,
 		'clothes': clothes
 	}
-	g.make_patch_request($Create, 'users/' + g.player_data.user_id, character_data)
+	if edit_mode:
+		var data = {"_id": c_id}
+		g.make_patch_request($Create, 'users/' + g.player_data.user_id + '/character_remove', data)
+	else:
+		g.make_patch_request($Create, 'users/' + g.player_data.user_id, character_data)
+
+func _on_CharacterCreate_visibility_changed():
+	if visible == true:
+		if edit_mode:
+			$Title.text = "Edit Character"
+			$Step2/Create.text = "Save"
+			$Step1/NameLabel/Name.text = character_data.name
+			$Step1/GenderLabel/Gender.select(0 if character_data.gender == "Male" else 1)
+			gender = character_data.gender
+			strength.set_range(1, character_data.stats.strength)
+			dex.set_range(1, character_data.stats.dex)
+			con.set_range(1, character_data.stats.con)
+			wis.set_range(1, character_data.stats.wis)
+			cha.set_range(1, character_data.stats.cha)
+			skin = character_data.style.skin
+			hair = character_data.style.hair
+			eyes = character_data.style.eyes
+			clothes = character_data.style.clothes
+		else:
+			$Title.text = "Create Character"
+			$Step2/Create.text = "Create"
+			$Step1/NameLabel/Name.text = ""
+			$Step1/GenderLabel/Gender.unselect_all()
+			gender = ""
+			strength.set_range(1, 10)
+			dex.set_range(1, 10)
+			con.set_range(1, 10)
+			wis.set_range(1, 10)
+			cha.set_range(1, 10)
+			skin = 1
+			hair = 1
+			eyes = 1
+			clothes = 1

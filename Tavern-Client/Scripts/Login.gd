@@ -13,10 +13,8 @@ func _process(delta):
 		get_parent().position.y = g.distance_to_raise(get_focus_owner())
 	elif OS.get_virtual_keyboard_height() == 0 and not g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = 0
-	
+
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
-	print(response_code)
-	$Error.text = str(result)
 	if response_code == 401:
 		$Error.text = "Incorrect Login"
 		## TODO Specify

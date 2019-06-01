@@ -433,7 +433,7 @@ text = "Select Character"
 margin_left = 102.0
 margin_top = 240.0
 margin_right = 261.0
-margin_bottom = 371.0
+margin_bottom = 348.0
 theme = SubResource( 2 )
 custom_colors/guide_color = Color( 0, 0, 0, 0 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
@@ -442,29 +442,62 @@ fixed_column_width = 150
 icon_mode = 0
 
 [node name="JoinButton" type="Button" parent="."]
-margin_left = 133.2
-margin_top = 386.035
-margin_right = 223.2
-margin_bottom = 423.035
+margin_left = 125.174
+margin_top = 376.0
+margin_right = 231.174
+margin_bottom = 426.0
 text = "Continue"
 
 [node name="NewCharacterButton" type="Button" parent="."]
 margin_left = 125.983
 margin_top = 503.647
 margin_right = 231.983
-margin_bottom = 553.644
+margin_bottom = 553.647
 text = "New Character"
 
 [node name="CharacterFetch" type="HTTPRequest" parent="."]
 
 [node name="Remove" type="Button" parent="."]
-margin_left = 114.542
-margin_top = 446.157
-margin_right = 242.542
-margin_bottom = 481.157
-text = "Remove Character"
+margin_left = 40.903
+margin_top = 444.0
+margin_right = 168.903
+margin_bottom = 479.0
+text = "Delete Character"
+
+[node name="Error" type="Label" parent="."]
+margin_left = 24.3254
+margin_top = 354.174
+margin_right = 111.325
+margin_bottom = 373.174
+
+[node name="Back" type="Button" parent="."]
+margin_left = 15.2147
+margin_top = 96.1568
+margin_right = 79.2147
+margin_bottom = 126.157
+text = "Back"
+
+[node name="Edit" type="Button" parent="."]
+margin_left = 181.968
+margin_top = 444.0
+margin_right = 309.968
+margin_bottom = 479.0
+text = "Edit Character"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="CanvasLayer"]
+margin_left = 33.4723
+margin_top = 308.554
+margin_right = 333.472
+margin_bottom = 448.554
+rect_min_size = Vector2( 300, 140 )
+resizable = true
 [connection signal="item_selected" from="Characters" to="." method="_on_Characters_item_selected"]
 [connection signal="button_up" from="JoinButton" to="." method="_on_JoinButton_button_up"]
 [connection signal="button_up" from="NewCharacterButton" to="." method="_on_NewCharacterButton_button_up"]
 [connection signal="request_completed" from="CharacterFetch" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="button_up" from="Remove" to="." method="_on_Remove_button_up"]
+[connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
+[connection signal="button_up" from="Edit" to="." method="_on_Edit_button_up"]
+[connection signal="confirmed" from="CanvasLayer/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
