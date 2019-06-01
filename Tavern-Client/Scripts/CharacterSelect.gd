@@ -9,7 +9,13 @@ var selected_character = {}
 
 func _ready():
 	pass
-
+	
+func _process(delta):
+	if g.is_lower_than_keyboard(get_focus_owner()):
+		get_parent().position.y = g.distance_to_raise(get_focus_owner())
+	elif OS.get_virtual_keyboard_height() == 0 and not g.is_lower_than_keyboard(get_focus_owner()):
+		get_parent().position.y = 0
+	
 func populate_characters(characters):
 	character_list.clear()
 	for character in characters:

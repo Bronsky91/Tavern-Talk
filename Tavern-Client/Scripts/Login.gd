@@ -4,18 +4,15 @@ onready var menu = get_parent()
 onready var username = $UsernameLabel/Username
 onready var password = $PasswordLabel/Password
 
-var keyboard_found = false
 
 func _ready():
 	get_tree().set_auto_accept_quit(true)
-
+	
 func _process(delta):
-	if not keyboard_found and $PasswordLabel/Password.has_focus() and g.is_lower_than_keyboard($PasswordLabel/Password):
-		keyboard_found=true
-		get_parent().position.y = ((g.get_keyboard_height() - ($PasswordLabel/Password.get_global_position().y + $PasswordLabel/Password.get_size().y)) * g.screen_scale)
-	elif not get_parent().position.y == 0 and g.get_keyboard_height() == 0:
+	if g.is_lower_than_keyboard(get_focus_owner()):
+		get_parent().position.y = g.distance_to_raise(get_focus_owner())
+	elif OS.get_virtual_keyboard_height() == 0 and not g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = 0
-		keyboard_found=false
 	
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	print(response_code)

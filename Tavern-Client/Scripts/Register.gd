@@ -8,7 +8,13 @@ onready var confirm = $ConfirmLabel/Confirm
 
 func _ready():
 	pass
-
+	
+func _process(delta):
+	if g.is_lower_than_keyboard(get_focus_owner()):
+		get_parent().position.y = g.distance_to_raise(get_focus_owner())
+	elif OS.get_virtual_keyboard_height() == 0 and not g.is_lower_than_keyboard(get_focus_owner()):
+		get_parent().position.y = 0
+		
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	## TODO:
 	# Handle if there is a user with the email/username already
