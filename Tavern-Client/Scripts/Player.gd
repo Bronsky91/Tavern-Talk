@@ -10,7 +10,7 @@ var busy
 var movement_buffer = 30
 var sitting = false
 var sat_down = false
-var stool
+var stool_dict = {'table': null, 'stool': null}
 var current_table_id = null
 var h_sit_anim
 var v_sit_anim
@@ -28,24 +28,41 @@ func _unhandled_input(event):
 	if not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
 		target = event.position
 	
-puppet func update_pos(id, pos, tar, animation, _h_sit_anim="Left", _v_sit_anim=null):
+puppet func update_pos(id, pos, tar, animation, _sitting, _sat_down, _h_sit_anim=null, _v_sit_anim=null):
 	position = pos
 	target = tar
 	get_node("/root/Tavern").player_info[id].position = pos
-	if animate.current_animation != animation:
-			animate.current_animation = animation
+	#{'current':animate.current_animation, 'backwards': false, 'stool': stool}
+	#stool = get_node("../Table_00"+str(animation.table)+"/Stool_00"+str(animation.stool))
+	stool_dict['table'] = animation.stool_dict.table
+	stool_dict['stool'] = animation.stool_dict.stool
+	#get_node("/root/Tavern").player_info[id].sitting = _sitting
+	if animation.backwards == false and animate.current_animation != animation.current:
+		animate.current_animation = animation.current
+	if animation.backwards:
+		animate.play_backwards(animate.current_animation)
+	if animation.timer != null:
+		$AnimationTimer.start(animation.timer)
 	if 'walk' in animate.current_animation:
 		use_texture('walking')
 	elif 'idle' in animate.current_animation:
 		use_texture('idle')
 	elif 'sit' in animate.current_animation:
-		v_sit_anim = _h_sit_anim 
-		h_sit_anim = _v_sit_anim
+		#sitting = _sitting
+		#sat_down = _sat_down
+		if _v_sit_anim != null:
+			v_sit_anim = _v_sit_anim 
+		if _h_sit_anim != null:
+			h_sit_anim = _h_sit_anim
+		if v_sit_anim == 'back':
+				get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 1
 		use_texture('sitting')
 		#$AnimationTimer.start(1.1)
 		## Need to rethink how stools and sitting animations will be communicated via RPC
-		
+
 func _physics_process(delta):
+	#print(self.name + ": sat_down "+str(sat_down))
+	#print(self.name + ": sitting "+str(sitting))
 	if is_network_master():
 		velocity = (target - position).normalized() * speed
 		if (target - position).length() > movement_buffer: 
@@ -59,15 +76,15 @@ func _physics_process(delta):
 				animate.current_animation = 'walk_left'
 			if velocity.angle() > -1 and velocity.angle() < 1:
 				animate.current_animation = 'walk_right'
-			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': null}, sitting, sat_down, h_sit_anim, v_sit_anim)
 		elif (target - position).length() < movement_buffer and sitting == true and sat_down == false:
 			use_texture('sitting')
 			animate.current_animation = 'sit_'+v_sit_anim
 			sat_down = true
 			$AnimationTimer.start(1.1)
 			if v_sit_anim == 'back':
-				stool.z_index = 1
-			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation, v_sit_anim, h_sit_anim)
+				get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 1
+			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': 1.1}, sitting, sat_down, h_sit_anim, v_sit_anim)
 		elif (target - position).length() < movement_buffer and sitting == false:
 			use_texture('idle')
 			if animate.current_animation == 'walk_up':
@@ -78,7 +95,7 @@ func _physics_process(delta):
 				animate.current_animation = 'idle_left'
 			if animate.current_animation == 'walk_right':
 				animate.current_animation = 'idle_right'
-			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': null}, sitting, sat_down, h_sit_anim, v_sit_anim)
 			
 func use_texture(animation):
 	if animation == 'walking':
@@ -122,7 +139,8 @@ func use_texture(animation):
 		$Body/Clothes.hframes = 9
 
 func sit_down(t, _stool, table_id):
-	stool = _stool
+	#stool = get_node("../Table_00"+str(table_id)+"/Stool_00"+str(_stool))
+	stool_dict = {'table': table_id, 'stool': _stool}
 	current_table_id = table_id
 	$LowerBody.disabled = true
 	movement_buffer = 1
@@ -130,14 +148,14 @@ func sit_down(t, _stool, table_id):
 	sat_down = false
 	sitting = true
 	
-func stand_up(_stool):
-	stool = _stool
+func stand_up(_stool, table_id):
+	#stool = get_node("../Table_00"+str(table_id)+"/Stool_00"+str(_stool))
+	stool_dict = {'table': table_id, 'stool': _stool}
 	$LowerBody.disabled = false
 	movement_buffer = 30
 	animate.play_backwards(animate.current_animation)
 	$AnimationTimer.start(.7)
-	rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
-	
+	rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7}, sitting, sat_down, h_sit_anim, v_sit_anim)
 ### Chatting ###
 
 sync func receive_tavern_chat(msg, id):
@@ -154,23 +172,24 @@ func _on_ChatTimer_timeout():
 	$ChatBubble.clear()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
+	
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
 	# if animation is playing normally
 		animate.stop()
-		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': null}, sitting, sat_down, h_sit_anim, v_sit_anim)
 		get_node("/root/Tavern").join_table(current_table_id)
 	else:
 	# Else the animation is playing backwards and player is standing up
-		animate.stop()
 		animate.current_animation = 'idle_left'
 		current_table_id = null
 		sitting = false
-		stool.z_index = 0
-	rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, animate.current_animation)
+		#print(stool)
+		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
+		#rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': null}, sitting, sat_down)
 
 func _on_Timer_timeout():
 	if v_sit_anim == 'back':
-		if stool.z_index == 1:
-			stool.z_index = 0
+		if get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index == 1:
+			get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
 		else:
-			stool.z_index = 1
+			get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 1

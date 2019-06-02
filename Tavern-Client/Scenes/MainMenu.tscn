@@ -80,7 +80,7 @@ visible = false
 anims/sign_swing = SubResource( 1 )
 
 [node name="TavernSign_Logo" type="Sprite" parent="."]
-position = Vector2( 180, 330 )
+position = Vector2( 180, 320 )
 texture = ExtResource( 10 )
 hframes = 7
 [connection signal="visibility_changed" from="CharacterSelect" to="CharacterSelect" method="_on_CharacterSelect_visibility_changed"]

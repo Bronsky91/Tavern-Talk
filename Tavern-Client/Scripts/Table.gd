@@ -161,7 +161,7 @@ func receive_system_message(msg):
 		new_line()
 	
 sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
-	if msg.length() > 0 and get_tree().get_network_unique_id() == r_id:
+	if get_tree().get_network_unique_id() == r_id:
 		var new_line = "["+c_name+"] whispers" + ": " + msg
 		new_line = '[color=#cc379f]'+new_line+'[/color]'
 		chat_display.bbcode_text += new_line
@@ -173,13 +173,15 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 		new_line()
 	else:
 		for patron in current_patrons:
-			if patron.id == get_tree().get_network_unique_id() and (c_id != get_tree().get_network_unique_id() or r_id != get_tree().get_network_unique_id()):
+			if patron.id == get_tree().get_network_unique_id() and (c_id != patron.id or r_id != patron.id):
 				if patron.stats.wis > 11:
 				# if a patron at the table has the wisdom they can hear random words of the whisper based on stat mod
 					var broken_msg = msg.split(" ")
 					chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers "+ random_sneak(broken_msg ,g.calc_stat_mod(patron.stats.wis)) +" to " + r_name +'[/i]'+'[/color]'
-				chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
-				new_line()
+					new_line()
+				else:
+					chat_display.bbcode_text +='[color=#ff893f]'+'[i]'+ c_name + " whispers to " + r_name +'[/i]'+'[/color]'
+					new_line()
 
 func random_sneak(b_m, max_sneak):
 	if max_sneak > len(b_m):
@@ -255,6 +257,7 @@ func _on_AcceptDialog_confirmed():
 func _on_AcceptDialog_popup_hide():
 	#TODO: Display table system message that armwrestle was declined
 	for player in players:
+		print(player)
 		send_system_message(player.id, "Arm wrestle has been declined, womp womp")
 	rpc_id(players[1].id, "clear_chat")
 

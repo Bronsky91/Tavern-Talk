@@ -120,6 +120,7 @@ remote func configure_player():
 				new_player.position = player_info[p].position
 			new_player.gender = player_info[p].character.gender
 			new_player.style = player_info[p].character.style
+			#new_player.sitting = player_info[p].sitting
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
@@ -134,7 +135,7 @@ func change_scene_manually():
 	# Add the next level
 	var tavern_menu_resource = load("res://Scenes/MainMenu.tscn")
 	var tavern_menu = tavern_menu_resource.instance()
-	tavern_menu.get_node('Login').visible = false
+	tavern_menu.get_node('TavernSign_Logo').visible = false
 	tavern_menu.get_node('TavernMenu').visible = true
 	root.add_child(tavern_menu)
 	
@@ -171,14 +172,13 @@ func _on_Table_button_up(table_id):
 	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
 	var stool = find_closest_stool(table_id, patron)
 	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
-	## Replace stool_node assignment to function on finding the closest available stool
 	if stool >= 4:
 		# if the stool is on the bottom row use back animation
 		patron.v_sit_anim = 'front'
 	else:
 		# Else it's the top row and use the front animation
 		patron.v_sit_anim = 'back'
-# if stool is empty 
+	# if stool is empty 
 	if patron.position.x > stool_node.get_global_position().x:
 		patron.h_sit_anim = 'Right'
 		# if the player is to the right of the stool use right animation and stool position
@@ -190,8 +190,8 @@ func _on_Table_button_up(table_id):
 		patron.h_sit_anim = 'Left'
 		# player is to the left of the stool
 		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
-	stool_count[table_id][stool] = patron
-	patron.sit_down(stool_pos, stool_node, table_id)
+	stool_count[table_id][stool] = patron.name
+	patron.sit_down(stool_pos, stool, table_id)
 	rpc("update_stool_count", stool_count)
 	
 func join_table(table_id):
@@ -201,10 +201,10 @@ func join_table(table_id):
 
 func leaving_table(table_id):
 	for stool in stool_count[table_id]:
-		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
+		#var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if stool_count[table_id][stool] != null:
-			if stool_count[table_id][stool].name == str(get_tree().get_network_unique_id()):
-				stool_count[table_id][stool].stand_up(stool_node)
+			if stool_count[table_id][stool] == str(get_tree().get_network_unique_id()):
+				get_node("YSort/"+stool_count[table_id][stool]).stand_up(stool, table_id)
 				stool_count[table_id][stool] = null
 				rpc("update_stool_count", stool_count)
 				break

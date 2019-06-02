@@ -2,7 +2,7 @@ extends Node
 
 onready var table = get_parent()
 
-var command_dict = {'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think',
+var command_dict = {'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think. /w patronname no spaces',
 	'throw':  'Shortcut command to throw an object, /throw object_name to execute',
 	'e': 'Emote, type out what you would like your character to do as an action, no need to type your name',
 	'eb': 'Same as Emote, but will broadcast your action to the whole tavern',
@@ -30,7 +30,7 @@ func w(params):
 			r_id = patron.id
 	if r_id != null:
 		## Send whisper
-		table.get_node("CanvasLayer/ChatInput").text = ""
+		table.get_node("ChatInput").text = ""
 		table.rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, g.player_data.character.name, recipient.capitalize(), msg)
 	else:
 		table.send_system_message(get_tree().get_network_unique_id(), "That patron isn't at table")
