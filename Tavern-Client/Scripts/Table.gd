@@ -173,7 +173,7 @@ sync func receive_whisper(c_id, r_id, c_name, r_name, msg):
 		new_line()
 	else:
 		for patron in current_patrons:
-			if patron.id == get_tree().get_network_unique_id() and (c_id != patron.id or r_id != patron.id):
+			if c_id != patron.id and r_id != patron.id and patron.id == get_tree().get_network_unique_id():
 				if patron.stats.wis > 11:
 				# if a patron at the table has the wisdom they can hear random words of the whisper based on stat mod
 					var broken_msg = msg.split(" ")
@@ -188,13 +188,15 @@ func random_sneak(b_m, max_sneak):
 	# if your max_sneak is greater than the message length just return the whole message
 		return b_m.join(" ")
 	else:
+		var sneak_msg = ""
 		var sneak_words = []
 		while len(sneak_words) < max_sneak:
-			if not b_m[rand_range(1, len(b_m))] in sneak_words:
-				sneak_words.append(b_m[rand_range(1, len(b_m))])
-		var sneak_msg = ""
+			var rand_word = randi()%b_m.size()
+			if sneak_words.find(rand_word) == -1:
+				sneak_words.append(rand_word)
+		sneak_words.sort()
 		for sneak in sneak_words:
-			sneak_msg = sneak_msg + "..."+sneak+" "
+			sneak_msg = sneak_msg + "..."+b_m[sneak]+" "
 		return sneak_msg
 	
 func send_action_message(msg):

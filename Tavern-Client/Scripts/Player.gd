@@ -183,7 +183,6 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		animate.current_animation = 'idle_left'
 		current_table_id = null
 		sitting = false
-		#print(stool)
 		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
 		#rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': null}, sitting, sat_down)
 
