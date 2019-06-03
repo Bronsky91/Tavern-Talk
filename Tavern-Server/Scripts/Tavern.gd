@@ -38,14 +38,18 @@ func host_tavern(port):
 func leave_tavern():
 	get_tree().set_network_peer(null)
 	## Close server
+	
 func entered_tavern():
 	print('user entered tavern')
 	
 func user_exited(id):
 	print('exited')
-	get_node("YSort/"+str(id)).queue_free()
+	rpc('remove_player', id)
 	player_info.erase(id) # Erase player from info.
-	
+
+sync func remove_player(id):
+	get_node("YSort/"+str(id)).call_deferred('free')
+
 remote func register_player(id, info):
 	## Register players
 	player_info[id] = info

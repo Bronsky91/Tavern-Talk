@@ -81,9 +81,12 @@ func _on_AcceptDialog_confirmed():
 	leave_tavern()
 	
 func user_exited(id):
-	if get_node(str(id)) != null:
-		get_node(str(id)).queue_free()
+	rpc('remove_player', id) # Remove player from scene -- not working
 	player_info.erase(id) # Erase player from info.
+	change_scene_manually()
+
+sync func remove_player(id):
+	get_node("YSort/"+str(id)).call_deferred('free')
 	
 func enter_tavern(ip, port):
 	var host = NetworkedMultiplayerENet.new()
@@ -144,9 +147,7 @@ func change_scene_manually():
 	
 func leave_tavern():
 	get_tree().set_network_peer(null)
-	user_exited(get_tree().get_network_unique_id())
 	## Let tavern API know the character left the tavern
-	change_scene_manually()
 
 func _server_disconnected():
 	leave_tavern()
