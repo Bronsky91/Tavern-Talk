@@ -89,6 +89,7 @@ puppet func update_pos(id, pos, tar, animation):
 		animate.current_animation = animation.current
 	if animation.backwards:
 		animate.play_backwards(animate.current_animation)
+		busy = true
 	if animation.timer != null:
 		$AnimationTimer.start(animation.timer)
 
@@ -184,6 +185,7 @@ func sit_down(t, _stool, table_id):
 	target = t
 	sat_down = false
 	sitting = true
+	busy = true
 	
 func stand_up(_stool, table_id):
 	# Called from Tavern when leaving a table
@@ -191,6 +193,7 @@ func stand_up(_stool, table_id):
 	$LowerBody.disabled = false
 	movement_buffer = 30 # Reverts the buffer to 30 since not directing player to stool
 	animate.play_backwards(animate.current_animation)
+	busy = true
 	$AnimationTimer.start(.7) # timer for z-index of stool
 	if is_network_master():
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7, 'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})
@@ -201,6 +204,11 @@ sync func receive_tavern_chat(msg, id):
 
 func overhead_chat(msg):
 	# Tavern chat bubble
+	var word_count = msg.split(" ")
+	word_count = len(word_count)
+	#if word_count > 10:
+		#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * 2
+		#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y - 100
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
 	msg = "[center]"+msg+"[/center]"
@@ -208,13 +216,15 @@ func overhead_chat(msg):
 	$ChatBubble/ChatTimer.start(5)
 
 func _on_ChatTimer_timeout():
+	#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y / 2
+	#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y + 100
 	$ChatBubble.clear()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
 	# if animation is finishing normally
 		animate.stop()
-		print('sit finished')
+		busy = false
 		use_texture('sitting')
 		if is_network_master():
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':'sat', 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': true})
@@ -224,6 +234,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		animate.current_animation = 'idle_left'
 		current_table_id = null
 		sitting = false
+		busy = false
 		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
 		
 func _on_Timer_timeout():

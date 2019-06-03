@@ -130,13 +130,11 @@ remote func configure_player():
 			$YSort.add_child(new_player)
 			
 func change_scene_manually():
-    # Remove the current level
+    # Remove tavern
 	var root = get_tree().get_root()
-	var tavern = root.get_node("Tavern")
-	root.remove_child(tavern)
-	tavern.call_deferred("free")
+	root.remove_child(self)
 	
-	# Add the next level
+	# Add the proper menu
 	var tavern_menu_resource = load("res://Scenes/MainMenu.tscn")
 	var tavern_menu = tavern_menu_resource.instance()
 	tavern_menu.get_node('TavernSign_Logo').visible = false
