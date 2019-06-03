@@ -91,7 +91,6 @@ func enter_tavern(ip, port):
 	get_tree().set_network_peer(host)
 
 func entered_tavern():
-	print(g.player_data)
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
 	
@@ -121,7 +120,10 @@ remote func configure_player():
 			else:
 				new_player.position = player_info[p].position
 			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation)
+			print('tavern p_name: '+str(player_info[p].character.name))
 			print('tavern anim: ' + str(player_info[p].animation))
+			if player_info[p].animation != null:
+				print('tavern anim: ' + str(player_info[p].animation.current))
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
