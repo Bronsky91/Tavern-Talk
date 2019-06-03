@@ -31,7 +31,7 @@ var stool_count = {
 		6: null
 	},
 	3: { # table_id
-		1: null, # stool number: patron_node
+		1: null, # stool number: patron.name
 		2: null,
 		3: null,
 		4: null,
@@ -90,6 +90,7 @@ func enter_tavern(ip, port):
 	get_tree().set_network_peer(host)
 
 func entered_tavern():
+	print(g.player_data)
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
 	
@@ -120,7 +121,7 @@ remote func configure_player():
 				new_player.position = player_info[p].position
 			new_player.gender = player_info[p].character.gender
 			new_player.style = player_info[p].character.style
-			#new_player.sitting = player_info[p].sitting
+			new_player.anim = player_info[p].animation
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
@@ -141,6 +142,7 @@ func change_scene_manually():
 	
 func leave_tavern():
 	get_tree().set_network_peer(null)
+	user_exited(get_tree().get_network_unique_id())
 	## Let tavern API know the character left the tavern
 	change_scene_manually()
 
@@ -323,7 +325,6 @@ func _on_ChatEnter_text_entered(new_text):
 	else:
 		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
 		
-
 func _on_ChatEnter_text_changed(new_text):
 	if chat_input.text.substr(0,1) == "/":
 		command_time = true

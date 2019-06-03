@@ -14,6 +14,7 @@ var player_data = {
 			'char': null
 			}
 		},
+	'animation': null,
 	'tavern': {
 		'port': null,
 		'ip': null,

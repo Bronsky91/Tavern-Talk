@@ -5,7 +5,7 @@ var player_data = {
 	'character': {
 		'id': null,
 		'name': null,
-		## More stats
+		'animation': {'current': null, 'sat_down': false},
 		},
 	'tavern': {
 		'port': null,
