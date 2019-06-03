@@ -14,7 +14,5 @@ remote func update_pos(id, pos, tar, animation, _sitting, _sat_down, _h_sit_anim
 	position = pos
 	target = tar
 	get_node("/root/Tavern").player_info[id].position = pos
-	get_node("/root/Tavern").player_info[id].sitting = _sitting
-	if animate.current_animation != animation.current:
-		animate.current_animation = animation.current
+	get_node("/root/Tavern").player_info[id].animation = animation
 	#rpc_unreliable("client_update_pos", id, pos, tar, animation)

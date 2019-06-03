@@ -4,6 +4,7 @@ export(PackedScene) var table
 export(PackedScene) var player
 export(PackedScene) var board
 
+
 onready var entrance = $Entrance
 onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $CanvasLayer/ChatEnter
@@ -119,9 +120,8 @@ remote func configure_player():
 				new_player.position = entrance.position
 			else:
 				new_player.position = player_info[p].position
-			new_player.gender = player_info[p].character.gender
-			new_player.style = player_info[p].character.style
-			new_player.anim = player_info[p].animation
+			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation)
+			print('tavern anim: ' + str(player_info[p].animation))
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
