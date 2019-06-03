@@ -2,7 +2,7 @@ extends Node
 
 onready var table = get_parent()
 
-var command_dict = {'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think. /w patronname no spaces',
+var command_dict = {'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think. /w patronname',
 	'throw':  'Shortcut command to throw an object, /throw object_name to execute',
 	'e': 'Emote, type out what you would like your character to do as an action, no need to type your name',
 	'eb': 'Same as Emote, but will broadcast your action to the whole tavern',
@@ -26,10 +26,11 @@ func w(params):
 	var msg = params.join(" ")
 	var r_id = null
 	for patron in table.get_current_patrons():
-		if patron.name.to_lower() == recipient.to_lower():
+		if patron.name.to_lower().findn(recipient.to_lower()) != -1:
 			r_id = patron.id
+			recipient = patron.name
 	if r_id != null:
-		## Send whisper
+		## Send Whisper
 		table.get_node("ChatInput").text = ""
 		table.rpc("receive_whisper", get_tree().get_network_unique_id(), r_id, g.player_data.character.name, recipient.capitalize(), msg)
 	else:
