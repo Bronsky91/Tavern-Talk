@@ -29,8 +29,8 @@ func _on_HTTPRequestCreate_request_completed(result, response_code, headers, bod
 	var json = JSON.parse(body.get_string_from_utf8())
 	var data = json.result.data
 	print(data)
-	if data.port == "No available ports":
-		$Error.text = "Unable to create new Tavern, server is full"
+	#if data.port != "No available ports":
+	#	$Error.text = "Unable to create new Tavern, server is full"
 	## TODO: Make check to see if tavern was created
 	g.player_data.tavern = {
 		'port': data.port,
