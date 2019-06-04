@@ -30,7 +30,7 @@ func _process(delta):
 func raise_text_edit(input):
 	if input.has_focus():
 		input.rect_position.y = g.get_top_of_keyboard_pos() - input.get_size().y
-		chat_display.rect_size.y = input.rect_position.y + input.get_size().y
+		chat_display.rect_size.y = input.rect_position.y
 	else:
 		chat_input.rect_position.y = g.viewport.size.y - 30
 		chat_display.rect_size.y = g.viewport.size.y - 40
