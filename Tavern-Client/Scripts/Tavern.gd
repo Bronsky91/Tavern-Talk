@@ -45,6 +45,7 @@ var stool_count = {
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
+	#get_tree().connect("network_peer_connected", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
 		update_board_texture()
@@ -121,10 +122,6 @@ remote func configure_player():
 			else:
 				new_player.position = player_info[p].position
 			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation)
-			print('tavern p_name: '+str(player_info[p].character.name))
-			print('tavern anim: ' + str(player_info[p].animation))
-			if player_info[p].animation != null:
-				print('tavern anim: ' + str(player_info[p].animation.current))
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)

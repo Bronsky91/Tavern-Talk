@@ -76,3 +76,24 @@ func get_top_of_keyboard_pos():
 	if OS.get_virtual_keyboard_height() != 0:
 		return viewport.size.y - (OS.get_virtual_keyboard_height() / screen_scale)
 	return viewport.size.y
+
+func remember_me(login):
+	var f = File.new()
+	f.open("user://login.save", File.READ)
+	var json = JSON.parse(f.get_as_text())
+	f.close()
+	var data = json.result
+	data = {"username": login["username"], "password": login["password"], "remember": login["remember"]}
+	# Save
+	f = File.new()
+	f.open("user://login.save", File.WRITE)
+	f.store_string(JSON.print(data, "  ", true))
+	f.close()
+	
+func load_login():
+	var save_login = File.new()
+	save_login.open("user://login.save", File.READ)
+	var text = save_login.get_as_text()
+	var login = parse_json(text)
+	save_login.close()
+	return login

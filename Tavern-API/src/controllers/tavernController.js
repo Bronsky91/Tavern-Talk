@@ -62,9 +62,9 @@ exports.spin = function (req, res) {
         console.log(port.split(' '))
         console.log(port.split(' ')[20])
         if (port.split(' ')[20] == undefined) {
-         // cmd.run(
-           // "godot --path ../Tavern-Server/ -d ---" + tavern.port
-          //);
+         cmd.run(
+            "godot --path ../Tavern-Server/ -d ---" + tavern.port
+          );
           return res.json({
             data: 'Server Starting'
           });

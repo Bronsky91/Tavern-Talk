@@ -8,10 +8,10 @@ margin_bottom = 40.0
 script = ExtResource( 1 )
 
 [node name="UsernameLabel" type="Label" parent="."]
-margin_left = 143.7
-margin_top = 140.827
-margin_right = 213.7
-margin_bottom = 154.827
+margin_left = 141.367
+margin_top = 141.993
+margin_right = 211.367
+margin_bottom = 155.993
 text = "Username:"
 
 [node name="Username" type="LineEdit" parent="UsernameLabel"]
@@ -21,10 +21,10 @@ margin_right = 118.735
 margin_bottom = 59.5033
 
 [node name="PasswordLabel" type="Label" parent="."]
-margin_left = 147.7
-margin_top = 213.827
-margin_right = 214.7
-margin_bottom = 233.827
+margin_left = 145.367
+margin_top = 214.993
+margin_right = 212.367
+margin_bottom = 234.993
 text = "Password:"
 
 [node name="Password" type="LineEdit" parent="PasswordLabel"]
@@ -35,26 +35,35 @@ margin_bottom = 57.8406
 secret = true
 
 [node name="Sign-In" type="Button" parent="."]
-margin_left = 137.919
-margin_top = 306.642
-margin_right = 232.919
-margin_bottom = 347.642
+margin_left = 132.087
+margin_top = 299.644
+margin_right = 227.087
+margin_bottom = 340.644
 text = "Sign In"
 
 [node name="Register" type="Button" parent="."]
-margin_left = 127.748
-margin_top = 399.6
-margin_right = 243.748
-margin_bottom = 438.6
+margin_left = 124.249
+margin_top = 439.256
+margin_right = 240.249
+margin_bottom = 478.256
 text = "Register"
 
 [node name="HTTPRequest" type="HTTPRequest" parent="."]
 
 [node name="Error" type="Label" parent="."]
-margin_left = 143.0
-margin_top = 367.0
-margin_right = 228.0
-margin_bottom = 381.0
+margin_left = 113.841
+margin_top = 357.669
+margin_right = 198.841
+margin_bottom = 371.669
+
+[node name="CheckBox" type="CheckBox" parent="."]
+margin_left = 116.635
+margin_top = 387.229
+margin_right = 240.635
+margin_bottom = 411.229
+pressed = true
+text = "Remember me"
+[connection signal="visibility_changed" from="." to="." method="_on_Login_visibility_changed"]
 [connection signal="button_up" from="Sign-In" to="." method="login"]
 [connection signal="button_up" from="Register" to="." method="_on_Register_button_up"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]

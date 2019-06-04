@@ -258,7 +258,6 @@ func _on_AcceptDialog_confirmed():
 func _on_AcceptDialog_popup_hide():
 	#TODO: Display table system message that armwrestle was declined
 	for player in players:
-		print(player)
 		send_system_message(player.id, "Arm wrestle has been declined, womp womp")
 	rpc_id(players[1].id, "clear_chat")
 

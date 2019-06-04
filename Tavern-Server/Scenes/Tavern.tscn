@@ -322,7 +322,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 7 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]

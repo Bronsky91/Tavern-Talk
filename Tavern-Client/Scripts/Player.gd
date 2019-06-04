@@ -64,7 +64,6 @@ puppet func update_pos(id, pos, tar, animation):
 	get_node("/root/Tavern").player_info[id].animation = animation # tells new players what animation this player is doing
 	stool_dict['table'] = animation.stool_dict.table #keeps the table stools organized
 	stool_dict['stool'] = animation.stool_dict.stool #state is either filled or vacant
-		
 	# Checks the animation state object to see which texture to use
 	if 'walk' in animation.current:
 		use_texture('walking')

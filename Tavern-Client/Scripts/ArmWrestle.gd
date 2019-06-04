@@ -8,6 +8,7 @@ var right_player ={}
 var end = false
 var start = false
 var countdown = 3
+var spectator
 
 func _ready():
 	pass
@@ -18,7 +19,7 @@ func _process(delta):
 func spectator():
 	$WrestleTap.visible = false
 	$WrestleTap.disabled = true
-	p_bar.z_index = 0
+	spectator = true
 
 func initiate(l, r):
 	## Called from table, each player's network id and stat mod is passed through
@@ -28,7 +29,7 @@ func initiate(l, r):
 	$Player2.text = right_player.name
 
 sync func tap(left_player, mod):
-	if p_bar.value != 100 or p_bar.value != 0:
+	if p_bar.value != 50 or p_bar.value != 0:
 		if left_player:
 			p_bar.value += mod if mod > 0 else (1 - (-0.2 * mod))
 		else:
@@ -49,7 +50,7 @@ sync func declare_winner(winner):
 	$Close.visible = true
 
 func _on_ProgressBar_value_changed(value):
-	if value == 100 and not end:
+	if value == 50 and not end:
 		end = true
 		rpc("declare_winner", left_player.name)
 	elif value == 0 and not end:

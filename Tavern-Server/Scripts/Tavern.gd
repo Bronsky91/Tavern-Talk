@@ -16,9 +16,35 @@ var tavern_id = null
 var player_info = {}
 var registered = false
 
+var stool_count = {
+	1: { # table_id
+		1: null, # stool number
+		2: null,
+		3: null,
+		4: null,
+		5: null,
+		6: null
+	},
+	2: { # table_id
+		1: null, # stool number
+		2: null,
+		3: null,
+		4: null,
+		5: null,
+		6: null
+	},
+	3: { # table_id
+		1: null, # stool number: patron.name
+		2: null,
+		3: null,
+		4: null,
+		5: null,
+		6: null
+	}
+}
+
 func _ready():
-	get_tree().connect("connected_to_server", self, "enter_room")
-	get_tree().connect("network_peer_connected", self, "entered_tavern")
+	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
@@ -68,6 +94,7 @@ remote func register_tables(tables=null):
 			table_dict['id'] = t.get_table_id()
 			tables_list.append(table_dict)
 		rpc_id(get_tree().get_rpc_sender_id(), "register_tables", tables_list)
+		rpc("update_stool_count", stool_count)
 
 remote func configure_player():
 	# Load other characters
@@ -79,8 +106,6 @@ remote func configure_player():
 			else:
 				new_player.position = player_info[p].position
 			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation)
-			print('tavern p_name: '+str(player_info[p].character.name))
-			print('tavern anim: ' + str(player_info[p].animation))
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
@@ -90,6 +115,9 @@ func _server_disconnected():
 	
 func _on_Table_button_up(table_id):
 	join_table(table_id)
+
+sync func update_stool_count(_stool_count):
+	stool_count = _stool_count
 	
 func join_table(table_id):
 	for t in get_tree().get_nodes_in_group("tables"):
