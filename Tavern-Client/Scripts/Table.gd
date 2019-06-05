@@ -110,7 +110,7 @@ func find_random_patron():
 		
 func find_patron_by_name(name):
 	for patron in current_patrons:
-		if patron.name.to_lower() == name.to_lower():
+		if patron.name.to_lower().findn(name.to_lower()) != -1:
 			return patron
 	
 ### Send and Receive Messages in Chat ###

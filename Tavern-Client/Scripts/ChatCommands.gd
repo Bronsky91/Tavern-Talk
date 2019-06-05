@@ -67,7 +67,7 @@ func yell(params):
 func armwrestle(params):
 	var challenger = table.find_patron_by_name(params[0])
 	var initiator = table.find_patron_by_name(table.character_name)
-	if challenger.name == initiator.name:
+	if challenger.name == initiator.name: 
 		table.send_system_message(initiator.id, "Can't armwrestle yourself, sorry!")
 	else:
 		var c_obj = {'id': challenger.id, 'name': challenger.name, 'mod': g.calc_stat_mod(challenger.stats.strength)}
