@@ -8,6 +8,7 @@ export(PackedScene) var board
 onready var entrance = $Entrance
 onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $CanvasLayer/ChatEnter
+onready var board_scene = $BoardScene
 
 var character_name = null
 var player_info = {}
@@ -44,7 +45,6 @@ var stool_count = {
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
-	#get_tree().connect("network_peer_connected", self, "entered_tavern")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
 		update_board_texture()
@@ -72,10 +72,13 @@ func _on_Back_pressed():
 			t.hide()
 			leaving_table(t.table_id)
 			return
-	if get_node('Tavern/BoardScene') != null:
-		get_node('Tavern/BoardScene').queue_free()
+
+	if board_scene.visible:
+		board_scene.hide()
+		print('board hide')
 		return
-	$CanvasLayer/AcceptDialog.popup_centered()
+		
+	#$CanvasLayer/AcceptDialog.popup_centered()
 	
 func _on_AcceptDialog_confirmed():
 	leave_tavern()
@@ -260,8 +263,7 @@ func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_i
 ### Bulletin Board ###
 		
 func _on_Board_button_up():
-	var board_instance = board.instance()
-	add_child(board_instance)
+	board_scene.visible = true
 	
 sync func board_view(show, id):
 	if get_tree().get_network_unique_id() == int(id):
@@ -273,10 +275,12 @@ sync func board_view(show, id):
 			board_button.disabled = true
 
 func _on_BoardArea_area_shape_entered(area_id, area, area_shape, self_shape):
-	rpc("board_view", true, area.get_parent().name)
+	if area.get_parent() != null:
+		rpc("board_view", true, area.get_parent().name)
 
 func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
-	rpc("board_view", false, area.get_parent().name)
+	if area.get_parent() != null:
+		rpc("board_view", false, area.get_parent().name)
 
 func update_board_texture():
 	g.make_get_request($YSort/Board/PostCheck, 'tavern/' + g.player_data.tavern.id +'/board')
@@ -379,5 +383,3 @@ sync func t_chat(msg, table_id):
 	
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
-
-

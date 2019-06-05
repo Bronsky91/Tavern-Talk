@@ -115,7 +115,7 @@ margin_right = 321.0
 margin_bottom = 470.0
 disabled = true
 texture_normal = ExtResource( 4 )
-[connection signal="visibility_changed" from="Board" to="." method="_on_Board_visibility_changed"]
+[connection signal="visibility_changed" from="." to="." method="_on_BoardScene_visibility_changed"]
 [connection signal="request_completed" from="Board/BoardRequest" to="." method="_on_BoardRequest_request_completed"]
 [connection signal="button_up" from="Board/BackButton" to="." method="_on_BackButton_button_up"]
 [connection signal="button_up" from="Board/NewPost" to="." method="_on_NewPost_button_up"]

@@ -214,6 +214,7 @@ position = Vector2( 149.523, 129.611 )
 z_index = 1
 
 [node name="Barrel_002" type="Sprite" parent="YSort/Bar2"]
+editor/display_folded = true
 position = Vector2( -42.4244, -10.6689 )
 texture = ExtResource( 5 )
 
@@ -226,6 +227,7 @@ position = Vector2( -71.7371, 8.0753 )
 texture = ExtResource( 6 )
 
 [node name="RegionSprite" type="Sprite" parent="YSort/Bar2"]
+editor/display_folded = true
 position = Vector2( 6.06003, 11.2543 )
 texture = ExtResource( 7 )
 
@@ -257,6 +259,7 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -357,6 +360,7 @@ position = Vector2( 26.2839, -19.2955 )
 texture = ExtResource( 15 )
 
 [node name="Join" type="Button" parent="YSort/Table_001"]
+editor/display_folded = true
 visible = false
 margin_left = -51.2226
 margin_top = -21.1198
@@ -580,7 +584,6 @@ text = "Join Table"
 flat = true
 
 [node name="Board" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
@@ -695,6 +698,9 @@ margin_top = 600.0
 margin_right = 360.0
 margin_bottom = 640.0
 text = "Chat"
+
+[node name="BoardScene" parent="." instance=ExtResource( 4 )]
+visible = false
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
 [connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
