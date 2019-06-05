@@ -238,7 +238,6 @@ func create_table_scenes():
 		new_table.add_to_group("tables")
 
 sync func table_join_view(show, id, table_id):
-	id = int(id)
 	## TODO: Before release change id to int before it gets in here 
 	if get_tree().get_network_unique_id() == id:
 		if show:
@@ -259,9 +258,9 @@ func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape, table_
 	## TODO: change table_id to int of table number instead of leading 00s
 	if area != null and not table_full(int(table_id[2])):
 		# If there's a player and the table is not full, then show join table and enable the button
-		rpc("table_join_view", true, area.get_parent().name, table_id)
+		rpc("table_join_view", true, int(area.get_parent().name), table_id)
 	else:
-		rpc("table_join_view", false, area.get_parent().name, table_id)
+		rpc("table_join_view", false, int(area.get_parent().name), table_id)
 	
 func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_id):
 	if area != null:
