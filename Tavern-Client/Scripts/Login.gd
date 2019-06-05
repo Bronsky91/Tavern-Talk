@@ -23,7 +23,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	else:
 		g.player_data.user_id = json.result._id
 		if remember_me.pressed:
-			print(json.result)
 			g.remember_me({'username': json.result.username, 'password': password.text, 'remember': true})
 		else:
 			g.remember_me({'username': null, 'password': null, 'remember': false})

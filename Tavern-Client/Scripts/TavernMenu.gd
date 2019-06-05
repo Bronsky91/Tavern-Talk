@@ -93,9 +93,6 @@ func _on_Create_button_up():
 
 func _on_SpinTavern_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
-	print(result)
-	print(json)
-	print(json.result)
 	if json.result.data != null:
 		get_parent().call_deferred("free")	
 		get_tree().change_scene('Scenes/Tavern.tscn')

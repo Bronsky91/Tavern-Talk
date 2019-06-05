@@ -45,6 +45,7 @@ var stool_count = {
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
+	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
 		update_board_texture()
@@ -74,17 +75,22 @@ func _on_Back_pressed():
 			return
 
 	if board_scene.visible:
-		board_scene.hide()
-		print('board hide')
-		return
+		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
+		if get_node_or_null("BoardScene/Post") != null:
+			get_node("BoardScene/Post").queue_free()
+			return
+		else:
+			board_scene.hide()
+			return
 		
-	#$CanvasLayer/AcceptDialog.popup_centered()
+	$CanvasLayer/AcceptDialog.popup_centered()
 	
 func _on_AcceptDialog_confirmed():
 	leave_tavern()
 	
 func user_exited(id):
 	player_info.erase(id) # Erase player from info
+
 
 sync func remove_player(id):
 	get_node("YSort/"+str(id)).queue_free()
@@ -131,7 +137,7 @@ remote func configure_player():
 func change_scene_manually():
     # Remove tavern
 	var root = get_tree().get_root()
-	root.remove_child(self)
+	queue_free()
 	
 	# Add the proper menu
 	var tavern_menu_resource = load("res://Scenes/MainMenu.tscn")
@@ -275,11 +281,11 @@ sync func board_view(show, id):
 			board_button.disabled = true
 
 func _on_BoardArea_area_shape_entered(area_id, area, area_shape, self_shape):
-	if area.get_parent() != null:
+	if area != null:
 		rpc("board_view", true, area.get_parent().name)
 
 func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
-	if area.get_parent() != null:
+	if area != null:
 		rpc("board_view", false, area.get_parent().name)
 
 func update_board_texture():
@@ -354,8 +360,6 @@ func _on_ChatEnter_text_changed(new_text):
 		command_time = true
 	else:
 		command_time = false
-	print(command_time)
-	print(new_text)
 	if command_time and new_text.substr(1, len(new_text)) in chat_commands:
 		command_param_start = len(chat_input.text) + 1
 

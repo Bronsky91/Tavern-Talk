@@ -23,7 +23,7 @@ func _process(delta):
 	raise_text_edit($AuthorEdit, author_input_y_pos)
 	
 func raise_text_edit(input, input_y_pos):
-	if input.has_focus():
+	if input.has_focus() and OS.get_virtual_keyboard_height() > 0:
 		input.rect_position.y = g.get_top_of_keyboard_pos() - input.get_size().y
 	else:
 		input.rect_position.y = input_y_pos
@@ -36,7 +36,10 @@ func new_post(new, id='', body='', author=''):
 		$AuthorEdit.show()
 		$NewEdit.text = 'Post'
 	else:
+		new_post = false
 		post_id = id
+		$BodyEdit.hide()
+		$AuthorEdit.hide()
 		write_post(body, author)
 
 func write_post(body, author):
@@ -73,18 +76,18 @@ func hide_edit(hide):
 	if hide:
 		$BodyEdit.hide()
 		$AuthorEdit.hide()
+		post_body.show()
+		post_author.show()
 	else:
 		$BodyEdit.show()
 		$BodyEdit.text = post_body.text
 		$AuthorEdit.show()
 		$AuthorEdit.text = post_author.text
-	
+		post_body.hide()
+		post_author.hide()
+		
 func _on_Return_button_up():
 	queue_free()
-	
-func _notification(notif):
-	if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST or notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		queue_free()
 	
 func _on_PostSave_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

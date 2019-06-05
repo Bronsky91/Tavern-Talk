@@ -47,7 +47,6 @@ func throw(params):
 		msg = "throws "+ ("his " if g.player_data.character.gender == "Male" else "her ")+object+ ", narrowly missing "+table.find_random_patron().name
 	else:
 		msg = "throws "+ ("his " if g.player_data.character.gender == "Male" else "her ")+object+ ", the barmaid yells, \"You're weak!\""
-	print(msg)
 	table.send_broadcast(msg)
 	
 func e(params):

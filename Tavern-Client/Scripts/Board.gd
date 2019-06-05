@@ -53,13 +53,17 @@ func _notification(notif):
 	if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST or notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
 		get_parent().update_board_texture()
 		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
-		hide()
+		if get_node_or_null("Post") != null:
+			get_node("Post").queue_free()
+		else:
+			hide()
 		
 func _on_TextureButton_button_up(num):
 	var post_data = post_dict[num]
 	var new_post = post_scene.instance()
 	add_child(new_post)
 	new_post.new_post(false, post_data._id, post_data.body, post_data.author)
+
 
 func _on_BoardScene_visibility_changed():
 	if visible == true:
