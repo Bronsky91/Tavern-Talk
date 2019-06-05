@@ -207,6 +207,7 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -670,7 +671,6 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 26 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -691,6 +691,13 @@ custom_styles/normal = SubResource( 14 )
 custom_fonts/font = SubResource( 15 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 caret_blink = true
+
+[node name="TavernChatBox" type="RichTextLabel" parent="CanvasLayer"]
+visible = false
+margin_left = 256.0
+margin_top = 540.0
+margin_right = 354.0
+margin_bottom = 600.0
 
 [node name="Chat" type="Button" parent="."]
 margin_left = 290.0

@@ -39,7 +39,7 @@ func w(params):
 func throw(params):
 	var strength = g.player_data.character.stats.strength
 	var dex = g.player_data.character.stats.dex
-	var object = params[0]
+	var object = params.join(" ")
 	var msg = ""
 	if strength > 14:
 		msg = "throws "+ ("his " if g.player_data.character.gender == "Male" else "her ")+object+ " across the room hitting the wall with a loud thud."
