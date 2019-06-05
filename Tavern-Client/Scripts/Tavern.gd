@@ -334,9 +334,6 @@ func slash_commands(text, params):
 		call(command, params)
 
 func _on_ChatEnter_text_entered(new_text):
-	chat_input.clear()
-	chat_input.visible = false
-	chat_input_in_use = false
 	if command_time and command_param_start != null:
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
 		command_params = command_params.split(" ")
@@ -344,12 +341,17 @@ func _on_ChatEnter_text_entered(new_text):
 		slash_commands(new_text, command_params)
 	else:
 		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
+	chat_input.clear()
+	chat_input.visible = false
+	chat_input_in_use = false
 		
 func _on_ChatEnter_text_changed(new_text):
 	if chat_input.text.substr(0,1) == "/":
 		command_time = true
 	else:
 		command_time = false
+	print(command_time)
+	print(new_text)
 	if command_time and new_text.substr(1, len(new_text)) in chat_commands:
 		command_param_start = len(chat_input.text) + 1
 
