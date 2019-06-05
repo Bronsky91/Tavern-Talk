@@ -84,7 +84,7 @@ func _on_Create_request_completed(result, response_code, headers, body):
 		g.make_patch_request($Create, 'users/' + g.player_data.user_id, character_data)
 
 func _on_CreateButton_button_up():
-	if gender and character_name:
+	if gender and character_name.text != "":
 		character_data = {
 			"characters": {
 				"name": character_name.text,
