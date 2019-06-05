@@ -81,6 +81,7 @@ func _on_Back_pressed():
 			return
 		else:
 			board_scene.hide()
+			update_board_texture()
 			return
 		
 	$CanvasLayer/AcceptDialog.popup_centered()
@@ -299,7 +300,7 @@ func _on_PostCheck_request_completed(result, response_code, headers, body):
 	elif post_number < 6:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_002.png"))
 	else:
-		$Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
+		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
 
 ### Leaving Tavern ###
 
