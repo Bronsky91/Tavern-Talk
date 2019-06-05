@@ -8,7 +8,6 @@ onready var remember_me = $CheckBox
 var login = {}
 
 func _ready():
-	get_tree().set_auto_accept_quit(true)
 	login = g.load_login()
 	
 func _process(delta):
@@ -21,7 +20,6 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	if response_code == 401:
 		$Error.text = json.result.message
-		## TODO Specify
 	else:
 		g.player_data.user_id = json.result._id
 		if remember_me.pressed:

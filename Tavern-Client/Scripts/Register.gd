@@ -7,7 +7,7 @@ onready var password = $PasswordLabel/Password
 onready var confirm = $ConfirmLabel/Confirm
 
 func _ready():
-	pass
+	get_tree().set_auto_accept_quit(false)
 	
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
@@ -41,8 +41,4 @@ func _on_Sign_Up_button_up():
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node("Login"))
 
-func _notification(notif):
-    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_button_up()
-    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_button_up()
+

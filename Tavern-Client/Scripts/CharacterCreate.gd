@@ -24,6 +24,8 @@ var character_data = {}
 var edit_mode
 
 func _ready():
+	get_tree().set_auto_accept_quit(false)
+		
 	gender_list.add_item("Male")
 	gender_list.add_item("Female")
 	
@@ -98,12 +100,6 @@ func _on_CreateButton_button_up():
 		}
 		$Step1.visible = false
 		$Step2.visible = true
-	
-func _notification(notif):
-    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_button_up()
-    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_button_up()
 		
 func _on_Back_button_up():
 	if $Step2.visible == true:
@@ -201,3 +197,4 @@ func _on_CharacterCreate_visibility_changed():
 			hair = 1
 			eyes = 1
 			clothes = 1
+			

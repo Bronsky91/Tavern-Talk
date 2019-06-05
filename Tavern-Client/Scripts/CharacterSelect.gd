@@ -9,7 +9,7 @@ var character_list_data = []
 var selected_character = {'_id': null}
 
 func _ready():
-	pass
+	get_tree().set_auto_accept_quit(false)
 	
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
@@ -65,19 +65,14 @@ func _on_JoinButton_button_up():
 		menu.change_menu_scene(self, menu.get_node('TavernMenu'))
 
 func _on_CharacterSelect_visibility_changed():
-	if visible == true:
+	if visible == true and g.player_data.user_id != null:
 		g.make_get_request($CharacterFetch, 'users/' + g.player_data.user_id)
 
 func _on_Back_button_up():
 	selected_character = {'_id': null}
 	menu.change_menu_scene(self, menu.get_node('Login'))
 
-func _notification(notif):
-    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_button_up()
-    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_button_up()
-
 func _on_ConfirmationDialog_confirmed():
 	var data = {"_id": selected_character._id}
 	g.make_patch_request($CharacterFetch, 'users/' + g.player_data.user_id + '/character_remove', data)
+	

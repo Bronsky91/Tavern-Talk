@@ -4,7 +4,7 @@ onready var new_tavern_name = $Title/NewTavern
 onready var menu = get_parent()
 
 func _ready():
-	pass
+	get_tree().set_auto_accept_quit(false)
 	
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
@@ -51,9 +51,3 @@ func _on_HTTPRequestCreate_request_completed(result, response_code, headers, bod
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node('TavernMenu'))
-	
-func _notification(notif):
-    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_button_up()
-    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_button_up()

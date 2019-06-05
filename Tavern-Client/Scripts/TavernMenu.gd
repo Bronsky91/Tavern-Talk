@@ -9,8 +9,7 @@ var selected_tavern
 var selected_tavern_index
 
 func _ready():
-	#g.make_get_request($HTTPRequestTaverns, 'users/'+g.player_data.user_id+'/taverns'
-	pass
+	get_tree().set_auto_accept_quit(false)
 	
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
@@ -66,7 +65,6 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 			g.make_post_request($HTTPRequestAddTavern, 'users/'+g.player_data.user_id+'/taverns', tavern)
 
 func _on_Enter_button_up():
-	print(g.player_data.tavern )
 	if selected_tavern != null and g.player_data.tavern.id == null:
 		g.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern)
 	else:
@@ -87,7 +85,7 @@ func _on_TavernList_item_selected(index):
 			selected_tavern = t
 
 func _on_TavernMenu_visibility_changed():
-	if visible == true:
+	if visible == true and g.player_data.user_id != null:
 		g.make_get_request($HTTPRequestTaverns, 'users/'+g.player_data.user_id+'/taverns')
 
 func _on_Create_button_up():
@@ -101,9 +99,3 @@ func _on_SpinTavern_request_completed(result, response_code, headers, body):
 	if json.result.data != null:
 		get_parent().call_deferred("free")	
 		get_tree().change_scene('Scenes/Tavern.tscn')
-		
-func _notification(notif):
-    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
-        _on_Back_button_up()
-    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-        _on_Back_button_up()
