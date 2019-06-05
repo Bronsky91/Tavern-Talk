@@ -38,7 +38,7 @@ func _on_Sign_Up_button_up():
 		elif " " in password.text:
 			$Error.text =  "Invalid Password, remove spaces"
 		else:
-			var data = {"email": email.text, "username": username.text, "password": password.text}
+			var data = {"email": email.text, "username": username.text.to_lower(), "password": password.text}
 			g.make_post_request($HTTPRequest, 'users', data)
 
 func _on_Back_button_up():

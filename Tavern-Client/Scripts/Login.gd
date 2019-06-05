@@ -32,7 +32,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 func login():
 	username.text = username.text.trim_suffix(" ")
 	username.text = username.text.trim_prefix(" ")
-	var data = {'username': username.text, 'password': password.text}
+	var data = {'username': username.text.to_lower(), 'password': password.text}
 	g.make_post_request($HTTPRequest, 'login', data)
 
 func _on_Register_button_up():
