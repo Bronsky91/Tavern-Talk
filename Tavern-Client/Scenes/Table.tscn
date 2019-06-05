@@ -113,6 +113,12 @@ custom_styles/normal = SubResource( 6 )
 custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 caret_blink = true
+
+[node name="TypingNotif" type="Label" parent="."]
+margin_left = 253.0
+margin_top = 560.0
+margin_right = 359.0
+margin_bottom = 590.0
 [connection signal="visibility_changed" from="." to="." method="_on_Table_visibility_changed"]
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
 [connection signal="item_selected" from="PatronList" to="." method="_on_PatronList_item_selected"]
