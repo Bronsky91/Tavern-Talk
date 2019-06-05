@@ -49,8 +49,8 @@ margin_bottom = 46.5971
 text = "Leave Table"
 
 [node name="PatronList" type="ItemList" parent="."]
-margin_left = 280.0
-margin_top = 90.0
+margin_left = 270.0
+margin_top = 80.0
 margin_right = 359.0
 margin_bottom = 279.0
 custom_styles/bg = SubResource( 1 )
@@ -79,27 +79,6 @@ custom_fonts/italics_font = SubResource( 3 )
 custom_fonts/bold_font = SubResource( 4 )
 custom_fonts/normal_font = SubResource( 5 )
 bbcode_enabled = true
-bbcode_text = "dafdasfdssdf dsafdsaf
-d
-f
-das
-f
-sdf
-s
-f
-sd
-af
-sdaf
-
-dsf
-sd
-af
-sa
-df
-sd
-f
-d
-sfasdfsadfsdf"
 scroll_following = true
 selection_enabled = true
 override_selected_font_color = true
