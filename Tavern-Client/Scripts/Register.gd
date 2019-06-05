@@ -33,10 +33,13 @@ func _on_Sign_Up_button_up():
 	 password.text != "" and
 	 confirm.text  != "" and
 	 password.text == confirm.text):
-		## TODO:
-		# Add field validation
-		var data = {"email": email.text, "username": username.text, "password": password.text}
-		g.make_post_request($HTTPRequest, 'users', data)
+		if " " in username.text:
+			$Error.text =  "Invalid Username, remove spaces"
+		elif " " in password.text:
+			$Error.text =  "Invalid Password, remove spaces"
+		else:
+			var data = {"email": email.text, "username": username.text, "password": password.text}
+			g.make_post_request($HTTPRequest, 'users', data)
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node("Login"))

@@ -30,6 +30,8 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		menu.change_menu_scene(self, menu.get_node("CharacterSelect"))
 
 func login():
+	username.text.trim_suffix(" ")
+	username.text.trim_prefix(" ")
 	var data = {'username': username.text, 'password': password.text}
 	g.make_post_request($HTTPRequest, 'login', data)
 

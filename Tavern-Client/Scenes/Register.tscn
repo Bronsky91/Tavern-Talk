@@ -76,6 +76,12 @@ margin_top = 77.0
 margin_right = 80.0
 margin_bottom = 112.0
 text = "Back"
+
+[node name="Error" type="Label" parent="."]
+margin_left = 120.0
+margin_top = 150.0
+margin_right = 160.0
+margin_bottom = 164.0
 [connection signal="button_up" from="Sign Up" to="." method="_on_Sign_Up_button_up"]
 [connection signal="request_completed" from="HTTPRequest" to="." method="_on_HTTPRequest_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
