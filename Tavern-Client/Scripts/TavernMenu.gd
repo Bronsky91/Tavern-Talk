@@ -67,7 +67,7 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 func _on_Enter_button_up():
 	if selected_tavern != null and g.player_data.tavern.id == null:
 		g.make_post_request($HTTPRequestEnter, 'tavern/enter', selected_tavern)
-	else:
+	elif g.player_data.tavern.id != null:
 		g.make_post_request($SpinTavern, 'tavern/'+g.player_data.tavern.id+'/server', {})
 		# TODO: Error handling
 		

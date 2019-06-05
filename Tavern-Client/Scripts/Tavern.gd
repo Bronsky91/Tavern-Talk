@@ -41,7 +41,6 @@ var stool_count = {
 	}
 }
 
-
 func _ready():
 	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
@@ -160,16 +159,26 @@ func find_closest_stool(table_id, patron):
 	#loop through all stools for availablity
 	for stool in stool_count[table_id]:
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
+		stool_count[table_id][stool]
 		if stool_count[table_id][stool] == null:
 		# if stool is available set the stool number as key and distance from patron as value
 			stool_pos_dict[(stool_node.get_global_position() - patron.position).length()] = stool
-	return stool_pos_dict[get_min(stool_pos_dict.keys())]
+	#if len(stool_pos_dict.keys()) < 0:
+	if stool_pos_dict.keys().size() > 0:
+		return stool_pos_dict[get_min(stool_pos_dict.keys())]
+	return 0
 	
 func _on_Table_button_up(table_id):
 	#for stool in stool_count[table_id]:
 	var stool_pos
 	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
+	if patron.is_busy():
+		# If the player is sitting down they can't keep sitting to new stools
+		return
 	var stool = find_closest_stool(table_id, patron)
+	if stool == 0:
+		# If there are no closest stools then the player can't click to join
+		return
 	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 	if stool >= 4:
 		# if the stool is on the bottom row use back animation
@@ -219,7 +228,9 @@ func create_table_scenes():
 		new_table.add_to_group("tables")
 
 sync func table_join_view(show, id, table_id):
-	if get_tree().get_network_unique_id() == int(id):
+	id = int(id)
+	## TODO: Before release change id to int before it gets in here 
+	if get_tree().get_network_unique_id() == id:
 		if show:
 			get_node('YSort/Table_'+table_id+'/Join').visible = true
 			get_node('YSort/Table_'+table_id+'/Join').disabled = false
@@ -227,11 +238,24 @@ sync func table_join_view(show, id, table_id):
 			get_node('YSort/Table_'+table_id+'/Join').visible = false
 			get_node('YSort/Table_'+table_id+'/Join').disabled = true
 
+func table_full(id):
+	# Checks if a table is full of patrons
+	for stool in stool_count[id]:
+		if stool_count[id][stool] == null:
+			return false
+	return true
+	
 func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape, table_id):
-	rpc("table_join_view", true, area.get_parent().name, table_id)
+	## TODO: change table_id to int of table number instead of leading 00s
+	if area != null and not table_full(int(table_id[2])):
+		# If there's a player and the table is not full, then show join table and enable the button
+		rpc("table_join_view", true, area.get_parent().name, table_id)
+	else:
+		rpc("table_join_view", false, area.get_parent().name, table_id)
 	
 func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_id):
-	rpc("table_join_view", false, area.get_parent().name, table_id)
+	if area != null:
+		rpc("table_join_view", false, int(area.get_parent().name), table_id)
 
 ### Bulletin Board ###
 		
@@ -307,7 +331,6 @@ var chat_commands = ['yell']
 func slash_commands(text, params):
 	var command = text.split(" ")[0].substr(1, len(text)-1)
 	if chat_commands.has(command):
-		pass
 		call(command, params)
 
 func _on_ChatEnter_text_entered(new_text):

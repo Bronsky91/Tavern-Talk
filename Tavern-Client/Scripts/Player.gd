@@ -8,7 +8,7 @@ var gender = null
 var style = null
 var anim = null # State tracker for animations
 
-var busy
+var busy = false setget ,is_busy
 var movement_buffer = 30
 var sat_down = false
 var sitting = false
@@ -50,6 +50,8 @@ func init(_gender, _style, _animation):
 	gender = _gender
 	anim = _animation
 
+func is_busy():
+	return busy
 ### Movement ###
 
 func _unhandled_input(event):
