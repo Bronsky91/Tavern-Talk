@@ -99,8 +99,8 @@ func load_login():
 	return login
 
 func roll(num_of_dice, dice_sides):
-    var roll_result = []
-    for i in range(0, num_of_dice):
-        randomize()
-        roll_result.append(randi() % dice_sides + 1)
-    return roll_result
+	var roll_result = []
+	for i in range(0, num_of_dice):
+		randomize()
+		roll_result.append(randi() % dice_sides + 1)
+	return roll_result
