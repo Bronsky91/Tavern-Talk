@@ -91,6 +91,11 @@ func _on_AcceptDialog_confirmed():
 	
 func user_exited(id):
 	player_info.erase(id) # Erase player from info
+	for t in get_tree().get_nodes_in_group("tables"):
+		print(t)
+		print(stool_count)
+		leaving_table(t.table_id, id)
+		print(stool_count)
 
 sync func remove_player(id):
 	get_node("YSort/"+str(id)).queue_free()
@@ -221,9 +226,9 @@ func leaving_table(table_id, id):
 		#var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if stool_count[table_id][stool] != null:
 			if stool_count[table_id][stool] == str(id):
+				get_node_or_null("YSort/"+stool_count[table_id][stool]).stand_up(stool, table_id)
 				stool_count[table_id][stool] = null
 				rpc("update_stool_count", stool_count)
-				get_node("YSort/"+stool_count[table_id][stool]).stand_up(stool, table_id)
 				break
 
 func create_table_scenes():
