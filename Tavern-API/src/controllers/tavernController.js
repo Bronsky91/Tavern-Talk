@@ -60,8 +60,13 @@ exports.spin = function (req, res) {
     else {
       execute("lsof -i :" + tavern.port, function (port) {
         console.log(port.split(' '))
-        console.log(port.split(' ')[21])
-        if (port.split(' ')[21] == undefined) {
+        var realPort;
+        if (port.split(' ')[21] == 'bronsky')
+          realPort = port.split(' ')[20]
+        else
+          realPort = port.split(' ')[21]
+        console.log(realPort);
+        if (realPort == undefined) {
           cmd.run(
             "godot --path ../Tavern-Server/ -d ---" + tavern.port
           );
@@ -84,9 +89,15 @@ exports.kill = function (req, res) {
     if (err) res.sendStatus(404)
     else {
       execute("lsof -i :" + tavern.port, function (port) {
-        console.log(port.split(' ')[21])
-        if (port.split(' ')[21] != undefined) {
-          cmd.run("kill " + port.split(' ')[21])
+        var realPort;
+        if (port.split(' ')[21] == 'bronsky')
+          realPort = port.split(' ')[20]
+        else
+          realPort = port.split(' ')[21]
+        console.log(port.split(' '))
+        console.log(realPort);
+        if (realPort != undefined) {
+          cmd.run("kill " + realPort)
           res.json({
             data: "Sever going down"
           });

@@ -73,14 +73,12 @@ window_title = ""
 margin_left = 1.0
 margin_right = 253.0
 margin_bottom = 600.0
-focus_mode = 2
 custom_styles/normal = SubResource( 2 )
 custom_fonts/italics_font = SubResource( 3 )
 custom_fonts/bold_font = SubResource( 4 )
 custom_fonts/normal_font = SubResource( 5 )
 bbcode_enabled = true
 scroll_following = true
-selection_enabled = true
 override_selected_font_color = true
 
 [node name="ChatInput" type="LineEdit" parent="."]
