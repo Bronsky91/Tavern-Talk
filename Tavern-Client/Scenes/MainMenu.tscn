@@ -13,7 +13,7 @@
 
 [sub_resource type="Animation" id=1]
 resource_name = "sign_swing"
-length = 7.0
+length = 6.0
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sign:frame")
@@ -22,11 +22,7 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-<<<<<<< HEAD
-"times": PoolRealArray( 0, 2.4, 2.8, 3.2, 5.2, 5.6, 6 ),
-=======
-"times": PoolRealArray( 0, 1.9, 2.8, 3.2, 5.2, 5.6, 6 ),
->>>>>>> master
+"times": PoolRealArray( 0, 2.4, 2.6, 2.8, 3.4, 3.6, 3.8 ),
 "transitions": PoolRealArray( 3.99999, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 1, 2, 3, 4, 5, 6, 0 ]
@@ -38,11 +34,7 @@ tracks/1/loop_wrap = true
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-<<<<<<< HEAD
-"times": PoolRealArray( 0, 2.4, 2.8, 3.2, 5.2, 5.6, 6 ),
-=======
-"times": PoolRealArray( 0, 1.9, 2.8, 3.2, 5.2, 5.6, 6 ),
->>>>>>> master
+"times": PoolRealArray( 0, 2.4, 2.6, 2.8, 3.4, 3.6, 3.8 ),
 "transitions": PoolRealArray( 3.99999, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 1, 2, 3, 4, 5, 6, 0 ]
