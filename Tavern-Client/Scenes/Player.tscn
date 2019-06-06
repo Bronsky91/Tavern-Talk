@@ -235,24 +235,24 @@ script = ExtResource( 1 )
 position = Vector2( 0, -9 )
 vframes = 4
 hframes = 4
-frame = 1
+frame = 15
 region_rect = Rect2( 0, 10, 0, 0 )
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-09, -1.19209e-07 )
+position = Vector2( 7.45058e-009, -1.19209e-007 )
 vframes = 4
 hframes = 9
-frame = 27
+frame = 15
 
 [node name="Eyes" type="Sprite" parent="Body"]
 vframes = 4
 hframes = 9
-frame = 27
+frame = 15
 
 [node name="Clothes" type="Sprite" parent="Body"]
 vframes = 4
 hframes = 9
-frame = 27
+frame = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 1.2
