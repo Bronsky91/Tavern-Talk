@@ -1,0 +1,57 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[  ]
+_global_script_class_icons={
+
+}
+
+[application]
+
+config/name="Tavern Talk"
+run/main_scene="res://Scenes/MainMenu.tscn"
+boot_splash/image="res://Assets/Backgrounds/Logo_001.png"
+boot_splash/fullsize=false
+config/icon="res://Assets/Backgrounds/Logo_001.png"
+config/auto_accept_quit=false
+config/quit_on_go_back=false
+
+[autoload]
+
+g="*res://Scripts/global.gd"
+Audio="*res://Scenes/Audio.tscn"
+
+[display]
+
+window/size/width=360
+window/size/height=640
+window/handheld/orientation="portrait"
+window/stretch/mode="viewport"
+window/stretch/aspect="keep_height"
+"window/Emulate Touchscreen"=true
+
+[input]
+
+click={
+"deadzone": 0.5,
+"events": [ Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"button_mask":0,"position":Vector2( 0, 0 ),"global_position":Vector2( 0, 0 ),"factor":1.0,"button_index":1,"pressed":false,"doubleclick":false,"script":null)
+ ]
+}
+
+[network]
+
+ssl/certificates="res://SSL/cert.crt"
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"
