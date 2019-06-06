@@ -31,15 +31,8 @@ var api_url = 'https://warlock.tech/api/'
 var headers = ["Content-Type: application/json",
 				"Authorization: Basic YWRtaW46c3RyaWZlbG9yZA=="]
 				
-var screen_scale
-
-onready var viewport = get_viewport()
-onready var window_size = OS.get_window_size()
-
 func _ready():
-	var scale_x = floor(window_size.x / viewport.size.x)
-	var scale_y = floor(window_size.y / viewport.size.y)
-	screen_scale = max(1, min(scale_x, scale_y))
+	pass
 
 func make_get_request(request, url):
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_GET)
@@ -68,14 +61,17 @@ func distance_to_raise(canvas_node):
 	return get_top_of_keyboard_pos() - (canvas_node.get_global_position().y + canvas_node.get_size().y)
 	
 func is_lower_than_keyboard(ledit):
-	if ledit != null and get_top_of_keyboard_pos() != viewport.size.y:
+	if ledit != null and get_top_of_keyboard_pos() != get_viewport().size.y:
 		return (ledit.get_global_position().y + ledit.get_size().y) > get_top_of_keyboard_pos()
 	return false
 	
 func get_top_of_keyboard_pos():
+	var scale_x = floor(OS.get_window_size().x / get_viewport().size.x)
+	var scale_y = floor(OS.get_window_size().y / get_viewport().size.y)
+	var screen_scale = max(1, min(scale_x, scale_y))
 	if OS.get_virtual_keyboard_height() != 0:
-		return viewport.size.y - (OS.get_virtual_keyboard_height() / screen_scale)
-	return viewport.size.y
+		return get_viewport().size.y - (OS.get_virtual_keyboard_height() / screen_scale)
+	return get_viewport().size.y
 
 func remember_me(login):
 	var f = File.new()

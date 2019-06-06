@@ -261,6 +261,7 @@ func table_full(id):
 func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape, table_id):
 	## TODO: change table_id to int of table number instead of leading 00s
 	if area != null and not table_full(int(table_id[2])):
+		print(area)
 		# If there's a player and the table is not full, then show join table and enable the button
 		rpc("table_join_view", true, int(area.get_parent().name), table_id)
 	else:
@@ -371,7 +372,7 @@ func _on_ChatEnter_text_changed(new_text):
 
 func yell(params):
 	var msg = params.join(" ")
-	var tav_msg = '[color=#ff4f6d]'+msg+'[/color]' ## Increase font or change color to Red maybe?
+	var tav_msg = '[color=#ff4f6d][b]'+msg.to_upper()+'[/b][/color]' ## Increase font or change color to Red maybe?
 	var table_msg = "yells, "+"\""+msg+"\""
 	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
 	chat_input.clear()
