@@ -73,7 +73,11 @@ func armwrestle(params):
 		var c_obj = {'id': challenger.id, 'name': challenger.name, 'mod': g.calc_stat_mod(challenger.stats.strength)}
 		var i_obj = {'id': initiator.id, 'name': initiator.name, 'mod': g.calc_stat_mod(initiator.stats.strength)}
 		table.rpc_id(challenger.id, "ask_for_aw", i_obj, c_obj)
-	## display popup for acceptance of challengers screen and popup for waiting on initiator's screen
-	## Once accepted the armwrestle scene is shown
-	#### Make a sync function in table script for displaying the armwrestle scene over the table for each player
-	#### called from this command
+
+func roll(params):
+	var roll = params.join(" ")
+	roll = roll.split("d")
+	var result = []
+	
+	
+	
