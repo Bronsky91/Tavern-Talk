@@ -78,6 +78,20 @@ func roll(params):
 	var roll = params.join(" ")
 	roll = roll.split("d")
 	var result = []
-	
+	var msg = ""
+	if len(roll[0]) == 0:
+		result = g.roll(1, roll[1])
+		msg = "rolls a d"+roll[1]+" and gets "+str(result[0])
+	else:
+		result = g.roll(roll[0], roll[1])
+		var s_result = ""
+		print(result.size())
+		for i in result.size():
+			if i == result.size() - 1:
+				s_result = s_result +" and "+ str(result[i]) +'.'
+			else:
+				s_result = s_result + str(result[i]) +', '
+		msg = "rolls "+roll[0]+" d"+roll[1]+"'s and gets "+s_result
+	table.send_action_message(msg)
 	
 	
