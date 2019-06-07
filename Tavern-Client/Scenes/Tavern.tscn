@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Patron.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/furniture/Barrel_002.png" type="Texture" id=5]
 [ext_resource path="res://Assets/furniture/Barrel_003.png" type="Texture" id=6]
@@ -31,6 +31,7 @@
 [ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=29]
 [ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=30]
 [ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=31]
+
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 94.5805, 21.1664 )
