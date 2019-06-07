@@ -117,7 +117,9 @@ func enter_tavern(ip, port):
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
-	barmaid.wave()
+	barmaid.wave()	
+	if is_network_master():
+		get_node("YSort/Barmaid").rpc_unreliable("update_npc", {"target": get_node("YSort/Barmaid").position, "animation": "npc_wave_down", "texture": "wave"})
 	
 ### Network Player Registration ###
 

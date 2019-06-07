@@ -286,8 +286,6 @@ func move_npc(_target):
 func wave():
 	use_npc_texture('wave')
 	animate.current_animation = 'npc_wave_down'
-	if is_network_master():
-		rpc_unreliable("update_npc", {"target": target, "animation": animate.current_animation, "texture": "wave"})
 	# once animation is finished go back to idle
 	# play wave animation
 	
