@@ -114,7 +114,6 @@ func enter_tavern(ip, port):
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
-	barmaid.wave()	
 	
 ### Network Player Registration ###
 
@@ -145,6 +144,7 @@ remote func configure_player():
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
+			barmaid.wave()
 			
 func change_scene_manually():
     # Remove tavern

@@ -9,7 +9,7 @@
 [ext_resource path="res://Scenes/Player.tres" type="Animation" id=7]
 [ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=8]
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=1]
 resource_name = "npc_idle_down"
 length = 3.46
 loop = true
@@ -26,7 +26,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=8]
+[sub_resource type="Animation" id=2]
 resource_name = "npc_wave_down"
 length = 1.481
 tracks/0/type = "value"
@@ -42,7 +42,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id=3]
 length = 2.0
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:frame")
@@ -93,7 +93,7 @@ tracks/3/keys = {
 "values": [ 27, 28, 29, 30, 31, 32, 33, 34, 35 ]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=4]
 length = 1.28
 loop = true
 step = 0.21
@@ -146,7 +146,7 @@ tracks/3/keys = {
 "values": [ 18, 19, 20, 21, 22, 23 ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=5]
 length = 1.28
 loop = true
 tracks/0/type = "value"
@@ -198,7 +198,7 @@ tracks/3/keys = {
 "values": [ 12, 13, 14, 15, 16, 17 ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=6]
 length = 1.28
 loop = true
 step = 0.7
@@ -251,11 +251,11 @@ tracks/3/keys = {
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=5]
+[sub_resource type="CapsuleShape2D" id=7]
 radius = 12.0901
 height = 42.8873
 
-[sub_resource type="CapsuleShape2D" id=6]
+[sub_resource type="CapsuleShape2D" id=8]
 height = 8.06732
 
 [node name="Patron" type="KinematicBody2D"]
@@ -272,7 +272,7 @@ region_rect = Rect2( 0, 10, 0, 0 )
 region_filter_clip = true
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-09, -1.19209e-07 )
+position = Vector2( 7.45058e-009, -1.19209e-007 )
 vframes = 4
 hframes = 9
 frame = 15
@@ -296,14 +296,14 @@ anims/idle_down = ExtResource( 3 )
 anims/idle_left = ExtResource( 4 )
 anims/idle_right = ExtResource( 5 )
 anims/idle_up = ExtResource( 6 )
-anims/npc_idle_down = SubResource( 7 )
-anims/npc_wave_down = SubResource( 8 )
+anims/npc_idle_down = SubResource( 1 )
+anims/npc_wave_down = SubResource( 2 )
 anims/sit_back = ExtResource( 7 )
-anims/sit_front = SubResource( 1 )
-anims/walk_down = SubResource( 2 )
+anims/sit_front = SubResource( 3 )
+anims/walk_down = SubResource( 4 )
 anims/walk_left = ExtResource( 8 )
-anims/walk_right = SubResource( 3 )
-anims/walk_up = SubResource( 4 )
+anims/walk_right = SubResource( 5 )
+anims/walk_up = SubResource( 6 )
 
 [node name="FullBody" type="Area2D" parent="."]
 visible = false
@@ -312,7 +312,7 @@ collision_mask = 2
 
 [node name="SoftCollision" type="CollisionShape2D" parent="FullBody"]
 position = Vector2( 0, -0.669907 )
-shape = SubResource( 5 )
+shape = SubResource( 7 )
 
 [node name="ChatBubble" type="RichTextLabel" parent="."]
 margin_left = -50.0
@@ -327,7 +327,7 @@ scroll_active = false
 [node name="LowerBody" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, 18 )
-shape = SubResource( 6 )
+shape = SubResource( 8 )
 
 [node name="AnimationTimer" type="Timer" parent="."]
 one_shot = true

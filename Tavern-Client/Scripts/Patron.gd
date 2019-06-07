@@ -246,11 +246,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':'sat', 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': true})
 		get_node("/root/Tavern").join_table(current_table_id)
 	elif 'wave' in anim_name:
-		if npc:
+		if npc and animate.current_animation != "npc_idle_down":
 			default_npc_animation()
-			use_npc_texture('idle')
-			if is_network_master():
-				rpc_unreliable("update_npc", {"target": target, "animation": npc_type.default_animation, "texture": npc_type.texture_default})
+			use_npc_texture('idle', npc_type)
+			rpc_unreliable("update_npc", {"npc_type": npc_type, "target": target, "animation": npc_type.default_animation, "texture": npc_type.texture_default})
 	elif animate.get_current_animation_position() < 0:
 	# Else the animation is finishing backwards and player is standing up
 		animate.current_animation = 'idle_'+h_sit_anim
@@ -266,12 +265,12 @@ func _on_Timer_timeout():
 		
 ## NPC Functions ##
 
-puppet func update_npc(npc_state):
+remote func update_npc(npc_state):
 	print(npc_state)
-	target = npc_state.target
-	animate.current_animation = npc_state.animation
+	#target = npc_state.target
+	get_parent().get_node("Barmaid").animate.current_animation = npc_state.animation
 	print(animate.current_animation)
-	use_npc_texture(npc_state.texture)
+	get_parent().get_node("Barmaid").use_npc_texture(npc_state.texture, npc_state.npc_type)
 
 func npc_init(_npc_type):
 	npc_type = _npc_type
@@ -281,26 +280,23 @@ func set_default_position(pos):
 
 func default_npc_animation():
 	animate.current_animation = npc_type.default_animation
-	use_npc_texture(npc_type.texture_default)
+	use_npc_texture(npc_type.texture_default, npc_type)
+
+func wave():
+	use_npc_texture("wave", npc_type)
+	animate.current_animation = "npc_wave_down"
+	rpc_unreliable("update_npc", {"npc_type": npc_type, "target": target, "animation": animate.current_animation, "texture": "wave"})
 
 func move_npc(_target):
 	target = _target
 	
-func wave():
-	use_npc_texture('wave')
-	animate.current_animation = 'npc_wave_down'
-	if is_network_master():
-		rpc("update_npc", {"target": get_node("YSort/Barmaid").position, "animation": "npc_wave_down", "texture": "wave"})
-	# once animation is finished go back to idle
-	# play wave animation
-	
-func use_npc_texture(animation):
+func use_npc_texture(animation, _npc_type):
 	# called to set the proper texture and frames when animation changes
 	if animation == 'idle':
-		$Body.set_texture(load("res://Assets/NPCs/"+npc_type.name+"_"+npc_type.style+".png"))
+		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+_npc_type.style+".png"))
 		$Body.vframes = 1
 		$Body.hframes = 4
 	elif animation == 'wave':
-		$Body.set_texture(load("res://Assets/NPCs/"+npc_type.name+"_"+animation.capitalize()+"_"+npc_type.style+".png"))
+		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+animation.capitalize()+"_"+_npc_type.style+".png"))
 		$Body.vframes = 1
 		$Body.hframes = 9
