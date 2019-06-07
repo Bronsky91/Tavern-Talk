@@ -32,7 +32,6 @@
 [ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=30]
 [ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=31]
 
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 94.5805, 21.1664 )
 
@@ -222,6 +221,7 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -450,7 +450,7 @@ z_as_relative = false
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-005 )
+position = Vector2( -20, -9.15527e-05 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 position = Vector2( 23, -24.867 )
@@ -623,7 +623,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 8 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -665,12 +665,9 @@ format = 1
 tile_data = PoolIntArray( 458752, 0, 0, 458841, 0, 0, 524288, 0, 0, 524377, 0, 0, 589824, 0, 0, 589868, 0, 0, 589913, 0, 0, 655360, 0, 0, 655404, 0, 0, 655449, 0, 0, 720896, 0, 0, 720940, 0, 0, 720985, 0, 0, 786432, 0, 0, 786521, 0, 0, 851968, 0, 0, 852057, 0, 0, 917504, 0, 0, 917593, 0, 0, 983040, 0, 0, 983129, 0, 0, 1048576, 0, 0, 1048665, 0, 0, 1114112, 0, 0, 1114201, 0, 0, 1179648, 0, 0, 1179737, 0, 0, 1245184, 0, 0, 1245273, 0, 0, 1310720, 0, 0, 1310809, 0, 0, 1376256, 0, 0, 1376345, 0, 0, 1441792, 0, 0, 1441881, 0, 0, 1507328, 0, 0, 1507417, 0, 0, 1572864, 0, 0, 1572953, 0, 0, 1638400, 0, 0, 1638489, 0, 0, 1703936, 0, 0, 1704025, 0, 0, 1769472, 0, 0, 1769561, 0, 0, 1835008, 0, 0, 1835097, 0, 0, 1900544, 0, 0, 1900633, 0, 0, 1966080, 0, 0, 1966169, 0, 0, 2031616, 0, 0, 2031705, 0, 0, 2097152, 0, 0, 2097241, 0, 0, 2162688, 0, 0, 2162777, 0, 0, 2228224, 0, 0, 2228313, 0, 0, 2293760, 0, 0, 2293849, 0, 0, 2359296, 0, 0, 2359385, 0, 0, 2424832, 0, 0, 2424921, 0, 0, 2490368, 0, 0, 2490457, 0, 0, 2555904, 10, 0, 2555905, 7, 0, 2555906, 7, 0, 2555907, 7, 0, 2555908, 7, 0, 2555909, 7, 0, 2555910, 7, 0, 2555911, 7, 0, 2555912, 7, 0, 2555913, 7, 0, 2555914, 7, 0, 2555916, 7, 0, 2555917, 7, 0, 2555918, 7, 0, 2555919, 7, 0, 2555920, 7, 0, 2555921, 7, 0, 2555924, 7, 0, 2555925, 7, 0, 2555926, 7, 0, 2555927, 7, 0, 2555928, 7, 0, 2555929, 7, 0, 2555930, 7, 0, 2555932, 7, 0, 2555933, 7, 0, 2555934, 7, 0, 2555935, 7, 0, 2555936, 7, 0, 2555937, 7, 0, 2555938, 7, 0, 2555939, 7, 0, 2555940, 7, 0, 2555941, 8, 0, 2555958, 9, 0, 2555959, 7, 0, 2555960, 7, 0, 2555961, 7, 0, 2555962, 7, 0, 2555963, 7, 0, 2555964, 7, 0, 2555965, 7, 0, 2555966, 7, 0, 2555967, 7, 0, 2555968, 7, 0, 2555969, 7, 0, 2555970, 7, 0, 2555971, 7, 0, 2555972, 7, 0, 2555973, 7, 0, 2555974, 7, 0, 2555975, 7, 0, 2555976, 7, 0, 2555977, 7, 0, 2555978, 7, 0, 2555979, 7, 0, 2555980, 7, 0, 2555981, 7, 0, 2555982, 7, 0, 2555983, 7, 0, 2555984, 7, 0, 2555985, 7, 0, 2555986, 7, 0, 2555987, 7, 0, 2555988, 7, 0, 2555989, 7, 0, 2555990, 7, 0, 2555993, 0, 0 )
 
 [node name="WallBar_001" type="Sprite" parent="."]
-
 editor/display_folded = true
 position = Vector2( 180, 60 )
 scale = Vector2( 1, 0.973451 )
->>>>>>> Stashed changes
-z_as_relative = false
 texture = ExtResource( 29 )
 
 [node name="Wall" type="StaticBody2D" parent="WallBar_001"]
@@ -707,6 +704,7 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 30 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -744,6 +742,9 @@ text = "Chat"
 
 [node name="BoardScene" parent="." instance=ExtResource( 4 )]
 visible = false
+
+[node name="NPC_Barmaid" type="Position2D" parent="."]
+position = Vector2( 155.583, 117.925 )
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
 [connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]

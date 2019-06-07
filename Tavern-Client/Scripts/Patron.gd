@@ -21,29 +21,34 @@ var h_sit_anim
 var v_sit_anim
 var a_texture
 
+var npc_type
+
 onready var animate = $AnimationPlayer
 
 func _ready():
-	# When character loads on other's screens it displays the correct animation
-	# If they're brand new to the tavern then it's idle up
-	target = position
-	if anim == null:
-		animate.current_animation = 'idle_up'
-		use_texture('idle')
-	else:
-		if 'sat' in anim.current:
-			# Sat is not a real animation but a state of the character sitting at the table not moving
-			if anim.v_sit_anim != null:
-				v_sit_anim = anim.v_sit_anim 
-			if anim.h_sit_anim != null:
-				h_sit_anim = anim.h_sit_anim
-			use_texture('sitting')
-			animate.play('sit_'+v_sit_anim, -1, 0, true)
-			#Playing the end of the animation at 0 speed
+	if npc:
+		default_npc_animation()
+	if not npc:
+		# When character loads on other's screens it displays the correct animation
+		# If they're brand new to the tavern then it's idle up
+		target = position
+		if anim == null:
+			animate.current_animation = 'idle_up'
+			use_texture('idle')
 		else:
-			animate.current_animation = anim.current
-			use_texture(anim.texture)
-			# play the proper non sit animation
+			if 'sat' in anim.current:
+				# Sat is not a real animation but a state of the character sitting at the table not moving
+				if anim.v_sit_anim != null:
+					v_sit_anim = anim.v_sit_anim 
+				if anim.h_sit_anim != null:
+					h_sit_anim = anim.h_sit_anim
+				use_texture('sitting')
+				animate.play('sit_'+v_sit_anim, -1, 0, true)
+				#Playing the end of the animation at 0 speed
+			else:
+				animate.current_animation = anim.current
+				use_texture(anim.texture)
+				# play the proper non sit animation
 	
 func init(_gender, _style, _animation):
 	# inits the player state from the tavern configure_player function
@@ -65,7 +70,7 @@ func is_busy():
 ### Movement ###
 
 func _unhandled_input(event):
-	if not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
+	if not npc and not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
 		target = event.position
 
 puppet func update_pos(id, pos, tar, animation):
@@ -240,9 +245,14 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		if is_network_master():
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':'sat', 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': true})
 		get_node("/root/Tavern").join_table(current_table_id)
-	else:
+	elif 'wave' in anim_name:
+		animate.stop()
+		if npc:
+			default_npc_animation()
+			use_npc_texture('idle')
+	elif animate.get_current_animation_position() < 0:
 	# Else the animation is finishing backwards and player is standing up
-		animate.current_animation = 'idle_left'
+		animate.current_animation = 'idle_'+h_sit_anim
 		current_table_id = null
 		sitting = false
 		busy = false
@@ -251,3 +261,36 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func _on_Timer_timeout():
 	if v_sit_anim == 'back':
 		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
+		
+		
+## NPC Functions ##
+
+func npc_init(_npc_type):
+	npc_type = _npc_type
+	
+func set_default_position(pos):
+	position = pos
+
+func default_npc_animation():
+	animate.current_animation = npc_type.default_animation
+	use_npc_texture(npc_type.texture_default)
+
+func move_npc(_target):
+	target = _target
+	
+func wave():
+	use_npc_texture('wave')
+	animate.current_animation = 'npc_wave_down'
+	# once animation is finished go back to idle
+	# play wave animation
+	
+func use_npc_texture(animation):
+	# called to set the proper texture and frames when animation changes
+	if animation == 'idle':
+		$Body.set_texture(load("res://Assets/NPCs/"+npc_type.name+"_"+npc_type.style+".png"))
+		$Body.vframes = 1
+		$Body.hframes = 4
+	elif animation == 'wave':
+		$Body.set_texture(load("res://Assets/NPCs/"+npc_type.name+"_"+animation.capitalize()+"_"+npc_type.style+".png"))
+		$Body.vframes = 1
+		$Body.hframes = 9

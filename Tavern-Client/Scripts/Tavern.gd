@@ -15,6 +15,9 @@ var player_info = {}
 var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
 var chat_input_in_use = false
 
+## NPCs ##
+var barmaid
+###
 var stool_count = {
 	1: { # table_id
 		1: null, # stool number
@@ -48,6 +51,12 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
+		barmaid = player.instance()
+		barmaid.set_npc(true)
+		barmaid.npc_init({'name': 'Barmaid', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'})
+		barmaid.set_name(barmaid.npc_type.name)
+		barmaid.set_default_position($NPC_Barmaid.position)
+		$YSort.add_child(barmaid)
 		update_board_texture()
 		character_name = g.player_data.character.name
 		create_table_scenes()
@@ -108,6 +117,7 @@ func enter_tavern(ip, port):
 func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
+	barmaid.wave()
 	
 ### Network Player Registration ###
 
