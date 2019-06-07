@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Scripts/Player.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Patron.gd" type="Script" id=1]
 [ext_resource path="res://Resources/Animations/idle_down.tres" type="Animation" id=2]
 [ext_resource path="res://Resources/Animations/idle_left.tres" type="Animation" id=3]
 [ext_resource path="res://Resources/Animations/idle_right.tres" type="Animation" id=4]
@@ -108,7 +108,7 @@ hframes = 6
 frame = 20
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-009, -1.19209e-007 )
+position = Vector2( 7.45058e-09, -1.19209e-07 )
 vframes = 4
 hframes = 4
 frame = 15

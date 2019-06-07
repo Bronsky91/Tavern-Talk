@@ -265,9 +265,12 @@ func _on_Timer_timeout():
 		
 		
 ## NPC Functions ##
+
 puppet func update_npc(npc_state):
+	print(npc_state)
 	target = npc_state.target
-	animate.play(npc_state.animation)
+	animate.current_animation = npc_state.animation
+	print(animate.current_animation)
 	use_npc_texture(npc_state.texture)
 
 func npc_init(_npc_type):
@@ -286,6 +289,8 @@ func move_npc(_target):
 func wave():
 	use_npc_texture('wave')
 	animate.current_animation = 'npc_wave_down'
+	if is_network_master():
+		rpc("update_npc", {"target": get_node("YSort/Barmaid").position, "animation": "npc_wave_down", "texture": "wave"})
 	# once animation is finished go back to idle
 	# play wave animation
 	

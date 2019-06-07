@@ -16,3 +16,9 @@ remote func update_pos(id, pos, tar, animation):
 	get_node("/root/Tavern").player_info[id].position = pos
 	get_node("/root/Tavern").player_info[id].animation = animation
 	#rpc_unreliable("client_update_pos", id, pos, tar, animation)
+
+## NPC Functions ##
+
+remote func update_npc(npc_state):
+	target = npc_state.target
+	animate.current_animation = npc_state.animation

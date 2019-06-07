@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Patron.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Board.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Assets/furniture/Bar_001.png" type="Texture" id=5]
 [ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=6]
@@ -322,7 +322,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 7 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]

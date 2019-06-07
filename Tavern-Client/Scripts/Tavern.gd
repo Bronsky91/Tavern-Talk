@@ -101,10 +101,7 @@ func _on_AcceptDialog_confirmed():
 func user_exited(id):
 	player_info.erase(id) # Erase player from info
 	for t in get_tree().get_nodes_in_group("tables"):
-		print(t)
-		print(stool_count)
 		leaving_table(t.table_id, id)
-		print(stool_count)
 
 sync func remove_player(id):
 	get_node("YSort/"+str(id)).queue_free()
@@ -118,8 +115,6 @@ func entered_tavern():
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
 	barmaid.wave()	
-	if is_network_master():
-		get_node("YSort/Barmaid").rpc_unreliable("update_npc", {"target": get_node("YSort/Barmaid").position, "animation": "npc_wave_down", "texture": "wave"})
 	
 ### Network Player Registration ###
 
