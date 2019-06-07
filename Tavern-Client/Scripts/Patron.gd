@@ -24,11 +24,14 @@ var a_texture
 var npc_type
 
 onready var animate = $AnimationPlayer
+onready var name_plate = $NamePlate
 
 func _ready():
 	if npc:
 		default_npc_animation()
+		#name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
 	if not npc:
+		name_plate.bbcode_text = "[center][color=#66ccff]" + g.player_data.character.name.split(" ")[0]
 		# When character loads on other's screens it displays the correct animation
 		# If they're brand new to the tavern then it's idle up
 		target = position
@@ -218,13 +221,29 @@ func stand_up(_stool, table_id):
 sync func receive_tavern_chat(msg, id, c_name):
 	get_parent().get_node(str(id)).overhead_chat(msg, c_name)
 
+func bubble_grow(char_count):
+	# Each line of 18 characters is 15 pixels in size
+	# for every 18 characters grow 15 in size.y and -15 in pos.y
+	if char_count >= 18:
+		var num_of_lines = float(char_count) / 18.0
+		num_of_lines = ceil(num_of_lines)
+		$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * num_of_lines
+		$ChatBubble.rect_position.y -= 15 * num_of_lines
+
+func bubble_reset():
+	$ChatBubble.rect_size.y = 15
+	$ChatBubble.rect_position.y = -70
+	# size y 15
+	# pos y -70
+	
+	# size y 30
+	# pos y -85
+
 func overhead_chat(msg, c_name):
 	# Tavern chat bubble
-	var word_count = msg.split(" ")
-	word_count = len(word_count)
-	#if word_count > 10:
-		#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * 2
-		#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y - 100
+	var char_count = msg.length()
+	print(char_count)
+	bubble_grow(char_count)
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
 	if msg.length() > 0:
@@ -234,11 +253,14 @@ func overhead_chat(msg, c_name):
 	msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
 	$ChatBubble/ChatTimer.start(5)
+	$ChatBubble.visible = true
 
 func _on_ChatTimer_timeout():
 	#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y / 2
 	#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y + 100
 	$ChatBubble.clear()
+	$ChatBubble.visible = false
+	bubble_reset()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
@@ -270,11 +292,8 @@ func _on_Timer_timeout():
 ## NPC Functions ##
 
 remote func update_npc(npc_state):
-	print(npc_state)
-	#target = npc_state.target
-	get_parent().get_node("Barmaid").animate.current_animation = npc_state.animation
-	print(animate.current_animation)
-	get_parent().get_node("Barmaid").use_npc_texture(npc_state.texture, npc_state.npc_type)
+	get_parent().get_node(npc_state.name).animate.current_animation = npc_state.animation
+	get_parent().get_node(npc_state.name).use_npc_texture(npc_state.texture, npc_state.npc_type)
 
 func npc_init(_npc_type):
 	npc_type = _npc_type

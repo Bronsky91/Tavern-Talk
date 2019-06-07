@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/Patron.gd" type="Script" id=1]
 [ext_resource path="res://Assets/NPCs/Barmaid_Wave_001.png" type="Texture" id=2]
@@ -255,7 +255,14 @@ tracks/3/keys = {
 radius = 12.0901
 height = 42.8873
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="StyleBoxFlat" id=8]
+bg_color = Color( 0, 0.105882, 0.619608, 0.121569 )
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="CapsuleShape2D" id=9]
 height = 8.06732
 
 [node name="Patron" type="KinematicBody2D"]
@@ -272,7 +279,7 @@ region_rect = Rect2( 0, 10, 0, 0 )
 region_filter_clip = true
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-009, -1.19209e-007 )
+position = Vector2( 7.45058e-09, -1.19209e-07 )
 vframes = 4
 hframes = 9
 frame = 15
@@ -315,10 +322,13 @@ position = Vector2( 0, -0.669907 )
 shape = SubResource( 7 )
 
 [node name="ChatBubble" type="RichTextLabel" parent="."]
+visible = false
 margin_left = -50.0
-margin_top = -50.0
+margin_top = -70.0
 margin_right = 50.0
+margin_bottom = -55.0
 mouse_filter = 2
+custom_styles/normal = SubResource( 8 )
 bbcode_enabled = true
 scroll_active = false
 
@@ -327,10 +337,18 @@ scroll_active = false
 [node name="LowerBody" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2( 0, 18 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="AnimationTimer" type="Timer" parent="."]
 one_shot = true
+
+[node name="NamePlate" type="RichTextLabel" parent="."]
+margin_left = -29.0536
+margin_top = -50.9464
+margin_right = 30.9464
+margin_bottom = -37.9464
+bbcode_enabled = true
+scroll_active = false
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 [connection signal="timeout" from="ChatBubble/ChatTimer" to="." method="_on_ChatTimer_timeout"]
 [connection signal="timeout" from="AnimationTimer" to="." method="_on_Timer_timeout"]
