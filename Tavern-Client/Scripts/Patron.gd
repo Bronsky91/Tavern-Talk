@@ -246,10 +246,11 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':'sat', 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': true})
 		get_node("/root/Tavern").join_table(current_table_id)
 	elif 'wave' in anim_name:
-		animate.stop()
 		if npc:
 			default_npc_animation()
 			use_npc_texture('idle')
+			if is_network_master():
+				rpc_unreliable("update_npc", {"target": target, "animation": npc_type.default_animation, "texture": npc_type.texture_default})
 	elif animate.get_current_animation_position() < 0:
 	# Else the animation is finishing backwards and player is standing up
 		animate.current_animation = 'idle_'+h_sit_anim
@@ -264,6 +265,10 @@ func _on_Timer_timeout():
 		
 		
 ## NPC Functions ##
+puppet func update_npc(npc_state):
+	target = npc_state.target
+	animate.current_animation = npc_state.animation
+	use_npc_texture(npc_state)
 
 func npc_init(_npc_type):
 	npc_type = _npc_type

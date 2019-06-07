@@ -12,6 +12,7 @@
 [sub_resource type="Animation" id=7]
 resource_name = "npc_idle_down"
 length = 3.46
+loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Body:frame")
 tracks/0/interp = 1
