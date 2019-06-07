@@ -10,6 +10,7 @@ var anim = null # State tracker for animations
 
 var busy = false setget set_busy ,is_busy
 var npc = false setget set_npc, is_npc
+var character_name
 var movement_buffer = 30
 var sat_down = false
 var sitting = false
@@ -29,9 +30,9 @@ onready var name_plate = $NamePlate
 func _ready():
 	if npc:
 		default_npc_animation()
-		#name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
+		name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
 	if not npc:
-		name_plate.bbcode_text = "[center][color=#66ccff]" + g.player_data.character.name.split(" ")[0]
+		name_plate.bbcode_text = "[center][color=#66ccff]"+character_name
 		# When character loads on other's screens it displays the correct animation
 		# If they're brand new to the tavern then it's idle up
 		target = position
@@ -53,11 +54,15 @@ func _ready():
 				use_texture(anim.texture)
 				# play the proper non sit animation
 	
-func init(_gender, _style, _animation):
+func init(_gender, _style, _animation, _character_name):
 	# inits the player state from the tavern configure_player function
 	style = _style
 	gender = _gender
 	anim = _animation
+	character_name = _character_name
+
+func set_nameplate(_name_plate):
+	name_plate = _name_plate
 
 func set_npc(_npc):
 	npc = _npc
@@ -295,8 +300,8 @@ func _on_Timer_timeout():
 ## NPC Functions ##
 
 remote func update_npc(npc_state):
-	get_parent().get_node(npc_state.name).animate.current_animation = npc_state.animation
-	get_parent().get_node(npc_state.name).use_npc_texture(npc_state.texture, npc_state.npc_type)
+	get_parent().get_node(npc_state.npc_type.name).animate.current_animation = npc_state.animation
+	get_parent().get_node(npc_state.npc_type.name).use_npc_texture(npc_state.texture, npc_state.npc_type)
 
 func npc_init(_npc_type):
 	npc_type = _npc_type

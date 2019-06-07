@@ -141,7 +141,7 @@ remote func configure_player():
 				new_player.position = entrance.position
 			else:
 				new_player.position = player_info[p].position
-			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation)
+			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation, player_info[p].character.name)
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
