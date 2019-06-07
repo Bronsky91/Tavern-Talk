@@ -268,7 +268,7 @@ func _on_Timer_timeout():
 puppet func update_npc(npc_state):
 	target = npc_state.target
 	animate.current_animation = npc_state.animation
-	use_npc_texture(npc_state)
+	use_npc_texture(npc_state.texture)
 
 func npc_init(_npc_type):
 	npc_type = _npc_type
