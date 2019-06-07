@@ -41,6 +41,7 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 		}
 		g.player_data.table_id = 0
 		visible = false
+		g.make_get_request($BoardPostCheck, 'tavern/' + g.player_data.tavern.id +'/board')
 
 func _on_Back_button_up():
 	menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
@@ -96,3 +97,8 @@ func _on_SpinTavern_request_completed(result, response_code, headers, body):
 	if json.result.data != null:
 		get_parent().call_deferred("free")	
 		get_tree().change_scene('Scenes/Tavern.tscn')
+
+func _on_BoardPostCheck_request_completed(result, response_code, headers, body):
+	var json = JSON.parse(body.get_string_from_utf8())
+	var post_number = len(json.result.data)
+	g.player_data.tavern.post_number = post_number

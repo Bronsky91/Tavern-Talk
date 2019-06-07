@@ -43,6 +43,8 @@ text = "Add Tavern"
 
 [node name="SpinTavern" type="HTTPRequest" parent="."]
 
+[node name="BoardPostCheck" type="HTTPRequest" parent="."]
+
 [node name="Back" type="Button" parent="."]
 margin_left = 8.1499
 margin_top = 80.5944
@@ -93,6 +95,7 @@ text = "Create New Tavern"
 [connection signal="request_completed" from="HTTPRequestTaverns" to="." method="_on_HTTPRequestTaverns_request_completed"]
 [connection signal="request_completed" from="HTTPRequestTavernCheck" to="." method="_on_HTTPRequestTavernCheck_request_completed"]
 [connection signal="request_completed" from="SpinTavern" to="." method="_on_SpinTavern_request_completed"]
+[connection signal="request_completed" from="BoardPostCheck" to="." method="_on_BoardPostCheck_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
 [connection signal="item_selected" from="Visited/TavernList" to="." method="_on_TavernList_item_selected"]
 [connection signal="button_up" from="Visited/Enter" to="." method="_on_Enter_button_up"]

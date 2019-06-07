@@ -221,7 +221,6 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
-editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -603,7 +602,6 @@ position = Vector2( 149.791, 173.822 )
 texture = ExtResource( 21 )
 
 [node name="Board" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false

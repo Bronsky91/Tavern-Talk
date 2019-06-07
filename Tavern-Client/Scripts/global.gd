@@ -20,7 +20,8 @@ var player_data = {
 		'ip': null,
 		'name': null,
 		'code': null,
-		'id': null
+		'id': null,
+		'post_number': null,
 		},
 	'table_id': null,
 	'position': null,

@@ -57,7 +57,7 @@ func _ready():
 		barmaid.set_name(barmaid.npc_type.name)
 		barmaid.set_default_position($NPC_Barmaid.position)
 		$YSort.add_child(barmaid)
-		update_board_texture()
+		set_board_texture(g.player_data.tavern.post_number)
 		character_name = g.player_data.character.name
 		create_table_scenes()
 		enter_tavern(g.player_data.tavern.ip, g.player_data.tavern.port)
@@ -309,6 +309,9 @@ func update_board_texture():
 func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
 	var post_number = len(json.result.data)
+	set_board_texture(post_number)
+	
+func set_board_texture(post_number):
 	if post_number == 0:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
 	elif post_number < 6:
