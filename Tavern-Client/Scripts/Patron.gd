@@ -250,7 +250,8 @@ func overhead_chat(msg, c_name):
 		var t_msg = "["+c_name+"]: " + msg
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += t_msg
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
-	msg = "[center]"+msg+"[/center]"
+	if msg.length() < 18:
+		msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
 	$ChatBubble/ChatTimer.start(5)
 	$ChatBubble.visible = true

@@ -146,6 +146,7 @@ remote func configure_player():
 			new_player.set_network_master(p)
 			$YSort.add_child(new_player)
 			barmaid.wave()
+			barmaid.rpc("receive_tavern_chat", "Welcome!", barmaid.name, character_name)
 			
 func change_scene_manually():
     # Remove tavern
