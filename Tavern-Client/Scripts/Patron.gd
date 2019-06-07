@@ -267,7 +267,7 @@ func _on_Timer_timeout():
 ## NPC Functions ##
 puppet func update_npc(npc_state):
 	target = npc_state.target
-	animate.current_animation = npc_state.animation
+	animate.play(npc_state.animation)
 	use_npc_texture(npc_state.texture)
 
 func npc_init(_npc_type):
@@ -286,7 +286,8 @@ func move_npc(_target):
 func wave():
 	use_npc_texture('wave')
 	animate.current_animation = 'npc_wave_down'
-	rpc_unreliable("update_npc", {"target": target, "animation": animate.current_animation, "texture": "wave"})
+	if is_network_master():
+		rpc_unreliable("update_npc", {"target": target, "animation": animate.current_animation, "texture": "wave"})
 	# once animation is finished go back to idle
 	# play wave animation
 	
