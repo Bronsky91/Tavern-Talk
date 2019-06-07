@@ -31,6 +31,7 @@ func _ready():
 	if npc:
 		default_npc_animation()
 		name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
+		return
 	if not npc:
 		name_plate.bbcode_text = "[center][color=#66ccff]"+character_name
 		# When character loads on other's screens it displays the correct animation
@@ -271,6 +272,7 @@ func _on_ChatTimer_timeout():
 	bubble_reset()
 
 func _on_AnimationPlayer_animation_finished(anim_name):
+	print(animate.get_current_animation_position())
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
 	# if animation is finishing normally
 		animate.stop()
@@ -284,7 +286,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			default_npc_animation()
 			use_npc_texture('idle', npc_type)
 			rpc_unreliable("update_npc", {"npc_type": npc_type, "target": target, "animation": npc_type.default_animation, "texture": npc_type.texture_default})
-	elif animate.get_current_animation_position() < 0:
+	elif animate.get_current_animation_position() == 0:
 	# Else the animation is finishing backwards and player is standing up
 		animate.current_animation = 'idle_'+h_sit_anim
 		current_table_id = null

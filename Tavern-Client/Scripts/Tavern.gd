@@ -144,6 +144,7 @@ remote func configure_player():
 			new_player.init(player_info[p].character.gender, player_info[p].character.style, player_info[p].animation, player_info[p].character.name)
 			new_player.set_name(str(p))
 			new_player.set_network_master(p)
+			new_player.set_npc(false)
 			$YSort.add_child(new_player)
 			barmaid.wave()
 			barmaid.rpc("receive_tavern_chat", "Welcome!", barmaid.name, character_name)
