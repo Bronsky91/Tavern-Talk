@@ -248,6 +248,8 @@ func overhead_chat(msg, c_name):
 	$ChatBubble.hint_tooltip = msg
 	if msg.length() > 0:
 		var t_msg = "["+c_name+"]: " + msg
+		if npc:
+			t_msg = "["+npc_type.name+"]: " + msg
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += t_msg
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
 	if msg.length() < 18:
