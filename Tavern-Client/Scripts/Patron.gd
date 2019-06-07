@@ -215,10 +215,10 @@ func stand_up(_stool, table_id):
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7, 'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})
 ### Chatting ###
 
-sync func receive_tavern_chat(msg, id):
-	get_parent().get_node(str(id)).overhead_chat(msg)
+sync func receive_tavern_chat(msg, id, c_name):
+	get_parent().get_node(str(id)).overhead_chat(msg, c_name)
 
-func overhead_chat(msg):
+func overhead_chat(msg, c_name):
 	# Tavern chat bubble
 	var word_count = msg.split(" ")
 	word_count = len(word_count)
@@ -227,6 +227,10 @@ func overhead_chat(msg):
 		#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y - 100
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
+	if msg.length() > 0:
+		var t_msg = "["+c_name+"]: " + msg
+		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += t_msg
+		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
 	msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
 	$ChatBubble/ChatTimer.start(5)

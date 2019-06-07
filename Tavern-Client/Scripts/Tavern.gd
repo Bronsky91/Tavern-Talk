@@ -8,6 +8,7 @@ export(PackedScene) var board
 onready var entrance = $Entrance
 onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $CanvasLayer/ChatEnter
+onready var chat_display = $CanvasLayer/TavernChatBox
 onready var board_scene = $BoardScene
 
 var character_name = null
@@ -365,7 +366,7 @@ func _on_ChatEnter_text_entered(new_text):
 		command_param_start = null # Resets command param
 		slash_commands(new_text, command_params)
 	else:
-		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id())
+		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id(), character_name)
 	chat_input.clear()
 	chat_input.visible = false
 	chat_input_in_use = false
@@ -377,6 +378,14 @@ func _on_ChatEnter_text_changed(new_text):
 		command_time = false
 	if command_time and new_text.substr(1, len(new_text)) in chat_commands:
 		command_param_start = len(chat_input.text) + 1
+		
+func _on_ChatEnter_visibility_changed():
+	if chat_input.visible:
+		chat_display.visible = true
+		chat_display.rect_position.y = g.get_top_of_keyboard_pos() - (chat_input.get_size().y + chat_display.get_size().y)
+	else:
+		chat_display.visible = false
+
 
 ### Tavern Chat Commands ###
 
@@ -389,6 +398,9 @@ func yell(params):
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
+
+
+	
 
 
 ### Not currently being implemented - on hold ###

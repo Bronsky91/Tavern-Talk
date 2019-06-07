@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -214,6 +214,9 @@ bg_color = Color( 1, 1, 1, 0.823529 )
 [sub_resource type="DynamicFont" id=15]
 font_data = ExtResource( 31 )
 
+[sub_resource type="StyleBoxFlat" id=16]
+bg_color = Color( 0, 0, 0, 0.215686 )
+
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
 table = ExtResource( 2 )
@@ -221,6 +224,7 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -702,7 +706,6 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 30 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -726,10 +729,14 @@ caret_blink = true
 
 [node name="TavernChatBox" type="RichTextLabel" parent="CanvasLayer"]
 visible = false
-margin_left = 256.0
-margin_top = 540.0
-margin_right = 354.0
-margin_bottom = 600.0
+margin_left = 140.0
+margin_top = 510.0
+margin_right = 358.0
+margin_bottom = 610.0
+mouse_filter = 2
+custom_styles/normal = SubResource( 16 )
+bbcode_enabled = true
+scroll_following = true
 
 [node name="Chat" type="Button" parent="."]
 margin_left = 290.0
@@ -764,4 +771,5 @@ position = Vector2( 155.583, 117.925 )
 [connection signal="confirmed" from="CanvasLayer/AcceptDialog" to="." method="_on_AcceptDialog_confirmed"]
 [connection signal="text_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_changed"]
 [connection signal="text_entered" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_entered"]
+[connection signal="visibility_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_visibility_changed"]
 [connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
