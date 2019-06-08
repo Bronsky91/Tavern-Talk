@@ -7,8 +7,7 @@ const tavernModel = mongoose.Schema({
     port: { type: Number },
     characters: [{
         user_id: String,
-        character_id: String,
-        table: Number // 0 means not at a table currently
+        character_id: String
         }],
     board: [{
         body: String,

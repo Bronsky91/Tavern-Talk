@@ -62,9 +62,6 @@ func init(_gender, _style, _animation, _character_name):
 	anim = _animation
 	character_name = _character_name
 
-func set_nameplate(_name_plate):
-	name_plate = _name_plate
-
 func set_npc(_npc):
 	npc = _npc
 	
@@ -76,6 +73,7 @@ func set_busy(_busy):
 
 func is_busy():
 	return busy
+	
 ### Movement ###
 
 func _unhandled_input(event):

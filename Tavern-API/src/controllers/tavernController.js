@@ -41,18 +41,40 @@ exports.index = function (req, res) {
 exports.enter = function (req, res) {
   Tavern.findOne({ code: req.body.code }, function (err, tavern) {
     if (err) return (err);
-    if (!tavern) return res.sendStatus(401);
+    if (!tavern) 
+      return res.sendStatus(401);
+    else {
+      tavern.characters.push({
+        user_id: req.body.user_id,
+        character_id: req.body.character_id
+      })
+    }
     return res.json({
       data: tavern
     });
   });
 };
 
+// user exits tavern
+exports.exit = function (req, res) {
+  Tavern.findById(req.params.tavern_id, function (err, tavern) {
+    tavern.characters.pull(req.body); 
+    // save the tavern update and check for errors
+    tavern.save(function (err) {
+      if (err) res.json(err);
+      res.json({
+        data: tavern
+      });
+    });
+  })
+}
+
 var exec = require('child_process').exec;
 function execute(command, callback) {
   exec(command, function (error, stdout, stderr) { callback(stdout); });
 };
 
+// Handle spinning up Godot server
 exports.spin = function (req, res) {
   Tavern.findById(req.params.tavern_id, function (err, tavern) {
     if (err) return (err);
@@ -112,7 +134,7 @@ exports.kill = function (req, res) {
   })
 };
 
-// Handle user entering tavern
+// Does the tavern exist with the given code
 exports.check = function (req, res) {
   Tavern.findOne({ code: req.body.code }, function (err, tavern) {
     if (err) return next(err);
@@ -125,54 +147,6 @@ exports.check = function (req, res) {
   });
 };
 
-exports.tables = function (req, res) {
-  Tavern.findById(req.params.tavern_id, function (err, tavern) {
-    if (err) {
-      res.json({
-        status: "error",
-        message: err
-      });
-    } else {
-      // Array of table objects
-      // Table objects have character arrays for each character at table
-      // for now 4 tables is max amount hard coded in
-      // Tavern object should dictate how many slots it has
-      var tableStats = {
-        1: 0,
-        2: 0,
-        3: 0,
-        4: 0
-      };
-      tavern.characters.forEach(function (c) {
-        // For each character check if they're at a table
-        if (c.table > 0) {
-          // Increment the table count by 1 for character at a table
-          tableStats[c.table]++
-        }
-      });
-      res.json({
-        data: tableStats
-      })
-    }
-  })
-}
-
-exports.join = function (req, res) {
-  Tavern.findById(req.params.tavern_id, function (err, tavern) {
-    if (err) {
-      res.json({
-        status: "error",
-        message: err
-      });
-    } else {
-      tavern.characters.push({
-        username: req.body.username,
-        character_id: req.body.character_id,
-        table: req.body.table
-      })
-    }
-  })
-}
 
 // Handle create tavern actions
 exports.new = function (req, res) {
