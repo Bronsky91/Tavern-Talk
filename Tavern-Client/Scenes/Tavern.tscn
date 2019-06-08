@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=2]
+[gd_scene load_steps=59 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -14,24 +14,32 @@
 [ext_resource path="res://Assets/furniture/Table_001.png" type="Texture" id=12]
 [ext_resource path="res://Assets/furniture/Stool_001.png" type="Texture" id=13]
 [ext_resource path="res://Assets/furniture/Tablecloth_001.png" type="Texture" id=14]
-[ext_resource path="res://Assets/furniture/Mug_005.png" type="Texture" id=15]
-[ext_resource path="res://Assets/furniture/Mug_002.png" type="Texture" id=16]
-[ext_resource path="res://Assets/furniture/Tablecloth_002.png" type="Texture" id=17]
-[ext_resource path="res://Assets/furniture/Mug_003.png" type="Texture" id=18]
-[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=19]
-[ext_resource path="res://Assets/furniture/Tablecloth_003.png" type="Texture" id=20]
-[ext_resource path="res://Assets/furniture/Rug_001.png" type="Texture" id=21]
-[ext_resource path="res://Assets/furniture/Rug_002.png" type="Texture" id=22]
-[ext_resource path="res://Assets/furniture/BulletinBoardA_001.png" type="Texture" id=23]
-[ext_resource path="res://Assets/furniture/Shelf_001.png" type="Texture" id=24]
-[ext_resource path="res://Assets/furniture/Mug_007.png" type="Texture" id=25]
-[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=26]
-[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=27]
-[ext_resource path="res://Assets/furniture/Flooring_002.png" type="Texture" id=28]
-[ext_resource path="res://Assets/furniture/WallBar_002.png" type="Texture" id=29]
-[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=30]
-[ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=31]
-[ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=32]
+[ext_resource path="res://Assets/furniture/candle_002a.png" type="Texture" id=15]
+[ext_resource path="res://Assets/furniture/candle_002b.png" type="Texture" id=16]
+[ext_resource path="res://Assets/furniture/candle_002d.png" type="Texture" id=17]
+[ext_resource path="res://Assets/furniture/candle_002c.png" type="Texture" id=18]
+[ext_resource path="res://Assets/furniture/Mug_005.png" type="Texture" id=19]
+[ext_resource path="res://Assets/furniture/Mug_002.png" type="Texture" id=20]
+[ext_resource path="res://Assets/furniture/Tablecloth_002.png" type="Texture" id=21]
+[ext_resource path="res://Assets/furniture/candle_001a.png" type="Texture" id=22]
+[ext_resource path="res://Assets/furniture/candle_001b.png" type="Texture" id=23]
+[ext_resource path="res://Assets/furniture/candle_001c.png" type="Texture" id=24]
+[ext_resource path="res://Assets/furniture/candle_001d.png" type="Texture" id=25]
+[ext_resource path="res://Assets/furniture/Mug_003.png" type="Texture" id=26]
+[ext_resource path="res://Assets/furniture/Table_002.png" type="Texture" id=27]
+[ext_resource path="res://Assets/furniture/Tablecloth_003.png" type="Texture" id=28]
+[ext_resource path="res://Assets/furniture/Rug_001.png" type="Texture" id=29]
+[ext_resource path="res://Assets/furniture/Rug_002.png" type="Texture" id=30]
+[ext_resource path="res://Assets/furniture/BulletinBoardA_001.png" type="Texture" id=31]
+[ext_resource path="res://Assets/furniture/Shelf_001.png" type="Texture" id=32]
+[ext_resource path="res://Assets/furniture/Mug_007.png" type="Texture" id=33]
+[ext_resource path="res://Assets/furniture/Wall_001.png" type="Texture" id=34]
+[ext_resource path="res://Assets/furniture/Flooring_001.png" type="Texture" id=35]
+[ext_resource path="res://Assets/furniture/Flooring_002.png" type="Texture" id=36]
+[ext_resource path="res://Assets/furniture/WallBar_002.png" type="Texture" id=37]
+[ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=38]
+[ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=39]
+[ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=40]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 94.5805, 21.1664 )
@@ -45,11 +53,27 @@ extents = Vector2( 72.557, 37.8545 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 57.553, 14.4354 )
 
+[sub_resource type="SpriteFrames" id=17]
+animations = [ {
+"frames": [ ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "Flicker",
+"speed": 8.0
+} ]
+
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 73.0399, 41.7897 )
 
 [sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 57.553, 14.4354 )
+
+[sub_resource type="SpriteFrames" id=18]
+animations = [ {
+"frames": [ ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ) ],
+"loop": true,
+"name": "Flicker",
+"speed": 8.0
+} ]
 
 [sub_resource type="RectangleShape2D" id=7]
 extents = Vector2( 74.2727, 42.7556 )
@@ -59,7 +83,7 @@ extents = Vector2( 41.5271, 32.6797 )
 
 [sub_resource type="TileSet" id=9]
 0/name = "Wall_001.png 0"
-0/texture = ExtResource( 26 )
+0/texture = ExtResource( 34 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 16, 16 )
@@ -71,7 +95,7 @@ extents = Vector2( 41.5271, 32.6797 )
 
 [sub_resource type="TileSet" id=10]
 0/name = "Flooring_001.png 0"
-0/texture = ExtResource( 27 )
+0/texture = ExtResource( 35 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 0, 0, 64, 32 )
@@ -81,7 +105,7 @@ extents = Vector2( 41.5271, 32.6797 )
 0/shapes = [  ]
 0/z_index = 0
 1/name = "Flooring_002.png 1"
-1/texture = ExtResource( 28 )
+1/texture = ExtResource( 36 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 0, 0, 64, 32 )
@@ -93,7 +117,7 @@ extents = Vector2( 41.5271, 32.6797 )
 
 [sub_resource type="TileSet" id=11]
 0/name = "WallBar_002.png 0"
-0/texture = ExtResource( 29 )
+0/texture = ExtResource( 37 )
 0/tex_offset = Vector2( 0, 0 )
 0/modulate = Color( 1, 1, 1, 1 )
 0/region = Rect2( 12, 0, 4, 16 )
@@ -103,7 +127,7 @@ extents = Vector2( 41.5271, 32.6797 )
 0/shapes = [  ]
 0/z_index = 0
 1/name = "WallBar_002.png 1"
-1/texture = ExtResource( 29 )
+1/texture = ExtResource( 37 )
 1/tex_offset = Vector2( 0, 0 )
 1/modulate = Color( 1, 1, 1, 1 )
 1/region = Rect2( 44, 0, 4, 16 )
@@ -113,7 +137,7 @@ extents = Vector2( 41.5271, 32.6797 )
 1/shapes = [  ]
 1/z_index = 0
 2/name = "WallBar_002.png 2"
-2/texture = ExtResource( 29 )
+2/texture = ExtResource( 37 )
 2/tex_offset = Vector2( 0, 0 )
 2/modulate = Color( 1, 1, 1, 1 )
 2/region = Rect2( 28, 0, 4, 16 )
@@ -123,7 +147,7 @@ extents = Vector2( 41.5271, 32.6797 )
 2/shapes = [  ]
 2/z_index = 0
 3/name = "WallBar_002.png 3"
-3/texture = ExtResource( 29 )
+3/texture = ExtResource( 37 )
 3/tex_offset = Vector2( 0, 0 )
 3/modulate = Color( 1, 1, 1, 1 )
 3/region = Rect2( 96, 0, 4, 16 )
@@ -133,7 +157,7 @@ extents = Vector2( 41.5271, 32.6797 )
 3/shapes = [  ]
 3/z_index = 0
 4/name = "WallBar_002.png 4"
-4/texture = ExtResource( 29 )
+4/texture = ExtResource( 37 )
 4/tex_offset = Vector2( 0, 0 )
 4/modulate = Color( 1, 1, 1, 1 )
 4/region = Rect2( 112, 0, 4, 16 )
@@ -143,7 +167,7 @@ extents = Vector2( 41.5271, 32.6797 )
 4/shapes = [  ]
 4/z_index = 0
 5/name = "WallBar_002.png 5"
-5/texture = ExtResource( 29 )
+5/texture = ExtResource( 37 )
 5/tex_offset = Vector2( 4, 0 )
 5/modulate = Color( 1, 1, 1, 1 )
 5/region = Rect2( 128, 0, 4, 16 )
@@ -153,7 +177,7 @@ extents = Vector2( 41.5271, 32.6797 )
 5/shapes = [  ]
 5/z_index = 0
 6/name = "WallBar_002.png 6"
-6/texture = ExtResource( 29 )
+6/texture = ExtResource( 37 )
 6/tex_offset = Vector2( 0, 0 )
 6/modulate = Color( 1, 1, 1, 1 )
 6/region = Rect2( 12, 32, 4, 15 )
@@ -163,7 +187,7 @@ extents = Vector2( 41.5271, 32.6797 )
 6/shapes = [  ]
 6/z_index = 0
 7/name = "WallBar_002.png 7"
-7/texture = ExtResource( 29 )
+7/texture = ExtResource( 37 )
 7/tex_offset = Vector2( 0, 11 )
 7/modulate = Color( 1, 1, 1, 1 )
 7/region = Rect2( 32, 42, 16, 5 )
@@ -173,7 +197,7 @@ extents = Vector2( 41.5271, 32.6797 )
 7/shapes = [  ]
 7/z_index = 0
 8/name = "WallBar_002.png 8"
-8/texture = ExtResource( 29 )
+8/texture = ExtResource( 37 )
 8/tex_offset = Vector2( 0, 11 )
 8/modulate = Color( 1, 1, 1, 1 )
 8/region = Rect2( 64, 42, 16, 5 )
@@ -183,7 +207,7 @@ extents = Vector2( 41.5271, 32.6797 )
 8/shapes = [  ]
 8/z_index = 0
 9/name = "WallBar_002.png 9"
-9/texture = ExtResource( 29 )
+9/texture = ExtResource( 37 )
 9/tex_offset = Vector2( 0, 11 )
 9/modulate = Color( 1, 1, 1, 1 )
 9/region = Rect2( 96, 42, 16, 5 )
@@ -193,7 +217,7 @@ extents = Vector2( 41.5271, 32.6797 )
 9/shapes = [  ]
 9/z_index = 0
 10/name = "WallBar_002.png 10"
-10/texture = ExtResource( 29 )
+10/texture = ExtResource( 37 )
 10/tex_offset = Vector2( 0, 0 )
 10/modulate = Color( 1, 1, 1, 1 )
 10/region = Rect2( 128, 32, 5, 16 )
@@ -213,7 +237,7 @@ extents = Vector2( 35.8139, 10.6617 )
 bg_color = Color( 1, 1, 1, 0.823529 )
 
 [sub_resource type="DynamicFont" id=15]
-font_data = ExtResource( 32 )
+font_data = ExtResource( 40 )
 
 [sub_resource type="StyleBoxFlat" id=16]
 bg_color = Color( 0, 0, 0, 0.215686 )
@@ -277,7 +301,6 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -373,9 +396,15 @@ shape = SubResource( 4 )
 position = Vector2( -12.9556, -11.3775 )
 texture = ExtResource( 14 )
 
+[node name="Candle" type="AnimatedSprite" parent="YSort/Table_001"]
+position = Vector2( -14.2162, -16.7249 )
+frames = SubResource( 17 )
+animation = "Flicker"
+playing = true
+
 [node name="Mug_005" type="Sprite" parent="YSort/Table_001"]
 position = Vector2( 26.2839, -19.2955 )
-texture = ExtResource( 15 )
+texture = ExtResource( 19 )
 
 [node name="Join" type="Button" parent="YSort/Table_001"]
 editor/display_folded = true
@@ -389,10 +418,9 @@ flat = true
 
 [node name="Mug_002" type="Sprite" parent="YSort/Table_001/Join"]
 position = Vector2( 80.786, 226.669 )
-texture = ExtResource( 16 )
+texture = ExtResource( 20 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -413,9 +441,10 @@ scroll_active = false
 
 [node name="Tablecloth_002" type="Sprite" parent="YSort/Table_002"]
 position = Vector2( -9.73508, -2.99225 )
-texture = ExtResource( 17 )
+texture = ExtResource( 21 )
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_002"]
+editor/display_folded = true
 position = Vector2( -41.2019, 30.7269 )
 texture = ExtResource( 13 )
 
@@ -423,6 +452,7 @@ texture = ExtResource( 13 )
 position = Vector2( -18.8517, -17.6149 )
 
 [node name="Stool_002" type="Sprite" parent="YSort/Table_002"]
+editor/display_folded = true
 position = Vector2( -10.6458, 30 )
 texture = ExtResource( 13 )
 
@@ -430,6 +460,7 @@ texture = ExtResource( 13 )
 position = Vector2( -20.0893, -16.888 )
 
 [node name="Stool_003" type="Sprite" parent="YSort/Table_002"]
+editor/display_folded = true
 position = Vector2( 24.2986, 29.7014 )
 texture = ExtResource( 13 )
 
@@ -440,6 +471,7 @@ position = Vector2( -19.2986, -16.5894 )
 position = Vector2( 9.98761, -16.5894 )
 
 [node name="Stool_004" type="Sprite" parent="YSort/Table_002"]
+editor/display_folded = true
 position = Vector2( -40, -24.867 )
 z_as_relative = false
 texture = ExtResource( 13 )
@@ -448,6 +480,7 @@ texture = ExtResource( 13 )
 position = Vector2( -20.0536, 0.634308 )
 
 [node name="Stool_005" type="Sprite" parent="YSort/Table_002"]
+editor/display_folded = true
 position = Vector2( -10, -24.8669 )
 z_as_relative = false
 texture = ExtResource( 13 )
@@ -456,6 +489,7 @@ texture = ExtResource( 13 )
 position = Vector2( -20, -9.15527e-005 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
+editor/display_folded = true
 position = Vector2( 23, -24.867 )
 z_as_relative = false
 texture = ExtResource( 13 )
@@ -484,9 +518,16 @@ position = Vector2( -10.6458, -29.7981 )
 position = Vector2( -2.08551, 28.1544 )
 shape = SubResource( 6 )
 
+[node name="AnimatedSprite" type="AnimatedSprite" parent="YSort/Table_002"]
+position = Vector2( -10.2169, -14.3036 )
+frames = SubResource( 18 )
+animation = "Flicker"
+frame = 2
+playing = true
+
 [node name="Mug_003" type="Sprite" parent="YSort/Table_002"]
 position = Vector2( -41.1711, -13.2327 )
-texture = ExtResource( 18 )
+texture = ExtResource( 26 )
 
 [node name="Join" type="Button" parent="YSort/Table_002"]
 visible = false
@@ -501,7 +542,7 @@ flat = true
 editor/display_folded = true
 position = Vector2( 87.3183, 480.902 )
 z_index = 1
-texture = ExtResource( 19 )
+texture = ExtResource( 27 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="YSort/Table_003"]
 
@@ -586,11 +627,11 @@ shape = SubResource( 6 )
 
 [node name="Tablecloth_003" type="Sprite" parent="YSort/Table_003"]
 position = Vector2( -11.6156, -4.522 )
-texture = ExtResource( 20 )
+texture = ExtResource( 28 )
 
 [node name="Mug_002" type="Sprite" parent="YSort/Table_003"]
 position = Vector2( -22.6156, -16.522 )
-texture = ExtResource( 16 )
+texture = ExtResource( 20 )
 
 [node name="Join" type="Button" parent="YSort/Table_003"]
 visible = false
@@ -603,17 +644,17 @@ flat = true
 
 [node name="Rug_001" type="Sprite" parent="YSort"]
 position = Vector2( 153.514, 217.377 )
-texture = ExtResource( 21 )
+texture = ExtResource( 29 )
 
 [node name="Rug_002" type="Sprite" parent="YSort"]
 position = Vector2( 151.821, 131.53 )
-texture = ExtResource( 22 )
+texture = ExtResource( 30 )
 
 [node name="Board" type="Sprite" parent="YSort"]
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
-texture = ExtResource( 23 )
+texture = ExtResource( 31 )
 
 [node name="BoardButton" type="Button" parent="YSort/Board"]
 visible = false
@@ -638,11 +679,11 @@ shape = SubResource( 8 )
 editor/display_folded = true
 position = Vector2( 157.035, 64.9287 )
 z_index = 1
-texture = ExtResource( 24 )
+texture = ExtResource( 32 )
 
 [node name="Mug_007" type="Sprite" parent="YSort/Shelf_001"]
 position = Vector2( -7.905, -13.7609 )
-texture = ExtResource( 25 )
+texture = ExtResource( 33 )
 
 [node name="Barrel_002" type="Sprite" parent="YSort/Shelf_001"]
 position = Vector2( -36.602, -10.8916 )
@@ -674,7 +715,7 @@ tile_data = PoolIntArray( 458752, 0, 0, 458841, 0, 0, 524288, 0, 0, 524377, 0, 0
 editor/display_folded = true
 position = Vector2( 180, 60 )
 scale = Vector2( 1, 0.973451 )
-texture = ExtResource( 30 )
+texture = ExtResource( 38 )
 
 [node name="Wall" type="StaticBody2D" parent="WallBar_001"]
 position = Vector2( -180, -61.6364 )
@@ -707,7 +748,7 @@ flat = true
 
 [node name="Welcomemat_001" type="Sprite" parent="Exit"]
 position = Vector2( 0.631439, -8.07062 )
-texture = ExtResource( 31 )
+texture = ExtResource( 39 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
