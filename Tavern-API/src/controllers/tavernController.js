@@ -49,16 +49,6 @@ exports.enter = function (req, res) {
         character_id: req.body.character_id
       })
     }
-    return res.json({
-      data: tavern
-    });
-  });
-};
-
-// user exits tavern
-exports.exit = function (req, res) {
-  Tavern.findById(req.params.tavern_id, function (err, tavern) {
-    tavern.characters.pull(req.body); 
     // save the tavern update and check for errors
     tavern.save(function (err) {
       if (err) res.json(err);
@@ -66,8 +56,8 @@ exports.exit = function (req, res) {
         data: tavern
       });
     });
-  })
-}
+  });
+};
 
 var exec = require('child_process').exec;
 function execute(command, callback) {
@@ -81,16 +71,14 @@ exports.spin = function (req, res) {
     if (!tavern) return res.sendStatus(401);
     else {
       execute("lsof -i :" + tavern.port, function (port) {
-        console.log(port.split(' '))
         var realPort;
         if (port.split(' ')[21] == 'bronsky')
-          realPort = port.split(' ')[20]
+          realPort = port.split(' ')[20];
         else
-          realPort = port.split(' ')[21]
-        console.log(realPort);
+          realPort = port.split(' ')[21];
         if (realPort == undefined) {
           cmd.run(
-            "godot --path ../Tavern-Server/ -d ---" + tavern.port
+            "godot --path ../Tavern-Server/ -d ---" + tavern.port +" ---"+ tavern._id
           );
           return res.json({
             data: 'Server Starting'
@@ -116,8 +104,6 @@ exports.kill = function (req, res) {
           realPort = port.split(' ')[20]
         else
           realPort = port.split(' ')[21]
-        console.log(port.split(' '))
-        console.log(realPort);
         if (realPort != undefined) {
           cmd.run("kill " + realPort)
           res.json({

@@ -249,6 +249,7 @@ player = ExtResource( 3 )
 board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Bar2" type="Node2D" parent="YSort"]
 editor/display_folded = true
@@ -301,6 +302,7 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -400,6 +402,7 @@ texture = ExtResource( 14 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 5 )
 animation = "Flicker"
+frame = 2
 playing = true
 
 [node name="Mug_005" type="Sprite" parent="YSort/Table_001"]
@@ -421,6 +424,7 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 20 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -521,7 +525,6 @@ shape = SubResource( 7 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 8 )
 animation = "Flicker"
-frame = 2
 playing = true
 
 [node name="Mug_003" type="Sprite" parent="YSort/Table_002"]
@@ -650,6 +653,7 @@ position = Vector2( 151.821, 131.53 )
 texture = ExtResource( 30 )
 
 [node name="Board" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
@@ -750,6 +754,7 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 39 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573

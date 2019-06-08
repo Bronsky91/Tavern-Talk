@@ -15,11 +15,6 @@ func _process(delta):
 func _on_CreateTavern_button_up():
 	var data = {
 		'name': new_tavern_name.text,
-		'character': {
-			'user_id': g.player_data.user_id,
-			'character_d': g.player_data.character._id,
-			'table': 0
-			}
 		}
 	if len(new_tavern_name.text) > 0:
 		## TODO: Error message handling

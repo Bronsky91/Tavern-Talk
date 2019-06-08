@@ -50,9 +50,8 @@ func _ready():
 	
 	port = OS.get_cmdline_args()[0]
 	port = port.replace("---", "")
-	#port = 3000
-	print(OS.get_cmdline_args())
-	print(port)
+	tavern_id = OS.get_cmdline_args()[1]
+	tavern_id = tavern_id.replace("---", "")
 	host_tavern(port)
 	create_table_scenes()
 	
@@ -71,6 +70,7 @@ func entered_tavern():
 func user_exited(id):
 	print('exited')
 	rpc('remove_player', id)
+	global.make_patch_request($ExitTavern, 'tavern/'+tavern_id+'/character_remove', {'_id': player_info[id].character.c_tavern_id, 'user_id': player_info[id].user_id, 'character_id': player_info[id].character._id})
 	player_info.erase(id) # Erase player from info.
 
 sync func remove_player(id):
@@ -133,11 +133,6 @@ func create_table_scenes():
 		new_table.hide()
 		add_child(new_table)
 		new_table.add_to_group("tables")
-
-func _on_EnterTavern_request_completed(result, response_code, headers, body):
-	var json = JSON.parse(body.get_string_from_utf8())
-	var data = json.result.data
-	tavern_id = data._id
 
 #func _on_Area2D_body_shape_entered(body_id, body, body_shape, area_shape, table_id):
 #	get_node('Table_'+table_id+'/Join').visible = true

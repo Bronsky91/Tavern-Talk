@@ -20,9 +20,6 @@ router.route('/check')
 router.route('/enter')    
     .post(tavernController.enter)
 
-router.route('/exit')
-    .post(tavernController.exit)
-
 router.route('/:tavern_id/server')
     .get(tavernController.kill)
     .post(tavernController.spin)

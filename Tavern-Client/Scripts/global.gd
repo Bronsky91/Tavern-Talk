@@ -3,7 +3,7 @@ extends Node
 var player_data = {
 	'user_id': null,
 	'character': {
-		'id': null,
+		'_id': null,
 		'name': null,
 		'gender': null,
 		'stats':{

@@ -5,7 +5,7 @@ onready var new_tavern_name = $Create/NewTavern
 
 func _on_EnterTavern_button_up():
 	var data = {"code": invite_code.text}
-	global.make_post_request($HTTPRequestEnter, 'tavern/enter', data, false)
+	#global.make_post_request($HTTPRequestEnter, 'tavern/enter', data)
 
 func _on_CreateTavern_button_up():
 	var data = {

@@ -400,10 +400,7 @@ func yell(params):
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
-
-
 	
-
 
 ### Not currently being implemented - on hold ###
 sync func t_chat(msg, table_id):
@@ -416,3 +413,4 @@ sync func t_chat(msg, table_id):
 	
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
+

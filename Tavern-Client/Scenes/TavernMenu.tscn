@@ -45,6 +45,8 @@ text = "Add Tavern"
 
 [node name="BoardPostCheck" type="HTTPRequest" parent="."]
 
+[node name="AllTaverns" type="HTTPRequest" parent="."]
+
 [node name="Back" type="Button" parent="."]
 margin_left = 8.1499
 margin_top = 80.5944
@@ -60,15 +62,12 @@ margin_bottom = 198.341
 text = "Previously Visited:"
 
 [node name="TavernList" type="ItemList" parent="Visited"]
-margin_left = -10.0
+margin_left = -23.0
 margin_top = 37.0
-margin_right = 129.0
+margin_right = 150.0
 margin_bottom = 116.0
 custom_styles/bg = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-same_column_width = true
-fixed_column_width = 140
-icon_mode = 0
 
 [node name="Enter" type="Button" parent="Visited"]
 margin_left = -32.6702
@@ -96,6 +95,7 @@ text = "Create New Tavern"
 [connection signal="request_completed" from="HTTPRequestTavernCheck" to="." method="_on_HTTPRequestTavernCheck_request_completed"]
 [connection signal="request_completed" from="SpinTavern" to="." method="_on_SpinTavern_request_completed"]
 [connection signal="request_completed" from="BoardPostCheck" to="." method="_on_BoardPostCheck_request_completed"]
+[connection signal="request_completed" from="AllTaverns" to="." method="_on_AllTaverns_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
 [connection signal="item_selected" from="Visited/TavernList" to="." method="_on_TavernList_item_selected"]
 [connection signal="button_up" from="Visited/Enter" to="." method="_on_Enter_button_up"]

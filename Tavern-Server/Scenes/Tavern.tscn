@@ -393,6 +393,8 @@ margin_right = -37.7045
 margin_bottom = 4.62714
 text = "Leave Tavern?"
 flat = true
+
+[node name="ExitTavern" type="HTTPRequest" parent="."]
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
 [connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
