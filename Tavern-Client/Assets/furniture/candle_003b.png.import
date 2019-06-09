@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/candle_002d.png-913715aaf97e27845fcd516328f3fd84.stex"
+path="res://.import/candle_003b.png-ecd35b75a005a9d49782c7d241cd82ad.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/furniture/candle_002d.png"
-dest_files=[ "res://.import/candle_002d.png-913715aaf97e27845fcd516328f3fd84.stex" ]
+source_file="res://Assets/furniture/candle_003b.png"
+dest_files=[ "res://.import/candle_003b.png-ecd35b75a005a9d49782c7d241cd82ad.stex" ]
 
 [params]
 
