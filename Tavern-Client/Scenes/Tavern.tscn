@@ -322,6 +322,7 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -421,6 +422,7 @@ texture = ExtResource( 14 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 5 )
 animation = "Flicker"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle_002"]
@@ -448,6 +450,7 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 20 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -548,7 +551,7 @@ shape = SubResource( 7 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 8 )
 animation = "Flicker"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle_001"]
@@ -571,6 +574,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 87.3183, 480.902 )
 z_index = 1
 texture = ExtResource( 26 )
@@ -669,19 +673,12 @@ texture = ExtResource( 27 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle_003"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 18 )
 color = Color( 0.631373, 0.384314, 0.121569, 1 )
-
-[node name="Light2D2" type="Light2D" parent="YSort/Table_003/Candle_003"]
-position = Vector2( -0.463295, -4.21767 )
-scale = Vector2( 1.89808, 1.61083 )
-texture = ExtResource( 18 )
-color = Color( 0.454902, 0.262745, 0.0588235, 1 )
 
 [node name="Mug_002" type="Sprite" parent="YSort/Table_003"]
 position = Vector2( -49.9181, -24.4852 )
@@ -731,6 +728,7 @@ shape = SubResource( 11 )
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 157.035, 64.9287 )
 z_index = 1
 texture = ExtResource( 34 )
@@ -747,6 +745,7 @@ texture = ExtResource( 5 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 12 )
 animation = "Sleeping"
+frame = 1
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
