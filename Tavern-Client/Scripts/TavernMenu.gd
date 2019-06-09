@@ -92,7 +92,6 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 			'code': data.code,
 			'id': data._id
 		}
-		g.player_data.table_id = 0
 		visible = false
 		g.make_get_request($BoardPostCheck, 'tavern/' + g.player_data.tavern.id +'/board')
 		for c in data.characters:

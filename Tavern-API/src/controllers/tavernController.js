@@ -41,7 +41,7 @@ exports.index = function (req, res) {
 exports.enter = function (req, res) {
   Tavern.findOne({ code: req.body.code }, function (err, tavern) {
     if (err) return (err);
-    if (!tavern) 
+    if (!tavern || !req.body.user_id) 
       return res.sendStatus(401);
     else {
       tavern.characters.push({
