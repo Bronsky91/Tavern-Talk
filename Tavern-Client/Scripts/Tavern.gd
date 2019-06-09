@@ -19,6 +19,7 @@ var chat_input_in_use = false
 ## NPCs ##
 var barmaid
 ###
+
 var stool_count = {
 	1: { # table_id
 		1: null, # stool number
@@ -146,9 +147,10 @@ remote func configure_player():
 			new_player.set_network_master(p)
 			new_player.set_npc(false)
 			$YSort.add_child(new_player)
-	barmaid.wave()
-	barmaid.rpc("receive_tavern_chat", "Welcome!", barmaid.name, character_name)
-			
+			barmaid.wave()
+			barmaid.rpc("receive_tavern_chat", "Welcome!", name)
+	
+				
 func change_scene_manually():
     # Remove tavern
 	var root = get_tree().get_root()

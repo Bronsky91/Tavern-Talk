@@ -48,7 +48,6 @@ position = Vector2( 180, 320 )
 z_index = 1
 texture = ExtResource( 2 )
 hframes = 7
-frame = 1
 
 [node name="Sky" type="Sprite" parent="."]
 position = Vector2( 180, 320 )
@@ -58,7 +57,6 @@ texture = ExtResource( 3 )
 position = Vector2( 180, 320 )
 texture = ExtResource( 4 )
 hframes = 7
-frame = 1
 
 [node name="Login" parent="." instance=ExtResource( 5 )]
 visible = false

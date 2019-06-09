@@ -237,11 +237,6 @@ func bubble_grow(char_count):
 func bubble_reset():
 	$ChatBubble.rect_size.y = 15
 	$ChatBubble.rect_position.y = -70
-	# size y 15
-	# pos y -70
-	
-	# size y 30
-	# pos y -85
 
 func overhead_chat(msg, c_name):
 	# Tavern chat bubble
@@ -278,7 +273,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		use_texture('sitting')
 		if is_network_master():
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':'sat', 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': true})
-		get_node("/root/Tavern").join_table(current_table_id)
+			get_node("/root/Tavern").join_table(current_table_id)
 	elif 'wave' in anim_name:
 		if npc and animate.current_animation != "npc_idle_down":
 			default_npc_animation()

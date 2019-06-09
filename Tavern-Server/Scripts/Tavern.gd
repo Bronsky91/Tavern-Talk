@@ -69,8 +69,8 @@ func entered_tavern():
 	
 func user_exited(id):
 	print('exited')
-	rpc('remove_player', id)
 	global.make_patch_request($ExitTavern, 'tavern/'+tavern_id+'/character_remove', {'_id': player_info[id].character.c_tavern_id, 'user_id': player_info[id].user_id, 'character_id': player_info[id].character._id})
+	rpc('remove_player', id)
 	player_info.erase(id) # Erase player from info.
 
 sync func remove_player(id):
