@@ -398,6 +398,7 @@ texture = ExtResource( 13 )
 position = Vector2( -20.9963, -5.03991 )
 
 [node name="Area2D" type="Area2D" parent="YSort/Table_001"]
+editor/display_folded = true
 visible = false
 position = Vector2( -56.9892, -24.6309 )
 collision_layer = 2
@@ -417,13 +418,14 @@ shape = SubResource( 4 )
 position = Vector2( -12.9556, -11.3775 )
 texture = ExtResource( 14 )
 
-[node name="Candle_002" type="AnimatedSprite" parent="YSort/Table_001"]
+[node name="Candle" type="AnimatedSprite" parent="YSort/Table_001"]
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 5 )
 animation = "Flicker"
+frame = 3
 playing = true
 
-[node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle_002"]
+[node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
 position = Vector2( 0, -1.71474 )
 scale = Vector2( 0.965705, 0.897115 )
 texture = ExtResource( 18 )
@@ -513,7 +515,7 @@ z_as_relative = false
 texture = ExtResource( 13 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-005 )
+position = Vector2( -20, -9.15527e-05 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -544,14 +546,14 @@ position = Vector2( -10.6458, -29.7981 )
 position = Vector2( -2.08551, 28.1544 )
 shape = SubResource( 7 )
 
-[node name="Candle_001" type="AnimatedSprite" parent="YSort/Table_002"]
+[node name="Candle" type="AnimatedSprite" parent="YSort/Table_002"]
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 8 )
 animation = "Flicker"
-frame = 2
+frame = 1
 playing = true
 
-[node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle_001"]
+[node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
 position = Vector2( -1.71476, -3.4295 )
 scale = Vector2( 1.10289, 1.13718 )
 texture = ExtResource( 18 )
@@ -665,23 +667,17 @@ shape = SubResource( 7 )
 position = Vector2( -11.6156, -4.522 )
 texture = ExtResource( 27 )
 
-[node name="Candle_003" type="AnimatedSprite" parent="YSort/Table_003"]
+[node name="Candle" type="AnimatedSprite" parent="YSort/Table_003"]
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 3
+frame = 2
 playing = true
 
-[node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle_003"]
+[node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
 scale = Vector2( 2, 2 )
 texture = ExtResource( 18 )
 color = Color( 0.631373, 0.384314, 0.121569, 1 )
-
-[node name="Light2D2" type="Light2D" parent="YSort/Table_003/Candle_003"]
-position = Vector2( -0.463295, -4.21767 )
-scale = Vector2( 1.89808, 1.61083 )
-texture = ExtResource( 18 )
-color = Color( 0.454902, 0.262745, 0.0588235, 1 )
 
 [node name="Mug_002" type="Sprite" parent="YSort/Table_003"]
 position = Vector2( -49.9181, -24.4852 )
@@ -725,7 +721,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 11 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -747,6 +743,7 @@ texture = ExtResource( 5 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 12 )
 animation = "Sleeping"
+frame = 3
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]

@@ -226,12 +226,18 @@ func _on_Table_button_up(table_id):
 	patron.sit_down(stool_pos, stool, table_id)
 	rpc("update_stool_count", stool_count)
 	
+func turn_on_lights(on):
+	for t in get_tree().get_nodes_in_group("tables"):
+		get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
+		
 func join_table(table_id):
+	turn_on_lights(false)
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
 
 func leaving_table(table_id, id):
+	turn_on_lights(true)
 	for stool in stool_count[table_id]:
 		#var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if stool_count[table_id][stool] != null:
@@ -271,7 +277,6 @@ func table_full(id):
 func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape, table_id):
 	## TODO: change table_id to int of table number instead of leading 00s
 	if area != null and not table_full(int(table_id[2])):
-		print(area)
 		# If there's a player and the table is not full, then show join table and enable the button
 		rpc("table_join_view", true, int(area.get_parent().name), table_id)
 	else:

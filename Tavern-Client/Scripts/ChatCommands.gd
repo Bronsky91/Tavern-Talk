@@ -85,7 +85,6 @@ func roll(params):
 	else:
 		result = g.roll(roll[0], roll[1])
 		var s_result = ""
-		print(result.size())
 		for i in result.size():
 			if i == result.size() - 1:
 				s_result = s_result +" and "+ str(result[i]) +'.'
