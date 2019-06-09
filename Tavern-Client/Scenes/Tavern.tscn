@@ -322,6 +322,7 @@ position = Vector2( -75.2457, -35.4827 )
 texture = ExtResource( 11 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 95.9963, 279.296 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -450,6 +451,7 @@ position = Vector2( 80.786, 226.669 )
 texture = ExtResource( 20 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 280, 360 )
 z_index = 1
 texture = ExtResource( 12 )
@@ -573,6 +575,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 87.3183, 480.902 )
 z_index = 1
 texture = ExtResource( 26 )
@@ -727,6 +730,7 @@ shape = SubResource( 11 )
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 157.035, 64.9287 )
 z_index = 1
 texture = ExtResource( 34 )
