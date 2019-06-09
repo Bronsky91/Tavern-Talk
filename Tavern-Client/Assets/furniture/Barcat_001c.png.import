@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/candle_001d.png-d60e9b1b674c13757bbd78029bc46850.stex"
+path="res://.import/Barcat_001c.png-c947143ce00ecaf2028639738996905b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/furniture/candle_001d.png"
-dest_files=[ "res://.import/candle_001d.png-d60e9b1b674c13757bbd78029bc46850.stex" ]
+source_file="res://Assets/furniture/Barcat_001c.png"
+dest_files=[ "res://.import/Barcat_001c.png-c947143ce00ecaf2028639738996905b.stex" ]
 
 [params]
 
