@@ -227,8 +227,9 @@ func _on_Table_button_up(table_id):
 	rpc("update_stool_count", stool_count)
 	
 func turn_on_lights(on):
-	for t in get_tree().get_nodes_in_group("tables"):
-		get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
+	if is_network_master():
+		for t in get_tree().get_nodes_in_group("tables"):
+			get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
 		
 func join_table(table_id):
 	turn_on_lights(false)
