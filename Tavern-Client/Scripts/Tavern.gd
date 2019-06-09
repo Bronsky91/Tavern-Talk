@@ -146,8 +146,8 @@ remote func configure_player():
 			new_player.set_network_master(p)
 			new_player.set_npc(false)
 			$YSort.add_child(new_player)
-			barmaid.wave()
-			barmaid.rpc("receive_tavern_chat", "Welcome!", barmaid.name, character_name)
+	barmaid.wave()
+	barmaid.rpc("receive_tavern_chat", "Welcome!", barmaid.name, character_name)
 			
 func change_scene_manually():
     # Remove tavern
@@ -226,19 +226,19 @@ func _on_Table_button_up(table_id):
 	patron.sit_down(stool_pos, stool, table_id)
 	rpc("update_stool_count", stool_count)
 	
-func turn_on_lights(on):
-	if is_network_master():
+sync func turn_on_lights(on, c_name):
+	if character_name == c_name:
 		for t in get_tree().get_nodes_in_group("tables"):
 			get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
 		
 func join_table(table_id):
-	turn_on_lights(false)
+	rpc("turn_on_lights", false, character_name)
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
 
 func leaving_table(table_id, id):
-	turn_on_lights(true)
+	rpc("turn_on_lights", true, character_name)
 	for stool in stool_count[table_id]:
 		#var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if stool_count[table_id][stool] != null:
