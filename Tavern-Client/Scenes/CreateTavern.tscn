@@ -47,10 +47,11 @@ selection_enabled = true
 [node name="HTTPRequestCreate" type="HTTPRequest" parent="."]
 
 [node name="Back" type="Button" parent="."]
-margin_left = 15.828
-margin_top = 92.4666
-margin_right = 69.828
-margin_bottom = 112.467
+margin_left = 11.0
+margin_top = 77.0
+margin_right = 80.0
+margin_bottom = 112.0
+rect_clip_content = true
 text = "Back"
 
 [node name="Error" type="Label" parent="."]

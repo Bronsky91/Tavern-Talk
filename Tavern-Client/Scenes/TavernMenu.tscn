@@ -48,10 +48,10 @@ text = "Add Tavern"
 [node name="AllTaverns" type="HTTPRequest" parent="."]
 
 [node name="Back" type="Button" parent="."]
-margin_left = 8.1499
-margin_top = 80.5944
-margin_right = 50.1499
-margin_bottom = 104.594
+margin_left = 11.0
+margin_top = 77.0
+margin_right = 80.0
+margin_bottom = 112.0
 text = "Back"
 
 [node name="Visited" type="Label" parent="."]

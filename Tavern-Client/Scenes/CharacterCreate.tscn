@@ -72,10 +72,10 @@ columns = 2
 [node name="Create" type="HTTPRequest" parent="."]
 
 [node name="Back" type="Button" parent="."]
-margin_left = 10.0
-margin_top = 70.0
-margin_right = 63.0
-margin_bottom = 96.0
+margin_left = 11.0
+margin_top = 77.0
+margin_right = 80.0
+margin_bottom = 112.0
 text = "Back"
 
 [node name="Step2" type="Node2D" parent="."]

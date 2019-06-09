@@ -471,10 +471,10 @@ margin_right = 111.325
 margin_bottom = 373.174
 
 [node name="Back" type="Button" parent="."]
-margin_left = 15.2147
-margin_top = 96.1568
-margin_right = 79.2147
-margin_bottom = 126.157
+margin_left = 11.0
+margin_top = 77.0
+margin_right = 80.0
+margin_bottom = 112.0
 text = "Back"
 
 [node name="Edit" type="Button" parent="."]
