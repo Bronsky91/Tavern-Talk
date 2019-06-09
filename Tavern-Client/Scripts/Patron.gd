@@ -286,7 +286,10 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 			rpc_unreliable("update_npc", {"npc_type": npc_type, "target": target, "animation": npc_type.default_animation, "texture": npc_type.texture_default})
 	elif animate.get_current_animation_position() == 0:
 	# Else the animation is finishing backwards and player is standing up
-		animate.current_animation = 'idle_'+h_sit_anim
+		if h_sit_anim == 'Left':
+			animate.current_animation = 'idle_right'
+		else:
+			animate.current_animation = 'idle_left'
 		current_table_id = null
 		sitting = false
 		busy = false
