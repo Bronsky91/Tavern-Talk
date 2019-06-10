@@ -340,7 +340,6 @@ position = Vector2( 149.523, 129.611 )
 z_index = 1
 
 [node name="Barrel_002" type="Sprite" parent="YSort/Bar2"]
-editor/display_folded = true
 position = Vector2( -42.4244, -10.6689 )
 texture = ExtResource( 5 )
 
@@ -372,7 +371,7 @@ position = Vector2( 48.3634, 7.94423 )
 texture = ExtResource( 8 )
 
 [node name="Mug_001" type="Sprite" parent="YSort/Bar2/RegionSprite"]
-position = Vector2( -82.2235, -18.2174 )
+position = Vector2( -77.694, -23.3939 )
 texture = ExtResource( 9 )
 
 [node name="Barcloth_001" type="Sprite" parent="YSort/Bar2"]
@@ -489,6 +488,7 @@ texture = ExtResource( 15 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 5 )
 animation = "Flicker"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -626,7 +626,7 @@ texture = ExtResource( 23 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 9 )
 animation = "Flicker"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -753,7 +753,6 @@ texture = ExtResource( 20 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 12 )
 animation = "Flicker"
-frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -832,7 +831,7 @@ z_index = 1
 texture = ExtResource( 39 )
 
 [node name="Mug_007" type="Sprite" parent="YSort/Shelf_001"]
-position = Vector2( -7.905, -13.7609 )
+position = Vector2( -4.21672, -13.7609 )
 texture = ExtResource( 40 )
 
 [node name="Barrel_002" type="Sprite" parent="YSort/Shelf_001"]
