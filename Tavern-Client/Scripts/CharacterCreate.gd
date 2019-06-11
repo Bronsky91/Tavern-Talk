@@ -129,7 +129,7 @@ func _on_Skin_button_up():
 		$Step2/Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(skin)+".png"))
 
 func _on_Hair_button_up():
-	if hair < 3:
+	if hair < 4:
 		hair += 1
 		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(hair)+".png"))
 	else:
