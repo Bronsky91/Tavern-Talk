@@ -14,7 +14,7 @@ onready var board_scene = $BoardScene
 var character_name = null
 var player_info = {}
 var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
-var chat_input_in_use = false
+
 
 ## NPCs ##
 var barmaid
@@ -76,8 +76,7 @@ func _notification(notif):
 
 func _on_Back_pressed():
 	if chat_input.visible == true:
-		chat_input.clear()
-		chat_input.visible = false
+		chat_hide()
 		
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.visible == true:
@@ -148,8 +147,7 @@ remote func configure_player():
 			new_player.set_npc(false)
 			$YSort.add_child(new_player)
 			barmaid.wave()
-			barmaid.rpc("receive_tavern_chat", "Welcome!", name)
-	
+	barmaid.receive_tavern_chat("Welcome!", barmaid.name)
 				
 func change_scene_manually():
     # Remove tavern
@@ -232,9 +230,10 @@ sync func turn_on_lights(on, c_name):
 	if character_name == c_name:
 		for t in get_tree().get_nodes_in_group("tables"):
 			get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
-		
+
 func join_table(table_id):
 	rpc("turn_on_lights", false, character_name)
+	chat_hide()
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
@@ -327,6 +326,11 @@ func set_board_texture(post_number):
 	else:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
 
+func _on_BoardScene_visibility_changed():
+	if board_scene.visible:
+		rpc("turn_on_lights", false, character_name)
+	else:
+		rpc("turn_on_lights", true, character_name)
 ### Leaving Tavern ###
 
 sync func leave_button_view(show, id):
@@ -351,11 +355,14 @@ func _on_LeaveButton_button_up():
 	
 ### Tavern Chat ###
 
+func chat_hide():
+	chat_input.clear()
+	chat_input.visible = false
+
 func chat_enter_view():
 	chat_input.visible = true
 	chat_input.grab_focus()
 	chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
-	chat_input_in_use = true
 			
 func _on_Chat_button_up():
 	chat_enter_view()
@@ -376,10 +383,8 @@ func _on_ChatEnter_text_entered(new_text):
 		command_param_start = null # Resets command param
 		slash_commands(new_text, command_params)
 	else:
-		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id(), character_name)
-	chat_input.clear()
-	chat_input.visible = false
-	chat_input_in_use = false
+		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, character_name, get_tree().get_network_unique_id())
+	chat_hide()
 		
 func _on_ChatEnter_text_changed(new_text):
 	if chat_input.text.substr(0,1) == "/":
@@ -403,11 +408,12 @@ func yell(params):
 	var msg = params.join(" ")
 	var tav_msg = '[color=#ff4f6d][b]'+msg.to_upper()+'[/b][/color]' ## Increase font or change color to Red maybe?
 	var table_msg = "yells, "+"\""+msg+"\""
-	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
+	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, character_name, get_tree().get_network_unique_id(), msg.length())
 	chat_input.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
+	
 	
 
 ### Not currently being implemented - on hold ###
