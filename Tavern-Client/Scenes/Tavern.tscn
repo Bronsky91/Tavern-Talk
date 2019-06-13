@@ -489,7 +489,7 @@ texture = ExtResource( 15 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 5 )
 animation = "Flicker"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -628,6 +628,7 @@ texture = ExtResource( 23 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 9 )
 animation = "Flicker"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -755,7 +756,7 @@ texture = ExtResource( 20 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 12 )
 animation = "Flicker"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -844,6 +845,7 @@ texture = ExtResource( 5 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 16 )
 animation = "Sleeping"
+frame = 2
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
@@ -976,3 +978,4 @@ position = Vector2( 155.583, 117.925 )
 [connection signal="text_entered" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_entered"]
 [connection signal="visibility_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_visibility_changed"]
 [connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
+[connection signal="visibility_changed" from="BoardScene" to="." method="_on_BoardScene_visibility_changed"]

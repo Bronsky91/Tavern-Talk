@@ -326,6 +326,11 @@ func set_board_texture(post_number):
 	else:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_003.png"))
 
+func _on_BoardScene_visibility_changed():
+	if board_scene.visible:
+		rpc("turn_on_lights", false, character_name)
+	else:
+		rpc("turn_on_lights", true, character_name)
 ### Leaving Tavern ###
 
 sync func leave_button_view(show, id):
