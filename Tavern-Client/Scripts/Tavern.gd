@@ -148,8 +148,7 @@ remote func configure_player():
 			new_player.set_npc(false)
 			$YSort.add_child(new_player)
 			barmaid.wave()
-			barmaid.rpc("receive_tavern_chat", "Welcome!", name)
-	
+	barmaid.receive_tavern_chat("Welcome!", barmaid.name)
 				
 func change_scene_manually():
     # Remove tavern
@@ -376,7 +375,7 @@ func _on_ChatEnter_text_entered(new_text):
 		command_param_start = null # Resets command param
 		slash_commands(new_text, command_params)
 	else:
-		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, get_tree().get_network_unique_id(), character_name)
+		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, character_name, get_tree().get_network_unique_id())
 	chat_input.clear()
 	chat_input.visible = false
 	chat_input_in_use = false
@@ -403,11 +402,12 @@ func yell(params):
 	var msg = params.join(" ")
 	var tav_msg = '[color=#ff4f6d][b]'+msg.to_upper()+'[/b][/color]' ## Increase font or change color to Red maybe?
 	var table_msg = "yells, "+"\""+msg+"\""
-	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, get_tree().get_network_unique_id())
+	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, character_name, get_tree().get_network_unique_id(), msg.length())
 	chat_input.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
+	
 	
 
 ### Not currently being implemented - on hold ###

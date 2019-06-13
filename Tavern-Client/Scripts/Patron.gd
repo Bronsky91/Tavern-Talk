@@ -27,11 +27,12 @@ var npc_type
 onready var animate = $AnimationPlayer
 onready var name_plate = $NamePlate
 
+
 func _ready():
 	if npc:
 		default_npc_animation()
 		name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
-		return
+		#receive_tavern_chat("Welcome!", npc_type.name)
 	if not npc:
 		name_plate.bbcode_text = "[center][color=#66ccff]"+character_name
 		# When character loads on other's screens it displays the correct animation
@@ -220,50 +221,7 @@ func stand_up(_stool, table_id):
 	$AnimationTimer.start(.7) # timer for z-index of stool
 	if is_network_master():
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7, 'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})
-### Chatting ###
-
-sync func receive_tavern_chat(msg, id, c_name):
-	get_parent().get_node(str(id)).overhead_chat(msg, c_name)
-
-func bubble_grow(char_count):
-	# Each line of 18 characters is 15 pixels in size
-	# for every 18 characters grow 15 in size.y and -15 in pos.y
-	if char_count >= 18:
-		var num_of_lines = float(char_count) / 18.0
-		num_of_lines = ceil(num_of_lines)
-		$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * num_of_lines
-		$ChatBubble.rect_position.y -= 15 * num_of_lines
-
-func bubble_reset():
-	$ChatBubble.rect_size.y = 15
-	$ChatBubble.rect_position.y = -70
-
-func overhead_chat(msg, c_name):
-	# Tavern chat bubble
-	var char_count = msg.length()
-	print(char_count)
-	bubble_grow(char_count)
-	$ChatBubble.bbcode_text = ""
-	$ChatBubble.hint_tooltip = msg
-	if msg.length() > 0:
-		var t_msg = "["+c_name+"]: " + msg
-		if npc:
-			t_msg = "["+npc_type.name+"]: " + msg
-		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += t_msg
-		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
-	if msg.length() < 18:
-		msg = "[center]"+msg+"[/center]"
-	$ChatBubble.bbcode_text = msg
-	$ChatBubble/ChatTimer.start(5)
-	$ChatBubble.visible = true
-
-func _on_ChatTimer_timeout():
-	#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y / 2
-	#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y + 100
-	$ChatBubble.clear()
-	$ChatBubble.visible = false
-	bubble_reset()
-
+		
 func _on_AnimationPlayer_animation_finished(anim_name):
 	print(animate.get_current_animation_position())
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
@@ -294,6 +252,58 @@ func _on_Timer_timeout():
 	if v_sit_anim == 'back':
 		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
 		
+### Chatting ###
+
+sync func receive_tavern_chat(msg, c_name, id=null, length=null):
+	if id == null:
+		print(c_name)
+		get_parent().get_node(c_name).overhead_chat(msg, c_name, length)
+	else:
+		get_parent().get_node(str(id)).overhead_chat(msg, c_name, length)
+
+func bubble_grow(char_count):
+	# Each line of 18 characters is 15 pixels in size
+	# for every 18 characters grow 15 in size.y and -15 in pos.y
+	print(char_count)
+	if char_count >= 18:
+		var num_of_lines = float(char_count) / 18.0
+		num_of_lines = ceil(num_of_lines)
+		$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * num_of_lines
+		$ChatBubble.rect_position.y -= 15 * num_of_lines
+
+func bubble_reset():
+	$ChatBubble.rect_size.y = 15
+	$ChatBubble.rect_position.y = -70
+
+func overhead_chat(msg, c_name, length):
+	# Tavern chat bubble
+	var char_count
+	if length == null:
+		char_count = msg.length()
+	else:
+		char_count = length
+	print(char_count)
+	bubble_grow(char_count)
+	$ChatBubble.bbcode_text = ""
+	$ChatBubble.hint_tooltip = msg
+	if msg.length() > 0:
+		var t_msg = "["+c_name+"]: " + msg
+		if npc:
+			t_msg = "["+npc_type.name+"]: " + msg
+		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += t_msg
+		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
+	if msg.length() < 18:
+		msg = "[center]"+msg+"[/center]"
+	$ChatBubble.bbcode_text = msg
+	$ChatBubble/ChatTimer.start(5)
+	$ChatBubble.visible = true
+
+func _on_ChatTimer_timeout():
+	#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y / 2
+	#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y + 100
+	$ChatBubble.clear()
+	$ChatBubble.visible = false
+	bubble_reset()		
 		
 ## NPC Functions ##
 
