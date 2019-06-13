@@ -818,6 +818,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 15 )
 animation = "Float"
+frame = 4
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -825,6 +826,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 15 )
 animation = "Float"
+frame = 4
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]

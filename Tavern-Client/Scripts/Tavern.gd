@@ -14,7 +14,7 @@ onready var board_scene = $BoardScene
 var character_name = null
 var player_info = {}
 var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
-var chat_input_in_use = false
+
 
 ## NPCs ##
 var barmaid
@@ -76,8 +76,7 @@ func _notification(notif):
 
 func _on_Back_pressed():
 	if chat_input.visible == true:
-		chat_input.clear()
-		chat_input.visible = false
+		chat_hide()
 		
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.visible == true:
@@ -231,9 +230,10 @@ sync func turn_on_lights(on, c_name):
 	if character_name == c_name:
 		for t in get_tree().get_nodes_in_group("tables"):
 			get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
-		
+
 func join_table(table_id):
 	rpc("turn_on_lights", false, character_name)
+	chat_hide()
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
@@ -355,11 +355,14 @@ func _on_LeaveButton_button_up():
 	
 ### Tavern Chat ###
 
+func chat_hide():
+	chat_input.clear()
+	chat_input.visible = false
+
 func chat_enter_view():
 	chat_input.visible = true
 	chat_input.grab_focus()
 	chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
-	chat_input_in_use = true
 			
 func _on_Chat_button_up():
 	chat_enter_view()
@@ -381,9 +384,7 @@ func _on_ChatEnter_text_entered(new_text):
 		slash_commands(new_text, command_params)
 	else:
 		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, character_name, get_tree().get_network_unique_id())
-	chat_input.clear()
-	chat_input.visible = false
-	chat_input_in_use = false
+	chat_hide()
 		
 func _on_ChatEnter_text_changed(new_text):
 	if chat_input.text.substr(0,1) == "/":
