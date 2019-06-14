@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/airhockey_Puck.png-c413f49eb41dbe2c702f42a82203449f.stex"
+path="res://.import/airhockey_Puck_001.png-b3a74b2165cb712f0112c7563824f18b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/MiniGames/airhockey_Puck.png"
-dest_files=[ "res://.import/airhockey_Puck.png-c413f49eb41dbe2c702f42a82203449f.stex" ]
+source_file="res://Assets/MiniGames/airhockey_Puck_001.png"
+dest_files=[ "res://.import/airhockey_Puck_001.png-b3a74b2165cb712f0112c7563824f18b.stex" ]
 
 [params]
 
