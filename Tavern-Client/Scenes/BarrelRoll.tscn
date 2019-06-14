@@ -1,0 +1,116 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://Scripts/BarrelRoll.gd" type="Script" id=1]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_001.png" type="Texture" id=2]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_003.png" type="Texture" id=3]
+[ext_resource path="res://Scenes/Barrel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_002.png" type="Texture" id=5]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_005.png" type="Texture" id=6]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_004.png" type="Texture" id=7]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Heart_001.png" type="Texture" id=8]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barricade_Icon.png" type="Texture" id=9]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_Icon.png" type="Texture" id=10]
+[ext_resource path="res://Assets/NPCs/Barmaid_001.png" type="Texture" id=11]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, -7.57333, -209.83, 0, 0, 0, 0, -7.21265, 12.7133, 0, 0, 0, 0, -5.76996, 228.187, 0, 0, 0, 0, -8.43895, 228.98 )
+}
+
+[sub_resource type="Curve2D" id=2]
+_data = {
+"points": PoolVector2Array( -168.44, -49.7746, 168.44, 49.7746, 190, 150, 0, 0, 0, 0, 360, 360, 183.589, -46.8891, -183.589, 46.8891, 190, 590 )
+}
+
+[sub_resource type="Curve2D" id=3]
+_data = {
+"points": PoolVector2Array( 180.343, -56.2669, -180.343, 56.2669, 160, 150, 0, 0, 0, 0, -10, 370, -187.196, -54.1028, 187.196, 54.1028, 160, 590 )
+}
+
+[node name="Map" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="BarrelRoll_001" type="Sprite" parent="."]
+position = Vector2( 180, 320 )
+texture = ExtResource( 2 )
+
+[node name="BarrelRoll_003" type="Sprite" parent="."]
+position = Vector2( 180, 320 )
+texture = ExtResource( 3 )
+
+[node name="Paths" type="Node2D" parent="."]
+
+[node name="Middle" type="Path2D" parent="Paths"]
+position = Vector2( 180, 360 )
+z_index = 3
+curve = SubResource( 1 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Middle"]
+position = Vector2( -7.57333, -209.83 )
+rotation = 1.56918
+z_index = 4
+loop = false
+
+[node name="Barrel" parent="Paths/Middle/PathFollow2D" instance=ExtResource( 4 )]
+position = Vector2( -0.17038, -0.000274658 )
+rotation = -1.56918
+
+[node name="Right" type="Path2D" parent="Paths"]
+z_index = 3
+curve = SubResource( 2 )
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Right"]
+position = Vector2( 190, 150 )
+rotation = 0.294204
+z_index = 4
+loop = false
+
+[node name="Barrel" parent="Paths/Right/PathFollow2D" instance=ExtResource( 4 )]
+position = Vector2( -0.17038, -0.000274658 )
+rotation = -1.56918
+
+[node name="Left" type="Path2D" parent="Paths"]
+z_index = 3
+curve = SubResource( 3 )
+
+[node name="BarrelRoll_002" type="Sprite" parent="Paths"]
+position = Vector2( 180, 360 )
+texture = ExtResource( 5 )
+
+[node name="BarrelRoll_005" type="Sprite" parent="Paths"]
+position = Vector2( 180, 320 )
+z_index = 2
+texture = ExtResource( 6 )
+
+[node name="BarrelRoll_004" type="Sprite" parent="Paths"]
+position = Vector2( 180, 320 )
+texture = ExtResource( 7 )
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="BarrelRoll_Heart_001" type="Sprite" parent="UI"]
+position = Vector2( 20, 610 )
+texture = ExtResource( 8 )
+
+[node name="BarrelRoll_Barricade_Icon" type="Sprite" parent="UI"]
+position = Vector2( 300, 570 )
+texture = ExtResource( 9 )
+
+[node name="BarrelRoll_Barrel_Icon" type="Sprite" parent="UI"]
+position = Vector2( 340, 570 )
+texture = ExtResource( 10 )
+
+[node name="Start" type="Button" parent="UI"]
+margin_left = 50.0
+margin_top = 50.0
+margin_right = 62.0
+margin_bottom = 70.0
+text = "Start"
+
+[node name="Enemy" type="Sprite" parent="."]
+position = Vector2( 174.23, 100 )
+scale = Vector2( 3, 3 )
+z_index = -1
+texture = ExtResource( 11 )
+hframes = 4
+[connection signal="button_up" from="UI/Start" to="." method="_on_Start_button_up"]
