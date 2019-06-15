@@ -1,16 +1,19 @@
 [gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/BarrelRoll.gd" type="Script" id=1]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_001.png" type="Texture" id=2]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_003.png" type="Texture" id=3]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_002.png" type="Texture" id=4]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_005.png" type="Texture" id=5]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_004.png" type="Texture" id=6]
-[ext_resource path="res://Scenes/Barrel.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Heart_001.png" type="Texture" id=8]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barricade_Icon.png" type="Texture" id=9]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_Icon.png" type="Texture" id=10]
-[ext_resource path="res://Assets/NPCs/Barmaid_001.png" type="Texture" id=11]
+[ext_resource path="res://Scenes/Barrel.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/NPCs/Barmaid_001.png" type="Texture" id=3]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_001.png" type="Texture" id=4]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_003.png" type="Texture" id=5]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_002.png" type="Texture" id=6]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_005.png" type="Texture" id=7]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_004.png" type="Texture" id=8]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Heart_001.png" type="Texture" id=9]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barricade_Icon.png" type="Texture" id=10]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_Icon.png" type="Texture" id=11]
+
+[sub_resource type="CircleShape2D" id=4]
+radius = 46.8496
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -27,103 +30,25 @@ _data = {
 "points": PoolVector2Array( 180.343, -56.2669, -180.343, 56.2669, 160, 150, 0, 0, 0, 0, -10, 370, -187.196, -54.1028, 187.196, 54.1028, 160, 590 )
 }
 
-[sub_resource type="CircleShape2D" id=4]
-radius = 46.8496
-
 [node name="Map" type="Node2D"]
 script = ExtResource( 1 )
+barrel_scene = ExtResource( 2 )
+
+[node name="Enemy" type="Sprite" parent="."]
+position = Vector2( 172.919, 99.5122 )
+scale = Vector2( 3, 3 )
+z_index = -1
+texture = ExtResource( 3 )
+hframes = 4
 
 [node name="BarrelRoll_001" type="Sprite" parent="."]
 position = Vector2( 180, 320 )
-texture = ExtResource( 2 )
+texture = ExtResource( 4 )
 
 [node name="BarrelRoll_003" type="Sprite" parent="."]
 position = Vector2( 180, 320 )
 z_index = 1
-texture = ExtResource( 3 )
-
-[node name="Paths" type="Node2D" parent="."]
-
-[node name="BarrelRoll_002" type="Sprite" parent="Paths"]
-position = Vector2( 180, 360 )
-texture = ExtResource( 4 )
-
-[node name="BarrelRoll_005" type="Sprite" parent="Paths"]
-position = Vector2( 180, 320 )
-z_index = 2
 texture = ExtResource( 5 )
-
-[node name="BarrelRoll_004" type="Sprite" parent="Paths"]
-position = Vector2( 180, 320 )
-z_index = 1
-texture = ExtResource( 6 )
-
-[node name="Middle" type="Path2D" parent="Paths"]
-position = Vector2( 180, 360 )
-z_index = 3
-curve = SubResource( 1 )
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Middle"]
-position = Vector2( -7.57333, -209.83 )
-rotation = 1.56918
-z_index = 4
-loop = false
-
-[node name="Barrel" parent="Paths/Middle/PathFollow2D" instance=ExtResource( 7 )]
-position = Vector2( 8.53159, 0.86203 )
-rotation = -1.56918
-z_index = 0
-z_as_relative = false
-animation = "HillDown"
-frame = 2
-
-[node name="Right" type="Path2D" parent="Paths"]
-z_index = 3
-curve = SubResource( 2 )
-
-[node name="PathFollow2D" type="PathFollow2D" parent="Paths/Right"]
-position = Vector2( 190, 150 )
-rotation = 0.294204
-z_index = 4
-loop = false
-
-[node name="Barrel" parent="Paths/Right/PathFollow2D" instance=ExtResource( 7 )]
-position = Vector2( 4.49725, 0.303696 )
-rotation = -1.56918
-animation = "HillDown"
-frame = 0
-
-[node name="Left" type="Path2D" parent="Paths"]
-z_index = 3
-curve = SubResource( 3 )
-
-[node name="UI" type="Node2D" parent="."]
-
-[node name="BarrelRoll_Heart_001" type="Sprite" parent="UI"]
-position = Vector2( 20, 610 )
-texture = ExtResource( 8 )
-
-[node name="BarrelRoll_Barricade_Icon" type="Sprite" parent="UI"]
-position = Vector2( 300, 570 )
-texture = ExtResource( 9 )
-
-[node name="BarrelRoll_Barrel_Icon" type="Sprite" parent="UI"]
-position = Vector2( 340, 570 )
-texture = ExtResource( 10 )
-
-[node name="Start" type="Button" parent="UI"]
-margin_left = 50.0
-margin_top = 50.0
-margin_right = 62.0
-margin_bottom = 70.0
-text = "Start"
-
-[node name="Enemy" type="Sprite" parent="."]
-position = Vector2( 420, 0 )
-scale = Vector2( 3, 3 )
-z_index = -1
-texture = ExtResource( 11 )
-hframes = 4
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -131,6 +56,71 @@ hframes = 4
 position = Vector2( 174.23, 342.589 )
 z_index = 2
 shape = SubResource( 4 )
-[connection signal="animation_finished" from="Paths/Middle/PathFollow2D/Barrel" to="." method="_on_Barrel_animation_finished"]
-[connection signal="button_up" from="UI/Start" to="." method="_on_Start_button_up"]
+
+[node name="Paths" type="Node2D" parent="."]
+
+[node name="BarrelRoll_002" type="Sprite" parent="Paths"]
+position = Vector2( 180, 360 )
+texture = ExtResource( 6 )
+
+[node name="BarrelRoll_005" type="Sprite" parent="Paths"]
+position = Vector2( 180, 320 )
+z_index = 2
+texture = ExtResource( 7 )
+
+[node name="BarrelRoll_004" type="Sprite" parent="Paths"]
+position = Vector2( 180, 320 )
+z_index = 1
+texture = ExtResource( 8 )
+
+[node name="Middle" type="Path2D" parent="Paths"]
+position = Vector2( 180, 360 )
+z_index = 3
+curve = SubResource( 1 )
+
+[node name="TopFollow" type="PathFollow2D" parent="Paths/Middle"]
+position = Vector2( -7.57333, -209.83 )
+rotation = 1.56918
+z_as_relative = false
+loop = false
+
+[node name="BottomFollow" type="PathFollow2D" parent="Paths/Middle"]
+position = Vector2( -5.80039, 220.706 )
+rotation = 1.54885
+offset = 430.65
+loop = false
+
+[node name="Right" type="Path2D" parent="Paths"]
+z_index = 3
+curve = SubResource( 2 )
+
+[node name="TopFollow" type="PathFollow2D" parent="Paths/Right"]
+position = Vector2( 190, 150 )
+rotation = 0.294204
+z_index = 4
+loop = false
+
+[node name="Left" type="Path2D" parent="Paths"]
+z_index = 3
+curve = SubResource( 3 )
+
+[node name="TopFollow" type="PathFollow2D" parent="Paths/Left"]
+position = Vector2( 160, 150 )
+rotation = 2.8329
+loop = false
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="BarrelRoll_Heart_001" type="Sprite" parent="UI"]
+position = Vector2( 20, 610 )
+texture = ExtResource( 9 )
+
+[node name="BarrelRoll_Barricade_Icon" type="Sprite" parent="UI"]
+position = Vector2( 300, 570 )
+texture = ExtResource( 10 )
+
+[node name="BarrelRoll_Barrel_Icon" type="Sprite" parent="UI"]
+position = Vector2( 340, 570 )
+texture = ExtResource( 11 )
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
