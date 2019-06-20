@@ -47,23 +47,23 @@ func spawn_barrel(location):
 	new_barrel.init(location)
 	new_barrel.name = location.y.to_lower() + '_barrel' + '_' + str(path.get_child_count())
 	if location.x == "Middle":
-		new_barrel.z_index = 0
+		new_barrel.z_index = 2
 	if location.y == 'Bottom':
-		new_barrel.offset = new_barrel.offset - ((path.get_child_count() - 2) * 75)
+		new_barrel.offset = new_barrel.offset - ((path.get_child_count() - 2) * 50)
 		path.add_child(new_barrel)
 	new_barrel.add_to_group('barrels')
 
 func _on_Area2D_area_entered(area):
-	if 'top' in area.get_parent().name:
-		area.get_parent().z_index = 1
+	if area.owner.top:
+		area.owner.z_index = 1
 		area.get_parent().play("HillDown")
-		area.get_parent().start = false
+		area.owner.start = false
 
 func _on_Area2D_area_exited(area):
-	if 'bottom' in area.get_parent().name:
-		area.get_parent().z_index = 0
+	if not area.owner.top:
+		area.owner.z_index = 0
 		area.get_parent().play("HillUp")
-		area.get_parent().start = false
+		area.owner.start = false
 
 func _on_BarrelButton_button_up():
 	$UI/Barrel.visible = true

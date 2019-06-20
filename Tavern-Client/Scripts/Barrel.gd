@@ -42,6 +42,6 @@ func _on_Barrel_animation_finished():
 
 func _on_Area2D_area_entered(area):
 	if top and 'bottom' in area.get_parent().name:
-		area.get_parent().call_deferred('free')
+		area.owner.call_deferred('free')
 	elif not top and 'top' in area.get_parent().name:
-		area.get_parent().call_deferred('free')
+		area.owner.call_deferred('free')
