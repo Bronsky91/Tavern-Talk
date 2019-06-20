@@ -24,9 +24,8 @@ func _input(event):
 		var spawned_barrel = find_closest_path(bottom_b_check)
 		spawn_barrel({'y': spawned_barrel.name, 'x': spawned_barrel.get_parent().name})
 		barrel_count = barrel_count + 1
-	
+
 func find_closest_path(check_dict):
-	print(check_dict)
 	var position_array = []
 	for b in check_dict:
 		position_array.append(check_dict[b])
@@ -50,7 +49,9 @@ func spawn_barrel(location):
 		new_barrel.z_index = 2
 	if location.y == 'Bottom':
 		new_barrel.offset = new_barrel.offset - ((path.get_child_count() - 2) * 50)
-		path.add_child(new_barrel)
+	else:
+		new_barrel.offset = new_barrel.offset + ((path.get_child_count() - 2) * 50)
+	path.add_child(new_barrel)
 	new_barrel.add_to_group('barrels')
 
 func _on_Area2D_area_entered(area):
@@ -68,6 +69,13 @@ func _on_Area2D_area_exited(area):
 func _on_BarrelButton_button_up():
 	$UI/Barrel.visible = true
 
+func npc_spawn():
+	var lanes = ['Left', 'Middle', 'Right']
+	for i in range(3):
+		randomize()
+		spawn_barrel({'y':'Top' ,'x':lanes[randi()%3]})
+
 func _on_Start_button_up():
+	npc_spawn()
 	for b in get_tree().get_nodes_in_group('barrels'):
 		b.start = true

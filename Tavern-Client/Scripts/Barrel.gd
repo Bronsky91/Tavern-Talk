@@ -31,6 +31,12 @@ func _process(delta):
 	if start:
 		offset = (offset + b_speed * delta)
 		offset = (offset + b_speed * delta)
+		if top:
+			if offset > RIGHT_MAX_OFFSET:
+				call_deferred("free")
+		else:
+			if offset < 0:
+				call_deferred("free")
 
 func _on_Barrel_animation_finished():
 	if get_child(0).animation == "HillDown" or get_child(0).animation == "HillUp":
@@ -41,7 +47,7 @@ func _on_Barrel_animation_finished():
 			get_child(0).play("Up")
 
 func _on_Area2D_area_entered(area):
-	if top and 'bottom' in area.get_parent().name:
+	if top and 'bottom' in area.owner.name:
 		area.owner.call_deferred('free')
-	elif not top and 'top' in area.get_parent().name:
+	elif not top and 'top' in area.owner.name:
 		area.owner.call_deferred('free')
