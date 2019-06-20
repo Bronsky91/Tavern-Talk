@@ -180,14 +180,13 @@ func get_min(arr):
 func find_closest_stool(table_id, patron):
 	# dictionary of available stools and their positions
 	var stool_pos_dict = {}
-	#loop through all stools for availablity
+	# loop through all stools for availablity
 	for stool in stool_count[table_id]:
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		stool_count[table_id][stool]
 		if stool_count[table_id][stool] == null:
 		# if stool is available set the stool number as key and distance from patron as value
 			stool_pos_dict[(stool_node.get_global_position() - patron.position).length()] = stool
-	#if len(stool_pos_dict.keys()) < 0:
 	if stool_pos_dict.keys().size() > 0:
 		return stool_pos_dict[get_min(stool_pos_dict.keys())]
 	return 0
