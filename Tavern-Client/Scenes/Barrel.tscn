@@ -4,9 +4,9 @@
 [ext_resource path="res://Assets/MiniGames/BarrelRoll_BarrelHill_003.png" type="Texture" id=2]
 [ext_resource path="res://Assets/MiniGames/BarrelRoll_BarrelHill_002.png" type="Texture" id=3]
 [ext_resource path="res://Assets/MiniGames/BarrelRoll_BarrelHill_001.png" type="Texture" id=4]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_003.png" type="Texture" id=5]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_001.png" type="Texture" id=5]
 [ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_002.png" type="Texture" id=6]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_001.png" type="Texture" id=7]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_003.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -15,20 +15,20 @@ animations = [ {
 "name": "HillDown",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
-"loop": true,
-"name": "Up",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 4 ), ExtResource( 3 ), ExtResource( 2 ) ],
 "loop": true,
 "name": "HillUp",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ],
 "loop": true,
 "name": "Down",
 "speed": 7.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "Up",
+"speed": 5.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=2]

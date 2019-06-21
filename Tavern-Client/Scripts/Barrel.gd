@@ -26,6 +26,7 @@ func init(l):
 		top = false
 		b_speed = -30
 		get_child(0).play("Up")
+		print(top)
 
 func _process(delta):
 	if start:

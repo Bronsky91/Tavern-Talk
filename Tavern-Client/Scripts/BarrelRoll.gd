@@ -1,8 +1,10 @@
 extends Node2D
 
 export(PackedScene) var barrel_scene
+export(PackedScene) var barricade_scene
 
 var barrel_count = 0
+var barricade_count = 0
 
 func _ready():
 	$Paths/Left/Bottom.add_to_group('starts')
@@ -12,11 +14,20 @@ func _ready():
 	$Paths/Middle/Top.add_to_group('starts')
 	$Paths/Right/Top.add_to_group('starts')
 	
+	$Paths/Left/BarricadeBottom.add_to_group('barricade_starts')
+	$Paths/Right/BarricadeBottom.add_to_group('barricade_starts')
+	$Paths/Middle/BarricadeBottom.add_to_group('barricade_starts')
+	$Paths/Left/BarricadeTop.add_to_group('barricade_starts')
+	$Paths/Right/BarricadeTop.add_to_group('barricade_starts')
+	$Paths/Middle/BarricadeTop.add_to_group('barricade_starts')
+	
 func _input(event):
 	if barrel_count == 3:
 		$UI/Barrel.visible = false
+	if barricade_count == 1:
+		$UI/Barricade.visible = false
 	if $UI/Barrel.visible and (event is InputEventScreenTouch or event.is_action_pressed('click')):
-		var top_b_check = {}
+		#var top_b_check = {}
 		var bottom_b_check = {}
 		for start in get_tree().get_nodes_in_group('starts'):
 			if 'Bottom' in start.name:
@@ -24,6 +35,15 @@ func _input(event):
 		var spawned_barrel = find_closest_path(bottom_b_check)
 		spawn_barrel({'y': spawned_barrel.name, 'x': spawned_barrel.get_parent().name})
 		barrel_count = barrel_count + 1
+	if $UI/Barricade.visible and (event is InputEventScreenTouch or event.is_action_pressed('click')):
+		var bottom_bar_check = {}
+		for b_start in get_tree().get_nodes_in_group('barricade_starts'):
+			if 'Bottom' in b_start.name:
+				bottom_bar_check[b_start] = get_global_mouse_position().distance_to(b_start.get_global_position())
+		var spawned_barricade = find_closest_path(bottom_bar_check)
+		var barricade_location = {'y': spawned_barricade.name, 'x': spawned_barricade.get_parent().name}
+		spawn_barricade(barricade_location)
+		barricade_count = barricade_count + 1
 
 func find_closest_path(check_dict):
 	var position_array = []
@@ -38,6 +58,8 @@ func find_closest_path(check_dict):
 func _process(delta):
 	if $UI/Barrel.visible:
 		$UI/Barrel.position = get_global_mouse_position()
+	if $UI/Barricade.visible:
+		$UI/Barricade.position = get_global_mouse_position()
 	
 func spawn_barrel(location):
 	# location = {y: Top/Bottom, x: Left/Middle/Right}
@@ -46,13 +68,25 @@ func spawn_barrel(location):
 	new_barrel.init(location)
 	new_barrel.name = location.y.to_lower() + '_barrel' + '_' + str(path.get_child_count())
 	if location.x == "Middle":
-		new_barrel.z_index = 2
+		if location.y == "Top":
+			new_barrel.z_index = 0
+		else:
+			new_barrel.z_index = 2
 	if location.y == 'Bottom':
-		new_barrel.offset = new_barrel.offset - ((path.get_child_count() - 2) * 50)
+		new_barrel.offset = new_barrel.offset - ((path.get_child_count() - 5) * 50)
 	else:
-		new_barrel.offset = new_barrel.offset + ((path.get_child_count() - 2) * 50)
+		new_barrel.offset = new_barrel.offset + ((path.get_child_count() - 5) * 50)
 	path.add_child(new_barrel)
 	new_barrel.add_to_group('barrels')
+	
+func spawn_barricade(location):
+	# location = {y: BarricadeTop/BarricadeBottom, x: Left/Middle/Right}
+	print(location)
+	var path = get_node("Paths/"+location.x)
+	var new_barricade = barricade_scene.instance()
+	new_barricade.init(location, get_node("Paths/"+location.x+"/"+location.y).position)
+	path.add_child(new_barricade)
+	new_barricade.add_to_group('barricades')
 
 func _on_Area2D_area_entered(area):
 	if area.owner.top:
@@ -61,21 +95,30 @@ func _on_Area2D_area_entered(area):
 		area.owner.start = false
 
 func _on_Area2D_area_exited(area):
-	if not area.owner.top:
-		area.owner.z_index = 0
-		area.get_parent().play("HillUp")
-		area.owner.start = false
+	if area.owner != null:
+		if not area.owner.top:
+			area.owner.z_index = 0
+			area.get_parent().play("HillUp")
+			area.owner.start = false
 
 func _on_BarrelButton_button_up():
 	$UI/Barrel.visible = true
 
-func npc_spawn():
+func _on_BarricadeButton_button_up():
+	$UI/Barricade.visible = true
+	
+func npc_spawn(y, count):
 	var lanes = ['Left', 'Middle', 'Right']
-	for i in range(3):
+	for i in range(count):
 		randomize()
-		spawn_barrel({'y':'Top' ,'x':lanes[randi()%3]})
+		if 'Barricade' in y:
+			spawn_barricade({'y':y ,'x':lanes[randi()%3]})
+		else:
+			spawn_barrel({'y':y ,'x':lanes[randi()%3]})
 
 func _on_Start_button_up():
-	npc_spawn()
+	npc_spawn('Top', 3)
+	npc_spawn('BarricadeTop', 1)
 	for b in get_tree().get_nodes_in_group('barrels'):
 		b.start = true
+
