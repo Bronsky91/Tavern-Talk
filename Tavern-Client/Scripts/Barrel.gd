@@ -15,7 +15,7 @@ func _ready():
 func init(l):
 	if l.y == 'Top':
 		top = true
-		b_speed = 30
+		b_speed = 50
 		get_child(0).play("Down")
 	else:
 		if l.x == 'Middle':
@@ -25,7 +25,7 @@ func init(l):
 		elif l.x == 'Left':
 			offset = LEFT_MAX_OFFSET
 		top = false
-		b_speed = -30
+		b_speed = -50
 		get_child(0).play("Up")
 
 func _process(delta):

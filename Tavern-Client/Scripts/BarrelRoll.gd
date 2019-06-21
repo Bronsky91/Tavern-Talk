@@ -120,26 +120,32 @@ func npc_spawn(y, count):
 			spawn_barrel({'y':y ,'x':lanes[randi()%3]})
 
 func _on_Start_button_up():
+	$UI/Start.disabled = true
 	npc_spawn('Top', 3)
 	npc_spawn('BarricadeTop', 1)
 	for b in get_tree().get_nodes_in_group('barrels'):
 		b.start = true
 		
 func barrel_hit(top):
-	if top:
+	if top and bottom_heart_count > 0:
 		get_node("UI/Bottom_Player/Heart_"+str(bottom_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		bottom_heart_count = bottom_heart_count - 1
+		print(bottom_heart_count)
 		if bottom_heart_count == 0:
-			print('Top is winner!')
-	else:
+			$UI/ConfirmationDialog.window_title = "Barmaid Wins!"
+			$UI/ConfirmationDialog.popup()
+	elif not top and top_heart_count > 0:
 		get_node("UI/Top_Player/Heart_"+str(top_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		top_heart_count = top_heart_count - 1
+		print(top_heart_count)
 		if top_heart_count == 0:
-			print('Bottom is winner!')
+			$UI/ConfirmationDialog.window_title = "You Win!"
+			$UI/ConfirmationDialog.popup()
 	
 func barrel_bye_bye():
 	total_barrel_count = total_barrel_count + 1
 	if total_barrel_count == 6:
+		$UI/Start.disabled = false
 		## Round over ##
 		barrel_count = 0
 		barricade_count = 0
@@ -148,5 +154,18 @@ func barrel_bye_bye():
 		for path in paths:
 			for c in get_node("Paths/"+path).get_children():
 				if 'barricade' in c.name:
-					c.call_deferred("free") 
-	return total_barrel_count
+					c.call_deferred("free")
+
+func _on_ConfirmationDialog_confirmed():
+	new_game()
+
+func new_game():
+	bottom_heart_count = 5
+	top_heart_count = 5
+	for h in $UI/Bottom_Player.get_children():
+		h.set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_001.png"))
+	for h in $UI/Top_Player.get_children():
+		h.set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_001.png"))
+
+func _on_ConfirmationDialog_popup_hide():
+	print('return to menu')

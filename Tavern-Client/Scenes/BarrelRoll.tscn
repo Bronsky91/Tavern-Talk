@@ -138,6 +138,7 @@ position = Vector2( 51.7313, 526.939 )
 [node name="UI" type="CanvasLayer" parent="."]
 
 [node name="Bottom_Player" type="Node2D" parent="UI"]
+editor/display_folded = true
 
 [node name="Heart_1" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 20, 610 )
@@ -160,6 +161,7 @@ position = Vector2( 140, 610 )
 texture = ExtResource( 10 )
 
 [node name="Top_Player" type="Node2D" parent="UI"]
+editor/display_folded = true
 
 [node name="Heart_1" type="Sprite" parent="UI/Top_Player"]
 position = Vector2( 222.5, 122 )
@@ -211,8 +213,20 @@ margin_top = 64.4186
 margin_right = 73.0164
 margin_bottom = 84.4186
 text = "Start"
+
+[node name="ConfirmationDialog" type="ConfirmationDialog" parent="UI"]
+margin_left = 30.0
+margin_top = 360.0
+margin_right = 330.0
+margin_bottom = 460.0
+rect_min_size = Vector2( 300, 50 )
+window_title = ""
+resizable = true
+dialog_text = "Play again?"
 [connection signal="area_entered" from="Area2D" to="." method="_on_Area2D_area_entered"]
 [connection signal="area_exited" from="Area2D" to="." method="_on_Area2D_area_exited"]
 [connection signal="button_up" from="UI/BarrelButton" to="." method="_on_BarrelButton_button_up"]
 [connection signal="button_up" from="UI/BarricadeButton" to="." method="_on_BarricadeButton_button_up"]
 [connection signal="button_up" from="UI/Start" to="." method="_on_Start_button_up"]
+[connection signal="confirmed" from="UI/ConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="popup_hide" from="UI/ConfirmationDialog" to="." method="_on_ConfirmationDialog_popup_hide"]
