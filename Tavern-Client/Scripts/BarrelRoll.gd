@@ -5,6 +5,9 @@ export(PackedScene) var barricade_scene
 
 var barrel_count = 0
 var barricade_count = 0
+var top_heart_count = 5
+var bottom_heart_count = 5
+var total_barrel_count = 0
 
 func _ready():
 	$Paths/Left/Bottom.add_to_group('starts')
@@ -81,9 +84,9 @@ func spawn_barrel(location):
 	
 func spawn_barricade(location):
 	# location = {y: BarricadeTop/BarricadeBottom, x: Left/Middle/Right}
-	print(location)
 	var path = get_node("Paths/"+location.x)
 	var new_barricade = barricade_scene.instance()
+	new_barricade.name = location.y.to_lower() + '_barricade' + '_' + str(path.get_child_count())
 	new_barricade.init(location, get_node("Paths/"+location.x+"/"+location.y).position)
 	path.add_child(new_barricade)
 	new_barricade.add_to_group('barricades')
@@ -121,4 +124,29 @@ func _on_Start_button_up():
 	npc_spawn('BarricadeTop', 1)
 	for b in get_tree().get_nodes_in_group('barrels'):
 		b.start = true
-
+		
+func barrel_hit(top):
+	if top:
+		get_node("UI/Bottom_Player/Heart_"+str(bottom_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
+		bottom_heart_count = bottom_heart_count - 1
+		if bottom_heart_count == 0:
+			print('Top is winner!')
+	else:
+		get_node("UI/Top_Player/Heart_"+str(top_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
+		top_heart_count = top_heart_count - 1
+		if top_heart_count == 0:
+			print('Bottom is winner!')
+	barrel_bye_bye()
+	
+func barrel_bye_bye():
+	total_barrel_count = total_barrel_count + 1
+	if total_barrel_count == 6:
+		barrel_count = 0
+		barricade_count = 0
+		total_barrel_count = 0
+		var paths = ["Left", "Right", "Middle"]
+		for path in paths:
+			for c in get_node("Paths/"+path).get_children():
+				if 'barricade' in c.name:
+					c.call_deferred("free") 
+	return total_barrel_count

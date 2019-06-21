@@ -98,7 +98,6 @@ position = Vector2( -9.03636, -137.328 )
 position = Vector2( -7.06621, 154.146 )
 
 [node name="Right" type="Path2D" parent="Paths"]
-editor/display_folded = true
 z_index = 3
 curve = SubResource( 3 )
 
@@ -138,8 +137,48 @@ position = Vector2( 51.7313, 526.939 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="BarrelRoll_Heart_001" type="Sprite" parent="UI"]
+[node name="Bottom_Player" type="Node2D" parent="UI"]
+
+[node name="Heart_1" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 20, 610 )
+texture = ExtResource( 10 )
+
+[node name="Heart_2" type="Sprite" parent="UI/Bottom_Player"]
+position = Vector2( 51.7313, 610 )
+texture = ExtResource( 10 )
+
+[node name="Heart_3" type="Sprite" parent="UI/Bottom_Player"]
+position = Vector2( 80, 610 )
+texture = ExtResource( 10 )
+
+[node name="Heart_4" type="Sprite" parent="UI/Bottom_Player"]
+position = Vector2( 110, 610 )
+texture = ExtResource( 10 )
+
+[node name="Heart_5" type="Sprite" parent="UI/Bottom_Player"]
+position = Vector2( 140, 610 )
+texture = ExtResource( 10 )
+
+[node name="Top_Player" type="Node2D" parent="UI"]
+
+[node name="Heart_1" type="Sprite" parent="UI/Top_Player"]
+position = Vector2( 222.5, 122 )
+texture = ExtResource( 10 )
+
+[node name="Heart_2" type="Sprite" parent="UI/Top_Player"]
+position = Vector2( 252.5, 122 )
+texture = ExtResource( 10 )
+
+[node name="Heart_3" type="Sprite" parent="UI/Top_Player"]
+position = Vector2( 282.5, 122 )
+texture = ExtResource( 10 )
+
+[node name="Heart_4" type="Sprite" parent="UI/Top_Player"]
+position = Vector2( 312.5, 122 )
+texture = ExtResource( 10 )
+
+[node name="Heart_5" type="Sprite" parent="UI/Top_Player"]
+position = Vector2( 340, 122 )
 texture = ExtResource( 10 )
 
 [node name="BarrelButton" type="Button" parent="UI"]
