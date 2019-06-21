@@ -7,6 +7,7 @@ var LEFT_MAX_OFFSET = 536.11
 var top
 var b_speed
 var start = false
+var broke = false
 
 func _ready():
 	pass
@@ -26,22 +27,26 @@ func init(l):
 		top = false
 		b_speed = -30
 		get_child(0).play("Up")
-		print(top)
 
 func _process(delta):
 	if start:
 		offset = (offset + b_speed * delta)
 		offset = (offset + b_speed * delta)
 		if top:
-			if offset > RIGHT_MAX_OFFSET:
-				call_deferred("free")
+			if offset > RIGHT_MAX_OFFSET and not broke:
+				broke = true
 				get_parent().owner.barrel_hit(true)
+				break_barrel()
 		else:
-			if offset < 0:
-				call_deferred("free")
+			if offset < 0 and not broke:
+				broke = true
 				get_parent().owner.barrel_hit(false)
+				break_barrel()
 
 func _on_Barrel_animation_finished():
+	if get_child(0).animation == "Break":
+		call_deferred("free")
+		get_parent().owner.barrel_bye_bye()
 	if get_child(0).animation == "HillDown" or get_child(0).animation == "HillUp":
 		start = true
 		if top:
@@ -51,8 +56,12 @@ func _on_Barrel_animation_finished():
 
 func _on_Area2D_area_entered(area):
 	if top and 'bottom' in area.owner.name:
-		area.owner.call_deferred('free')
-		get_parent().owner.barrel_bye_bye()
+		break_barrel()
 	elif not top and 'top' in area.owner.name:
-		area.owner.call_deferred('free')
-		get_parent().owner.barrel_bye_bye()
+		break_barrel()
+
+func break_barrel():
+	$Barrel/Area2D.set_deferred("monitorable", false)
+	get_child(0).play("Break")
+	b_speed = 0
+	

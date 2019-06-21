@@ -136,11 +136,11 @@ func barrel_hit(top):
 		top_heart_count = top_heart_count - 1
 		if top_heart_count == 0:
 			print('Bottom is winner!')
-	barrel_bye_bye()
 	
 func barrel_bye_bye():
 	total_barrel_count = total_barrel_count + 1
 	if total_barrel_count == 6:
+		## Round over ##
 		barrel_count = 0
 		barricade_count = 0
 		total_barrel_count = 0
