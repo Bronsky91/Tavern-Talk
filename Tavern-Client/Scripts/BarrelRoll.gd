@@ -76,12 +76,20 @@ func spawn_barrel(location):
 		else:
 			new_barrel.z_index = 2
 	if location.y == 'Bottom':
-		new_barrel.offset = new_barrel.offset - ((path.get_child_count() - 5) * 50)
+		var barrel_count = 0
+		for node in path.get_children():
+			if 'barrel' in node.name and 'bottom' in node.name:
+				barrel_count = barrel_count + 1
+		new_barrel.offset = new_barrel.offset - (barrel_count * 50)
 	else:
-		new_barrel.offset = new_barrel.offset + ((path.get_child_count() - 5) * 50)
+		var barrel_count = 0
+		for node in path.get_children():
+			if 'barrel' in node.name and 'top' in node.name:
+				barrel_count = barrel_count + 1
+		new_barrel.offset = new_barrel.offset + (barrel_count * 50)
 	path.add_child(new_barrel)
 	new_barrel.add_to_group('barrels')
-	
+
 func spawn_barricade(location):
 	# location = {y: BarricadeTop/BarricadeBottom, x: Left/Middle/Right}
 	var path = get_node("Paths/"+location.x)
@@ -100,7 +108,7 @@ func _on_Area2D_area_entered(area):
 func _on_Area2D_area_exited(area):
 	if area.owner != null:
 		if not area.owner.top:
-			area.owner.z_index = 0
+			area.owner.z_index = 1
 			area.get_parent().play("HillUp")
 			area.owner.start = false
 
@@ -109,7 +117,7 @@ func _on_BarrelButton_button_up():
 
 func _on_BarricadeButton_button_up():
 	$UI/Barricade.visible = true
-	
+
 func npc_spawn(y, count):
 	var lanes = ['Left', 'Middle', 'Right']
 	for i in range(count):
@@ -125,25 +133,24 @@ func _on_Start_button_up():
 	npc_spawn('BarricadeTop', 1)
 	for b in get_tree().get_nodes_in_group('barrels'):
 		b.start = true
-		
+
 func barrel_hit(top):
 	if top and bottom_heart_count > 0:
 		get_node("UI/Bottom_Player/Heart_"+str(bottom_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		bottom_heart_count = bottom_heart_count - 1
-		print(bottom_heart_count)
 		if bottom_heart_count == 0:
 			$UI/ConfirmationDialog.window_title = "Barmaid Wins!"
 			$UI/ConfirmationDialog.popup()
 	elif not top and top_heart_count > 0:
 		get_node("UI/Top_Player/Heart_"+str(top_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		top_heart_count = top_heart_count - 1
-		print(top_heart_count)
 		if top_heart_count == 0:
 			$UI/ConfirmationDialog.window_title = "You Win!"
 			$UI/ConfirmationDialog.popup()
 	
 func barrel_bye_bye():
 	total_barrel_count = total_barrel_count + 1
+	print(total_barrel_count)
 	if total_barrel_count == 6:
 		$UI/Start.disabled = false
 		## Round over ##

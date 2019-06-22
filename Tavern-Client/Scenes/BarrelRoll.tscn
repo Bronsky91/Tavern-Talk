@@ -18,7 +18,7 @@ radius = 46.8496
 
 [sub_resource type="Curve2D" id=2]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, -9.7789, -192.317, 0, 0, 0, 0, -9.49744, -185.843, 0, 0, 0, 0, -7.21265, 12.7133, 0, 0, 0, 0, -6.68283, 145.091, 0, 0, 0, 0, -7.97554, 201.375 )
+"points": PoolVector2Array( 0, 0, 0, 0, -9.7789, -192.317, 0, 0, 0, 0, -9.49744, -185.843, 0, 0, 0, 0, -8.3412, 12.9278, 0, 0, 0, 0, -6.68283, 145.091, 0, 0, 0, 0, -7.86693, 193.409, 0, 0, 0, 0, -7.07648, 201.087 )
 }
 
 [sub_resource type="Curve2D" id=3]
@@ -78,17 +78,17 @@ z_index = 1
 texture = ExtResource( 9 )
 
 [node name="Middle" type="Path2D" parent="Paths"]
-position = Vector2( 182.412, 359.114 )
-z_index = 3
+position = Vector2( 184.703, 366.208 )
+z_index = 6
 curve = SubResource( 2 )
 
 [node name="Top" type="Position2D" parent="Paths/Middle"]
-position = Vector2( -9.94568, -194.211 )
+position = Vector2( -9.92822, -179.847 )
 rotation = 1.57114
 z_as_relative = false
 
 [node name="Bottom" type="Position2D" parent="Paths/Middle"]
-position = Vector2( -7.67172, 195.245 )
+position = Vector2( -7.25021, 185.76 )
 rotation = 1.53854
 
 [node name="BarricadeTop" type="Position2D" parent="Paths/Middle"]

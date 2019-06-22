@@ -1,6 +1,6 @@
 extends PathFollow2D
 
-var MIDDLE_MAX_OFFSET = 443.78
+var MIDDLE_MAX_OFFSET = 393
 var RIGHT_MAX_OFFSET = 549.15
 var LEFT_MAX_OFFSET = 536.11
 
@@ -44,9 +44,8 @@ func _process(delta):
 				break_barrel()
 
 func _on_Barrel_animation_finished():
-	if get_child(0).animation == "Break":
+	if get_child(0).animation == "Break" or b_speed == 0:
 		call_deferred("free")
-		get_parent().owner.barrel_bye_bye()
 	if get_child(0).animation == "HillDown" or get_child(0).animation == "HillUp":
 		start = true
 		if top:
@@ -61,7 +60,9 @@ func _on_Area2D_area_entered(area):
 		break_barrel()
 
 func break_barrel():
+	get_parent().owner.barrel_bye_bye()
 	$Barrel/Area2D.set_deferred("monitorable", false)
 	get_child(0).play("Break")
+	print(name)
 	b_speed = 0
 	
