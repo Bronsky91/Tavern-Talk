@@ -15,7 +15,7 @@ func _ready():
 func init(l):
 	if l.y == 'Top':
 		top = true
-		b_speed = 50
+		b_speed = 30
 		get_child(0).play("Down")
 	else:
 		if l.x == 'Middle':
@@ -25,7 +25,7 @@ func init(l):
 		elif l.x == 'Left':
 			offset = LEFT_MAX_OFFSET
 		top = false
-		b_speed = -50
+		b_speed = -30
 		get_child(0).play("Up")
 
 func _process(delta):
@@ -60,9 +60,7 @@ func _on_Area2D_area_entered(area):
 		break_barrel()
 
 func break_barrel():
-	get_parent().owner.barrel_bye_bye()
 	$Barrel/Area2D.set_deferred("monitorable", false)
+	$Barrel/Area2D/CollisionShape2D.set_deferred("disabled", false)
 	get_child(0).play("Break")
-	print(name)
 	b_speed = 0
-	

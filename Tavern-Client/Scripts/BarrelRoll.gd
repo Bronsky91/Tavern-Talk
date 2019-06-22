@@ -7,7 +7,7 @@ var barrel_count = 0
 var barricade_count = 0
 var top_heart_count = 5
 var bottom_heart_count = 5
-var total_barrel_count = 0
+var round_started = false
 
 func _ready():
 	$Paths/Left/Bottom.add_to_group('starts')
@@ -59,6 +59,9 @@ func find_closest_path(check_dict):
 			return b
 	
 func _process(delta):
+	if get_tree().get_nodes_in_group("barrels").size() == 0 and round_started:
+		new_round()
+		round_started = false
 	if $UI/Barrel.visible:
 		$UI/Barrel.position = get_global_mouse_position()
 	if $UI/Barricade.visible:
@@ -129,6 +132,7 @@ func npc_spawn(y, count):
 
 func _on_Start_button_up():
 	$UI/Start.disabled = true
+	round_started = true
 	npc_spawn('Top', 3)
 	npc_spawn('BarricadeTop', 1)
 	for b in get_tree().get_nodes_in_group('barrels'):
@@ -148,20 +152,15 @@ func barrel_hit(top):
 			$UI/ConfirmationDialog.window_title = "You Win!"
 			$UI/ConfirmationDialog.popup()
 	
-func barrel_bye_bye():
-	total_barrel_count = total_barrel_count + 1
-	print(total_barrel_count)
-	if total_barrel_count == 6:
-		$UI/Start.disabled = false
-		## Round over ##
-		barrel_count = 0
-		barricade_count = 0
-		total_barrel_count = 0
-		var paths = ["Left", "Right", "Middle"]
-		for path in paths:
-			for c in get_node("Paths/"+path).get_children():
-				if 'barricade' in c.name:
-					c.call_deferred("free")
+func new_round():
+	$UI/Start.disabled = false
+	barrel_count = 0
+	barricade_count = 0
+	var paths = ["Left", "Right", "Middle"]
+	for path in paths:
+		for c in get_node("Paths/"+path).get_children():
+			if 'barricade' in c.name:
+				c.call_deferred("free")
 
 func _on_ConfirmationDialog_confirmed():
 	new_game()
