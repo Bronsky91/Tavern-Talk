@@ -17,6 +17,12 @@ var player_info = {}
 var registered = false
 
 var stool_count = {
+	0: { # Bar
+		1: null,
+		2: null,
+		3: null,
+		4: null
+	},
 	1: { # table_id
 		1: null, # stool number
 		2: null,

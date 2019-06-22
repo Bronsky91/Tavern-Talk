@@ -118,7 +118,8 @@ puppet func update_pos(id, pos, tar, animation):
 		$AnimationTimer.start(animation.timer)
 
 func _physics_process(delta):
-	if is_network_master(): # Only network masters should be using the movement rpc calls
+	if is_network_master():
+		# Only network masters should be using the movement rpc calls
 		velocity = (target - position).normalized() * speed
 		if (target - position).length() > movement_buffer: 
 			move_and_slide(velocity)
@@ -223,11 +224,10 @@ func stand_up(_stool, table_id):
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7, 'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})
 		
 func _on_AnimationPlayer_animation_finished(anim_name):
-	print(animate.get_current_animation_position())
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
 	# if animation is finishing normally
 		animate.stop()
-		busy = false
+		#busy = false
 		use_texture('sitting')
 		if is_network_master():
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':'sat', 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': true})

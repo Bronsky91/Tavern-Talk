@@ -71,23 +71,23 @@ board = ExtResource( 4 )
 
 [node name="YSort" type="YSort" parent="."]
 
-[node name="Bar2" type="Node2D" parent="YSort"]
+[node name="Table_000" type="Node2D" parent="YSort"]
 editor/display_folded = true
 position = Vector2( 149.523, 129.611 )
 z_index = 1
 
-[node name="RegionSprite" type="Sprite" parent="YSort/Bar2"]
+[node name="RegionSprite" type="Sprite" parent="YSort/Table_000"]
 position = Vector2( 6.06003, 11.2543 )
 texture = ExtResource( 5 )
 
-[node name="StaticBody2D" type="StaticBody2D" parent="YSort/Bar2/RegionSprite"]
+[node name="StaticBody2D" type="StaticBody2D" parent="YSort/Table_000/RegionSprite"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Bar2/RegionSprite/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Table_000/RegionSprite/StaticBody2D"]
 light_mask = 2
 position = Vector2( -5.02699, 30.8215 )
 shape = SubResource( 1 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="YSort/Bar2/RegionSprite/StaticBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="YSort/Table_000/RegionSprite/StaticBody2D"]
 position = Vector2( -79.7709, -22.9407 )
 shape = SubResource( 2 )
 

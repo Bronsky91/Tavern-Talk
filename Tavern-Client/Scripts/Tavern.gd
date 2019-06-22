@@ -14,13 +14,19 @@ onready var board_scene = $BoardScene
 var character_name = null
 var player_info = {}
 var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
-
+var overhead = false
 
 ## NPCs ##
 var barmaid
 ###
 
 var stool_count = {
+	0: { # Table 0 == Bar
+		1: null,
+		2: null,
+		3: null,
+		4: null
+	},
 	1: { # table_id
 		1: null, # stool number
 		2: null,
@@ -192,7 +198,11 @@ func find_closest_stool(table_id, patron):
 	return 0
 	
 func _on_Table_button_up(table_id):
-	#for stool in stool_count[table_id]:
+	print(table_id)
+	print(overhead)
+	if table_id == 0 and overhead:
+		leaving_table(table_id, get_tree().get_network_unique_id())
+		return
 	var stool_pos
 	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
 	if patron.is_busy():
@@ -213,15 +223,28 @@ func _on_Table_button_up(table_id):
 	if patron.position.x > stool_node.get_global_position().x:
 		patron.h_sit_anim = 'Right'
 		# if the player is to the right of the stool use right animation and stool position
-		if stool == 6 or stool == 3:
+		if table_id == 0:
+			patron.v_sit_anim = 'back'
+			# If sitting at bar
+			if stool == 1:
+				stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_global_position()
+			elif stool == 4:
+				stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool-1)+"/L_P").get_global_position()
+			else:
+				stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool-1)+"/L_P").get_global_position()
+		elif stool == 6 or stool == 3:
 			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/R_P").get_global_position()
 		else:
 			stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool+1)+"/L_P").get_global_position()
 	else:
+		if table_id == 0:
+			patron.v_sit_anim = 'back'
 		patron.h_sit_anim = 'Left'
 		# player is to the left of the stool
 		stool_pos = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool)+"/L_P").get_global_position()
 	stool_count[table_id][stool] = patron.name
+	overhead = true
+	rpc("table_join_view", true, int(patron.name), "00"+str(table_id), overhead)
 	patron.sit_down(stool_pos, stool, table_id)
 	rpc("update_stool_count", stool_count)
 	
@@ -231,14 +254,19 @@ sync func turn_on_lights(on, c_name):
 			get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
 
 func join_table(table_id):
-	rpc("turn_on_lights", false, character_name)
-	chat_hide()
+	if not table_id == 0:
+		rpc("turn_on_lights", false, character_name)
+	chat_hide() # Hides tavern chat
 	for t in get_tree().get_nodes_in_group("tables"):
 		if t.table_id == table_id:
 			t.show()
 
 func leaving_table(table_id, id):
-	rpc("turn_on_lights", true, character_name)
+	overhead = false
+	if not table_id == 0:
+		rpc("turn_on_lights", true, character_name)
+	else:
+		rpc("table_join_view", true, get_tree().get_network_unique_id(), "00"+str(table_id), overhead)
 	for stool in stool_count[table_id]:
 		#var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		if stool_count[table_id][stool] != null:
@@ -258,7 +286,7 @@ func create_table_scenes():
 		add_child(new_table)
 		new_table.add_to_group("tables")
 
-sync func table_join_view(show, id, table_id):
+sync func table_join_view(show, id, table_id, overhead):
 	## TODO: Before release change id to int before it gets in here 
 	if get_tree().get_network_unique_id() == id:
 		if show:
@@ -267,6 +295,13 @@ sync func table_join_view(show, id, table_id):
 		else:
 			get_node('YSort/Table_'+table_id+'/Join').visible = false
 			get_node('YSort/Table_'+table_id+'/Join').disabled = true
+		if table_id == '000':
+			if overhead:
+				get_node('YSort/Table_'+table_id+'/Join').text = "Leave Bar"
+			else:
+				get_node('YSort/Table_'+table_id+'/Join').text = "Sit at Bar"
+				
+		
 
 func table_full(id):
 	# Checks if a table is full of patrons
@@ -279,13 +314,13 @@ func _on_Area2D_area_shape_entered(area_id, area, area_shape, self_shape, table_
 	## TODO: change table_id to int of table number instead of leading 00s
 	if area != null and not table_full(int(table_id[2])):
 		# If there's a player and the table is not full, then show join table and enable the button
-		rpc("table_join_view", true, int(area.get_parent().name), table_id)
+		rpc("table_join_view", true, int(area.get_parent().name), table_id, false)
 	else:
-		rpc("table_join_view", false, int(area.get_parent().name), table_id)
+		rpc("table_join_view", false, int(area.get_parent().name), table_id, false)
 	
 func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_id):
 	if area != null:
-		rpc("table_join_view", false, int(area.get_parent().name), table_id)
+		rpc("table_join_view", false, int(area.get_parent().name), table_id, false)
 
 ### Bulletin Board ###
 		

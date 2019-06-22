@@ -313,7 +313,6 @@ anims/walk_right = SubResource( 5 )
 anims/walk_up = SubResource( 6 )
 
 [node name="FullBody" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 2
 
