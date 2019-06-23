@@ -46,6 +46,10 @@ var stool_count = {
 		4: null,
 		5: null,
 		6: null
+	},
+	4: { # table_id
+		1: null, # stool number: patron.name
+		2: null
 	}
 }
 

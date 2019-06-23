@@ -3,13 +3,16 @@ extends Node2D
 export(PackedScene) var table
 export(PackedScene) var player
 export(PackedScene) var board
-
+export(PackedScene) var game_table
 
 onready var entrance = $Entrance
 onready var board_button = $YSort/Board/BoardButton
 onready var chat_input = $CanvasLayer/ChatEnter
 onready var chat_display = $CanvasLayer/TavernChatBox
 onready var board_scene = $BoardScene
+
+var TABLE_COUNT = 4
+var GAME_TABLES = [4]
 
 var character_name = null
 var player_info = {}
@@ -50,6 +53,10 @@ var stool_count = {
 		4: null,
 		5: null,
 		6: null
+	},
+	4: { # table_id
+		1: null, # stool number: patron.name
+		2: null
 	}
 }
 
@@ -198,8 +205,6 @@ func find_closest_stool(table_id, patron):
 	return 0
 	
 func _on_Table_button_up(table_id):
-	print(table_id)
-	print(overhead)
 	if table_id == 0 and overhead:
 		leaving_table(table_id, get_tree().get_network_unique_id())
 		return
@@ -213,13 +218,23 @@ func _on_Table_button_up(table_id):
 		# If there are no closest stools then the player can't click to join
 		return
 	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
-	if stool >= 4:
-		# if the stool is on the bottom row use back animation
-		patron.v_sit_anim = 'front'
+	if stool_count[table_id].size() > 2:
+		if stool >= (stool_count[table_id].size()/2):
+			# if the stool is on the bottom row use back animation
+			patron.v_sit_anim = 'front'
+		else:
+			# Else it's the top row and use the front animation
+			patron.v_sit_anim = 'back'
+		# if stool is empty 
 	else:
-		# Else it's the top row and use the front animation
-		patron.v_sit_anim = 'back'
-	# if stool is empty 
+		if stool > (stool_count[table_id].size()/2):
+			# if the stool is on the bottom row use back animation
+			patron.v_sit_anim = 'front'
+		else:
+			# Else it's the top row and use the front animation
+			patron.v_sit_anim = 'back'
+		# if stool is empty 
+		
 	if patron.position.x > stool_node.get_global_position().x:
 		patron.h_sit_anim = 'Right'
 		# if the player is to the right of the stool use right animation and stool position
@@ -251,7 +266,8 @@ func _on_Table_button_up(table_id):
 sync func turn_on_lights(on, c_name):
 	if character_name == c_name:
 		for t in get_tree().get_nodes_in_group("tables"):
-			get_node("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D").enabled = on
+			if get_node_or_null(("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D")) != null:
+				get_node(("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D")).enabled = on
 
 func join_table(table_id):
 	if not table_id == 0:
@@ -277,15 +293,19 @@ func leaving_table(table_id, id):
 				break
 
 func create_table_scenes():
-	for t in range(1, 4):
+	for t in range(1, TABLE_COUNT+1):
 		# instance packed scene
-		var new_table = table.instance()
+		var new_table
+		if t in GAME_TABLES:
+			new_table = game_table.instance()
+		else:
+			new_table = table.instance()
 		new_table.assign(t)
 		new_table.set_name("Table" + str(t))
 		new_table.hide()
 		add_child(new_table)
 		new_table.add_to_group("tables")
-
+	
 sync func table_join_view(show, id, table_id, overhead):
 	## TODO: Before release change id to int before it gets in here 
 	if get_tree().get_network_unique_id() == id:
@@ -301,8 +321,6 @@ sync func table_join_view(show, id, table_id, overhead):
 			else:
 				get_node('YSort/Table_'+table_id+'/Join').text = "Sit at Bar"
 				
-		
-
 func table_full(id):
 	# Checks if a table is full of patrons
 	for stool in stool_count[id]:

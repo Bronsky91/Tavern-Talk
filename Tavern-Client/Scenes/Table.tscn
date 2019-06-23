@@ -32,7 +32,7 @@ font_path = "res://Resources/Fonts/OpenSans-Regular.ttf"
 font_data = SubResource( 7 )
 
 [node name="Table" type="Node2D"]
-z_index = 6
+z_index = 4
 z_as_relative = false
 script = ExtResource( 1 )
 armwrestle_node = ExtResource( 2 )
