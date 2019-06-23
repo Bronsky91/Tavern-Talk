@@ -557,7 +557,6 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
-frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -695,7 +694,7 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -826,6 +825,7 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -928,7 +928,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -937,7 +937,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -958,7 +958,7 @@ texture = ExtResource( 11 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 19 )
 animation = "Sleeping"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
