@@ -13,7 +13,13 @@ func assign(_table_id):
 	
 func get_table_id():
 	return table_id
-
+	
+func _notification(notif):
+    if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:
+        _on_Leave_button_up()
+    if notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
+        _on_Leave_button_up()
+		
 func _on_Leave_button_up():
 	get_parent().leaving_table(table_id, get_tree().get_network_unique_id())
 	if get_node_or_null("Map") != null:
