@@ -62,6 +62,7 @@ z_index = 2
 shape = SubResource( 1 )
 
 [node name="Paths" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="BarrelRoll_002" type="Sprite" parent="Paths"]
 position = Vector2( 180, 360 )

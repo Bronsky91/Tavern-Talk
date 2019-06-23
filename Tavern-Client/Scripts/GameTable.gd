@@ -16,7 +16,9 @@ func get_table_id():
 
 func _on_Leave_button_up():
 	get_parent().leaving_table(table_id, get_tree().get_network_unique_id())
-	.call_deferred("free")
+	if get_node_or_null("Map") != null:
+		get_node("Map").call_deferred("free")
+	.hide()
 
 func _on_Game1_button_up():
 	var new_game = barrel_roll.instance()
