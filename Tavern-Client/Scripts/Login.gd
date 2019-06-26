@@ -42,5 +42,5 @@ func _on_Login_visibility_changed():
 		if login != null and login.remember:
 			username.text = login.username
 			password.text = login.password
-		else:
+		elif login != null:
 			$CheckBox.pressed = login.remember
