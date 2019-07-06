@@ -11,8 +11,6 @@ var post_dict = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 
 
 func _ready():
 	g.make_get_request($Board/BoardRequest, 'tavern/' + g.player_data.tavern.id + '/board')
-	$Board/BulletinBoard_Wallpaper.set_texture(load("res://Assets/Backgrounds/BulletinBoard_Wallpaper_001.png"))
-	$Board/BulletinBoard_Wallpaper/BulletinBoardBG.set_texture(load("res://Assets/Backgrounds/BulletinBoardA_BG.png"))
 
 func populate_posts(posts):
 	## Populates post_dic with the _ids of all posts

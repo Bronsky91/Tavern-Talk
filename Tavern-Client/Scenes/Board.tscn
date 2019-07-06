@@ -1,9 +1,39 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Scripts/Board.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Post.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Backgrounds/BulletinBoardA_BGX.png" type="Texture" id=3]
 [ext_resource path="res://Assets/Backgrounds/BulletinBoard_Post.png" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+resource_name = "BoardShiftLeft"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Board/BulletinBoard_Wallpaper/BulletinBoardBG:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 360, 0 ) ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "BoardShiftRight"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Board/BulletinBoard_Wallpaper/BulletinBoardBG:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.9 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -360, 0 ) ]
+}
 
 [node name="BoardScene" type="Node2D"]
 z_index = 6
@@ -16,6 +46,7 @@ post_scene = ExtResource( 2 )
 position = Vector2( 180, 320 )
 
 [node name="BulletinBoardBG" type="Sprite" parent="Board/BulletinBoard_Wallpaper"]
+position = Vector2( -360, 0 )
 texture = ExtResource( 3 )
 
 [node name="BoardRequest" type="HTTPRequest" parent="Board"]
@@ -114,6 +145,11 @@ margin_right = 321.0
 margin_bottom = 470.0
 disabled = true
 texture_normal = ExtResource( 4 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_speed = 2.0
+anims/BoardShiftLeft = SubResource( 1 )
+anims/BoardShiftRight = SubResource( 2 )
 [connection signal="visibility_changed" from="." to="." method="_on_BoardScene_visibility_changed"]
 [connection signal="request_completed" from="Board/BoardRequest" to="." method="_on_BoardRequest_request_completed"]
 [connection signal="button_up" from="Board/BackButton" to="." method="_on_BackButton_button_up"]
