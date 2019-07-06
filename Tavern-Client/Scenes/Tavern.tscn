@@ -932,7 +932,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 5
+frame = 1
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -941,7 +941,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 5
+frame = 1
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -962,7 +962,7 @@ texture = ExtResource( 11 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 19 )
 animation = "Sleeping"
-frame = 1
+frame = 3
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]

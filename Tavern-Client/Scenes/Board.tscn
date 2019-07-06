@@ -2,8 +2,8 @@
 
 [ext_resource path="res://Scripts/Board.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Post.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Backgrounds/BulletinBoardA_BG.png" type="Texture" id=3]
-[ext_resource path="res://Assets/post_small.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Backgrounds/BulletinBoardA_BGX.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Backgrounds/BulletinBoard_Post.png" type="Texture" id=4]
 
 [node name="BoardScene" type="Node2D"]
 z_index = 6
@@ -16,7 +16,6 @@ post_scene = ExtResource( 2 )
 position = Vector2( 180, 320 )
 
 [node name="BulletinBoardBG" type="Sprite" parent="Board/BulletinBoard_Wallpaper"]
-position = Vector2( 0, 3.05176e-05 )
 texture = ExtResource( 3 )
 
 [node name="BoardRequest" type="HTTPRequest" parent="Board"]
