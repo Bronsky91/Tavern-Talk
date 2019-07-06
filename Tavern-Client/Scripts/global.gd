@@ -70,6 +70,8 @@ func get_top_of_keyboard_pos():
 	var scale_x = floor(OS.get_window_size().x / get_viewport().size.x)
 	var scale_y = floor(OS.get_window_size().y / get_viewport().size.y)
 	var screen_scale = max(1, min(scale_x, scale_y))
+	# var screen_height = ProjectSettings.get_setting("display/window/size/height")
+	# var actual_resolution = OS.get_window_size()
 	if OS.get_virtual_keyboard_height() != 0:
 		return get_viewport().size.y - (OS.get_virtual_keyboard_height() / screen_scale)
 	return get_viewport().size.y
