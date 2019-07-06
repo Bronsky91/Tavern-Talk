@@ -142,17 +142,21 @@ func barrel_hit(top):
 	if top and bottom_heart_count > 0:
 		get_node("UI/Bottom_Player/Heart_"+str(bottom_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		bottom_heart_count = bottom_heart_count - 1
-		if bottom_heart_count == 0:
-			$UI/ConfirmationDialog.window_title = "Barmaid Wins!"
-			$UI/ConfirmationDialog.popup()
 	elif not top and top_heart_count > 0:
 		get_node("UI/Top_Player/Heart_"+str(top_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		top_heart_count = top_heart_count - 1
-		if top_heart_count == 0:
-			$UI/ConfirmationDialog.window_title = "You Win!"
-			$UI/ConfirmationDialog.popup()
+
 	
 func new_round():
+	if top_heart_count == 0 and bottom_heart_count == 0:
+		$UI/ConfirmationDialog.window_title = "Tie!"
+		$UI/ConfirmationDialog.popup()
+	elif top_heart_count == 0 and bottom_heart_count != 0:
+		$UI/ConfirmationDialog.window_title = "You Win!"
+		$UI/ConfirmationDialog.popup()
+	elif bottom_heart_count == 0 and top_heart_count != 0:
+		$UI/ConfirmationDialog.window_title = "Barmaid Wins!"
+		$UI/ConfirmationDialog.popup()
 	$UI/Start.disabled = false
 	barrel_count = 0
 	barricade_count = 0
