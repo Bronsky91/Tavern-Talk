@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Tavern_Menu.png-b6469959dbbd12cc46beb1384e1a3d76.stex"
+path="res://.import/Tavern_Menu14.png-acdbbf09c894c49cb682864261afa5ec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/UI/Tavern_Menu.png"
-dest_files=[ "res://.import/Tavern_Menu.png-b6469959dbbd12cc46beb1384e1a3d76.stex" ]
+source_file="res://Assets/UI/Tavern_Menu14.png"
+dest_files=[ "res://.import/Tavern_Menu14.png-acdbbf09c894c49cb682864261afa5ec.stex" ]
 
 [params]
 
