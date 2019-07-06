@@ -651,7 +651,7 @@ z_as_relative = false
 texture = ExtResource( 17 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-05 )
+position = Vector2( -20, -9.15527e-005 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -719,6 +719,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 87.3183, 480.902 )
 z_index = 1
 texture = ExtResource( 31 )
@@ -849,6 +850,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_004" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 334.448, 485.254 )
 z_index = 1
 texture = ExtResource( 36 )
@@ -917,7 +919,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 17 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -928,7 +930,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -937,7 +939,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -958,7 +960,7 @@ texture = ExtResource( 11 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 19 )
 animation = "Sleeping"
-frame = 1
+frame = 3
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
