@@ -21,7 +21,7 @@ var overhead = false
 
 ## NPCs ##
 var barmaid
-###
+###    ###
 
 var stool_count = {
 	0: { # Table 0 == Bar
@@ -215,11 +215,11 @@ func _on_Table_button_up(table_id):
 		return
 	var stool = find_closest_stool(table_id, patron)
 	if stool == 0:
-		# If there are no closest stools then the player can't click to join
+		# If there are no open stools then the player can't click to join
 		return
 	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 	if stool_count[table_id].size() > 2:
-		if stool >= (stool_count[table_id].size()/2):
+		if stool > (stool_count[table_id].size()/2):
 			# if the stool is on the bottom row use back animation
 			patron.v_sit_anim = 'front'
 		else:

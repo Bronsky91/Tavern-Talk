@@ -1,4 +1,4 @@
-[gd_scene load_steps=81 format=2]
+[gd_scene load_steps=82 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -336,6 +336,8 @@ font_data = ExtResource( 53 )
 [sub_resource type="StyleBoxFlat" id=27]
 bg_color = Color( 0, 0, 0, 0.215686 )
 
+[sub_resource type="AnimatedTexture" id=28]
+
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
 table = ExtResource( 2 )
@@ -557,6 +559,7 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -651,7 +654,7 @@ z_as_relative = false
 texture = ExtResource( 17 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-05 )
+position = Vector2( -20, -9.15527e-005 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -694,7 +697,7 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -719,6 +722,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 87.3183, 480.902 )
 z_index = 1
 texture = ExtResource( 31 )
@@ -825,7 +829,6 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
-frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -849,6 +852,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_004" type="Sprite" parent="YSort"]
+editor/display_folded = true
 position = Vector2( 334.448, 485.254 )
 z_index = 1
 texture = ExtResource( 36 )
@@ -917,7 +921,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 17 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -928,7 +932,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 3
+frame = 5
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -937,7 +941,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 3
+frame = 5
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -1025,7 +1029,6 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 52 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -1064,6 +1067,7 @@ margin_top = 600.0
 margin_right = 360.0
 margin_bottom = 640.0
 text = "Chat"
+icon = SubResource( 28 )
 
 [node name="BoardScene" parent="." instance=ExtResource( 4 )]
 visible = false
