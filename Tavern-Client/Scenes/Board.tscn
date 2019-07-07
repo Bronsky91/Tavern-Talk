@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/Board.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Post.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Assets/Backgrounds/BulletinBoardA_BGX.png" type="Texture" id=3]
-[ext_resource path="res://Assets/Backgrounds/BulletinBoard_Post.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Backgrounds/BulletinBoard_Wallpaper_001.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Backgrounds/BulletinBoardA_BGX.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Backgrounds/BulletinBoard_Post.png" type="Texture" id=5]
+[ext_resource path="res://Assets/UI/Right_arrow1.png" type="Texture" id=6]
+[ext_resource path="res://Assets/UI/Left_arrow1.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "BoardShiftLeft"
@@ -44,12 +47,252 @@ post_scene = ExtResource( 2 )
 
 [node name="BulletinBoard_Wallpaper" type="Sprite" parent="Board"]
 position = Vector2( 180, 320 )
+texture = ExtResource( 3 )
 
 [node name="BulletinBoardBG" type="Sprite" parent="Board/BulletinBoard_Wallpaper"]
 position = Vector2( -360, 0 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
+
+[node name="TextureButton1" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -146.915
+margin_top = -181.637
+margin_right = -77.9148
+margin_bottom = -86.6369
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton2" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -42.9168
+margin_top = -174.365
+margin_right = 26.0832
+margin_bottom = -79.3651
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton3" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 73.0852
+margin_top = -170.0
+margin_right = 142.085
+margin_bottom = -75.0
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton4" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -122.54
+margin_top = -53.7986
+margin_right = -53.5396
+margin_bottom = 41.2014
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton5" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 54.5335
+margin_top = -52.1617
+margin_right = 123.534
+margin_bottom = 42.8383
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton6" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -30.147
+margin_top = -53.253
+margin_right = 38.853
+margin_bottom = 41.747
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton7" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -138.73
+margin_top = 65.6349
+margin_right = -69.7302
+margin_bottom = 160.635
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton8" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -45.8235
+margin_top = 64.9108
+margin_right = 23.1765
+margin_bottom = 159.911
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton9" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 45.6248
+margin_top = 71.0912
+margin_right = 114.625
+margin_bottom = 166.091
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton10" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -445.927
+margin_top = -182.205
+margin_right = -376.927
+margin_bottom = -87.2045
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton11" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -351.733
+margin_top = -171.123
+margin_right = -282.733
+margin_bottom = -76.1228
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton12" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -266.246
+margin_top = -178.247
+margin_right = -197.246
+margin_bottom = -83.2468
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton13" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -430.096
+margin_top = -57.9313
+margin_right = -361.096
+margin_bottom = 37.0687
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton14" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -321.654
+margin_top = -57.1398
+margin_right = -252.654
+margin_bottom = 37.8602
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton15" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -438.012
+margin_top = 71.8827
+margin_right = -369.012
+margin_bottom = 166.883
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton16" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -346.984
+margin_top = 63.9672
+margin_right = -277.984
+margin_bottom = 158.967
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton17" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = -263.079
+margin_top = 84.5475
+margin_right = -194.079
+margin_bottom = 179.547
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton18" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 203.935
+margin_top = -179.038
+margin_right = 272.935
+margin_bottom = -84.0384
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton19" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 291.005
+margin_top = -171.914
+margin_right = 360.005
+margin_bottom = -76.9144
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton20" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 380.45
+margin_top = -178.247
+margin_right = 449.45
+margin_bottom = -83.2468
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton21" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 250.636
+margin_top = -56.3483
+margin_right = 319.636
+margin_bottom = 38.6517
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton22" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 364.619
+margin_top = -53.9736
+margin_right = 433.619
+margin_bottom = 41.0264
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton23" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 203.143
+margin_top = 63.1757
+margin_right = 272.143
+margin_bottom = 158.176
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton24" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 291.005
+margin_top = 72.6742
+margin_right = 360.005
+margin_bottom = 167.674
+disabled = true
+texture_normal = ExtResource( 5 )
+
+[node name="TextureButton25" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]
+visible = false
+margin_left = 377.284
+margin_top = 69.5081
+margin_right = 446.284
+margin_bottom = 164.508
+disabled = true
+texture_normal = ExtResource( 5 )
 
 [node name="BoardRequest" type="HTTPRequest" parent="Board"]
+
+[node name="RightArrow" type="TextureButton" parent="Board"]
+margin_left = 323.503
+margin_top = 300.0
+margin_right = 355.503
+margin_bottom = 348.0
+texture_normal = ExtResource( 6 )
+
+[node name="LeftArrow" type="TextureButton" parent="Board"]
+margin_left = 3.819
+margin_top = 300.0
+margin_right = 35.819
+margin_bottom = 348.0
+texture_normal = ExtResource( 7 )
 
 [node name="BackButton" type="Button" parent="Board"]
 margin_left = 90.0
@@ -65,101 +308,39 @@ margin_right = 288.0
 margin_bottom = 619.0
 text = "New Post"
 
-[node name="TextureButton1" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 50.0
-margin_top = 140.0
-margin_right = 111.0
-margin_bottom = 220.0
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton2" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 160.0
-margin_top = 150.0
-margin_right = 221.0
-margin_bottom = 230.0
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton3" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 270.0
-margin_top = 150.0
-margin_right = 331.0
-margin_bottom = 230.0
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton4" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 40.0
-margin_top = 266.747
-margin_right = 101.0
-margin_bottom = 346.747
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton5" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 270.0
-margin_top = 266.747
-margin_right = 331.0
-margin_bottom = 346.747
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton6" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 149.853
-margin_top = 266.747
-margin_right = 210.853
-margin_bottom = 346.747
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton7" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 50.0
-margin_top = 390.0
-margin_right = 111.0
-margin_bottom = 470.0
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton8" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 150.0
-margin_top = 380.0
-margin_right = 211.0
-margin_bottom = 460.0
-disabled = true
-texture_normal = ExtResource( 4 )
-
-[node name="TextureButton9" type="TextureButton" parent="Board"]
-visible = false
-margin_left = 260.0
-margin_top = 390.0
-margin_right = 321.0
-margin_bottom = 470.0
-disabled = true
-texture_normal = ExtResource( 4 )
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 playback_speed = 2.0
 anims/BoardShiftLeft = SubResource( 1 )
 anims/BoardShiftRight = SubResource( 2 )
 [connection signal="visibility_changed" from="." to="." method="_on_BoardScene_visibility_changed"]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton1" to="." method="_on_TextureButton_button_up" binds= [ 0 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton2" to="." method="_on_TextureButton_button_up" binds= [ 1 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton3" to="." method="_on_TextureButton_button_up" binds= [ 2 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton4" to="." method="_on_TextureButton_button_up" binds= [ 3 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton5" to="." method="_on_TextureButton_button_up" binds= [ 4 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton6" to="." method="_on_TextureButton_button_up" binds= [ 5 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton7" to="." method="_on_TextureButton_button_up" binds= [ 6 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton8" to="." method="_on_TextureButton_button_up" binds= [ 7 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton9" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton10" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton11" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton12" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton13" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton14" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton15" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton16" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton17" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton18" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton19" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton20" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton21" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton22" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton23" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton24" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton25" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
 [connection signal="request_completed" from="Board/BoardRequest" to="." method="_on_BoardRequest_request_completed"]
+[connection signal="button_up" from="Board/RightArrow" to="." method="_on_RightArrow_button_up"]
+[connection signal="button_up" from="Board/LeftArrow" to="." method="_on_LeftArrow_button_up"]
 [connection signal="button_up" from="Board/BackButton" to="." method="_on_BackButton_button_up"]
 [connection signal="button_up" from="Board/NewPost" to="." method="_on_NewPost_button_up"]
-[connection signal="button_up" from="Board/TextureButton1" to="." method="_on_TextureButton_button_up" binds= [ 0 ]]
-[connection signal="button_up" from="Board/TextureButton2" to="." method="_on_TextureButton_button_up" binds= [ 1 ]]
-[connection signal="button_up" from="Board/TextureButton3" to="." method="_on_TextureButton_button_up" binds= [ 2 ]]
-[connection signal="button_up" from="Board/TextureButton4" to="." method="_on_TextureButton_button_up" binds= [ 3 ]]
-[connection signal="button_up" from="Board/TextureButton5" to="." method="_on_TextureButton_button_up" binds= [ 4 ]]
-[connection signal="button_up" from="Board/TextureButton6" to="." method="_on_TextureButton_button_up" binds= [ 5 ]]
-[connection signal="button_up" from="Board/TextureButton7" to="." method="_on_TextureButton_button_up" binds= [ 6 ]]
-[connection signal="button_up" from="Board/TextureButton8" to="." method="_on_TextureButton_button_up" binds= [ 7 ]]
-[connection signal="button_up" from="Board/TextureButton9" to="." method="_on_TextureButton_button_up" binds= [ 8 ]]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

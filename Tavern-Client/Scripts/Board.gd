@@ -2,16 +2,19 @@ extends Node2D
 
 export(PackedScene) var post_scene
 
-onready var post_buttons = [
- $Board/TextureButton1, $Board/TextureButton2, $Board/TextureButton3, $Board/TextureButton4,
- $Board/TextureButton5, $Board/TextureButton6, $Board/TextureButton7, $Board/TextureButton8
-]
+onready var animate = $AnimationPlayer
 
-var post_dict = {0: null, 1: null, 2: null, 3: null, 4: null, 5: null, 6: null, 7: null}
+var avail_post_count = 25
+var post_dict = {}
 
 func _ready():
+	create_post_dict()
 	g.make_get_request($Board/BoardRequest, 'tavern/' + g.player_data.tavern.id + '/board')
 
+func create_post_dict():
+	for i in range(avail_post_count):
+		post_dict[i] = null
+		
 func populate_posts(posts):
 	## Populates post_dic with the _ids of all posts
 	var post_num = 0
@@ -20,12 +23,13 @@ func populate_posts(posts):
 		post_num = post_num + 1
 		
 	for key in post_dict:
+		var current_post_button = get_node("Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton" + str(key+1))
 		if post_dict[key] != null: ## if the post isn't null, populate it on the board
-			post_buttons[key].disabled = false
-			post_buttons[key].visible = true
+			current_post_button.disabled = false
+			current_post_button.visible = true
 		elif post_dict[key] == null:
-			post_buttons[key].disabled = true
-			post_buttons[key].visible = false
+			current_post_button.disabled = true
+			current_post_button.visible = false
 
 func takedown_post(id):
 	for key in post_dict:
@@ -62,7 +66,27 @@ func _on_TextureButton_button_up(num):
 	add_child(new_post)
 	new_post.new_post(false, post_data._id, post_data.body, post_data.author)
 
-
 func _on_BoardScene_visibility_changed():
 	if visible == true:
 		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
+
+func _on_RightArrow_button_up():
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == 0:
+		animate.play("BoardShiftRight")
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == 360:
+		animate.play_backwards("BoardShiftLeft")
+
+func _on_LeftArrow_button_up():
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == 0:
+		animate.play("BoardShiftLeft")
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == -360:
+		animate.play_backwards("BoardShiftRight")
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == 0:
+		$Board/RightArrow.show()
+		$Board/LeftArrow.show()
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == 360:
+		$Board/LeftArrow.hide()
+	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == -360:
+		$Board/RightArrow.hide()

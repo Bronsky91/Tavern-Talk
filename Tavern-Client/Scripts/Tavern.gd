@@ -344,6 +344,7 @@ func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_i
 		
 func _on_Board_button_up():
 	board_scene.visible = true
+	chat_hide()
 	
 sync func board_view(show, id):
 	if get_tree().get_network_unique_id() == int(id):
@@ -381,8 +382,11 @@ func set_board_texture(post_number):
 func _on_BoardScene_visibility_changed():
 	if board_scene.visible:
 		rpc("turn_on_lights", false, character_name)
+		$Chat.disabled = true
 	else:
 		rpc("turn_on_lights", true, character_name)
+		$Chat.disabled = false
+		
 ### Leaving Tavern ###
 
 sync func leave_button_view(show, id):

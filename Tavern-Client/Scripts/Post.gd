@@ -55,6 +55,8 @@ func _on_TextEdit_text_changed():
 		$Limit.add_color_override("font_color", Color(0, 0, 0))
 
 func _on_NewEdit_button_up():
+	## TODO: Save post on current board view
+	## TODO: Prevent saving more posts than there are slots on the board
 	if new_post && $BodyEdit.text.length() < post_limit:
 		write_post($BodyEdit.text, $AuthorEdit.text)
 		hide_edit(true)
