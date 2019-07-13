@@ -1,15 +1,32 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Post.gd" type="Script" id=1]
 [ext_resource path="res://Assets/Backgrounds/BulletinBoard_Post_large.png" type="Texture" id=2]
-[ext_resource path="res://post_text_edit.tres" type="StyleBox" id=3]
+[ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://post_text_edit.tres" type="StyleBox" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="StyleBoxEmpty" id=2]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="DynamicFont" id=3]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=7]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="StyleBoxFlat" id=4]
 bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="DynamicFont" id=5]
+use_filter = true
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=6]
+use_filter = true
+font_data = ExtResource( 3 )
 
 [node name="Post" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,6 +52,7 @@ margin_top = 298.0
 margin_right = 171.0
 margin_bottom = 323.0
 custom_styles/normal = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="Signature" type="Label" parent="Body"]
@@ -42,6 +60,7 @@ margin_left = 36.3463
 margin_top = 301.99
 margin_right = 50.3463
 margin_bottom = 315.99
+custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "- "
 
@@ -50,8 +69,9 @@ margin_left = 93.8822
 margin_top = 137.202
 margin_right = 265.883
 margin_bottom = 420.203
-custom_styles/read_only = SubResource( 3 )
-custom_styles/normal = ExtResource( 3 )
+custom_styles/read_only = SubResource( 4 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = SubResource( 5 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 wrap_enabled = true
 
@@ -60,7 +80,8 @@ margin_left = 155.0
 margin_top = 428.0
 margin_right = 262.0
 margin_bottom = 468.0
-custom_styles/normal = ExtResource( 3 )
+custom_styles/normal = ExtResource( 4 )
+custom_fonts/font = SubResource( 6 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 
 [node name="NewEdit" type="Button" parent="."]

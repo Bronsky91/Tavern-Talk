@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=2]
+[gd_scene load_steps=94 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -51,8 +51,18 @@
 [ext_resource path="res://Assets/furniture/Flooring_002.png" type="Texture" id=49]
 [ext_resource path="res://Assets/furniture/WallBar_002.png" type="Texture" id=50]
 [ext_resource path="res://Assets/furniture/WallBar_001.png" type="Texture" id=51]
-[ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=52]
-[ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=53]
+[ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=52]
+[ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=53]
+[ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=54]
+[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=55]
+[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=56]
+[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=57]
+[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=58]
+[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=59]
+[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=60]
+[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=61]
+[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=62]
+[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=63]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 92.5496, 22.1968 )
@@ -327,16 +337,35 @@ extents = Vector2( 179.774, 56.1848 )
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 35.8139, 10.6617 )
 
+[sub_resource type="DynamicFont" id=28]
+use_filter = true
+font_data = ExtResource( 52 )
+
 [sub_resource type="StyleBoxFlat" id=25]
 bg_color = Color( 1, 1, 1, 0.823529 )
 
 [sub_resource type="DynamicFont" id=26]
-font_data = ExtResource( 53 )
+font_data = ExtResource( 54 )
 
 [sub_resource type="StyleBoxFlat" id=27]
 bg_color = Color( 0, 0, 0, 0.215686 )
 
-[sub_resource type="AnimatedTexture" id=28]
+[sub_resource type="SpriteFrames" id=29]
+animations = [ {
+"frames": [ ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ) ],
+"loop": false,
+"name": "Close",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 55 ) ],
+"loop": false,
+"name": "Open",
+"speed": 10.0
+} ]
+
+[sub_resource type="DynamicFont" id=30]
+use_filter = true
+font_data = ExtResource( 52 )
 
 [node name="Tavern" type="Node2D"]
 script = ExtResource( 1 )
@@ -559,7 +588,7 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -654,7 +683,7 @@ z_as_relative = false
 texture = ExtResource( 17 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-05 )
+position = Vector2( -20, -9.15527e-005 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -697,7 +726,6 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -829,6 +857,7 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -901,7 +930,6 @@ position = Vector2( -15.74, 2.0061 )
 shape = SubResource( 16 )
 
 [node name="Board" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 301.257, 65.2815 )
 z_index = 1
 z_as_relative = false
@@ -921,7 +949,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 17 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -932,7 +960,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 1
+frame = 5
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -941,7 +969,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 1
+frame = 5
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -985,8 +1013,9 @@ tile_data = PoolIntArray( 196608, 1, 0, 196609, 1, 0, 196610, 1, 0, 196611, 1, 0
 [node name="Border" type="TileMap" parent="."]
 tile_set = SubResource( 22 )
 cell_size = Vector2( 4, 16 )
+collision_use_kinematic = true
 format = 1
-tile_data = PoolIntArray( 458752, 0, 0, 458841, 0, 0, 524288, 0, 0, 524377, 0, 0, 589824, 0, 0, 589868, 0, 0, 589913, 0, 0, 655360, 0, 0, 655404, 0, 0, 655449, 0, 0, 720896, 0, 0, 720940, 0, 0, 720985, 0, 0, 786432, 0, 0, 786521, 0, 0, 851968, 0, 0, 852057, 0, 0, 917504, 0, 0, 917593, 0, 0, 983040, 0, 0, 983129, 0, 0, 1048576, 0, 0, 1048665, 0, 0, 1114112, 0, 0, 1114201, 0, 0, 1179648, 0, 0, 1179737, 0, 0, 1245184, 0, 0, 1245273, 0, 0, 1310720, 0, 0, 1310809, 0, 0, 1376256, 0, 0, 1376345, 0, 0, 1441792, 0, 0, 1441881, 0, 0, 1507328, 0, 0, 1507417, 0, 0, 1572864, 0, 0, 1572953, 0, 0, 1638400, 0, 0, 1638489, 0, 0, 1703936, 0, 0, 1704025, 0, 0, 1769472, 0, 0, 1769561, 0, 0, 1835008, 0, 0, 1835097, 0, 0, 1900544, 0, 0, 1900633, 0, 0, 1966080, 0, 0, 1966169, 0, 0, 2031616, 0, 0, 2031705, 0, 0, 2097152, 0, 0, 2097241, 0, 0, 2162688, 0, 0, 2162777, 0, 0, 2228224, 0, 0, 2228313, 0, 0, 2293760, 0, 0, 2293849, 0, 0, 2359296, 0, 0, 2359385, 0, 0, 2424832, 0, 0, 2424921, 0, 0, 2490368, 0, 0, 2490457, 0, 0, 2555904, 10, 0, 2555905, 7, 0, 2555906, 7, 0, 2555907, 7, 0, 2555908, 7, 0, 2555909, 7, 0, 2555910, 7, 0, 2555911, 7, 0, 2555912, 7, 0, 2555913, 7, 0, 2555914, 7, 0, 2555916, 7, 0, 2555917, 7, 0, 2555918, 7, 0, 2555919, 7, 0, 2555920, 7, 0, 2555921, 7, 0, 2555924, 7, 0, 2555925, 7, 0, 2555926, 7, 0, 2555927, 7, 0, 2555928, 7, 0, 2555929, 7, 0, 2555930, 7, 0, 2555932, 7, 0, 2555933, 7, 0, 2555934, 7, 0, 2555935, 7, 0, 2555936, 7, 0, 2555937, 7, 0, 2555938, 7, 0, 2555939, 7, 0, 2555940, 7, 0, 2555941, 8, 0, 2555958, 9, 0, 2555959, 7, 0, 2555960, 7, 0, 2555961, 7, 0, 2555962, 7, 0, 2555963, 7, 0, 2555964, 7, 0, 2555965, 7, 0, 2555966, 7, 0, 2555967, 7, 0, 2555968, 7, 0, 2555969, 7, 0, 2555970, 7, 0, 2555971, 7, 0, 2555972, 7, 0, 2555973, 7, 0, 2555974, 7, 0, 2555975, 7, 0, 2555976, 7, 0, 2555977, 7, 0, 2555978, 7, 0, 2555979, 7, 0, 2555980, 7, 0, 2555981, 7, 0, 2555982, 7, 0, 2555983, 7, 0, 2555984, 7, 0, 2555985, 7, 0, 2555986, 7, 0, 2555987, 7, 0, 2555988, 7, 0, 2555989, 7, 0, 2555990, 7, 0, 2555993, 0, 0 )
+tile_data = PoolIntArray( 458752, 0, 0, 458841, 0, 0, 524288, 0, 0, 524377, 0, 0, 589824, 0, 0, 589868, 0, 0, 589913, 0, 0, 655360, 0, 0, 655404, 0, 0, 655449, 0, 0, 720896, 0, 0, 720940, 0, 0, 720985, 0, 0, 786432, 0, 0, 786521, 0, 0, 851968, 0, 0, 852057, 0, 0, 917504, 0, 0, 917593, 0, 0, 983040, 0, 0, 983129, 0, 0, 1048576, 0, 0, 1048665, 0, 0, 1114112, 0, 0, 1114201, 0, 0, 1179648, 0, 0, 1179737, 0, 0, 1245184, 0, 0, 1245273, 0, 0, 1310720, 0, 0, 1310809, 0, 0, 1376256, 0, 0, 1376345, 10, 0, 1441792, 0, 0, 1441881, 0, 0, 1507328, 0, 0, 1507417, 0, 0, 1572864, 0, 0, 1572953, 0, 0, 1638400, 0, 0, 1638489, 0, 0, 1703936, 0, 0, 1704025, 0, 0, 1769472, 0, 0, 1769561, 0, 0, 1835008, 0, 0, 1835097, 0, 0, 1900544, 0, 0, 1900633, 0, 0, 1966080, 0, 0, 1966169, 0, 0, 2031616, 0, 0, 2031705, 0, 0, 2097152, 0, 0, 2097241, 0, 0, 2162688, 0, 0, 2162777, 0, 0, 2228224, 0, 0, 2228313, 0, 0, 2293760, 0, 0, 2293849, 0, 0, 2359296, 0, 0, 2359385, 0, 0, 2424832, 0, 0, 2424921, 0, 0, 2490368, 0, 0, 2490457, 0, 0, 2555904, 10, 0, 2555905, 7, 0, 2555906, 7, 0, 2555907, 7, 0, 2555908, 7, 0, 2555909, 7, 0, 2555910, 7, 0, 2555911, 7, 0, 2555912, 7, 0, 2555913, 7, 0, 2555914, 7, 0, 2555916, 7, 0, 2555917, 7, 0, 2555918, 7, 0, 2555919, 7, 0, 2555920, 7, 0, 2555921, 7, 0, 2555924, 7, 0, 2555925, 7, 0, 2555926, 7, 0, 2555927, 7, 0, 2555928, 7, 0, 2555929, 7, 0, 2555930, 7, 0, 2555932, 7, 0, 2555933, 7, 0, 2555934, 7, 0, 2555935, 7, 0, 2555936, 7, 0, 2555937, 7, 0, 2555938, 7, 0, 2555939, 7, 0, 2555940, 7, 0, 2555941, 8, 0, 2555958, 9, 0, 2555959, 7, 0, 2555960, 7, 0, 2555961, 7, 0, 2555962, 7, 0, 2555963, 7, 0, 2555964, 7, 0, 2555965, 7, 0, 2555966, 7, 0, 2555967, 7, 0, 2555968, 7, 0, 2555969, 7, 0, 2555970, 7, 0, 2555971, 7, 0, 2555972, 7, 0, 2555973, 7, 0, 2555974, 7, 0, 2555975, 7, 0, 2555976, 7, 0, 2555977, 7, 0, 2555978, 7, 0, 2555979, 7, 0, 2555980, 7, 0, 2555981, 7, 0, 2555982, 7, 0, 2555983, 7, 0, 2555984, 7, 0, 2555985, 7, 0, 2555986, 7, 0, 2555987, 7, 0, 2555988, 7, 0, 2555989, 7, 0, 2555990, 7, 0, 2555993, 0, 0 )
 
 [node name="WallBar_001" type="Sprite" parent="."]
 editor/display_folded = true
@@ -1008,7 +1037,6 @@ shape = SubResource( 23 )
 position = Vector2( 189.523, 631.355 )
 
 [node name="Exit" type="Area2D" parent="."]
-editor/display_folded = true
 position = Vector2( 189.506, 632.58 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
@@ -1017,16 +1045,17 @@ position = Vector2( -0.17305, -4.15582 )
 shape = SubResource( 24 )
 
 [node name="LeaveButton" type="Button" parent="Exit"]
-margin_left = -124.796
-margin_top = -14.1808
-margin_right = -23.7961
-margin_bottom = 5.81928
+margin_left = -141.736
+margin_top = -15.794
+margin_right = -22.7363
+margin_bottom = 5.20604
+custom_fonts/font = SubResource( 28 )
 text = "Leave Tavern?"
 flat = true
 
 [node name="Welcomemat_001" type="Sprite" parent="Exit"]
 position = Vector2( 0.631439, -8.07062 )
-texture = ExtResource( 52 )
+texture = ExtResource( 53 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -1066,8 +1095,47 @@ margin_left = 290.0
 margin_top = 600.0
 margin_right = 360.0
 margin_bottom = 640.0
+flat = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Chat"]
+position = Vector2( 43.3704, -14.7018 )
+frames = SubResource( 29 )
+animation = "Open"
+frame = 4
+playing = true
+
+[node name="Button" type="Button" parent="Chat/AnimatedSprite"]
+margin_left = -17.0139
+margin_top = -47.4296
+margin_right = 22.9861
+margin_bottom = -15.4296
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+flat = true
+
+[node name="Button2" type="Button" parent="Chat/AnimatedSprite"]
+margin_left = -16.5809
+margin_top = -15.6056
+margin_right = 23.4191
+margin_bottom = 16.3944
+flat = true
+
+[node name="TextureRect" type="TextureRect" parent="Chat/AnimatedSprite/Button2"]
+margin_left = 2.53699
+margin_top = 6.46301
+margin_right = 38.537
+margin_bottom = 26.463
+mouse_filter = 2
+texture = ExtResource( 63 )
+
+[node name="Button3" type="Button" parent="Chat/AnimatedSprite"]
+margin_left = -19.0
+margin_top = 19.0
+margin_right = 26.0
+margin_bottom = 50.0
+custom_fonts/font = SubResource( 30 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Chat"
-icon = SubResource( 28 )
+flat = true
 
 [node name="BoardScene" parent="." instance=ExtResource( 4 )]
 visible = false
