@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=2]
+[gd_scene load_steps=95 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -62,7 +62,8 @@
 [ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=60]
 [ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=61]
 [ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=62]
-[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=63]
+[ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=63]
+[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=64]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 92.5496, 22.1968 )
@@ -489,7 +490,7 @@ shape = SubResource( 3 )
 
 [node name="Table_001" type="Sprite" parent="YSort"]
 editor/display_folded = true
-position = Vector2( 95.9963, 279.296 )
+position = Vector2( 91.3309, 302.623 )
 z_index = 1
 texture = ExtResource( 16 )
 
@@ -588,7 +589,6 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
-frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -617,8 +617,7 @@ position = Vector2( 29.5634, 205.549 )
 texture = ExtResource( 24 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
-editor/display_folded = true
-position = Vector2( 280, 360 )
+position = Vector2( 284.665, 394.99 )
 z_index = 1
 texture = ExtResource( 16 )
 
@@ -726,6 +725,7 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -751,7 +751,7 @@ flat = true
 
 [node name="Table_003" type="Sprite" parent="YSort"]
 editor/display_folded = true
-position = Vector2( 87.3183, 480.902 )
+position = Vector2( 87.3183, 493.732 )
 z_index = 1
 texture = ExtResource( 31 )
 
@@ -857,10 +857,11 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
-frame = 1
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
+position = Vector2( 0.336487, 3.64835 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 23 )
 color = Color( 0.631373, 0.384314, 0.121569, 1 )
@@ -881,8 +882,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_004" type="Sprite" parent="YSort"]
-editor/display_folded = true
-position = Vector2( 334.448, 485.254 )
+position = Vector2( 329.47, 240.966 )
 z_index = 1
 texture = ExtResource( 36 )
 
@@ -960,7 +960,6 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 5
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -969,7 +968,6 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 5
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -990,7 +988,7 @@ texture = ExtResource( 11 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 19 )
 animation = "Sleeping"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
@@ -1106,10 +1104,11 @@ playing = true
 
 [node name="Button" type="Button" parent="Chat/AnimatedSprite"]
 margin_left = -17.0139
-margin_top = -47.4296
+margin_top = -49.1324
 margin_right = 22.9861
-margin_bottom = -15.4296
+margin_bottom = -16.1324
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+icon = ExtResource( 63 )
 flat = true
 
 [node name="Button2" type="Button" parent="Chat/AnimatedSprite"]
@@ -1125,15 +1124,14 @@ margin_top = 6.46301
 margin_right = 38.537
 margin_bottom = 26.463
 mouse_filter = 2
-texture = ExtResource( 63 )
+texture = ExtResource( 64 )
 
 [node name="Button3" type="Button" parent="Chat/AnimatedSprite"]
 margin_left = -19.0
-margin_top = 19.0
+margin_top = 18.302
 margin_right = 26.0
-margin_bottom = 50.0
+margin_bottom = 49.302
 custom_fonts/font = SubResource( 30 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Chat"
 flat = true
 
