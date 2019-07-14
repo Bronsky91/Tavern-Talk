@@ -18,10 +18,16 @@ _global_script_classes=[ {
 "class": "Barricade",
 "language": "GDScript",
 "path": "res://Scripts/Barricade.gd"
+}, {
+"base": "Node2D",
+"class": "Post",
+"language": "GDScript",
+"path": "res://Scripts/Post.gd"
 } ]
 _global_script_class_icons={
 "Barrel": "",
-"Barricade": ""
+"Barricade": "",
+"Post": ""
 }
 
 [application]

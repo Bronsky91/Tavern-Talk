@@ -1,29 +1,29 @@
 extends Node2D
 
-export(PackedScene) var post_scene
+export(PackedScene) var post_scene: PackedScene
 
-onready var animate = $AnimationPlayer
+onready var animate: AnimationPlayer = $AnimationPlayer
 
-var avail_post_count = 25
-var post_dict = {}
+var avail_post_count: int = 25
+var post_dict: Dictionary = {}
 
 func _ready():
 	create_post_dict()
 	g.make_get_request($Board/BoardRequest, 'tavern/' + g.player_data.tavern.id + '/board')
 
-func create_post_dict():
+func create_post_dict() -> void:
 	for i in range(avail_post_count):
 		post_dict[i] = null
 		
-func populate_posts(posts):
+func populate_posts(posts: Dictionary) -> void:
 	## Populates post_dic with the _ids of all posts
-	var post_num = 0
+	var post_num: int = 0
 	for post in posts:
 		post_dict[post_num] = post
 		post_num = post_num + 1
 		
 	for key in post_dict:
-		var current_post_button = get_node("Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton" + str(key+1))
+		var current_post_button: Button = get_node("Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton" + str(key+1))
 		if post_dict[key] != null: ## if the post isn't null, populate it on the board
 			current_post_button.disabled = false
 			current_post_button.visible = true
@@ -31,18 +31,18 @@ func populate_posts(posts):
 			current_post_button.disabled = true
 			current_post_button.visible = false
 
-func takedown_post(id):
+func takedown_post(id: String) -> void:
 	for key in post_dict:
 		if post_dict[key] != null and post_dict[key]['_id'] == id:
 			post_dict[key] = null
 	
 func _on_BoardRequest_request_completed(result, response_code, headers, body):
-	var json = JSON.parse(body.get_string_from_utf8())
-	var posts = json.result.data
+	var json: JSONParseResult = JSON.parse(body.get_string_from_utf8())
+	var posts: Dictionary = json.result.data
 	populate_posts(posts)
 
 func _on_NewPost_button_up():
-	var new_post = post_scene.instance()
+	var new_post: Post = post_scene.instance()
 	new_post.new_post(true)
 	add_child(new_post)
 	
@@ -60,9 +60,9 @@ func _notification(notif):
 		else:
 			hide()
 		
-func _on_TextureButton_button_up(num):
+func _on_TextureButton_button_up(num: int):
 	var post_data = post_dict[num]
-	var new_post = post_scene.instance()
+	var new_post: Post = post_scene.instance()
 	add_child(new_post)
 	new_post.new_post(false, post_data._id, post_data.body, post_data.author)
 

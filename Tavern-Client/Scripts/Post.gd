@@ -1,12 +1,14 @@
 extends Node2D
 
-onready var post_body = $Body
-onready var post_author = $Body/Author
+class_name Post
 
-var new_post = false
-var post_limit = 359
-var post_id = '0'
-var author_input_y_pos
+onready var post_body: Label = $Body
+onready var post_author: Label = $Body/Author
+
+var new_post: bool = false
+var post_limit: int = 359
+var post_id: String = '0'
+var author_input_y_pos: int
 
 func _enter_tree():
 	author_input_y_pos = $AuthorEdit.rect_position.y
@@ -22,13 +24,13 @@ func _input(event):
 func _process(delta):
 	raise_text_edit($AuthorEdit, author_input_y_pos)
 	
-func raise_text_edit(input, input_y_pos):
+func raise_text_edit(input: Label, input_y_pos: int) -> void:
 	if input.has_focus() and OS.get_virtual_keyboard_height() > 0:
 		input.rect_position.y = g.get_top_of_keyboard_pos() - input.get_size().y
 	else:
 		input.rect_position.y = input_y_pos
 		
-func new_post(new, id='', body='', author=''):
+func new_post(new: bool, id: String, body: String, author: String) -> void:
 	## Called from Board before post scene is added to scene_tree
 	if new:
 		new_post = true
@@ -42,7 +44,7 @@ func new_post(new, id='', body='', author=''):
 		$AuthorEdit.hide()
 		write_post(body, author)
 
-func write_post(body, author):
+func write_post(body: String, author: String) -> void:
 	post_body.text = body
 	post_author.text = author
 	$Limit.text = "Character Limit " + str(post_body.text.length()) + "/358"
@@ -64,17 +66,17 @@ func _on_NewEdit_button_up():
 		$NewEdit.text = 'Edit'
 		## Conditional to check post_id
 		if post_id == '0':
-			var data = {'board': {"body": $BodyEdit.text, "author": $AuthorEdit.text}}
+			var data: Dictionary = {'board': {"body": $BodyEdit.text, "author": $AuthorEdit.text}}
 			g.make_patch_request($PostSave, 'tavern/' + g.player_data.tavern.id, data)
 		else:
-			var data = {"id": post_id, "body": $BodyEdit.text, "author": $AuthorEdit.text}
+			var data: Dictionary = {"id": post_id, "body": $BodyEdit.text, "author": $AuthorEdit.text}
 			g.make_patch_request($PostSave, 'tavern/' + g.player_data.tavern.id + '/board', data)
 	else:
 		hide_edit(false)
 		$NewEdit.text = 'Post'
 		new_post = true
 
-func hide_edit(hide):
+func hide_edit(hide: bool) -> void:
 	if hide:
 		$BodyEdit.hide()
 		$AuthorEdit.hide()
