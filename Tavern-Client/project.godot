@@ -14,10 +14,10 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Scripts/Barrel.gd"
 }, {
-"base": "Node2D",
+"base": "Sprite",
 "class": "Barricade",
 "language": "GDScript",
-"path": "res://Scripts/BarrelRoll.gd"
+"path": "res://Scripts/Barricade.gd"
 } ]
 _global_script_class_icons={
 "Barrel": "",

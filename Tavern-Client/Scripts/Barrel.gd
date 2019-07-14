@@ -2,19 +2,19 @@ extends PathFollow2D
 
 class_name Barrel
 
-var MIDDLE_MAX_OFFSET = 393
-var RIGHT_MAX_OFFSET = 549.15
-var LEFT_MAX_OFFSET = 536.11
+var MIDDLE_MAX_OFFSET: float = 393
+var RIGHT_MAX_OFFSET: float = 549.15
+var LEFT_MAX_OFFSET: float = 536.11
 
-var top
-var b_speed
-var start = false
-var broke = false
+var top: bool
+var b_speed: int
+var start: bool = false
+var broke: bool = false
 
 func _ready():
 	pass
 	
-func init(l):
+func init(l: Dictionary) -> void:
 	if l.y == 'Top':
 		top = true
 		b_speed = 50
@@ -45,7 +45,7 @@ func _process(delta):
 				get_parent().owner.barrel_hit(false)
 				break_barrel()
 
-func _on_Barrel_animation_finished():
+func _on_Barrel_animation_finished() -> void:
 	if get_child(0).animation == "Break" or b_speed == 0:
 		call_deferred("free")
 	if get_child(0).animation == "HillDown" or get_child(0).animation == "HillUp":
@@ -55,13 +55,13 @@ func _on_Barrel_animation_finished():
 		else:
 			get_child(0).play("Up")
 
-func _on_Area2D_area_entered(area):
+func _on_Area2D_area_entered(area: Area2D):
 	if top and 'bottom' in area.owner.name:
 		break_barrel()
 	elif not top and 'top' in area.owner.name:
 		break_barrel()
 
-func break_barrel():
+func break_barrel() -> void:
 	$Barrel/Area2D.set_deferred("monitorable", false)
 	$Barrel/Area2D/CollisionShape2D.set_deferred("disabled", false)
 	get_child(0).play("Break")

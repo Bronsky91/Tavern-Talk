@@ -1,7 +1,5 @@
 extends Node2D
 
-class_name Barricade
-
 export(PackedScene) var barrel_scene: PackedScene
 export(PackedScene) var barricade_scene: PackedScene
 
@@ -14,7 +12,7 @@ var round_started: bool = false
 func _ready():
 	pass
 		
-func _process(delta: float):
+func _process(delta):
 	if barrel_count == 3:
 		$UI/BarrelButton.disabled = true
 	if barricade_count == 1:
@@ -96,9 +94,9 @@ func spawn_barrel(location: Dictionary) -> void:
 	path.add_child(new_barrel)
 	new_barrel.add_to_group('barrels')
 
-func spawn_barricade(location):
+func spawn_barricade(location: Dictionary) -> void:
 	# location = {y: BarricadeTop/BarricadeBottom, x: Left/Middle/Right}
-	var path = get_node("Paths/"+location.x)
+	var path: Position2D = get_node("Paths/"+location.x)
 	var new_barricade = barricade_scene.instance()
 	new_barricade.name = location.y.to_lower() + '_barricade' + '_' + str(path.get_child_count())
 	new_barricade.init(location, get_node("Paths/"+location.x+"/"+location.y).position)
@@ -106,18 +104,17 @@ func spawn_barricade(location):
 	new_barricade.z_index = 3
 	new_barricade.add_to_group('barricades')
 
-func _on_Area2D_area_entered(area):
+func _on_Area2D_area_entered(area: Area2D):
 	if area.owner != null:
 		if area.owner.top:
 			area.owner.z_index = 1
 			area.get_parent().play("HillDown")
 			area.owner.start = false
 
-func _on_Area2D_area_exited(area):
+func _on_Area2D_area_exited(area: Area2D):
 	if area.owner != null:
 		if not area.owner.top:
 			area.owner.z_index = 0
-			print(area.owner.z_index)
 			area.get_parent().play("HillUp")
 			area.owner.start = false
 
@@ -127,8 +124,8 @@ func _on_BarrelButton_button_down():
 func _on_BarricadeButton_button_down():
 	$UI/Barricade.visible = true
 
-func npc_spawn(y, count):
-	var lanes = ['Left', 'Middle', 'Right']
+func npc_spawn(y, count) -> void:
+	var lanes: Array = ['Left', 'Middle', 'Right']
 	for i in range(count):
 		randomize()
 		if 'Barricade' in y:
@@ -146,7 +143,7 @@ func _on_Start_button_up():
 	for b in get_tree().get_nodes_in_group('barrels'):
 		b.start = true
 
-func barrel_hit(top):
+func barrel_hit(top: bool) -> void:
 	if top and bottom_heart_count > 0:
 		get_node("UI/Bottom_Player/Heart_"+str(bottom_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		bottom_heart_count = bottom_heart_count - 1
@@ -154,7 +151,7 @@ func barrel_hit(top):
 		get_node("UI/Top_Player/Heart_"+str(top_heart_count)).set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_002.png"))
 		top_heart_count = top_heart_count - 1
 
-func new_round():
+func new_round() -> void:
 	if top_heart_count == 0 and bottom_heart_count == 0:
 		$UI/ConfirmationDialog.window_title = "Tie!"
 		$UI/ConfirmationDialog.popup()
@@ -169,7 +166,7 @@ func new_round():
 	$UI/BarricadeButton.disabled = false
 	barrel_count = 0
 	barricade_count = 0
-	var paths = ["Left", "Right", "Middle"]
+	var paths: Array = ["Left", "Right", "Middle"]
 	for path in paths:
 		for c in get_node("Paths/"+path).get_children():
 			if 'barricade' in c.name:
@@ -178,7 +175,7 @@ func new_round():
 func _on_ConfirmationDialog_confirmed():
 	new_game()
 
-func new_game():
+func new_game() -> void:
 	bottom_heart_count = 5
 	top_heart_count = 5
 	for h in $UI/Bottom_Player.get_children():
