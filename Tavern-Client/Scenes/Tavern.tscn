@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=2]
+[gd_scene load_steps=97 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -54,16 +54,17 @@
 [ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=52]
 [ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=53]
 [ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=54]
-[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=55]
-[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=56]
-[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=57]
-[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=58]
-[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=59]
-[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=60]
-[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=61]
-[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=62]
-[ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=63]
-[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=64]
+[ext_resource path="res://Scripts/TavernButtonStack.gd" type="Script" id=55]
+[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=56]
+[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=57]
+[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=58]
+[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=59]
+[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=60]
+[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=61]
+[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=62]
+[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=63]
+[ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=64]
+[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=65]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 92.5496, 22.1968 )
@@ -338,27 +339,29 @@ extents = Vector2( 179.774, 56.1848 )
 [sub_resource type="RectangleShape2D" id=24]
 extents = Vector2( 35.8139, 10.6617 )
 
-[sub_resource type="DynamicFont" id=28]
+[sub_resource type="DynamicFont" id=25]
 use_filter = true
 font_data = ExtResource( 52 )
 
-[sub_resource type="StyleBoxFlat" id=25]
+[sub_resource type="StyleBoxFlat" id=26]
 bg_color = Color( 1, 1, 1, 0.823529 )
 
-[sub_resource type="DynamicFont" id=26]
+[sub_resource type="DynamicFont" id=27]
 font_data = ExtResource( 54 )
 
-[sub_resource type="StyleBoxFlat" id=27]
+[sub_resource type="StyleBoxFlat" id=28]
 bg_color = Color( 0, 0, 0, 0.215686 )
+
+[sub_resource type="StyleBoxEmpty" id=31]
 
 [sub_resource type="SpriteFrames" id=29]
 animations = [ {
-"frames": [ ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ) ],
+"frames": [ ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ) ],
 "loop": false,
 "name": "Close",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 55 ) ],
+"frames": [ ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 56 ) ],
 "loop": false,
 "name": "Open",
 "speed": 10.0
@@ -376,6 +379,7 @@ board = ExtResource( 4 )
 game_table = ExtResource( 5 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Table_000" type="Sprite" parent="YSort"]
 editor/display_folded = true
@@ -589,6 +593,7 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -725,7 +730,6 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -857,7 +861,7 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -1035,6 +1039,7 @@ shape = SubResource( 23 )
 position = Vector2( 189.523, 631.355 )
 
 [node name="Exit" type="Area2D" parent="."]
+editor/display_folded = true
 position = Vector2( 189.506, 632.58 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exit"]
@@ -1047,7 +1052,7 @@ margin_left = -141.736
 margin_top = -15.794
 margin_right = -22.7363
 margin_bottom = 5.20604
-custom_fonts/font = SubResource( 28 )
+custom_fonts/font = SubResource( 25 )
 text = "Leave Tavern?"
 flat = true
 
@@ -1056,6 +1061,7 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 53 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -1072,8 +1078,8 @@ margin_left = 3.0
 margin_top = 610.0
 margin_right = 360.0
 margin_bottom = 640.0
-custom_styles/normal = SubResource( 25 )
-custom_fonts/font = SubResource( 26 )
+custom_styles/normal = SubResource( 26 )
+custom_fonts/font = SubResource( 27 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 caret_blink = true
 
@@ -1084,54 +1090,59 @@ margin_top = 510.0
 margin_right = 358.0
 margin_bottom = 610.0
 mouse_filter = 2
-custom_styles/normal = SubResource( 27 )
+custom_styles/normal = SubResource( 28 )
 bbcode_enabled = true
 scroll_following = true
 
-[node name="Chat" type="Button" parent="."]
-margin_left = 290.0
-margin_top = 600.0
-margin_right = 360.0
-margin_bottom = 640.0
+[node name="ButtonStack" type="Button" parent="."]
+margin_left = 329.0
+margin_top = 536.802
+margin_right = 353.0
+margin_bottom = 634.802
+custom_styles/focus = SubResource( 31 )
 flat = true
+script = ExtResource( 55 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="Chat"]
-position = Vector2( 43.3704, -14.7018 )
+[node name="ButtonStackAnimation" type="AnimatedSprite" parent="."]
+position = Vector2( 332.537, 585.439 )
 frames = SubResource( 29 )
 animation = "Open"
-frame = 4
-playing = true
 
-[node name="Button" type="Button" parent="Chat/AnimatedSprite"]
-margin_left = -17.0139
-margin_top = -49.1324
-margin_right = 22.9861
-margin_bottom = -16.1324
+[node name="EmoteButton" type="Button" parent="ButtonStackAnimation" groups=[
+"stack_buttons",
+]]
+visible = false
+margin_left = -17.0
+margin_top = -48.619
+margin_right = 23.0
+margin_bottom = -15.619
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-icon = ExtResource( 63 )
+disabled = true
+icon = ExtResource( 64 )
 flat = true
 
-[node name="Button2" type="Button" parent="Chat/AnimatedSprite"]
-margin_left = -16.5809
-margin_top = -15.6056
-margin_right = 23.4191
-margin_bottom = 16.3944
+[node name="Inventory" type="Button" parent="ButtonStackAnimation" groups=[
+"stack_buttons",
+]]
+visible = false
+margin_left = -17.0
+margin_top = -16.0
+margin_right = 31.0
+margin_bottom = 17.0
+disabled = true
+icon = ExtResource( 65 )
 flat = true
 
-[node name="TextureRect" type="TextureRect" parent="Chat/AnimatedSprite/Button2"]
-margin_left = 2.53699
-margin_top = 6.46301
-margin_right = 38.537
-margin_bottom = 26.463
-mouse_filter = 2
-texture = ExtResource( 64 )
-
-[node name="Button3" type="Button" parent="Chat/AnimatedSprite"]
-margin_left = -19.0
+[node name="Chat" type="Button" parent="ButtonStackAnimation" groups=[
+"stack_buttons",
+]]
+visible = false
+margin_left = -17.0
 margin_top = 18.302
-margin_right = 26.0
+margin_right = 28.0
 margin_bottom = 49.302
 custom_fonts/font = SubResource( 30 )
+disabled = true
 text = "Chat"
 flat = true
 
@@ -1168,5 +1179,6 @@ position = Vector2( 155.583, 117.925 )
 [connection signal="text_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_changed"]
 [connection signal="text_entered" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_entered"]
 [connection signal="visibility_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_visibility_changed"]
-[connection signal="button_up" from="Chat" to="." method="_on_Chat_button_up"]
+[connection signal="button_up" from="ButtonStack" to="ButtonStack" method="_on_ButtonStack_button_up"]
+[connection signal="frame_changed" from="ButtonStackAnimation" to="ButtonStack" method="_on_ButtonStackAnimation_frame_changed"]
 [connection signal="visibility_changed" from="BoardScene" to="." method="_on_BoardScene_visibility_changed"]
