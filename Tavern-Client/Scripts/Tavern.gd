@@ -415,9 +415,12 @@ func chat_hide() -> void:
 	chat_input.visible = false
 
 func chat_enter_view() -> void:
-	chat_input.visible = true
-	chat_input.grab_focus()
-	chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
+	if not chat_input.visible:
+		chat_input.visible = true
+		chat_input.grab_focus()
+		chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
+	else:
+		chat_hide()
 			
 func _on_Chat_button_up():
 	chat_enter_view()
@@ -439,7 +442,6 @@ func _on_ChatEnter_text_entered(new_text: String) -> void:
 		slash_commands(new_text, command_params)
 	else:
 		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, character_name, get_tree().get_network_unique_id())
-	chat_hide()
 		
 func _on_ChatEnter_text_changed(new_text: String) -> void:
 	if chat_input.text.substr(0,1) == "/":

@@ -6,7 +6,7 @@ export(PackedScene) var armwrestle_node: PackedScene
 
 onready var chat_display: RichTextLabel = $ChatDisplay
 onready var chat_input: LineEdit = $ChatInput
-onready var cmd: Commands = get_node("Commands")
+onready var cmd = get_node("Commands")
 
 var character_name: String = g.player_data.character.name
 var table_id = null
