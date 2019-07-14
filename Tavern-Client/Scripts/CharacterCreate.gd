@@ -1,27 +1,27 @@
 extends Control
 
-onready var menu = get_parent()
-onready var character_name = $Step1/NameLabel/Name
-onready var gender_list = $Step1/GenderLabel/Gender
-onready var stat_tree = $Step1/Stats/Tree
-onready var animate = $Step2/Body/AnimationPlayer
+onready var menu: MainMenu = get_parent()
+onready var character_name: LineEdit = $Step1/NameLabel/Name
+onready var gender_list: ItemList = $Step1/GenderLabel/Gender
+onready var stat_tree: Tree = $Step1/Stats/Tree
+onready var animate: AnimationPlayer = $Step2/Body/AnimationPlayer
 
 # Stats tree vars
-var strength = null
-var dex = null
-var con = null
-var wis = null
-var cha = null
+var strength: TreeItem
+var dex: TreeItem
+var con: TreeItem
+var wis: TreeItem
+var cha: TreeItem
 
-var gender = ""
-var skin = 1
-var hair = 1
-var eyes = 1
-var clothes = 1
+var gender: String
+var skin: int = 1
+var hair: int = 1
+var eyes: int = 1
+var clothes: int = 1
 
-var c_id
-var character_data = {}
-var edit_mode
+var c_id: String
+var character_data: Dictionary
+var edit_mode: bool
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -29,7 +29,7 @@ func _ready():
 	gender_list.add_item("Male")
 	gender_list.add_item("Female")
 	
-	var root = stat_tree.create_item()
+	var root: TreeItem = stat_tree.create_item()
 	root.set_text(0, "Stats:")
 	root.set_text(1, "Score:")
 	
@@ -160,7 +160,7 @@ func _on_Create_button_up():
 		'clothes': clothes
 	}
 	if edit_mode:
-		var data = {"_id": c_id}
+		var data: Dictionary = {"_id": c_id}
 		g.make_patch_request($Create, 'users/' + g.player_data.user_id + '/character_remove', data)
 	else:
 		g.make_patch_request($Create, 'users/' + g.player_data.user_id, character_data)

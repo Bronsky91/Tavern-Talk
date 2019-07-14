@@ -30,7 +30,7 @@ font_data = ExtResource( 4 )
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 1, 1, 0.917647 )
 
-[sub_resource type="DynamicFont" id=9]
+[sub_resource type="DynamicFont" id=8]
 use_filter = true
 font_data = ExtResource( 4 )
 
@@ -90,7 +90,7 @@ margin_top = 598.0
 margin_right = 361.0
 margin_bottom = 638.0
 custom_styles/normal = SubResource( 7 )
-custom_fonts/font = SubResource( 9 )
+custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 caret_blink = true
 

@@ -30,7 +30,7 @@ func raise_text_edit(input: Label, input_y_pos: int) -> void:
 	else:
 		input.rect_position.y = input_y_pos
 		
-func new_post(new: bool, id: String, body: String, author: String) -> void:
+func new_post(new: bool, id: String = '', body: String = '', author: String = '') -> void:
 	## Called from Board before post scene is added to scene_tree
 	if new:
 		new_post = true

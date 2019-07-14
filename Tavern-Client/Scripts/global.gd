@@ -1,6 +1,6 @@
 extends Node
 
-var player_data = {
+var player_data: Dictionary = {
 	'user_id': null,
 	'character': {
 		'_id': null,
@@ -28,45 +28,45 @@ var player_data = {
 	'last_scene': null
 	}
 	
-var api_url = 'https://warlock.tech/api/'
-var headers = ["Content-Type: application/json",
+var api_url: String = 'https://warlock.tech/api/'
+var headers: Array = ["Content-Type: application/json",
 				"Authorization: Basic YWRtaW46c3RyaWZlbG9yZA=="]
 				
 func _ready():
 	pass
 
-func make_get_request(request, url):
+func make_get_request(request: HTTPRequest, url: String) -> void:
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_GET)
 	
-func make_post_request(request, url, data):
+func make_post_request(request: HTTPRequest, url: String, data: Dictionary):
 	var query = JSON.print(data)
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_POST, query)
 	
-func make_patch_request(request, url, data):
+func make_patch_request(request: HTTPRequest, url: String, data: Dictionary):
 	var query = JSON.print(data)
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_PATCH, query)
 	
-func make_delete_request(request, url, data):
+func make_delete_request(request: HTTPRequest, url: String, data: Dictionary):
 	var query = JSON.print(data)
 	request.request(api_url + url, headers, false, HTTPClient.METHOD_DELETE, query)
 
-func calc_stat_mod(score):
+func calc_stat_mod(score: int) -> int:
 	if score < 10:
 		return (((score - 10) / 2) + 10) - 10
 	else:
 		return (score - 10) / 2
 
-func distance_to_raise(canvas_node):
+func distance_to_raise(canvas_node) -> int:
 	if not is_lower_than_keyboard(canvas_node):
 		return 0
 	return get_top_of_keyboard_pos() - (canvas_node.get_global_position().y + canvas_node.get_size().y)
 	
-func is_lower_than_keyboard(ledit):
+func is_lower_than_keyboard(ledit) -> bool:
 	if ledit != null and get_top_of_keyboard_pos() != get_viewport().size.y:
 		return (ledit.get_global_position().y + ledit.get_size().y) > get_top_of_keyboard_pos()
 	return false
 	
-func get_top_of_keyboard_pos():
+func get_top_of_keyboard_pos() -> float:
 	var scale_x = floor(OS.get_window_size().x / ProjectSettings.get_setting("display/window/size/width"))
 	var scale_y = floor(OS.get_window_size().y / ProjectSettings.get_setting("display/window/size/height"))
 	var screen_scale = max(1, min(scale_x, scale_y))
@@ -74,12 +74,12 @@ func get_top_of_keyboard_pos():
 		return get_viewport().size.y - (OS.get_virtual_keyboard_height() / screen_scale)
 	return get_viewport().size.y
 
-func remember_me(login):
-	var f = File.new()
+func remember_me(login: Dictionary) -> void:
+	var f: File = File.new()
 	f.open("user://login.save", File.READ)
-	var json = JSON.parse(f.get_as_text())
+	var json: JSONParseResult = JSON.parse(f.get_as_text())
 	f.close()
-	var data = json.result
+	var data: Dictionary = json.result
 	data = {"username": login["username"], "password": login["password"], "remember": login["remember"]}
 	# Save
 	f = File.new()
@@ -87,16 +87,16 @@ func remember_me(login):
 	f.store_string(JSON.print(data, "  ", true))
 	f.close()
 	
-func load_login():
-	var save_login = File.new()
+func load_login() -> Dictionary:
+	var save_login: File = File.new()
 	save_login.open("user://login.save", File.READ)
-	var text = save_login.get_as_text()
-	var login = parse_json(text)
+	var text: String = save_login.get_as_text()
+	var login: Dictionary = parse_json(text)
 	save_login.close()
 	return login
 
-func roll(num_of_dice, dice_sides):
-	var roll_result = []
+func roll(num_of_dice, dice_sides) -> Array:
+	var roll_result: Array = []
 	for i in range(0, int(num_of_dice)):
 		randomize()
 		roll_result.append(randi() % int(dice_sides) + 1)

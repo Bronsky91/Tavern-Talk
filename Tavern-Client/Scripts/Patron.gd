@@ -1,31 +1,33 @@
 extends KinematicBody2D
 
-export (int) var speed = 115
+class_name Patron
 
-var target = Vector2()
-var velocity = Vector2()
-var gender = null
-var style = null
-var anim = null # State tracker for animations
+export (int) var speed: int = 115
 
-var busy = false setget set_busy ,is_busy
-var npc = false setget set_npc, is_npc
-var character_name
-var movement_buffer = 30
-var sat_down = false
-var sitting = false
+var target: Vector2
+var velocity: Vector2
+var gender: String
+var style: Dictionary
+var anim # State tracker for animations
 
-var stool_dict = {'table': null, 'stool': null}
+var busy: bool = false setget set_busy ,is_busy
+var npc: bool = false setget set_npc, is_npc
+var character_name: String
+var movement_buffer: int = 30
+var sat_down: bool = false
+var sitting: bool = false
+
+var stool_dict: Dictionary = {'table': null, 'stool': null}
 var current_table_id = null
 
-var h_sit_anim
-var v_sit_anim
-var a_texture
+var h_sit_anim: String
+var v_sit_anim: String
+var a_texture: String
 
-var npc_type
+var npc_type: Dictionary
 
-onready var animate = $AnimationPlayer
-onready var name_plate = $NamePlate
+onready var animate: AnimationPlayer = $AnimationPlayer
+onready var name_plate: RichTextLabel = $NamePlate
 
 
 func _ready():
@@ -56,23 +58,23 @@ func _ready():
 				use_texture(anim.texture)
 				# play the proper non sit animation
 	
-func init(_gender, _style, _animation, _character_name):
+func init(_gender: String, _style: Dictionary, _animation, _character_name: String) -> void:
 	# inits the player state from the tavern configure_player function
 	style = _style
 	gender = _gender
 	anim = _animation
 	character_name = _character_name
 
-func set_npc(_npc):
+func set_npc(_npc: bool) -> void:
 	npc = _npc
 	
-func is_npc():
+func is_npc() -> bool:
 	return npc
 
-func set_busy(_busy):
+func set_busy(_busy: bool) -> void:
 	busy = _busy
 
-func is_busy():
+func is_busy() -> bool:
 	return busy
 	
 ### Movement ###
@@ -81,7 +83,7 @@ func _unhandled_input(event):
 	if not npc and not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
 		target = event.position
 
-puppet func update_pos(id, pos, tar, animation):
+puppet func update_pos(id: String, pos: Vector2, tar: Vector2, animation: Dictionary) -> void:
 	position = pos
 	target = tar
 	anim = animation # animation is the state object passed whenver the player moves
@@ -159,7 +161,7 @@ func _physics_process(delta):
 				animate.current_animation = 'idle_right'
 			rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': false, 'stool_dict': stool_dict, 'timer': null,  'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})
 
-func use_texture(animation):
+func use_texture(animation: String) -> void:
 	# called to set the proper texture and frames when animation changes
 	if animation == 'walking':
 		$Body.set_texture(load("res://Assets/Characters/"+gender+"_Walk_00"+str(style.skin)+".png"))
@@ -201,7 +203,7 @@ func use_texture(animation):
 		$Body/Clothes.vframes = 4
 		$Body/Clothes.hframes = 9
 
-func sit_down(t, _stool, table_id):
+func sit_down(t: Vector2, _stool: int, table_id: int) -> void:
 	# Called from tavern when joining a table
 	stool_dict = {'table': table_id, 'stool': _stool}
 	current_table_id = table_id
@@ -212,7 +214,7 @@ func sit_down(t, _stool, table_id):
 	sitting = true
 	busy = true
 	
-func stand_up(_stool, table_id):
+func stand_up(_stool: int, table_id: int) -> void:
 	# Called from Tavern when leaving a table
 	stool_dict = {'table': table_id, 'stool': _stool}
 	$LowerBody.disabled = false
@@ -223,7 +225,7 @@ func stand_up(_stool, table_id):
 	if is_network_master():
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7, 'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})
 		
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(anim_name: String):
 	if 'sit' in anim_name and animate.get_current_animation_position() > 0:
 	# if animation is finishing normally
 		animate.stop()
@@ -254,14 +256,13 @@ func _on_Timer_timeout():
 		
 ### Chatting ###
 
-sync func receive_tavern_chat(msg, c_name, id=null, length=null):
+sync func receive_tavern_chat(msg: String, c_name: String, id=null, length=null) -> void:
 	if id == null:
-		print(c_name)
 		get_parent().get_node(c_name).overhead_chat(msg, c_name, length)
 	else:
 		get_parent().get_node(str(id)).overhead_chat(msg, c_name, length)
 
-func bubble_grow(char_count):
+func bubble_grow(char_count: float) -> void:
 	# Each line of 18 characters is 15 pixels in size
 	# for every 18 characters grow 15 in size.y and -15 in pos.y
 	print(char_count)
@@ -271,11 +272,11 @@ func bubble_grow(char_count):
 		$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * num_of_lines
 		$ChatBubble.rect_position.y -= 15 * num_of_lines
 
-func bubble_reset():
+func bubble_reset() -> void:
 	$ChatBubble.rect_size.y = 15
 	$ChatBubble.rect_position.y = -70
 
-func overhead_chat(msg, c_name, length):
+func overhead_chat(msg: String, c_name: String, length) -> void:
 	# Tavern chat bubble
 	var char_count
 	if length == null:
@@ -307,29 +308,29 @@ func _on_ChatTimer_timeout():
 		
 ## NPC Functions ##
 
-remote func update_npc(npc_state):
+remote func update_npc(npc_state: Dictionary) -> void:
 	get_parent().get_node(npc_state.npc_type.name).animate.current_animation = npc_state.animation
 	get_parent().get_node(npc_state.npc_type.name).use_npc_texture(npc_state.texture, npc_state.npc_type)
 
-func npc_init(_npc_type):
+func npc_init(_npc_type: Dictionary) -> void:
 	npc_type = _npc_type
 	
-func set_default_position(pos):
+func set_default_position(pos: Vector2) -> void:
 	position = pos
 
-func default_npc_animation():
+func default_npc_animation() -> void:
 	animate.current_animation = npc_type.default_animation
 	use_npc_texture(npc_type.texture_default, npc_type)
 
-func wave():
+func wave() -> void:
 	use_npc_texture("wave", npc_type)
 	animate.current_animation = "npc_wave_down"
 	rpc_unreliable("update_npc", {"npc_type": npc_type, "target": target, "animation": animate.current_animation, "texture": "wave"})
 
-func move_npc(_target):
+func move_npc(_target: Vector2) -> void:
 	target = _target
 	
-func use_npc_texture(animation, _npc_type):
+func use_npc_texture(animation: String, _npc_type: Dictionary) -> void:
 	# called to set the proper texture and frames when animation changes
 	if animation == 'idle':
 		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+_npc_type.style+".png"))

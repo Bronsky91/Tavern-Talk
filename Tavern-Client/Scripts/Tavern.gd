@@ -1,29 +1,29 @@
 extends Node2D
 
-export(PackedScene) var table
-export(PackedScene) var player
-export(PackedScene) var board
-export(PackedScene) var game_table
+export(PackedScene) var table: PackedScene
+export(PackedScene) var player: PackedScene
+export(PackedScene) var board: PackedScene
+export(PackedScene) var game_table: PackedScene
 
-onready var entrance = $Entrance
-onready var board_button = $YSort/Board/BoardButton
-onready var chat_input = $CanvasLayer/ChatEnter
-onready var chat_display = $CanvasLayer/TavernChatBox
-onready var board_scene = $BoardScene
+onready var entrance: Position2D = $Entrance
+onready var board_button: Button = $YSort/Board/BoardButton
+onready var chat_input: LineEdit = $CanvasLayer/ChatEnter
+onready var chat_display: RichTextLabel = $CanvasLayer/TavernChatBox
+onready var board_scene: Board = $BoardScene
 
-var TABLE_COUNT = 4
-var GAME_TABLES = [4]
+var TABLE_COUNT: int = 4
+var GAME_TABLES: Array = [4]
 
 var character_name = null
-var player_info = {}
-var tavern_menu = preload("res://Scenes/TavernMenu.tscn")
-var overhead = false
+var player_info: Dictionary
+var tavern_menu: PackedScene = preload("res://Scenes/TavernMenu.tscn")
+var overhead: bool = false
 
 ## NPCs ##
-var barmaid
+var barmaid: Patron
 ###    ###
 
-var stool_count = {
+var stool_count: Dictionary = {
 	0: { # Table 0 == Bar
 		1: null,
 		2: null,
@@ -106,32 +106,31 @@ func _on_Back_pressed():
 			board_scene.hide()
 			update_board_texture()
 			return
-		
 	$CanvasLayer/AcceptDialog.popup_centered()
 	
 func _on_AcceptDialog_confirmed():
 	leave_tavern()
 	
-func user_exited(id):
+func user_exited(id: int) -> void:
 	player_info.erase(id) # Erase player from info
 	for t in get_tree().get_nodes_in_group("tables"):
 		leaving_table(t.table_id, id)
 
-sync func remove_player(id):
+sync func remove_player(id: int) -> void:
 	get_node("YSort/"+str(id)).queue_free()
 	
-func enter_tavern(ip, port):
+func enter_tavern(ip: String, port: float) -> void:
 	var host = NetworkedMultiplayerENet.new()
 	host.create_client(ip, port)
 	get_tree().set_network_peer(host)
 
-func entered_tavern():
+func entered_tavern() -> void:
 	rpc("register_player", get_tree().get_network_unique_id(), g.player_data)
 	rpc_id(0, "register_tables")
 	
 ### Network Player Registration ###
 
-remote func register_player(id, info):
+remote func register_player(id: int, info: Dictionary) -> void:
 	## Register players
 	player_info[id] = info
 	if get_tree().is_network_server():
@@ -139,13 +138,13 @@ remote func register_player(id, info):
 			rpc_id(id, "register_player", peer_id, player_info[peer_id])
 	rpc("configure_player")
 	
-remote func register_tables(tables=null):
+remote func register_tables(tables=null) -> void:
 	for t in get_tree().get_nodes_in_group("tables"):
 		for tb in tables:
 			if tb.id == t.get_table_id():
 				t.set_table_patrons(tb.patrons)
 
-remote func configure_player():
+remote func configure_player() -> void:
 	# Load other characters
 	for p in player_info:
 		if not $YSort.get_node_or_null(str(p)):
@@ -162,35 +161,35 @@ remote func configure_player():
 			barmaid.wave()
 	barmaid.receive_tavern_chat("Welcome!", barmaid.name)
 				
-func change_scene_manually():
+func change_scene_manually() -> void:
     # Remove tavern
 	var root = get_tree().get_root()
 	queue_free()
 	
 	# Add the proper menu
-	var tavern_menu_resource = load("res://Scenes/MainMenu.tscn")
-	var tavern_menu = tavern_menu_resource.instance()
+	var tavern_menu_resource: PackedScene = load("res://Scenes/MainMenu.tscn")
+	var tavern_menu: MainMenu = tavern_menu_resource.instance()
 	tavern_menu.get_node('TavernSign_Logo').visible = false
 	tavern_menu.get_node('TavernMenu').visible = true
 	root.add_child(tavern_menu)
 	
-func leave_tavern():
+func leave_tavern() -> void:
 	get_tree().set_network_peer(null)
 	change_scene_manually()
 	## Let tavern API know the character left the tavern
 
-func _server_disconnected():
+func _server_disconnected() -> void:
 	leave_tavern()
 	
 ### Tables ###
-sync func update_stool_count(_stool_count):
+sync func update_stool_count(_stool_count) -> void:
 	stool_count = _stool_count
 
-func get_min(arr):
+func get_min(arr) -> int:
 	arr.sort()
 	return arr[0]
 	
-func find_closest_stool(table_id, patron):
+func find_closest_stool(table_id: int, patron: Patron) -> int:
 	# dictionary of available stools and their positions
 	var stool_pos_dict = {}
 	# loop through all stools for availablity
@@ -204,20 +203,20 @@ func find_closest_stool(table_id, patron):
 		return stool_pos_dict[get_min(stool_pos_dict.keys())]
 	return 0
 	
-func _on_Table_button_up(table_id):
+func _on_Table_button_up(table_id: int):
 	if table_id == 0 and overhead:
 		leaving_table(table_id, get_tree().get_network_unique_id())
 		return
-	var stool_pos
-	var patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
+	var stool_pos: Vector2
+	var patron: Patron = get_node("YSort/"+str(get_tree().get_network_unique_id()))
 	if patron.is_busy():
 		# If the player is sitting down they can't keep sitting to new stools
 		return
-	var stool = find_closest_stool(table_id, patron)
+	var stool: int = find_closest_stool(table_id, patron)
 	if stool == 0:
 		# If there are no open stools then the player can't click to join
 		return
-	var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
+	var stool_node: Sprite = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 	if stool_count[table_id].size() > 2:
 		if stool > (stool_count[table_id].size()/2):
 			# if the stool is on the bottom row use back animation
@@ -263,13 +262,13 @@ func _on_Table_button_up(table_id):
 	patron.sit_down(stool_pos, stool, table_id)
 	rpc("update_stool_count", stool_count)
 	
-sync func turn_on_lights(on, c_name):
+sync func turn_on_lights(on: bool, c_name: String) -> void:
 	if character_name == c_name:
 		for t in get_tree().get_nodes_in_group("tables"):
 			if get_node_or_null(("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D")) != null:
 				get_node(("YSort/Table_00"+str(t.table_id)+"/Candle/Light2D")).enabled = on
 
-func join_table(table_id):
+func join_table(table_id: int) -> void:
 	if not table_id == 0:
 		rpc("turn_on_lights", false, character_name)
 	chat_hide() # Hides tavern chat
@@ -277,7 +276,7 @@ func join_table(table_id):
 		if t.table_id == table_id:
 			t.show()
 
-func leaving_table(table_id, id):
+func leaving_table(table_id: int, id: int) -> void:
 	overhead = false
 	if not table_id == 0:
 		rpc("turn_on_lights", true, character_name)
@@ -292,7 +291,7 @@ func leaving_table(table_id, id):
 				rpc("update_stool_count", stool_count)
 				break
 
-func create_table_scenes():
+func create_table_scenes() -> void:
 	for t in range(1, TABLE_COUNT+1):
 		# instance packed scene
 		var new_table
@@ -306,7 +305,7 @@ func create_table_scenes():
 		add_child(new_table)
 		new_table.add_to_group("tables")
 	
-sync func table_join_view(show, id, table_id, overhead):
+sync func table_join_view(show: bool, id: int, table_id: String, overhead: bool) -> void:
 	## TODO: Before release change id to int before it gets in here 
 	if get_tree().get_network_unique_id() == id:
 		if show:
@@ -321,7 +320,7 @@ sync func table_join_view(show, id, table_id, overhead):
 			else:
 				get_node('YSort/Table_'+table_id+'/Join').text = "Sit at Bar"
 				
-func table_full(id):
+func table_full(id: int) -> bool:
 	# Checks if a table is full of patrons
 	for stool in stool_count[id]:
 		if stool_count[id][stool] == null:
@@ -346,7 +345,7 @@ func _on_Board_button_up():
 	board_scene.visible = true
 	chat_hide()
 	
-sync func board_view(show, id):
+sync func board_view(show: bool, id: String) -> void:
 	if get_tree().get_network_unique_id() == int(id):
 		if show:
 			board_button.visible = true
@@ -363,7 +362,7 @@ func _on_BoardArea_area_shape_exited(area_id, area, area_shape, self_shape):
 	if area != null:
 		rpc("board_view", false, area.get_parent().name)
 
-func update_board_texture():
+func update_board_texture() -> void:
 	g.make_get_request($YSort/Board/PostCheck, 'tavern/' + g.player_data.tavern.id +'/board')
 
 func _on_PostCheck_request_completed(result, response_code, headers, body):
@@ -371,7 +370,7 @@ func _on_PostCheck_request_completed(result, response_code, headers, body):
 	var post_number = len(json.result.data)
 	set_board_texture(post_number)
 	
-func set_board_texture(post_number):
+func set_board_texture(post_number) -> void:
 	if post_number == 0:
 		$YSort/Board.set_texture(load("res://Assets/furniture/BulletinBoardA_001.png"))
 	elif post_number < 6:
@@ -389,7 +388,7 @@ func _on_BoardScene_visibility_changed():
 		
 ### Leaving Tavern ###
 
-sync func leave_button_view(show, id):
+sync func leave_button_view(show: bool, id: int) -> void:
 	if show:
 		if id == get_tree().get_network_unique_id():
 			$Exit/LeaveButton.visible = true
@@ -411,11 +410,11 @@ func _on_LeaveButton_button_up():
 	
 ### Tavern Chat ###
 
-func chat_hide():
+func chat_hide() -> void:
 	chat_input.clear()
 	chat_input.visible = false
 
-func chat_enter_view():
+func chat_enter_view() -> void:
 	chat_input.visible = true
 	chat_input.grab_focus()
 	chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
@@ -423,16 +422,16 @@ func chat_enter_view():
 func _on_Chat_button_up():
 	chat_enter_view()
 	
-var command_time = false
+var command_time: bool = false
 var command_param_start = null
-var chat_commands = ['yell']
+var chat_commands: Array = ['yell']
 
-func slash_commands(text, params):
-	var command = text.split(" ")[0].substr(1, len(text)-1)
+func slash_commands(text: String, params: PoolStringArray) -> void:
+	var command: String = text.split(" ")[0].substr(1, len(text)-1)
 	if chat_commands.has(command):
 		call(command, params)
 
-func _on_ChatEnter_text_entered(new_text):
+func _on_ChatEnter_text_entered(new_text: String) -> void:
 	if command_time and command_param_start != null:
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
 		command_params = command_params.split(" ")
@@ -442,7 +441,7 @@ func _on_ChatEnter_text_entered(new_text):
 		get_node(str("YSort/"+str(get_tree().get_network_unique_id()))).rpc("receive_tavern_chat", new_text, character_name, get_tree().get_network_unique_id())
 	chat_hide()
 		
-func _on_ChatEnter_text_changed(new_text):
+func _on_ChatEnter_text_changed(new_text: String) -> void:
 	if chat_input.text.substr(0,1) == "/":
 		command_time = true
 	else:
@@ -457,20 +456,19 @@ func _on_ChatEnter_visibility_changed():
 	else:
 		chat_display.visible = false
 
-
 ### Tavern Chat Commands ###
 
-func yell(params):
-	var msg = params.join(" ")
-	var tav_msg = '[color=#ff4f6d][b]'+msg.to_upper()+'[/b][/color]' ## Increase font or change color to Red maybe?
-	var table_msg = "yells, "+"\""+msg+"\""
+func yell(params: PoolStringArray):
+	var msg: String = params.join(" ")
+	var tav_msg: String = '[color=#ff4f6d][b]'+msg.to_upper()+'[/b][/color]' ## Increase font or change color to Red maybe?
+	var table_msg: String = "yells, "+"\""+msg+"\""
 	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, character_name, get_tree().get_network_unique_id(), msg.length())
 	chat_input.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):
 		t.rpc("receive_broadcast_message", character_name, table_msg, 0)
 	
-	
+
 
 ### Not currently being implemented - on hold ###
 sync func t_chat(msg, table_id):

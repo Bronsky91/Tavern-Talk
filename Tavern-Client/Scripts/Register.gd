@@ -1,10 +1,10 @@
 extends Control
 
-onready var menu = get_parent()
-onready var email = $EmailLabel/Email
-onready var username = $UsernameLabel/Username
-onready var password = $PasswordLabel/Password
-onready var confirm = $ConfirmLabel/Confirm
+onready var menu: MainMenu = get_parent()
+onready var email: LineEdit = $EmailLabel/Email
+onready var username: LineEdit = $UsernameLabel/Username
+onready var password: LineEdit = $PasswordLabel/Password
+onready var confirm: LineEdit = $ConfirmLabel/Confirm
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -26,7 +26,7 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 		hide()
 		menu.change_menu_scene(self, menu.get_node("CharacterSelect"))
 
-func _on_Sign_Up_button_up():
+func _on_Sign_Up_button_up() -> void:
 	if (email.text != "" and
 	 username.text != "" and
 	 password.text != "" and

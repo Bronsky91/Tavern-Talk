@@ -1,13 +1,13 @@
 extends Control
 
-onready var menu = get_parent()
-onready var invite_code = $Invite/InviteCode
-onready var tavern_list = $Visited/TavernList
+onready var menu: MainMenu = get_parent()
+onready var invite_code: LineEdit = $Invite/InviteCode
+onready var tavern_list: ItemList = $Visited/TavernList
 
-var all_taverns = []
-var tavern_list_data = []
+var all_taverns: Array
+var tavern_list_data: Array
 var selected_tavern
-var selected_tavern_index
+var selected_tavern_index: int
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -18,7 +18,7 @@ func _process(delta):
 	elif OS.get_virtual_keyboard_height() == 0 and not g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = 0
 		
-func find_tavern(t):
+func find_tavern(t: Dictionary) -> bool:
 	for tavern in tavern_list_data:
 		if t.code == tavern.code:
 			return true
@@ -39,7 +39,7 @@ func _on_HTTPRequestTaverns_request_completed(result, response_code, headers, bo
 	var json = JSON.parse(body.get_string_from_utf8())
 	populate_tavern_list(json.result.data)
 
-func populate_tavern_list(taverns):
+func populate_tavern_list(taverns: Array) -> void:
 	tavern_list.clear()
 	for tavern in taverns:
 		for t in all_taverns:
@@ -49,7 +49,7 @@ func populate_tavern_list(taverns):
 				tavern_list.add_item(tavern.name+' ('+str(tavern.characters.size())+')')
 
 func _on_AddTavern_button_up():
-	var data = {'code': invite_code.text}
+	var data: Dictionary = {'code': invite_code.text}
 	g.make_post_request($HTTPRequestTavernCheck, 'tavern/check', data )
 
 func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers, body):
@@ -63,7 +63,7 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 
 func _on_TavernList_item_selected(index):
 	selected_tavern_index = index
-	var t_name = tavern_list.get_item_text(index)
+	var t_name: String = tavern_list.get_item_text(index)
 	for t in tavern_list_data:
 		if t.name in t_name:
 			selected_tavern = t
@@ -99,7 +99,7 @@ func _on_HTTPRequestEnter_request_completed(result, response_code, headers, body
 				g.player_data.character["c_tavern_id"] = c._id
 
 func _on_SpinTavern_request_completed(result, response_code, headers, body):
-	var json = JSON.parse(body.get_string_from_utf8())
+	var json: JSONParseResult = JSON.parse(body.get_string_from_utf8())
 	if json.result.data != null:
 		get_parent().call_deferred("free")	
 		get_tree().change_scene('Scenes/Tavern.tscn')

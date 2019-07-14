@@ -2,16 +2,16 @@ extends Node2D
 
 export(PackedScene) var barrel_roll
 
-var table_id
+var table_id: int
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 
-func assign(_table_id):
+func assign(_table_id: int) -> void:
 	table_id = _table_id
 	
-func get_table_id():
+func get_table_id() -> int:
 	return table_id
 	
 func _notification(notif):
@@ -27,6 +27,6 @@ func _on_Leave_button_up():
 	.hide()
 
 func _on_Game1_button_up():
-	var new_game = barrel_roll.instance()
+	var new_game: BarrelRoll = barrel_roll.instance()
 	new_game.z_index = 5
 	add_child(new_game)

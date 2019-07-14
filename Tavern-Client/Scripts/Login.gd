@@ -1,11 +1,11 @@
 extends Control
 
-onready var menu = get_parent()
-onready var username = $UsernameLabel/Username
-onready var password = $PasswordLabel/Password
-onready var remember_me = $CheckBox
+onready var menu: MainMenu = get_parent()
+onready var username: LineEdit = $UsernameLabel/Username
+onready var password: LineEdit = $PasswordLabel/Password
+onready var remember_me: CheckBox = $CheckBox
 
-var login = {}
+var login: Dictionary
 
 func _ready():
 	login = g.load_login()
@@ -17,7 +17,7 @@ func _process(delta):
 		get_parent().position.y = 0
 
 func _on_HTTPRequest_request_completed(result, response_code, headers, body):
-	var json = JSON.parse(body.get_string_from_utf8())
+	var json: JSONParseResult = JSON.parse(body.get_string_from_utf8())
 	if response_code == 401:
 		$Error.text = json.result.message
 	else:
@@ -28,10 +28,10 @@ func _on_HTTPRequest_request_completed(result, response_code, headers, body):
 			g.remember_me({'username': null, 'password': null, 'remember': false})
 		menu.change_menu_scene(self, menu.get_node("CharacterSelect"))
 
-func login():
+func login() -> void:
 	username.text = username.text.trim_suffix(" ")
 	username.text = username.text.trim_prefix(" ")
-	var data = {'username': username.text.to_lower(), 'password': password.text}
+	var data: Dictionary = {'username': username.text.to_lower(), 'password': password.text}
 	g.make_post_request($HTTPRequest, 'login', data)
 
 func _on_Register_button_up():

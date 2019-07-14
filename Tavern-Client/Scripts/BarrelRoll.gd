@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name BarrelRoll
+
 export(PackedScene) var barrel_scene: PackedScene
 export(PackedScene) var barricade_scene: PackedScene
 

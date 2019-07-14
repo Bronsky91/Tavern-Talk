@@ -1,5 +1,7 @@
 extends Node2D
 
+class_name Board
+
 export(PackedScene) var post_scene: PackedScene
 
 onready var animate: AnimationPlayer = $AnimationPlayer
@@ -15,7 +17,7 @@ func create_post_dict() -> void:
 	for i in range(avail_post_count):
 		post_dict[i] = null
 		
-func populate_posts(posts: Dictionary) -> void:
+func populate_posts(posts: Array) -> void:
 	## Populates post_dic with the _ids of all posts
 	var post_num: int = 0
 	for post in posts:
@@ -38,8 +40,9 @@ func takedown_post(id: String) -> void:
 	
 func _on_BoardRequest_request_completed(result, response_code, headers, body):
 	var json: JSONParseResult = JSON.parse(body.get_string_from_utf8())
-	var posts: Dictionary = json.result.data
+	var posts: Array = json.result.data
 	populate_posts(posts)
+	
 
 func _on_NewPost_button_up():
 	var new_post: Post = post_scene.instance()
