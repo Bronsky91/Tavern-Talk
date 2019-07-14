@@ -352,9 +352,9 @@ font_data = ExtResource( 54 )
 [sub_resource type="StyleBoxFlat" id=28]
 bg_color = Color( 0, 0, 0, 0.215686 )
 
-[sub_resource type="StyleBoxEmpty" id=31]
+[sub_resource type="StyleBoxEmpty" id=29]
 
-[sub_resource type="SpriteFrames" id=29]
+[sub_resource type="SpriteFrames" id=30]
 animations = [ {
 "frames": [ ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ) ],
 "loop": false,
@@ -367,7 +367,7 @@ animations = [ {
 "speed": 10.0
 } ]
 
-[sub_resource type="DynamicFont" id=30]
+[sub_resource type="DynamicFont" id=31]
 use_filter = true
 font_data = ExtResource( 52 )
 
@@ -593,7 +593,7 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -687,7 +687,7 @@ z_as_relative = false
 texture = ExtResource( 17 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-005 )
+position = Vector2( -20, -9.15527e-05 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -730,6 +730,7 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -861,7 +862,6 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
-frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -886,7 +886,7 @@ text = "Join Table"
 flat = true
 
 [node name="Table_004" type="Sprite" parent="YSort"]
-position = Vector2( 329.47, 240.966 )
+position = Vector2( 328.924, 253.516 )
 z_index = 1
 texture = ExtResource( 36 )
 
@@ -953,7 +953,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 17 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -964,6 +964,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
+frame = 3
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -972,6 +973,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
+frame = 3
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -992,7 +994,7 @@ texture = ExtResource( 11 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 19 )
 animation = "Sleeping"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
@@ -1061,7 +1063,6 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 53 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -1076,7 +1077,7 @@ dialog_text = "Do you wish to leave the tavern?"
 visible = false
 margin_left = 3.0
 margin_top = 610.0
-margin_right = 360.0
+margin_right = 308.0
 margin_bottom = 640.0
 custom_styles/normal = SubResource( 26 )
 custom_fonts/font = SubResource( 27 )
@@ -1085,10 +1086,10 @@ caret_blink = true
 
 [node name="TavernChatBox" type="RichTextLabel" parent="CanvasLayer"]
 visible = false
-margin_left = 140.0
-margin_top = 510.0
-margin_right = 358.0
-margin_bottom = 610.0
+margin_left = 56.5171
+margin_top = 508.909
+margin_right = 274.517
+margin_bottom = 608.909
 mouse_filter = 2
 custom_styles/normal = SubResource( 28 )
 bbcode_enabled = true
@@ -1099,13 +1100,13 @@ margin_left = 329.0
 margin_top = 536.802
 margin_right = 353.0
 margin_bottom = 634.802
-custom_styles/focus = SubResource( 31 )
+custom_styles/focus = SubResource( 29 )
 flat = true
 script = ExtResource( 55 )
 
 [node name="ButtonStackAnimation" type="AnimatedSprite" parent="."]
 position = Vector2( 332.537, 585.439 )
-frames = SubResource( 29 )
+frames = SubResource( 30 )
 animation = "Open"
 
 [node name="EmoteButton" type="Button" parent="ButtonStackAnimation" groups=[
@@ -1141,7 +1142,7 @@ margin_left = -17.0
 margin_top = 18.302
 margin_right = 28.0
 margin_bottom = 49.302
-custom_fonts/font = SubResource( 30 )
+custom_fonts/font = SubResource( 31 )
 disabled = true
 text = "Chat"
 flat = true
@@ -1181,4 +1182,5 @@ position = Vector2( 155.583, 117.925 )
 [connection signal="visibility_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_visibility_changed"]
 [connection signal="button_up" from="ButtonStack" to="ButtonStack" method="_on_ButtonStack_button_up"]
 [connection signal="frame_changed" from="ButtonStackAnimation" to="ButtonStack" method="_on_ButtonStackAnimation_frame_changed"]
+[connection signal="button_up" from="ButtonStackAnimation/Chat" to="." method="_on_Chat_button_up"]
 [connection signal="visibility_changed" from="BoardScene" to="." method="_on_BoardScene_visibility_changed"]

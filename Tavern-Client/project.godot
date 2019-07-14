@@ -8,9 +8,20 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "PathFollow2D",
+"class": "Barrel",
+"language": "GDScript",
+"path": "res://Scripts/Barrel.gd"
+}, {
+"base": "Node2D",
+"class": "Barricade",
+"language": "GDScript",
+"path": "res://Scripts/BarrelRoll.gd"
+} ]
 _global_script_class_icons={
-
+"Barrel": "",
+"Barricade": ""
 }
 
 [application]
@@ -27,6 +38,11 @@ config/quit_on_go_back=false
 
 g="*res://Scripts/global.gd"
 Audio="*res://Scenes/Audio.tscn"
+
+[debug]
+
+gdscript/warnings/unused_variable=false
+gdscript/warnings/unused_signal=false
 
 [display]
 

@@ -1,5 +1,7 @@
 extends PathFollow2D
 
+class_name Barrel
+
 var MIDDLE_MAX_OFFSET = 393
 var RIGHT_MAX_OFFSET = 549.15
 var LEFT_MAX_OFFSET = 536.11

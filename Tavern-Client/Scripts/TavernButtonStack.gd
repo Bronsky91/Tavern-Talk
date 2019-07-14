@@ -1,17 +1,9 @@
 extends Button
 
 onready var button_stack: AnimatedSprite = get_parent().get_node("ButtonStackAnimation")
-onready var emote_button: Button = get_parent().get_node("ButtonStackAnimation/EmoteButton")
-onready var inventory_button_rect: TextureRect = get_parent().get_node("ButtonStackAnimation/Inventory/TextureRect")
-onready var chat_button: Button = get_parent().get_node("ButtonStackAnimation/Chat")
-
-var stack_open: bool = false
-
-#func _ready() -> void:
-#	if button_stack.frame == 0:
-#		for button in get_tree().get_nodes_in_group("stack_buttons"):
-#			button.hide()
-#			button.disabled = true
+# onready var emote_button: Button = get_parent().get_node("ButtonStackAnimation/EmoteButton")
+# onready var inventory_button_rect: TextureRect = get_parent().get_node("ButtonStackAnimation/Inventory/TextureRect")
+# onready var chat_button: Button = get_parent().get_node("ButtonStackAnimation/Chat")
 
 func _on_ButtonStackAnimation_frame_changed():
 	## Transforms buttons in stack to follow animation and disable when showing/hiding stack

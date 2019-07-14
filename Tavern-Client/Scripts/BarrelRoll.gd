@@ -1,30 +1,20 @@
 extends Node2D
 
-export(PackedScene) var barrel_scene
-export(PackedScene) var barricade_scene
+class_name Barricade
 
-var barrel_count = 0
-var barricade_count = 0
-var top_heart_count = 5
-var bottom_heart_count = 5
-var round_started = false
+export(PackedScene) var barrel_scene: PackedScene
+export(PackedScene) var barricade_scene: PackedScene
+
+var barrel_count: int = 0
+var barricade_count: int = 0
+var top_heart_count: int = 5
+var bottom_heart_count: int = 5
+var round_started: bool = false
 
 func _ready():
-	$Paths/Left/Bottom.add_to_group('starts')
-	$Paths/Middle/Bottom.add_to_group('starts')
-	$Paths/Right/Bottom.add_to_group('starts')
-	$Paths/Left/Top.add_to_group('starts')
-	$Paths/Middle/Top.add_to_group('starts')
-	$Paths/Right/Top.add_to_group('starts')
-	
-	$Paths/Left/BarricadeBottom.add_to_group('barricade_starts')
-	$Paths/Right/BarricadeBottom.add_to_group('barricade_starts')
-	$Paths/Middle/BarricadeBottom.add_to_group('barricade_starts')
-	$Paths/Left/BarricadeTop.add_to_group('barricade_starts')
-	$Paths/Right/BarricadeTop.add_to_group('barricade_starts')
-	$Paths/Middle/BarricadeTop.add_to_group('barricade_starts')
+	pass
 		
-func _process(delta):
+func _process(delta: float):
 	if barrel_count == 3:
 		$UI/BarrelButton.disabled = true
 	if barricade_count == 1:
@@ -37,28 +27,28 @@ func _process(delta):
 	if $UI/Barricade.visible:
 		$UI/Barricade.position = get_global_mouse_position()
 
-func drop_barrel():
-	var bottom_b_check = {}
+func drop_barrel() -> void:
+	var bottom_b_check: Dictionary = {}
 	for start in get_tree().get_nodes_in_group('starts'):
 		if 'Bottom' in start.name:
 			bottom_b_check[start] = get_global_mouse_position().distance_to(start.get_global_position())
-	var spawned_barrel = find_closest_path(bottom_b_check)
-	spawn_barrel({'y': spawned_barrel.name, 'x': spawned_barrel.get_parent().name})
+	var spawned_barrel_pos: Position2D = find_closest_path(bottom_b_check)
+	spawn_barrel({'y': spawned_barrel_pos.name, 'x': spawned_barrel_pos.get_parent().name})
 	barrel_count = barrel_count + 1
 	$UI/Barrel.visible = false
 
-func drop_barricade():
-	var bottom_bar_check = {}
+func drop_barricade() -> void:
+	var bottom_bar_check: Dictionary = {}
 	for b_start in get_tree().get_nodes_in_group('barricade_starts'):
 		if 'Bottom' in b_start.name:
 			bottom_bar_check[b_start] = get_global_mouse_position().distance_to(b_start.get_global_position())
-	var spawned_barricade = find_closest_path(bottom_bar_check)
-	var barricade_location = {'y': spawned_barricade.name, 'x': spawned_barricade.get_parent().name}
+	var spawned_barricade_pos: Position2D = find_closest_path(bottom_bar_check)
+	var barricade_location: Dictionary = {'y': spawned_barricade_pos.name, 'x': spawned_barricade_pos.get_parent().name}
 	spawn_barricade(barricade_location)
 	barricade_count = barricade_count + 1
 	$UI/Barricade.visible = false
 	
-func _input(event):
+func _input(event: InputEvent):
 	if $UI/Barrel.visible:
 		if event.get_class() == 'InputEventMouseButton' or event.get_class() == 'InputEventScreenTouch':
 			if event.pressed == false:
@@ -68,20 +58,22 @@ func _input(event):
 			if event.pressed == false:
 				drop_barricade()
 
-func find_closest_path(check_dict):
-	var position_array = []
+func find_closest_path(check_dict: Dictionary) -> Position2D:
+	var closest_path: Position2D
+	var position_array: Array = []
 	for b in check_dict:
 		position_array.append(check_dict[b])
 	position_array.sort()
-	var closest = position_array[0]
+	var closest: Position2D = position_array[0]
 	for b in check_dict:
 		if check_dict[b] == closest:
-			return b
+			closest_path = b
+	return closest_path
 	
-func spawn_barrel(location):
+func spawn_barrel(location: Dictionary) -> void:
 	# location = {y: Top/Bottom, x: Left/Middle/Right}
-	var path = get_node("Paths/"+location.x)
-	var new_barrel = barrel_scene.instance()
+	var path: Position2D = get_node("Paths/"+location.x)
+	var new_barrel: Barrel  = barrel_scene.instance()
 	new_barrel.init(location)
 	new_barrel.name = location.y.to_lower() + '_barrel' + '_' + str(path.get_child_count())
 	if location.x == "Middle":

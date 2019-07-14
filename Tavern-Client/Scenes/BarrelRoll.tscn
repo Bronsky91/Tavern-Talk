@@ -81,57 +81,81 @@ position = Vector2( 184.703, 366.208 )
 z_index = 6
 curve = SubResource( 2 )
 
-[node name="Top" type="Position2D" parent="Paths/Middle"]
+[node name="Top" type="Position2D" parent="Paths/Middle" groups=[
+"starts",
+]]
 position = Vector2( -9.92822, -179.847 )
 rotation = 1.57114
 z_as_relative = false
 
-[node name="Bottom" type="Position2D" parent="Paths/Middle"]
+[node name="Bottom" type="Position2D" parent="Paths/Middle" groups=[
+"starts",
+]]
 position = Vector2( -7.25021, 185.76 )
 rotation = 1.53854
 
-[node name="BarricadeTop" type="Position2D" parent="Paths/Middle"]
+[node name="BarricadeTop" type="Position2D" parent="Paths/Middle" groups=[
+"barricade_starts",
+]]
 position = Vector2( -9.03636, -137.328 )
 
-[node name="BarricadeBottom" type="Position2D" parent="Paths/Middle"]
+[node name="BarricadeBottom" type="Position2D" parent="Paths/Middle" groups=[
+"barricade_starts",
+]]
 position = Vector2( -7.06621, 154.146 )
 
 [node name="Right" type="Path2D" parent="Paths"]
 z_index = 3
 curve = SubResource( 3 )
 
-[node name="Top" type="Position2D" parent="Paths/Right"]
+[node name="Top" type="Position2D" parent="Paths/Right" groups=[
+"starts",
+]]
 position = Vector2( 209.745, 158.318 )
 rotation = 0.344046
 z_index = 4
 
-[node name="Bottom" type="Position2D" parent="Paths/Right"]
+[node name="Bottom" type="Position2D" parent="Paths/Right" groups=[
+"starts",
+]]
 position = Vector2( 215.145, 575.689 )
 rotation = 2.80598
 z_index = 4
 
-[node name="BarricadeTop" type="Position2D" parent="Paths/Right"]
+[node name="BarricadeTop" type="Position2D" parent="Paths/Right" groups=[
+"barricade_starts",
+]]
 position = Vector2( 297.497, 210.528 )
 
-[node name="BarricadeBottom" type="Position2D" parent="Paths/Right"]
+[node name="BarricadeBottom" type="Position2D" parent="Paths/Right" groups=[
+"barricade_starts",
+]]
 position = Vector2( 292.712, 528.853 )
 
 [node name="Left" type="Path2D" parent="Paths"]
 z_index = 3
 curve = SubResource( 4 )
 
-[node name="Top" type="Position2D" parent="Paths/Left"]
+[node name="Top" type="Position2D" parent="Paths/Left" groups=[
+"starts",
+]]
 position = Vector2( 133.754, 161.404 )
 rotation = 2.80245
 
-[node name="Bottom" type="Position2D" parent="Paths/Left"]
+[node name="Bottom" type="Position2D" parent="Paths/Left" groups=[
+"starts",
+]]
 position = Vector2( 126.037, 573.759 )
 rotation = 0.332301
 
-[node name="BarricadeTop" type="Position2D" parent="Paths/Left"]
+[node name="BarricadeTop" type="Position2D" parent="Paths/Left" groups=[
+"barricade_starts",
+]]
 position = Vector2( 48.3113, 213.807 )
 
-[node name="BarricadeBottom" type="Position2D" parent="Paths/Left"]
+[node name="BarricadeBottom" type="Position2D" parent="Paths/Left" groups=[
+"barricade_starts",
+]]
 position = Vector2( 51.7313, 526.939 )
 
 [node name="UI" type="CanvasLayer" parent="."]
