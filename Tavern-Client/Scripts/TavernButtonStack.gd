@@ -6,21 +6,22 @@ onready var button_stack: AnimatedSprite = get_parent().get_node("ButtonStackAni
 # onready var chat_button: Button = get_parent().get_node("ButtonStackAnimation/Chat")
 
 func _on_ButtonStackAnimation_frame_changed():
+	if button_stack.is_playing():
 	## Transforms buttons in stack to follow animation and disable when showing/hiding stack
-	for button in get_tree().get_nodes_in_group("stack_buttons"):
-		if button_stack.animation == "Close" and button_stack.frame == 4:
-			button.hide()
-			button.disabled = true
-		if button_stack.animation == "Open":
-			if button_stack.frame > 1:
-				button.show()
-				button.disabled = false
-			if button_stack.frame == 4:
-				button.rect_position.x = -17
-			button.rect_scale.x = 1
-		if button_stack.frame < 4:
-			button.rect_position.x = 0
-			button.rect_scale.x = .5
+		for button in get_tree().get_nodes_in_group("stack_buttons"):
+			if button_stack.animation == "Close" and button_stack.frame == 4:
+				button.hide()
+				button.disabled = true
+			if button_stack.animation == "Open":
+				if button_stack.frame > 1:
+					button.show()
+					button.disabled = false
+				if button_stack.frame == 4:
+					button.rect_position.x = -17
+				button.rect_scale.x = 1
+			if button_stack.frame < 4:
+				button.rect_position.x = 0
+				button.rect_scale.x = .5
 
 func _on_ButtonStack_button_up():
 	## Move button to line up with animation
@@ -32,3 +33,6 @@ func _on_ButtonStack_button_up():
 		## Closing
 		self.rect_position.x = 329
 		button_stack.play("Close")
+
+func _on_ButtonStackAnimation_animation_finished():
+	button_stack.playing = false

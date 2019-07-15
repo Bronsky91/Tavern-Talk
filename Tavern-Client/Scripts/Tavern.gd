@@ -380,11 +380,13 @@ func set_board_texture(post_number) -> void:
 
 func _on_BoardScene_visibility_changed():
 	if board_scene.visible:
+		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
+		$ButtonStackAnimation/Chat.disabled = true
 		rpc("turn_on_lights", false, character_name)
-		$Chat.disabled = true
 	else:
 		rpc("turn_on_lights", true, character_name)
-		$Chat.disabled = false
+		$ButtonStackAnimation/Chat.disabled = false
+		chat_hide()
 		
 ### Leaving Tavern ###
 

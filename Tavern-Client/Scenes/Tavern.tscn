@@ -379,6 +379,7 @@ board = ExtResource( 4 )
 game_table = ExtResource( 5 )
 
 [node name="YSort" type="YSort" parent="."]
+editor/display_folded = true
 
 [node name="Table_000" type="Sprite" parent="YSort"]
 position = Vector2( 155.44, 138.734 )
@@ -591,7 +592,7 @@ texture = ExtResource( 19 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 6 )
 animation = "Flicker"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -686,7 +687,7 @@ z_as_relative = false
 texture = ExtResource( 17 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-05 )
+position = Vector2( -20, -9.15527e-005 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -729,7 +730,6 @@ texture = ExtResource( 27 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 10 )
 animation = "Flicker"
-frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -861,6 +861,7 @@ texture = ExtResource( 24 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 13 )
 animation = "Flicker"
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -953,7 +954,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 17 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -964,7 +965,6 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 2
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -973,7 +973,6 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 18 )
 animation = "Float"
-frame = 2
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -1063,6 +1062,7 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 53 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573
@@ -1181,6 +1181,7 @@ position = Vector2( 155.583, 117.925 )
 [connection signal="text_entered" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_text_entered"]
 [connection signal="visibility_changed" from="CanvasLayer/ChatEnter" to="." method="_on_ChatEnter_visibility_changed"]
 [connection signal="button_up" from="ButtonStack" to="ButtonStack" method="_on_ButtonStack_button_up"]
+[connection signal="animation_finished" from="ButtonStackAnimation" to="ButtonStack" method="_on_ButtonStackAnimation_animation_finished"]
 [connection signal="frame_changed" from="ButtonStackAnimation" to="ButtonStack" method="_on_ButtonStackAnimation_frame_changed"]
 [connection signal="button_up" from="ButtonStackAnimation/Chat" to="." method="_on_Chat_button_up"]
 [connection signal="visibility_changed" from="BoardScene" to="." method="_on_BoardScene_visibility_changed"]

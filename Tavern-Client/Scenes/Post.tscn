@@ -59,7 +59,7 @@ custom_colors/font_color = Color( 0, 0, 0, 1 )
 margin_left = 36.3463
 margin_top = 301.99
 margin_right = 50.3463
-margin_bottom = 315.99
+margin_bottom = 316.99
 custom_fonts/font = SubResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "- "
@@ -116,6 +116,7 @@ text = "Character Limit: 0/356"
 
 [node name="PostRemove" type="HTTPRequest" parent="."]
 [connection signal="text_changed" from="BodyEdit" to="." method="_on_TextEdit_text_changed"]
+[connection signal="focus_entered" from="AuthorEdit" to="." method="_on_AuthorEdit_focus_entered"]
 [connection signal="button_up" from="NewEdit" to="." method="_on_NewEdit_button_up"]
 [connection signal="button_up" from="Return" to="." method="_on_Return_button_up"]
 [connection signal="button_up" from="Remove" to="." method="_on_Remove_button_up"]

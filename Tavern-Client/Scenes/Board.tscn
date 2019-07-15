@@ -50,6 +50,7 @@ position = Vector2( 180, 320 )
 texture = ExtResource( 3 )
 
 [node name="BulletinBoardBG" type="Sprite" parent="Board/BulletinBoard_Wallpaper"]
+editor/display_folded = true
 texture = ExtResource( 4 )
 
 [node name="TextureButton1" type="TextureButton" parent="Board/BulletinBoard_Wallpaper/BulletinBoardBG"]

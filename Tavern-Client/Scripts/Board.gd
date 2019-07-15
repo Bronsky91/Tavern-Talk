@@ -43,7 +43,6 @@ func _on_BoardRequest_request_completed(result, response_code, headers, body):
 	var posts: Array = json.result.data
 	populate_posts(posts)
 	
-
 func _on_NewPost_button_up():
 	var new_post: Post = post_scene.instance()
 	new_post.new_post(true)
@@ -52,26 +51,20 @@ func _on_NewPost_button_up():
 func _on_BackButton_button_up():
 	get_parent().update_board_texture()
 	get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
-	hide()
+	if get_node_or_null("Post") != null:
+		get_node("Post").queue_free()
+	else:
+		hide()
 	
 func _notification(notif):
 	if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST or notif == MainLoop.NOTIFICATION_WM_QUIT_REQUEST:
-		get_parent().update_board_texture()
-		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = false
-		if get_node_or_null("Post") != null:
-			get_node("Post").queue_free()
-		else:
-			hide()
+		_on_BackButton_button_up()
 		
 func _on_TextureButton_button_up(num: int):
 	var post_data = post_dict[num]
 	var new_post: Post = post_scene.instance()
 	add_child(new_post)
 	new_post.new_post(false, post_data._id, post_data.body, post_data.author)
-
-func _on_BoardScene_visibility_changed():
-	if visible == true:
-		get_node("/root/Tavern/YSort/"+str(get_tree().get_network_unique_id())).busy = true
 
 func _on_RightArrow_button_up():
 	if $Board/BulletinBoard_Wallpaper/BulletinBoardBG.position.x == 0:

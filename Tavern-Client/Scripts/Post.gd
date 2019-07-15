@@ -22,10 +22,11 @@ func _input(event):
 		$BodyEdit.readonly = false
 	
 func _process(delta):
-	raise_text_edit($AuthorEdit, author_input_y_pos)
+	if $AuthorEdit.has_focus():
+		raise_text_edit($AuthorEdit, author_input_y_pos)
 	
-func raise_text_edit(input: Label, input_y_pos: int) -> void:
-	if input.has_focus() and OS.get_virtual_keyboard_height() > 0:
+func raise_text_edit(input: TextEdit, input_y_pos: int) -> void:
+	if OS.get_virtual_keyboard_height() > 0:
 		input.rect_position.y = g.get_top_of_keyboard_pos() - input.get_size().y
 	else:
 		input.rect_position.y = input_y_pos
@@ -57,7 +58,7 @@ func _on_TextEdit_text_changed():
 		$Limit.add_color_override("font_color", Color(0, 0, 0))
 
 func _on_NewEdit_button_up():
-	## TODO: Save post on current board view
+	## TODO: Save post on current board section view
 	## TODO: Prevent saving more posts than there are slots on the board
 	if new_post && $BodyEdit.text.length() < post_limit:
 		write_post($BodyEdit.text, $AuthorEdit.text)
