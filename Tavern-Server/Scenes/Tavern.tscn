@@ -322,7 +322,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-05, 7.24438 )
+position = Vector2( -6.10352e-005, 7.24438 )
 shape = SubResource( 7 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -394,7 +394,13 @@ margin_bottom = 4.62714
 text = "Leave Tavern?"
 flat = true
 
-[node name="ExitTavern" type="HTTPRequest" parent="."]
+[node name="RemoveAbsentPlayers" type="HTTPRequest" parent="."]
+
+[node name="PatronList" type="HTTPRequest" parent="."]
+
+[node name="CheckTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
 [connection signal="area_shape_exited" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "001" ]]
@@ -417,3 +423,5 @@ flat = true
 [connection signal="body_entered" from="Exit" to="." method="_on_Exit_body_entered"]
 [connection signal="body_exited" from="Exit" to="." method="_on_Exit_body_exited"]
 [connection signal="button_up" from="Exit/LeaveButton" to="." method="_on_LeaveButton_button_up"]
+[connection signal="request_completed" from="PatronList" to="." method="_on_PatronList_request_completed"]
+[connection signal="timeout" from="CheckTimer" to="." method="_on_CheckTimer_timeout"]

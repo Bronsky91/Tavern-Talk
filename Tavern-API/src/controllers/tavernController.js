@@ -244,7 +244,10 @@ exports.removePost = function (req, res) {
 exports.characterRemove = function (req, res) {
   Tavern.findById(req.params.tavern_id, function (err, tavern) {
     if (err) res.send(err);
-    tavern.characters.pull(req.body); // req.body == tavern._id
+    req.body.forEach(c => {
+      tavern.characters.pull(c);
+    })
+     // req.body == tavern._id
     // save the contact and check for errors
     tavern.save(function (err) {
       if (err) res.json(err);
