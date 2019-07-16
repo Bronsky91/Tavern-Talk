@@ -399,7 +399,7 @@ flat = true
 [node name="PatronList" type="HTTPRequest" parent="."]
 
 [node name="CheckTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 60.0
 autostart = true
 [connection signal="button_up" from="YSort/Table_001/Join" to="." method="_on_Table_button_up" binds= [ 1 ]]
 [connection signal="area_shape_entered" from="YSort/Table_001/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "001" ]]
