@@ -79,9 +79,26 @@ func entered_tavern():
 	
 func user_exited(id):
 	print('exited')
-	global.make_patch_request($ExitTavern, 'tavern/'+tavern_id+'/character_remove', {'_id': player_info[id].character.c_tavern_id, 'user_id': player_info[id].user_id, 'character_id': player_info[id].character._id})
 	rpc('remove_player', id)
 	player_info.erase(id) # Erase player from info.
+	
+func current_patron_check() -> Array:
+	var current_patrons = []
+	for id in player_info:
+		current_patrons.append({'_id': player_info[id].character.c_tavern_id, 'user_id': player_info[id].user_id, 'character_id': player_info[id].character._id})
+	return current_patrons
+
+func _on_CheckTimer_timeout():
+	global.make_get_request($PatronList, 'tavern/'+tavern_id)
+
+func _on_PatronList_request_completed(result, response_code, headers, body):
+	var json: JSONParseResult = JSON.parse(body.get_string_from_utf8())
+	var data: Dictionary = json.result.data
+	for c in current_patron_check():
+		for ch in data.characters:
+			if ch._id == c._id:
+				data.characters.erase(ch)
+	global.make_patch_request($RemoveAbsentPlayers, 'tavern/'+tavern_id+'/character_remove', data.characters)
 
 sync func remove_player(id):
 	get_node("YSort/"+str(id)).call_deferred('free')
@@ -162,3 +179,4 @@ func create_table_scenes():
 #	board_button.visible = false
 #	board_button.disabled = true
 	
+

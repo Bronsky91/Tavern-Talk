@@ -7,7 +7,10 @@ var table_id: int
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
-
+	
+func user_exited(id: int) -> void:
+	get_parent().leaving_table(table_id, id)
+		
 func assign(_table_id: int) -> void:
 	table_id = _table_id
 	

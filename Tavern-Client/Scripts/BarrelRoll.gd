@@ -186,5 +186,5 @@ func new_game() -> void:
 		h.set_texture(load("res://Assets/MiniGames/BarrelRoll_Heart_001.png"))
 
 func _on_ConfirmationDialog_popup_hide():
-	get_tree().change_scene("res://Scenes/GameTable.tscn")
+	queue_free()
 
