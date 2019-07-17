@@ -83,7 +83,7 @@ func _unhandled_input(event):
 	if not npc and not busy and (event is InputEventScreenTouch or event.is_action_pressed('click')):
 		target = event.position
 
-puppet func update_pos(id: String, pos: Vector2, tar: Vector2, animation: Dictionary) -> void:
+puppet func update_pos(id: int, pos: Vector2, tar: Vector2, animation: Dictionary) -> void:
 	position = pos
 	target = tar
 	anim = animation # animation is the state object passed whenver the player moves

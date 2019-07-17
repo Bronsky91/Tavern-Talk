@@ -447,7 +447,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
-frame = 3
+frame = 14
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -707,7 +707,7 @@ z_as_relative = false
 texture = ExtResource( 20 )
 
 [node name="L_P" type="Position2D" parent="YSort/Table_002/Stool_005"]
-position = Vector2( -20, -9.15527e-005 )
+position = Vector2( -20, -9.15527e-05 )
 
 [node name="Stool_006" type="Sprite" parent="YSort/Table_002"]
 editor/display_folded = true
@@ -974,7 +974,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSort/Board/BoardArea"]
-position = Vector2( -6.10352e-005, 7.24438 )
+position = Vector2( -6.10352e-05, 7.24438 )
 shape = SubResource( 18 )
 
 [node name="PostCheck" type="HTTPRequest" parent="YSort/Board"]
@@ -985,6 +985,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
+frame = 4
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -993,6 +994,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
+frame = 4
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -1081,7 +1083,6 @@ position = Vector2( 0.631439, -8.07062 )
 texture = ExtResource( 57 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-editor/display_folded = true
 
 [node name="AcceptDialog" type="ConfirmationDialog" parent="CanvasLayer"]
 margin_left = 37.1573

@@ -340,11 +340,11 @@ func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_i
 		rpc("table_join_view", false, int(area.get_parent().name), table_id, false)
 
 ### Bulletin Board ###
-		
+
 func _on_Board_button_up():
 	board_scene.visible = true
 	chat_hide()
-	
+
 sync func board_view(show: bool, id: String) -> void:
 	if get_tree().get_network_unique_id() == int(id):
 		if show:
@@ -437,6 +437,7 @@ func slash_commands(text: String, params: PoolStringArray) -> void:
 		call(command, params)
 
 func _on_ChatEnter_text_entered(new_text: String) -> void:
+	chat_input.clear()
 	if command_time and command_param_start != null:
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
 		command_params = command_params.split(" ")
