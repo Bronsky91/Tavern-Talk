@@ -265,14 +265,21 @@ sync func receive_tavern_chat(msg: String, c_name: String, id=null, length=null)
 func bubble_grow(char_count: float) -> void:
 	# Each line of 18 characters is 15 pixels in size
 	# for every 18 characters grow 15 in size.y and -15 in pos.y
-	print(char_count)
+	print("Char count:"+ str(char_count))
+	if char_count <= 10:
+		$ChatBubble.rect_size.x = char_count * 10
+		$ChatBubble.rect_position.x = char_count * -5
 	if char_count >= 18:
 		var num_of_lines = float(char_count) / 18.0
+		print(num_of_lines)
 		num_of_lines = ceil(num_of_lines)
+		print(num_of_lines)
 		$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * num_of_lines
 		$ChatBubble.rect_position.y -= 15 * num_of_lines
 
 func bubble_reset() -> void:
+	$ChatBubble.rect_position.x = -50
+	$ChatBubble.rect_size.x = 100
 	$ChatBubble.rect_size.y = 15
 	$ChatBubble.rect_position.y = -70
 
@@ -283,7 +290,6 @@ func overhead_chat(msg: String, c_name: String, length) -> void:
 		char_count = msg.length()
 	else:
 		char_count = length
-	print(char_count)
 	bubble_grow(char_count)
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
@@ -293,8 +299,8 @@ func overhead_chat(msg: String, c_name: String, length) -> void:
 			t_msg = "["+npc_type.name+"]: " + msg
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += t_msg
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
-	if msg.length() < 18:
-		msg = "[center]"+msg+"[/center]"
+	#if msg.length() < 18:
+	msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
 	$ChatBubble/ChatTimer.start(5)
 	$ChatBubble.visible = true

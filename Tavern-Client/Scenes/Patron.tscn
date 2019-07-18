@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Patron.gd" type="Script" id=1]
 [ext_resource path="res://Assets/NPCs/Barmaid_Wave_001.png" type="Texture" id=2]
@@ -255,13 +255,6 @@ tracks/3/keys = {
 radius = 12.0901
 height = 42.8873
 
-[sub_resource type="StyleBoxFlat" id=8]
-bg_color = Color( 0, 0.105882, 0.619608, 0.121569 )
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
-
 [sub_resource type="CapsuleShape2D" id=9]
 height = 8.06732
 
@@ -322,12 +315,11 @@ shape = SubResource( 7 )
 
 [node name="ChatBubble" type="RichTextLabel" parent="."]
 visible = false
-margin_left = -50.0
+margin_left = -5.0
 margin_top = -70.0
-margin_right = 50.0
+margin_right = 95.0
 margin_bottom = -55.0
 mouse_filter = 2
-custom_styles/normal = SubResource( 8 )
 bbcode_enabled = true
 scroll_active = false
 

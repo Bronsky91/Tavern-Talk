@@ -447,7 +447,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
-frame = 14
+frame = 3
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -612,7 +612,7 @@ texture = ExtResource( 22 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 7 )
 animation = "Flicker"
-frame = 2
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -750,6 +750,7 @@ texture = ExtResource( 30 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 11 )
 animation = "Flicker"
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -881,7 +882,6 @@ texture = ExtResource( 27 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 14 )
 animation = "Flicker"
-frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
