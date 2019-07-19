@@ -338,6 +338,7 @@ position = Vector2( 0, -0.669907 )
 shape = SubResource( 8 )
 
 [node name="ChatBubble" type="RichTextLabel" parent="."]
+visible = false
 margin_left = -50.0
 margin_top = -70.0
 margin_right = 50.0
