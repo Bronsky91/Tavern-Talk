@@ -2,7 +2,6 @@ extends Node2D
 
 export(PackedScene) var table: PackedScene
 export(PackedScene) var player: PackedScene
-export(PackedScene) var board: PackedScene
 export(PackedScene) var game_table: PackedScene
 
 onready var entrance: Position2D = $Entrance
