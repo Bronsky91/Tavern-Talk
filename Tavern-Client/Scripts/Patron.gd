@@ -265,18 +265,14 @@ sync func receive_tavern_chat(msg: String, c_name: String, id=null, length=null)
 func bubble_grow(char_count: float) -> void:
 	# Each line of 18 characters is 15 pixels in size
 	# for every 18 characters grow 15 in size.y and -15 in pos.y
-	print("Char count:"+ str(char_count))
-	print($ChatBubble.get_visible_line_count ( ))
+	yield(get_tree(), "idle_frame") # Reasons. https://github.com/godotengine/godot/issues/6638
+	var bubble_height = $ChatBubble.get_v_scroll().get_max()
+	$ChatBubble.rect_size.y = bubble_height
 	if char_count <= 10:
 		$ChatBubble.rect_size.x = char_count * 10
 		$ChatBubble.rect_position.x = char_count * -5
-	if char_count >= 18:
-		var num_of_lines = float(char_count) / 18.0
-		print(num_of_lines)
-		num_of_lines = ceil(num_of_lines)
-		print(num_of_lines)
-		$ChatBubble.rect_size.y = $ChatBubble.rect_size.y * num_of_lines
-		$ChatBubble.rect_position.y -= 15 * num_of_lines
+	var num_of_lines = bubble_height / 15
+	$ChatBubble.rect_position.y -= 15 * num_of_lines
 
 func bubble_reset() -> void:
 	$ChatBubble.rect_position.x = -50
