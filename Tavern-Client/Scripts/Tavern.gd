@@ -20,6 +20,7 @@ var overhead: bool = false
 
 ## NPCs ##
 var barmaid: Patron
+var bard: Patron
 ###    ###
 
 var stool_count: Dictionary = {
@@ -65,17 +66,22 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
-		barmaid = player.instance()
-		barmaid.set_npc(true)
-		barmaid.npc_init({'name': 'Barmaid', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'})
-		barmaid.set_name(barmaid.npc_type.name)
-		barmaid.set_default_position($NPC_Barmaid.position)
-		$YSort.add_child(barmaid)
+		barmaid = instance_npc({'name': 'Barmaid', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'}, $NPC_Barmaid.position)
+		bard = instance_npc({'name': 'Bard', 'style': '001', 'default_animation': 'npc_play_down', 'texture_default': 'play'}, $NPC_Bard.position)
 		set_board_texture(g.player_data.tavern.post_number)
 		character_name = g.player_data.character.name
 		create_table_scenes()
 		enter_tavern(g.player_data.tavern.ip, g.player_data.tavern.port)
-		
+
+func instance_npc(npc_deets: Dictionary, npc_pos: Vector2) -> Patron:
+	var npc: Patron = player.instance()
+	npc.set_npc(true)
+	npc.npc_init(npc_deets)
+	npc.set_name(npc_deets.name)
+	npc.set_default_position(npc_pos)
+	$YSort.add_child(npc)
+	return npc
+
 func _process(delta):
 	if chat_input.has_focus():
 		chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
@@ -339,11 +345,11 @@ func _on_Area2D_area_shape_exited(area_id, area, area_shape, self_shape, table_i
 		rpc("table_join_view", false, int(area.get_parent().name), table_id, false)
 
 ### Bulletin Board ###
-		
+
 func _on_Board_button_up():
 	board_scene.visible = true
 	chat_hide()
-	
+
 sync func board_view(show: bool, id: String) -> void:
 	if get_tree().get_network_unique_id() == int(id):
 		if show:
@@ -436,6 +442,7 @@ func slash_commands(text: String, params: PoolStringArray) -> void:
 		call(command, params)
 
 func _on_ChatEnter_text_entered(new_text: String) -> void:
+	chat_input.clear()
 	if command_time and command_param_start != null:
 		var command_params = new_text.substr(command_param_start, len(new_text)-1)
 		command_params = command_params.split(" ")
