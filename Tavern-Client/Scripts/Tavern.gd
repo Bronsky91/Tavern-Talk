@@ -21,6 +21,7 @@ var overhead: bool = false
 
 ## NPCs ##
 var barmaid: Patron
+var bard: Patron
 ###    ###
 
 var stool_count: Dictionary = {
@@ -66,17 +67,22 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	get_tree().connect("network_peer_disconnected", self, "user_exited")
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
-		barmaid = player.instance()
-		barmaid.set_npc(true)
-		barmaid.npc_init({'name': 'Barmaid', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'})
-		barmaid.set_name(barmaid.npc_type.name)
-		barmaid.set_default_position($NPC_Barmaid.position)
-		$YSort.add_child(barmaid)
+		barmaid = instance_npc({'name': 'Barmaid', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'}, $NPC_Barmaid.position)
+		bard = instance_npc({'name': 'Bard', 'style': '001', 'default_animation': 'npc_play_down', 'texture_default': 'play'}, $NPC_Bard.position)
 		set_board_texture(g.player_data.tavern.post_number)
 		character_name = g.player_data.character.name
 		create_table_scenes()
 		enter_tavern(g.player_data.tavern.ip, g.player_data.tavern.port)
-		
+
+func instance_npc(npc_deets: Dictionary, npc_pos: Vector2) -> Patron:
+	var npc: Patron = player.instance()
+	npc.set_npc(true)
+	npc.npc_init(npc_deets)
+	npc.set_name(npc_deets.name)
+	npc.set_default_position(npc_pos)
+	$YSort.add_child(npc)
+	return npc
+
 func _process(delta):
 	if chat_input.has_focus():
 		chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y

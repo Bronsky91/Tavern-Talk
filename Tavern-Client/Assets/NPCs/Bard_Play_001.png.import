@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Bard_OpenEyesPlay_001.png-b753855f1959331b6bdcc32165cdbdb7.stex"
+path="res://.import/Bard_Play_001.png-dc34592b8b4975540084603d5af0e9ca.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/NPCs/Bard_OpenEyesPlay_001.png"
-dest_files=[ "res://.import/Bard_OpenEyesPlay_001.png-b753855f1959331b6bdcc32165cdbdb7.stex" ]
+source_file="res://Assets/NPCs/Bard_Play_001.png"
+dest_files=[ "res://.import/Bard_Play_001.png-dc34592b8b4975540084603d5af0e9ca.stex" ]
 
 [params]
 

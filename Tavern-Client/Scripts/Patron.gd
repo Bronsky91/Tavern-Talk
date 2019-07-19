@@ -266,6 +266,7 @@ func bubble_grow(char_count: float) -> void:
 	# Each line of 18 characters is 15 pixels in size
 	# for every 18 characters grow 15 in size.y and -15 in pos.y
 	print("Char count:"+ str(char_count))
+	print($ChatBubble.get_visible_line_count ( ))
 	if char_count <= 10:
 		$ChatBubble.rect_size.x = char_count * 10
 		$ChatBubble.rect_position.x = char_count * -5
@@ -284,13 +285,13 @@ func bubble_reset() -> void:
 	$ChatBubble.rect_position.y = -70
 
 func overhead_chat(msg: String, c_name: String, length) -> void:
+	bubble_reset()
 	# Tavern chat bubble
 	var char_count
 	if length == null:
 		char_count = msg.length()
 	else:
 		char_count = length
-	bubble_grow(char_count)
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
 	if msg.length() > 0:
@@ -302,16 +303,15 @@ func overhead_chat(msg: String, c_name: String, length) -> void:
 	#if msg.length() < 18:
 	msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
+	bubble_grow(char_count)
 	$ChatBubble/ChatTimer.start(5)
 	$ChatBubble.visible = true
 
 func _on_ChatTimer_timeout():
-	#$ChatBubble.rect_size.y = $ChatBubble.rect_size.y / 2
-	#$ChatBubble.rect_position.y = $ChatBubble.rect_position.y + 100
 	$ChatBubble.clear()
 	$ChatBubble.visible = false
-	bubble_reset()		
-		
+	bubble_reset()
+	
 ## NPC Functions ##
 
 remote func update_npc(npc_state: Dictionary) -> void:
@@ -336,13 +336,15 @@ func wave() -> void:
 func move_npc(_target: Vector2) -> void:
 	target = _target
 	
-func use_npc_texture(animation: String, _npc_type: Dictionary) -> void:
+func use_npc_texture(texture: String, _npc_type: Dictionary) -> void:
 	# called to set the proper texture and frames when animation changes
-	if animation == 'idle':
+	if texture == 'idle':
 		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+_npc_type.style+".png"))
 		$Body.vframes = 1
 		$Body.hframes = 4
-	elif animation == 'wave':
-		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+animation.capitalize()+"_"+_npc_type.style+".png"))
+	elif texture == 'wave':
+		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+texture.capitalize()+"_"+_npc_type.style+".png"))
 		$Body.vframes = 1
 		$Body.hframes = 9
+	elif texture == 'play':
+		$Body.set_texture(load("res://Assets/NPCs/"+_npc_type.name+"_"+texture.capitalize()+"_"+_npc_type.style+".png"))
