@@ -31,6 +31,10 @@ router.route('/users/:user_id')
     .put(userController.update)
     .delete(userController.delete);
 
+router.route('/users/:user_id/:character_id/inventory')
+    .get(userController.getInventory)
+    .post(userController.updateInventory)
+
 
 // Export API routes
 module.exports = router;

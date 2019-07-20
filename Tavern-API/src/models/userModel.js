@@ -19,6 +19,17 @@ const userModel = mongoose.Schema({
             hair: {type: Number},
             eyes: {type: Number},
             clothes: {type: Number}
+        },
+        inventory: {
+            gold: {type: Number},
+            items: [{
+                name: String,
+                about: String,
+                worth: Number,
+                icon: String,
+                texture: String,
+                clothing: Boolean
+            }]
         }
     }],
     taverns: [{
