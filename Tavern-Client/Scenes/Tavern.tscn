@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=2]
+[gd_scene load_steps=102 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -69,8 +69,6 @@
 [ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=67]
 [ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=68]
 [ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=69]
-[ext_resource path="res://Scenes/NPC_BardPosAudio.gd" type="Script" id=70]
-[ext_resource path="res://Assets/Audio/lutejamother.ogg" type="AudioStream" id=71]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -450,7 +448,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
-frame = 29
+frame = 35
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -616,7 +614,6 @@ texture = ExtResource( 22 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 7 )
 animation = "Flicker"
-frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -754,7 +751,7 @@ texture = ExtResource( 30 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 11 )
 animation = "Flicker"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -886,6 +883,7 @@ texture = ExtResource( 27 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 14 )
 animation = "Flicker"
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -990,7 +988,6 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
-frame = 1
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -999,7 +996,6 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
-frame = 1
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -1020,7 +1016,6 @@ texture = ExtResource( 12 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 20 )
 animation = "Sleeping"
-frame = 1
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
@@ -1183,12 +1178,6 @@ position = Vector2( 155.583, 117.925 )
 
 [node name="NPC_Bard" type="Position2D" parent="."]
 position = Vector2( 244.819, 194.069 )
-script = ExtResource( 70 )
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="NPC_Bard"]
-stream = ExtResource( 71 )
-volume_db = -12.0
-autoplay = true
 [connection signal="button_up" from="YSort/Table_000/Join" to="." method="_on_Table_button_up" binds= [ 0 ]]
 [connection signal="area_shape_entered" from="YSort/Table_000/Area2D" to="." method="_on_Area2D_area_shape_entered" binds= [ "000" ]]
 [connection signal="area_shape_exited" from="YSort/Table_000/Area2D" to="." method="_on_Area2D_area_shape_exited" binds= [ "000" ]]
