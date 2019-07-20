@@ -417,7 +417,14 @@ func _on_Exit_body_exited(body):
 func _on_LeaveButton_button_up():
 	leave_tavern()
 	
-	
+### Tavern UI ###
+
+func _on_Inventory_button_up():
+	if $CanvasLayer/Inventory.visible:
+		$CanvasLayer/Inventory.visible = false
+	else:
+		$CanvasLayer/Inventory.visible = true
+
 ### Tavern Chat ###
 
 func chat_hide() -> void:
@@ -494,4 +501,5 @@ sync func t_chat(msg, table_id):
 	
 func _on_TableChatTimer_timeout():
 	get_parent().clear()
+
 

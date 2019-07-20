@@ -15,3 +15,6 @@ func _on_Inventory_request_completed(result, response_code, headers, body):
 	var inv = json.result.inventory
 	var msg = json.result.msg
 	$Bag/Currency/GoldAmount.text = str(inv.gold)
+
+func _on_Inventory_visibility_changed():
+	pass # Replace with function body.

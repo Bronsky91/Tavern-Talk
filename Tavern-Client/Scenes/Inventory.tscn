@@ -215,4 +215,5 @@ texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
 [node name="Inventory" type="HTTPRequest" parent="."]
+[connection signal="visibility_changed" from="." to="." method="_on_Inventory_visibility_changed"]
 [connection signal="request_completed" from="Inventory" to="." method="_on_Inventory_request_completed"]
