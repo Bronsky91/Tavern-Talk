@@ -87,6 +87,7 @@ func _process(delta):
 	if chat_input.has_focus():
 		chat_input.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y
 		$CanvasLayer/TavernChatBox.rect_position.y = g.get_top_of_keyboard_pos() - chat_input.get_size().y - $CanvasLayer/TavernChatBox.get_size().y
+		$ButtonStack.rect_position.y = g.get_top_of_keyboard_pos() - $ButtonStack.get_size().y
 		
 func _notification(notif):
     if notif == MainLoop.NOTIFICATION_WM_GO_BACK_REQUEST:

@@ -449,7 +449,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
-frame = 7
+frame = 2
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -615,6 +615,7 @@ texture = ExtResource( 22 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 7 )
 animation = "Flicker"
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -643,7 +644,6 @@ position = Vector2( 29.5634, 205.549 )
 texture = ExtResource( 27 )
 
 [node name="Table_002" type="Sprite" parent="YSort"]
-editor/display_folded = true
 position = Vector2( 284.665, 394.99 )
 z_index = 1
 texture = ExtResource( 19 )
@@ -752,7 +752,6 @@ texture = ExtResource( 30 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 11 )
 animation = "Flicker"
-frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -884,7 +883,7 @@ texture = ExtResource( 27 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 14 )
 animation = "Flicker"
-frame = 3
+frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -1019,7 +1018,6 @@ texture = ExtResource( 12 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 20 )
 animation = "Sleeping"
-frame = 2
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
@@ -1121,10 +1119,10 @@ bbcode_enabled = true
 scroll_following = true
 
 [node name="Inventory" parent="CanvasLayer" instance=ExtResource( 59 )]
-margin_left = 265.0
-margin_top = 437.0
-margin_right = 356.0
-margin_bottom = 538.0
+margin_left = 79.1536
+margin_top = 291.244
+margin_right = 344.154
+margin_bottom = 511.244
 
 [node name="ButtonStack" type="Button" parent="."]
 margin_left = 329.0
