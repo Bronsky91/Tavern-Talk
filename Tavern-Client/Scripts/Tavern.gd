@@ -165,7 +165,7 @@ remote func configure_player() -> void:
 			new_player.set_npc(false)
 			$YSort.add_child(new_player)
 			barmaid.wave()
-	barmaid.receive_tavern_chat("Welcome!", barmaid.name)
+	#barmaid.receive_tavern_chat("Welcome!", barmaid.name)
 				
 func change_scene_manually() -> void:
     # Remove tavern
@@ -473,7 +473,7 @@ func yell(params: PoolStringArray):
 	var msg: String = params.join(" ")
 	var tav_msg: String = '[color=#ff4f6d][b]'+msg.to_upper()+'[/b][/color]' ## Increase font or change color to Red maybe?
 	var table_msg: String = "yells, "+"\""+msg+"\""
-	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, character_name, get_tree().get_network_unique_id(), msg.length())
+	get_node("YSort/"+str(get_tree().get_network_unique_id())).rpc("receive_tavern_chat", tav_msg, character_name, get_tree().get_network_unique_id())
 	chat_input.clear()
 	rpc("chat_enter_view", false, get_tree().get_network_unique_id())
 	for t in get_tree().get_nodes_in_group("tables"):

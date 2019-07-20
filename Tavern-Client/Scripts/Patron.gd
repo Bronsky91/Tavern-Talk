@@ -249,22 +249,20 @@ func _on_AnimationPlayer_animation_finished(anim_name: String):
 		sitting = false
 		busy = false
 		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
-		
+
 func _on_Timer_timeout():
 	if v_sit_anim == 'back':
 		get_node("../Table_00"+str(stool_dict.table)+"/Stool_00"+str(stool_dict.stool)).z_index = 0
-		
+
 ### Chatting ###
 
-sync func receive_tavern_chat(msg: String, c_name: String, id=null, length=null) -> void:
+sync func receive_tavern_chat(msg: String, c_name: String, id=null) -> void:
 	if id == null:
-		get_parent().get_node(c_name).overhead_chat(msg, c_name, length)
+		get_parent().get_node(c_name).overhead_chat(msg, c_name)
 	else:
-		get_parent().get_node(str(id)).overhead_chat(msg, c_name, length)
+		get_parent().get_node(str(id)).overhead_chat(msg, c_name)
 
 func bubble_grow(char_count: float) -> void:
-	# Each line of 18 characters is 15 pixels in size
-	# for every 18 characters grow 15 in size.y and -15 in pos.y
 	yield(get_tree(), "idle_frame") # Reasons. https://github.com/godotengine/godot/issues/6638
 	var bubble_height = $ChatBubble.get_v_scroll().get_max()
 	$ChatBubble.rect_size.y = bubble_height
@@ -280,14 +278,10 @@ func bubble_reset() -> void:
 	$ChatBubble.rect_size.y = 15
 	$ChatBubble.rect_position.y = -70
 
-func overhead_chat(msg: String, c_name: String, length) -> void:
+func overhead_chat(msg: String, c_name: String) -> void:
 	bubble_reset()
 	# Tavern chat bubble
-	var char_count
-	if length == null:
-		char_count = msg.length()
-	else:
-		char_count = length
+	var char_count = msg.length()
 	$ChatBubble.bbcode_text = ""
 	$ChatBubble.hint_tooltip = msg
 	if msg.length() > 0:
@@ -299,9 +293,9 @@ func overhead_chat(msg: String, c_name: String, length) -> void:
 	#if msg.length() < 18:
 	msg = "[center]"+msg+"[/center]"
 	$ChatBubble.bbcode_text = msg
-	bubble_grow(char_count)
 	$ChatBubble/ChatTimer.start(5)
 	$ChatBubble.visible = true
+	bubble_grow(char_count)
 
 func _on_ChatTimer_timeout():
 	$ChatBubble.clear()

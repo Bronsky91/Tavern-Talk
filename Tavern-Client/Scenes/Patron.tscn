@@ -295,7 +295,7 @@ region_rect = Rect2( 0, 10, 0, 0 )
 region_filter_clip = true
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-009, -1.19209e-007 )
+position = Vector2( 7.45058e-09, -1.19209e-07 )
 vframes = 4
 hframes = 9
 frame = 12
@@ -343,6 +343,7 @@ margin_left = -50.0
 margin_top = -70.0
 margin_right = 50.0
 margin_bottom = -55.0
+rect_min_size = Vector2( 0, 15 )
 mouse_filter = 2
 custom_styles/normal = SubResource( 9 )
 bbcode_enabled = true
