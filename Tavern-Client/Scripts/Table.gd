@@ -14,7 +14,7 @@ var current_patrons: Array
 var command_time: bool = false
 var command_param_start = null
 
-var chat_commands: Array = ['help', 'w', 'throw', 'e', 'eb', 'yell', 'armwrestle', 'roll']
+var chat_commands: Array = ['help', 'w', 'throw', 'e', 'eb', 'yell', 'armwrestle', 'roll', 'cointoss']
 
 class SortPatronNames:
 	static func sort(a, b):

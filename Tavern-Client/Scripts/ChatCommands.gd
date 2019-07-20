@@ -4,12 +4,14 @@ class_name Commands
 
 onready var table = get_parent()
 
-var command_dict: Dictionary = {'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think. /w patronname',
+var command_dict: Dictionary = {
+	'w': 'Whisper something to another patron at the table, careful though it may not be as secret as you think. /w patronname',
 	'throw':  'Shortcut command to throw an object, /throw object_name to execute',
 	'e': 'Emote, type out what you would like your character to do as an action, no need to type your name',
 	'eb': 'Same as Emote, but will broadcast your action to the whole tavern',
 	'yell': 'Yell something, the tavern will all hear it',
-	 'armwrestle': 'Challenge another patron at the table to an arm wrestle, /armwrestle patron_name to execute'
+	'armwrestle': 'Challenge another patron at the table to an arm wrestle, /armwrestle patron_name to execute',
+	'cointoss': 'flips a coin, resulting in heads or tails'
 }
 
 func help(params: PoolStringArray):
@@ -95,4 +97,14 @@ func roll(params: PoolStringArray) -> void:
 		msg = "rolls "+roll[0]+" d"+roll[1]+"'s and gets "+s_result
 	table.send_action_message(msg)
 	
+func cointoss(params: PoolStringArray) -> void:
+	var msg: String
+	randomize()
+	var coin = randi() % 2
+	print(coin)
+	if coin == 0:
+		msg = "flips a coin and it lands on Heads!"
+	else:
+		msg = "flips a coin and it lands on Tails!"
+	table.send_action_message(msg)
 	
