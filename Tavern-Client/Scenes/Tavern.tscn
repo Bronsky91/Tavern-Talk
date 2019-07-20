@@ -60,15 +60,15 @@
 [ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=58]
 [ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=59]
 [ext_resource path="res://Scripts/TavernButtonStack.gd" type="Script" id=60]
-[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=61]
-[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=62]
-[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=63]
-[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=64]
-[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=65]
-[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=66]
-[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=67]
-[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=68]
-[ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=69]
+[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=61]
+[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=62]
+[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=63]
+[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=64]
+[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=65]
+[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=66]
+[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=67]
+[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=68]
+[ext_resource path="res://Assets/UI/Emoticon/Emoticon_FHead_Human.png" type="Texture" id=69]
 [ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=70]
 
 [sub_resource type="SpriteFrames" id=1]
@@ -371,12 +371,12 @@ bg_color = Color( 0, 0, 0, 0.215686 )
 animations = [ {
 "frames": [ ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ) ],
 "loop": false,
-"name": "Close",
+"name": "Open",
 "speed": 10.0
 }, {
 "frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 61 ) ],
 "loop": false,
-"name": "Open",
+"name": "Close",
 "speed": 10.0
 } ]
 
@@ -449,7 +449,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
-frame = 10
+frame = 2
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -615,7 +615,6 @@ texture = ExtResource( 22 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 7 )
 animation = "Flicker"
-frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -752,7 +751,7 @@ texture = ExtResource( 30 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 11 )
 animation = "Flicker"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -884,6 +883,7 @@ texture = ExtResource( 27 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 14 )
 animation = "Flicker"
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]

@@ -18,6 +18,7 @@ margin_bottom = 104.0
 text = "New Character"
 
 [node name="Step1" type="Control" parent="."]
+editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
@@ -79,7 +80,6 @@ margin_bottom = 112.0
 text = "Back"
 
 [node name="Step2" type="Node2D" parent="."]
-editor/display_folded = true
 visible = false
 
 [node name="Body" type="Sprite" parent="Step2"]

@@ -67,14 +67,14 @@ func _ready():
 	cha.set_cell_mode(1, 2)
 	cha.set_range_config ( 1, 1, 22, 1)
 	cha.set_range (1, 10)
-	
-		
+
+
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = g.distance_to_raise(get_focus_owner())
 	elif OS.get_virtual_keyboard_height() == 0 and not g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = 0
-	
+
 func _on_Create_request_completed(result, response_code, headers, body):
 	if response_code == 200:
 		menu.change_menu_scene(self, menu.get_node('CharacterSelect'))
@@ -100,7 +100,7 @@ func _on_CreateButton_button_up():
 		}
 		$Step1.visible = false
 		$Step2.visible = true
-		
+
 func _on_Back_button_up():
 	if $Step2.visible == true:
 		$Step2.hide()
