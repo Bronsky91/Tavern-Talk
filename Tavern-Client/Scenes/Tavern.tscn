@@ -1,4 +1,4 @@
-[gd_scene load_steps=102 format=2]
+[gd_scene load_steps=103 format=2]
 
 [ext_resource path="res://Scripts/Tavern.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Table.tscn" type="PackedScene" id=2]
@@ -58,17 +58,18 @@
 [ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=56]
 [ext_resource path="res://Assets/furniture/Welcomemat_001.png" type="Texture" id=57]
 [ext_resource path="res://Resources/Fonts/normal_font.tres" type="DynamicFontData" id=58]
-[ext_resource path="res://Scripts/TavernButtonStack.gd" type="Script" id=59]
-[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=60]
-[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=61]
-[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=62]
-[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=63]
-[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=64]
-[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=65]
-[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=66]
-[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=67]
-[ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=68]
-[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=69]
+[ext_resource path="res://Scenes/Inventory.tscn" type="PackedScene" id=59]
+[ext_resource path="res://Scripts/TavernButtonStack.gd" type="Script" id=60]
+[ext_resource path="res://Assets/UI/Tavern_Menu5.png" type="Texture" id=61]
+[ext_resource path="res://Assets/UI/Tavern_Menu13.png" type="Texture" id=62]
+[ext_resource path="res://Assets/UI/Tavern_Menu14.png" type="Texture" id=63]
+[ext_resource path="res://Assets/UI/Tavern_Menu15.png" type="Texture" id=64]
+[ext_resource path="res://Assets/UI/Tavern_Menu1.png" type="Texture" id=65]
+[ext_resource path="res://Assets/UI/Tavern_Menu2.png" type="Texture" id=66]
+[ext_resource path="res://Assets/UI/Tavern_Menu3.png" type="Texture" id=67]
+[ext_resource path="res://Assets/UI/Tavern_Menu4.png" type="Texture" id=68]
+[ext_resource path="res://Assets/UI/Emote_Icon.png" type="Texture" id=69]
+[ext_resource path="res://Assets/Backgrounds/coin.png" type="Texture" id=70]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -368,12 +369,12 @@ bg_color = Color( 0, 0, 0, 0.215686 )
 
 [sub_resource type="SpriteFrames" id=31]
 animations = [ {
-"frames": [ ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ) ],
+"frames": [ ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ) ],
 "loop": false,
 "name": "Close",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 60 ) ],
+"frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 61 ) ],
 "loop": false,
 "name": "Open",
 "speed": 10.0
@@ -448,6 +449,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
+frame = 7
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -613,7 +615,6 @@ texture = ExtResource( 22 )
 position = Vector2( -14.2162, -16.7249 )
 frames = SubResource( 7 )
 animation = "Flicker"
-frame = 1
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_001/Candle"]
@@ -751,7 +752,7 @@ texture = ExtResource( 30 )
 position = Vector2( -10.2169, -14.3036 )
 frames = SubResource( 11 )
 animation = "Flicker"
-frame = 3
+frame = 2
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_002/Candle"]
@@ -883,6 +884,7 @@ texture = ExtResource( 27 )
 position = Vector2( -12.5137, -14.7889 )
 frames = SubResource( 14 )
 animation = "Flicker"
+frame = 3
 playing = true
 
 [node name="Light2D" type="Light2D" parent="YSort/Table_003/Candle"]
@@ -987,7 +989,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
-frame = 3
+frame = 4
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -996,7 +998,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
-frame = 3
+frame = 4
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -1017,7 +1019,7 @@ texture = ExtResource( 12 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 20 )
 animation = "Sleeping"
-frame = 1
+frame = 2
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]
@@ -1118,6 +1120,12 @@ custom_styles/normal = SubResource( 29 )
 bbcode_enabled = true
 scroll_following = true
 
+[node name="Inventory" parent="CanvasLayer" instance=ExtResource( 59 )]
+margin_left = 265.0
+margin_top = 437.0
+margin_right = 356.0
+margin_bottom = 538.0
+
 [node name="ButtonStack" type="Button" parent="."]
 margin_left = 329.0
 margin_top = 536.802
@@ -1125,7 +1133,7 @@ margin_right = 353.0
 margin_bottom = 634.802
 custom_styles/focus = SubResource( 30 )
 flat = true
-script = ExtResource( 59 )
+script = ExtResource( 60 )
 
 [node name="ButtonStackAnimation" type="AnimatedSprite" parent="."]
 editor/display_folded = true
@@ -1143,7 +1151,7 @@ margin_right = 23.0
 margin_bottom = -15.619
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 disabled = true
-icon = ExtResource( 68 )
+icon = ExtResource( 69 )
 flat = true
 
 [node name="Inventory" type="Button" parent="ButtonStackAnimation" groups=[
@@ -1155,7 +1163,7 @@ margin_top = -16.0
 margin_right = 31.0
 margin_bottom = 17.0
 disabled = true
-icon = ExtResource( 69 )
+icon = ExtResource( 70 )
 flat = true
 
 [node name="Chat" type="Button" parent="ButtonStackAnimation" groups=[

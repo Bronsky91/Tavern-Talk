@@ -113,7 +113,7 @@ exports.updateInventory = function (req, res) {
                         character.inventory.gold = character.inventory.gold + req.body.gold;
                     }
                 }
-                character.inventory.items = req.body.items ? req.body.items : character.inventory.items;
+                character.inventory.items = req.body.items.length > 0 ? req.body.items : character.inventory.items;
                 updatedInventory = character.inventory;
                 msg = 'Inventory updated';
             }
