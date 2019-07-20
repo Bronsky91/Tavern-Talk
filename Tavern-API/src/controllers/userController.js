@@ -84,16 +84,19 @@ exports.getInventory = function (req, res) {
     User.findById(req.params.user_id, function (err, user) {
         if (err)
             res.send(err);
+        let msg = 'Could not find character';
         let inventory = {};
         for(let character of user.characters){
             if(character._id == req.params.character_id){
                 // If there's no gold then it's zero
                 character.inventory.gold = character.inventory.gold ? character.inventory.gold : 0;
                 inventory = character.inventory;
+                msg = 'Character Found';
             }
         }
         res.json({
-            data: inventory
+            inventory,
+            msg
         });
     });
 };
@@ -103,7 +106,7 @@ exports.updateInventory = function (req, res) {
         if (err)
             res.send(err);
         let msg = 'Could not find character';
-        let updatedInventory = {};
+        let inventory = {};
         for(let character of user.characters){
             if(character._id == req.params.character_id){
                 // If there's no gold then it's zero, ya poor
@@ -114,7 +117,7 @@ exports.updateInventory = function (req, res) {
                     }
                 }
                 character.inventory.items = req.body.items.length > 0 ? req.body.items : character.inventory.items;
-                updatedInventory = character.inventory;
+                inventory = character.inventory;
                 msg = 'Inventory updated';
             }
         }
@@ -122,8 +125,8 @@ exports.updateInventory = function (req, res) {
             if (err)
                 res.json(err);
             res.json({
-                msg: msg,
-                inventory: updatedInventory
+                msg,
+                inventory
             });
         });
     });

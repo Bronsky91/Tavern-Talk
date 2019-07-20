@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Assets/UI/UI_001.png" type="Texture" id=1]
 [ext_resource path="res://Scripts/Inventory.gd" type="Script" id=2]
+[ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=2]
+font_data = ExtResource( 3 )
 
 [node name="Inventory" type="NinePatchRect"]
 margin_right = 266.0
@@ -95,6 +102,21 @@ margin_right = 98.7506
 margin_bottom = 213.242
 texture = ExtResource( 1 )
 region_rect = Rect2( 0, 80, 64, 32 )
+
+[node name="GoldLabel" type="Label" parent="Bag/Currency"]
+margin_left = 13.0
+margin_top = 11.0
+margin_right = 53.0
+margin_bottom = 26.0
+custom_fonts/font = SubResource( 1 )
+text = "Gold:"
+
+[node name="GoldAmount" type="Label" parent="Bag/Currency"]
+margin_left = 56.8651
+margin_top = 11.7652
+margin_right = 96.8651
+margin_bottom = 25.7652
+custom_fonts/font = SubResource( 2 )
 
 [node name="Inv1" type="NinePatchRect" parent="Bag"]
 margin_left = -21.9979
