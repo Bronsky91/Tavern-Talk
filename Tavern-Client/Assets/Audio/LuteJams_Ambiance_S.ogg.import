@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/LuteJams_Ambiance_S.ogg-ee6b68cbff338821c6e170661dfa8cea.oggstr"
+
+[deps]
+
+source_file="res://Assets/Audio/LuteJams_Ambiance_S.ogg"
+dest_files=[ "res://.import/LuteJams_Ambiance_S.ogg-ee6b68cbff338821c6e170661dfa8cea.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
