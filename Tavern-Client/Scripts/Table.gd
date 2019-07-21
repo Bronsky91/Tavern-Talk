@@ -84,15 +84,15 @@ func slash_commands(text: String, params: PoolStringArray) -> void:
 
 ### Table Patrons ###
 
-sync func set_patron(id: String, patron_name: String, stats: Dictionary) -> void:
+sync func set_patron(id: int, patron_name: String, stats: Dictionary) -> void:
 	var patron: Dictionary = {'id': id, 'name': patron_name, 'stats': stats}
 	current_patrons.append(patron)
 	current_patrons.sort_custom(SortPatronNames, "sort")
 	$PatronList.add_item(patron.name)
 	$PatronList.sort_items_by_text()
 	
-sync func remove_patron(id: String) -> void:
-	var patron_that_left: Dictionary
+sync func remove_patron(id: int) -> void:
+	var patron_that_left: int
 	for i in current_patrons.size():
 		if current_patrons[i].id == id:
 			current_patrons.remove(i)
