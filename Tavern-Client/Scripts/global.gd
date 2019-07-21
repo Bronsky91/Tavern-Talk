@@ -41,7 +41,10 @@ var player_data: Dictionary = {
 		'id': null, # String
 		'post_number': null, # Int
 		},
-	'table_id': null, # Int
+	'table_id': null, # Int,
+	'position': null,
+	'last_scene': null,
+	'animation': null
 	}
 	
 var api_url: String = 'https://warlock.tech/api/'
