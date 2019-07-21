@@ -1,31 +1,47 @@
 extends Node
 
 var player_data: Dictionary = {
-	'user_id': null,
+	'user_id': null, # String
 	'character': {
-		'_id': null,
-		'name': null,
-		'gender': null,
+		'_id': null, # String
+		'name': null, # String
+		'gender': null, # String
 		'stats':{
-			'strength': null,
-			'dex': null,
-			'con': null,
-			'wis': null,
-			'char': null
-			}
+			'strength': null, # Int
+			'dex': null, # Int
+			'con': null, # Int
+			'wis': null, # Int
+			'char': null # Int
+			},
+		'style': {
+			'skin': null, # String
+			'hair': null, # String
+			'eyes': null, # String
+			'clothes': null # String
 		},
-	'animation': null,
+		'inventory': {
+			'gold': null, # Int
+			'items': [
+				{
+					# name: String,
+		            # about: String,
+		            # worth: Int,
+		            # icon: String,
+		            # texture: String,
+		            # clothing: bool
+				}
+			]
+		}
+	},
 	'tavern': {
-		'port': null,
-		'ip': null,
-		'name': null,
-		'code': null,
-		'id': null,
-		'post_number': null,
+		'port': null, # Int
+		'ip': null, # String
+		'name': null, # String
+		'code': null, # String
+		'id': null, # String
+		'post_number': null, # Int
 		},
-	'table_id': null,
-	'position': null,
-	'last_scene': null
+	'table_id': null, # Int
 	}
 	
 var api_url: String = 'https://warlock.tech/api/'
