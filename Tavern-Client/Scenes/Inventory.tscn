@@ -77,7 +77,7 @@ margin_bottom = 73.19
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="ItemSprite1" type="Sprite" parent="CharacterPanel/Equip1"]
+[node name="ItemSprite" type="Sprite" parent="CharacterPanel/Equip1"]
 position = Vector2( 20, 20 )
 
 [node name="Equip2" type="NinePatchRect" parent="CharacterPanel"]
@@ -88,7 +88,7 @@ margin_bottom = 73.132
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="ItemSprite2" type="Sprite" parent="CharacterPanel/Equip2"]
+[node name="ItemSprite" type="Sprite" parent="CharacterPanel/Equip2"]
 position = Vector2( 20, 20 )
 
 [node name="Equip3" type="NinePatchRect" parent="CharacterPanel"]
@@ -99,7 +99,7 @@ margin_bottom = 72.2518
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="ItemSprite3" type="Sprite" parent="CharacterPanel/Equip3"]
+[node name="ItemSprite" type="Sprite" parent="CharacterPanel/Equip3"]
 position = Vector2( 20, 20 )
 
 [node name="Equip4" type="NinePatchRect" parent="CharacterPanel"]
@@ -110,7 +110,7 @@ margin_bottom = 237.74
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="ItemSprite4" type="Sprite" parent="CharacterPanel/Equip4"]
+[node name="ItemSprite" type="Sprite" parent="CharacterPanel/Equip4"]
 position = Vector2( 20, 20 )
 
 [node name="Equip5" type="NinePatchRect" parent="CharacterPanel"]
@@ -121,7 +121,7 @@ margin_bottom = 237.605
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="ItemSprite5" type="Sprite" parent="CharacterPanel/Equip5"]
+[node name="ItemSprite" type="Sprite" parent="CharacterPanel/Equip5"]
 position = Vector2( 20, 20 )
 
 [node name="Equip6" type="NinePatchRect" parent="CharacterPanel"]
@@ -132,7 +132,7 @@ margin_bottom = 237.772
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="ItemSprite6" type="Sprite" parent="CharacterPanel/Equip6"]
+[node name="ItemSprite" type="Sprite" parent="CharacterPanel/Equip6"]
 position = Vector2( 20, 20 )
 
 [node name="Bag" type="Control" parent="."]
@@ -165,14 +165,21 @@ margin_bottom = 25.7652
 custom_fonts/font = SubResource( 2 )
 
 [node name="Inv1" type="NinePatchRect" parent="Bag"]
-margin_left = -21.9979
+margin_left = -20.9139
 margin_top = 131.198
-margin_right = 18.0021
+margin_right = 19.0861
 margin_bottom = 171.198
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite1" type="Sprite" parent="Bag/Inv1"]
+[node name="Button" type="Button" parent="Bag/Inv1"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv1"]
 position = Vector2( 20, 20 )
 
 [node name="Inv2" type="NinePatchRect" parent="Bag"]
@@ -183,7 +190,14 @@ margin_bottom = 170.997
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite2" type="Sprite" parent="Bag/Inv2"]
+[node name="Button" type="Button" parent="Bag/Inv2"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv2"]
 position = Vector2( 20, 20 )
 
 [node name="Inv3" type="NinePatchRect" parent="Bag"]
@@ -194,18 +208,32 @@ margin_bottom = 170.695
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite3" type="Sprite" parent="Bag/Inv3"]
+[node name="Button" type="Button" parent="Bag/Inv3"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv3"]
 position = Vector2( 20, 20 )
 
 [node name="Inv4" type="NinePatchRect" parent="Bag"]
-margin_left = -21.5383
+margin_left = -20.9602
 margin_top = 91.1625
-margin_right = 18.4617
+margin_right = 19.0398
 margin_bottom = 131.162
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite4" type="Sprite" parent="Bag/Inv4"]
+[node name="Button" type="Button" parent="Bag/Inv4"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv4"]
 position = Vector2( 20, 20 )
 
 [node name="Inv5" type="NinePatchRect" parent="Bag"]
@@ -216,7 +244,14 @@ margin_bottom = 130.41
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite5" type="Sprite" parent="Bag/Inv5"]
+[node name="Button" type="Button" parent="Bag/Inv5"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv5"]
 position = Vector2( 20, 20 )
 
 [node name="Inv6" type="NinePatchRect" parent="Bag"]
@@ -227,7 +262,14 @@ margin_bottom = 130.961
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite6" type="Sprite" parent="Bag/Inv6"]
+[node name="Button" type="Button" parent="Bag/Inv6"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv6"]
 position = Vector2( 20, 20 )
 
 [node name="Inv7" type="NinePatchRect" parent="Bag"]
@@ -238,18 +280,32 @@ margin_bottom = 89.8441
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite7" type="Sprite" parent="Bag/Inv7"]
+[node name="Button" type="Button" parent="Bag/Inv7"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv7"]
 position = Vector2( 20, 20 )
 
 [node name="Inv8" type="NinePatchRect" parent="Bag"]
-margin_left = 59.5777
+margin_left = 59.0719
 margin_top = 48.8428
-margin_right = 99.5777
+margin_right = 99.0719
 margin_bottom = 88.8428
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite8" type="Sprite" parent="Bag/Inv8"]
+[node name="Button" type="Button" parent="Bag/Inv8"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv8"]
 position = Vector2( 20, 20 )
 
 [node name="Inv9" type="NinePatchRect" parent="Bag"]
@@ -260,40 +316,68 @@ margin_bottom = 89.6427
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite9" type="Sprite" parent="Bag/Inv9"]
+[node name="Button" type="Button" parent="Bag/Inv9"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv9"]
 position = Vector2( 20, 20 )
 
 [node name="Inv10" type="NinePatchRect" parent="Bag"]
-margin_left = 58.0208
-margin_top = 7.52441
-margin_right = 98.0208
-margin_bottom = 47.5244
+margin_left = 58.5581
+margin_top = 8.84229
+margin_right = 98.5581
+margin_bottom = 48.8423
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite10" type="Sprite" parent="Bag/Inv10"]
+[node name="Button" type="Button" parent="Bag/Inv10"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv10"]
 position = Vector2( 20, 20 )
 
 [node name="Inv11" type="NinePatchRect" parent="Bag"]
-margin_left = -22.8717
+margin_left = -21.9323
 margin_top = 8.77454
-margin_right = 17.1283
+margin_right = 18.0677
 margin_bottom = 48.7745
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite11" type="Sprite" parent="Bag/Inv11"]
+[node name="Button" type="Button" parent="Bag/Inv11"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv11"]
 position = Vector2( 20, 20 )
 
 [node name="Inv12" type="NinePatchRect" parent="Bag"]
-margin_left = 17.6151
-margin_top = 8.57313
-margin_right = 57.6151
-margin_bottom = 48.5731
+margin_left = 18.8436
+margin_top = 9.07898
+margin_right = 58.8436
+margin_bottom = 49.0789
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
-[node name="InvSprite12" type="Sprite" parent="Bag/Inv12"]
+[node name="Button" type="Button" parent="Bag/Inv12"]
+margin_left = 2.5
+margin_top = 2.5
+margin_right = 38.5
+margin_bottom = 38.5
+flat = true
+
+[node name="InvSprite" type="Sprite" parent="Bag/Inv12"]
 position = Vector2( 20, 20 )
 
 [node name="Inventory" type="HTTPRequest" parent="."]
