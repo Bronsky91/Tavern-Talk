@@ -77,6 +77,9 @@ margin_bottom = 73.19
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="ItemSprite1" type="Sprite" parent="CharacterPanel/Equip1"]
+position = Vector2( 20, 20 )
+
 [node name="Equip2" type="NinePatchRect" parent="CharacterPanel"]
 margin_left = 46.3923
 margin_top = 33.132
@@ -84,6 +87,9 @@ margin_right = 86.3923
 margin_bottom = 73.132
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="ItemSprite2" type="Sprite" parent="CharacterPanel/Equip2"]
+position = Vector2( 20, 20 )
 
 [node name="Equip3" type="NinePatchRect" parent="CharacterPanel"]
 margin_left = 86.257
@@ -93,6 +99,9 @@ margin_bottom = 72.2518
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="ItemSprite3" type="Sprite" parent="CharacterPanel/Equip3"]
+position = Vector2( 20, 20 )
+
 [node name="Equip4" type="NinePatchRect" parent="CharacterPanel"]
 margin_left = 5.6636
 margin_top = 197.74
@@ -100,6 +109,9 @@ margin_right = 45.6636
 margin_bottom = 237.74
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="ItemSprite4" type="Sprite" parent="CharacterPanel/Equip4"]
+position = Vector2( 20, 20 )
 
 [node name="Equip5" type="NinePatchRect" parent="CharacterPanel"]
 margin_left = 45.9749
@@ -109,6 +121,9 @@ margin_bottom = 237.605
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="ItemSprite5" type="Sprite" parent="CharacterPanel/Equip5"]
+position = Vector2( 20, 20 )
+
 [node name="Equip6" type="NinePatchRect" parent="CharacterPanel"]
 margin_left = 86.1617
 margin_top = 197.772
@@ -116,6 +131,9 @@ margin_right = 126.162
 margin_bottom = 237.772
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="ItemSprite6" type="Sprite" parent="CharacterPanel/Equip6"]
+position = Vector2( 20, 20 )
 
 [node name="Bag" type="Control" parent="."]
 margin_left = 160.768
@@ -154,6 +172,9 @@ margin_bottom = 171.198
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="InvSprite1" type="Sprite" parent="Bag/Inv1"]
+position = Vector2( 20, 20 )
+
 [node name="Inv2" type="NinePatchRect" parent="Bag"]
 margin_left = 18.9866
 margin_top = 130.997
@@ -161,6 +182,9 @@ margin_right = 58.9866
 margin_bottom = 170.997
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="InvSprite2" type="Sprite" parent="Bag/Inv2"]
+position = Vector2( 20, 20 )
 
 [node name="Inv3" type="NinePatchRect" parent="Bag"]
 margin_left = 58.6458
@@ -170,6 +194,9 @@ margin_bottom = 170.695
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="InvSprite3" type="Sprite" parent="Bag/Inv3"]
+position = Vector2( 20, 20 )
+
 [node name="Inv4" type="NinePatchRect" parent="Bag"]
 margin_left = -21.5383
 margin_top = 91.1625
@@ -177,6 +204,9 @@ margin_right = 18.4617
 margin_bottom = 131.162
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="InvSprite4" type="Sprite" parent="Bag/Inv4"]
+position = Vector2( 20, 20 )
 
 [node name="Inv5" type="NinePatchRect" parent="Bag"]
 margin_left = 58.8565
@@ -186,6 +216,9 @@ margin_bottom = 130.41
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="InvSprite5" type="Sprite" parent="Bag/Inv5"]
+position = Vector2( 20, 20 )
+
 [node name="Inv6" type="NinePatchRect" parent="Bag"]
 margin_left = 18.6996
 margin_top = 90.961
@@ -193,6 +226,9 @@ margin_right = 58.6996
 margin_bottom = 130.961
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="InvSprite6" type="Sprite" parent="Bag/Inv6"]
+position = Vector2( 20, 20 )
 
 [node name="Inv7" type="NinePatchRect" parent="Bag"]
 margin_left = -21.3149
@@ -202,6 +238,9 @@ margin_bottom = 89.8441
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="InvSprite7" type="Sprite" parent="Bag/Inv7"]
+position = Vector2( 20, 20 )
+
 [node name="Inv8" type="NinePatchRect" parent="Bag"]
 margin_left = 59.5777
 margin_top = 48.8428
@@ -209,6 +248,9 @@ margin_right = 99.5777
 margin_bottom = 88.8428
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="InvSprite8" type="Sprite" parent="Bag/Inv8"]
+position = Vector2( 20, 20 )
 
 [node name="Inv9" type="NinePatchRect" parent="Bag"]
 margin_left = 18.6741
@@ -218,6 +260,9 @@ margin_bottom = 89.6427
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="InvSprite9" type="Sprite" parent="Bag/Inv9"]
+position = Vector2( 20, 20 )
+
 [node name="Inv10" type="NinePatchRect" parent="Bag"]
 margin_left = 58.0208
 margin_top = 7.52441
@@ -225,6 +270,9 @@ margin_right = 98.0208
 margin_bottom = 47.5244
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="InvSprite10" type="Sprite" parent="Bag/Inv10"]
+position = Vector2( 20, 20 )
 
 [node name="Inv11" type="NinePatchRect" parent="Bag"]
 margin_left = -22.8717
@@ -234,6 +282,9 @@ margin_bottom = 48.7745
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
 
+[node name="InvSprite11" type="Sprite" parent="Bag/Inv11"]
+position = Vector2( 20, 20 )
+
 [node name="Inv12" type="NinePatchRect" parent="Bag"]
 margin_left = 17.6151
 margin_top = 8.57313
@@ -241,6 +292,9 @@ margin_right = 57.6151
 margin_bottom = 48.5731
 texture = ExtResource( 1 )
 region_rect = Rect2( 96, 16, 32, 32 )
+
+[node name="InvSprite12" type="Sprite" parent="Bag/Inv12"]
+position = Vector2( 20, 20 )
 
 [node name="Inventory" type="HTTPRequest" parent="."]
 [connection signal="visibility_changed" from="." to="." method="_on_Inventory_visibility_changed"]
