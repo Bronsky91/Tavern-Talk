@@ -312,7 +312,6 @@ text = "New Post"
 playback_speed = 2.0
 anims/BoardShiftLeft = SubResource( 1 )
 anims/BoardShiftRight = SubResource( 2 )
-[connection signal="visibility_changed" from="." to="." method="_on_BoardScene_visibility_changed"]
 [connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton1" to="." method="_on_TextureButton_button_up" binds= [ 0 ]]
 [connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton2" to="." method="_on_TextureButton_button_up" binds= [ 1 ]]
 [connection signal="button_up" from="Board/BulletinBoard_Wallpaper/BulletinBoardBG/TextureButton3" to="." method="_on_TextureButton_button_up" binds= [ 2 ]]
