@@ -1,8 +1,24 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Assets/Audio/lutejamother.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Audio/LuteJams_Intro.ogg" type="AudioStream" id=1]
+[ext_resource path="res://Assets/Audio/LuteJams_Song.ogg" type="AudioStream" id=2]
+[ext_resource path="res://Assets/Audio/LuteJams_Ambiance_S.ogg" type="AudioStream" id=3]
+[ext_resource path="res://Assets/Audio/LuteJams_Ambiance_M.ogg" type="AudioStream" id=4]
+[ext_resource path="res://Assets/Audio/LuteJams_Ambiance_L.ogg" type="AudioStream" id=5]
 
 [node name="Audio" type="Node"]
 
 [node name="MenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 1 )
+
+[node name="TavernSong1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )
+
+[node name="SoftAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="MediumAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="LoudAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
