@@ -267,16 +267,16 @@ tracks/3/keys = {
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=8]
-radius = 12.0901
-height = 42.8873
-
 [sub_resource type="StyleBoxFlat" id=9]
 bg_color = Color( 0, 0.105882, 0.619608, 0.121569 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
+
+[sub_resource type="CapsuleShape2D" id=8]
+radius = 12.0901
+height = 42.8873
 
 [sub_resource type="CapsuleShape2D" id=10]
 height = 8.06732
@@ -295,7 +295,7 @@ region_rect = Rect2( 0, 10, 0, 0 )
 region_filter_clip = true
 
 [node name="Hair" type="Sprite" parent="Body"]
-position = Vector2( 7.45058e-09, -1.19209e-07 )
+position = Vector2( 7.45058e-009, -1.19209e-007 )
 vframes = 4
 hframes = 9
 frame = 12
@@ -329,14 +329,6 @@ anims/walk_left = ExtResource( 8 )
 anims/walk_right = SubResource( 6 )
 anims/walk_up = SubResource( 7 )
 
-[node name="FullBody" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 2
-
-[node name="SoftCollision" type="CollisionShape2D" parent="FullBody"]
-position = Vector2( 0, -0.669907 )
-shape = SubResource( 8 )
-
 [node name="ChatBubble" type="RichTextLabel" parent="."]
 visible = false
 margin_left = -50.0
@@ -350,6 +342,14 @@ bbcode_enabled = true
 scroll_active = false
 
 [node name="ChatTimer" type="Timer" parent="ChatBubble"]
+
+[node name="FullBody" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="SoftCollision" type="CollisionShape2D" parent="FullBody"]
+position = Vector2( 0, -0.669907 )
+shape = SubResource( 8 )
 
 [node name="LowerBody" type="CollisionShape2D" parent="."]
 visible = false

@@ -28,6 +28,7 @@ var npc_type: Dictionary
 
 onready var animate: AnimationPlayer = $AnimationPlayer
 onready var name_plate: RichTextLabel = $NamePlate
+onready var chat_bubble: RichTextLabel = $ChatBubble
 
 
 func _ready():
@@ -264,26 +265,26 @@ sync func receive_tavern_chat(msg: String, c_name: String, id=null) -> void:
 
 func bubble_grow(char_count: float) -> void:
 	yield(get_tree(), "idle_frame") # Reasons. https://github.com/godotengine/godot/issues/6638
-	var bubble_height = $ChatBubble.get_v_scroll().get_max()
-	$ChatBubble.rect_size.y = bubble_height
+	var bubble_height = chat_bubble.get_v_scroll().get_max()
+	chat_bubble.rect_size.y = bubble_height
 	if char_count <= 10:
-		$ChatBubble.rect_size.x = char_count * 10
-		$ChatBubble.rect_position.x = char_count * -5
+		chat_bubble.rect_size.x = char_count * 10
+		chat_bubble.rect_position.x = char_count * -5
 	var num_of_lines = bubble_height / 15
-	$ChatBubble.rect_position.y -= 15 * num_of_lines
+	chat_bubble.rect_position.y -= 15 * num_of_lines
 
 func bubble_reset() -> void:
-	$ChatBubble.rect_position.x = -50
-	$ChatBubble.rect_size.x = 100
-	$ChatBubble.rect_size.y = 15
-	$ChatBubble.rect_position.y = -70
+	chat_bubble.rect_position.x = -50
+	chat_bubble.rect_size.x = 100
+	chat_bubble.rect_size.y = 15
+	chat_bubble.rect_position.y = -70
 
 func overhead_chat(msg: String, c_name: String) -> void:
 	bubble_reset()
 	# Tavern chat bubble
 	var char_count = msg.length()
-	$ChatBubble.bbcode_text = ""
-	$ChatBubble.hint_tooltip = msg
+	chat_bubble.bbcode_text = ""
+	chat_bubble.hint_tooltip = msg
 	if msg.length() > 0:
 		var t_msg = "["+c_name+"]: " + msg
 		if npc:
@@ -292,14 +293,14 @@ func overhead_chat(msg: String, c_name: String) -> void:
 		get_node("/root/Tavern/CanvasLayer/TavernChatBox").bbcode_text += "\n"
 	#if msg.length() < 18:
 	msg = "[center]"+msg+"[/center]"
-	$ChatBubble.bbcode_text = msg
+	chat_bubble.bbcode_text = msg
 	$ChatBubble/ChatTimer.start(5)
-	$ChatBubble.visible = true
+	chat_bubble.visible = true
 	bubble_grow(char_count)
 
 func _on_ChatTimer_timeout():
-	$ChatBubble.clear()
-	$ChatBubble.visible = false
+	chat_bubble.clear()
+	chat_bubble.visible = false
 	bubble_reset()
 	
 ## NPC Functions ##
