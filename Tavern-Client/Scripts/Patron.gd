@@ -31,6 +31,7 @@ onready var name_plate: RichTextLabel = $NamePlate
 onready var chat_bubble: RichTextLabel = $ChatBubble
 
 func _ready():
+	
 	if npc:
 		default_npc_animation()
 		name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
