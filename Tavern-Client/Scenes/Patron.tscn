@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Patron.gd" type="Script" id=1]
 [ext_resource path="res://Assets/NPCs/Bard_Play_001.png" type="Texture" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Resources/Animations/idle_up.tres" type="Animation" id=6]
 [ext_resource path="res://Scenes/Player.tres" type="Animation" id=7]
 [ext_resource path="res://Resources/Animations/female_human.tres" type="Animation" id=8]
+[ext_resource path="res://Resources/Fonts/Alagard.tres" type="DynamicFont" id=9]
 
 [sub_resource type="Animation" id=1]
 resource_name = "npc_idle_down"
@@ -364,6 +365,7 @@ margin_left = -29.0536
 margin_top = -50.9464
 margin_right = 30.9464
 margin_bottom = -37.9464
+custom_fonts/normal_font = ExtResource( 9 )
 bbcode_enabled = true
 scroll_active = false
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

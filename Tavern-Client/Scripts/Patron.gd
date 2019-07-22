@@ -30,7 +30,6 @@ onready var animate: AnimationPlayer = $AnimationPlayer
 onready var name_plate: RichTextLabel = $NamePlate
 onready var chat_bubble: RichTextLabel = $ChatBubble
 
-
 func _ready():
 	if npc:
 		default_npc_animation()
@@ -280,7 +279,7 @@ func bubble_reset() -> void:
 	chat_bubble.rect_position.y = -70
 
 func overhead_chat(msg: String, c_name: String) -> void:
-	bubble_reset()
+	call_deferred("bubble_reset")
 	# Tavern chat bubble
 	var char_count = msg.length()
 	chat_bubble.bbcode_text = ""
