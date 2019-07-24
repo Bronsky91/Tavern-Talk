@@ -13,11 +13,13 @@ var con: TreeItem
 var wis: TreeItem
 var cha: TreeItem
 
+var race: String = "Human" # Hard coding human for now
 var gender: String
 var skin: int = 1
 var hair: int = 1
 var eyes: int = 1
-var clothes: int = 1
+var top_clothes: int = 1
+var bottom_clothes: int = 1
 
 var c_id: String
 var character_data: Dictionary
@@ -114,19 +116,22 @@ func _on_Gender_item_selected(index):
 
 func _on_Step2_visibility_changed():
 	if $Step2.visible == true:
-		$Step2/Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(skin)+".png"))
-		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(hair)+".png"))
-		$Step2/Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_00"+str(eyes)+".png"))
-		$Step2/Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(clothes)+".png"))
+		$Step2/Body.material.set_shader_param("palette_swap", load('res://Assets/Palettes/Skintones/Skin_{skin}.png'.format({'skin': "%03d" % skin})))
+		
+		$Step2/Body.set_texture(load("res://Assets/Characters/{race}/{gender}/{gender}_Idle_001.png".format({'race': race, 'gender': gender})))
+		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/{race}/{gender}_IdleHair_{hair}.png".format({'race': race, 'gender': gender, 'hair': "%03d" % hair})))
+		$Step2/Body/Eyes.set_texture(load("res://Assets/Characters/{race}/{gender}_IdleEyes_{eyes}.png".format({'race': race, 'gender': gender, 'eyes': "%03d" % eyes})))
+		$Step2/Body/TopClothes.set_texture(load("res://Assets/Characters/{race}/{gender}_IdleClothes_{top_clothes}.png".format({'race': race, 'gender': gender, 'top_clothes': "%03d" % top_clothes})))
+		$Step2/Body/BottomClothes.set_texture(load("res://Assets/Characters/{race}/{gender}_IdleClothes_{bottom_clothes}.png".format({'race': race, 'gender': gender, 'bottom_clothes': "%03d" % bottom_clothes})))
 		animate.current_animation = "idle_down_menu"
 
 func _on_Skin_button_up():
-	if skin < 3:
+	if skin < 8:
 		skin += 1
-		$Step2/Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(skin)+".png"))
+		$Step2/Body.material.set_shader_param("palette_swap", load('res://Assets/Palettes/Skintones/Skin_{skin}.png'.format({'skin': "%03d" % skin})))
 	else:
 		skin = 1
-		$Step2/Body.set_texture(load("res://Assets/Characters/"+gender+"_Idle_00"+str(skin)+".png"))
+		$Step2/Body.material.set_shader_param("palette_swap", load('res://Assets/Palettes/Skintones/Skin_{skin}.png'.format({'skin': "%03d" % skin})))
 
 func _on_Hair_button_up():
 	if hair < 4:
@@ -145,19 +150,19 @@ func _on_Eyes_button_up():
 		$Step2/Body/Eyes.set_texture(load("res://Assets/Characters/"+gender+"_IdleEyes_00"+str(eyes)+".png"))
 
 func _on_Clothes_button_up():
-	if clothes < 3:
-		clothes += 1
-		$Step2/Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(clothes)+".png"))
+	if top_clothes < 3:
+		top_clothes += 1
+		$Step2/Body/TopClothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(top_clothes)+".png"))
 	else:
-		clothes = 1
-		$Step2/Body/Clothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(clothes)+".png"))
+		top_clothes = 1
+		$Step2/Body/TopClothes.set_texture(load("res://Assets/Characters/"+gender+"_IdleClothes_00"+str(top_clothes)+".png"))
 
 func _on_Create_button_up():
 	character_data.characters.style = {
 		'skin': skin,
 		'hair': hair,
 		'eyes': eyes,
-		'clothes': clothes
+		'top_clothes': top_clothes
 	}
 	if edit_mode:
 		var data: Dictionary = {"_id": c_id}
@@ -181,7 +186,7 @@ func _on_CharacterCreate_visibility_changed():
 			skin = character_data.style.skin
 			hair = character_data.style.hair
 			eyes = character_data.style.eyes
-			clothes = character_data.style.clothes
+			top_clothes = character_data.style.top_clothes
 		else:
 			$Title.text = "Create Character"
 			$Step2/Create.text = "Create"
@@ -196,5 +201,5 @@ func _on_CharacterCreate_visibility_changed():
 			skin = 1
 			hair = 1
 			eyes = 1
-			clothes = 1
+			top_clothes = 1
 			

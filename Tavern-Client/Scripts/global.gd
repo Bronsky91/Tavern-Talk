@@ -5,6 +5,7 @@ var player_data: Dictionary = {
 	'character': {
 		'_id': null, # String
 		'name': null, # String
+		'race': null, # String
 		'gender': null, # String
 		'stats':{
 			'strength': null, # Int
@@ -17,7 +18,9 @@ var player_data: Dictionary = {
 			'skin': null, # String
 			'hair': null, # String
 			'eyes': null, # String
-			'clothes': null # String
+			'top_clothes': null, # String
+			'bottom_clothes': null, # String
+			'accessory': null # String
 		},
 		'inventory': {
 			'gold': null, # Int

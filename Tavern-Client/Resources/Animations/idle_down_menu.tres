@@ -29,7 +29,7 @@ tracks/1/keys = {
 "values": [ 12, 13, 14, 15 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("Body/Clothes:frame")
+tracks/2/path = NodePath("Body/TopClothes:frame")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false

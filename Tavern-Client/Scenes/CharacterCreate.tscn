@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/CharacterCreate.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=2]
+[ext_resource path="res://Resources/Materials/SwapPalette.tres" type="Material" id=2]
+[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=3]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -83,6 +84,7 @@ text = "Back"
 visible = false
 
 [node name="Body" type="Sprite" parent="Step2"]
+material = ExtResource( 2 )
 position = Vector2( 242.702, 350 )
 scale = Vector2( 3, 3 )
 vframes = 4
@@ -90,23 +92,32 @@ hframes = 4
 frame = 15
 
 [node name="Hair" type="Sprite" parent="Step2/Body"]
+material = ExtResource( 2 )
 vframes = 4
 hframes = 4
 frame = 15
 
 [node name="Eyes" type="Sprite" parent="Step2/Body"]
+material = ExtResource( 2 )
 vframes = 4
 hframes = 4
 frame = 15
 
-[node name="Clothes" type="Sprite" parent="Step2/Body"]
+[node name="TopClothes" type="Sprite" parent="Step2/Body"]
+material = ExtResource( 2 )
+vframes = 4
+hframes = 4
+frame = 15
+
+[node name="BottomClothes" type="Sprite" parent="Step2/Body"]
+material = ExtResource( 2 )
 vframes = 4
 hframes = 4
 frame = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Step2/Body"]
 root_node = NodePath("../..")
-anims/idle_down_menu = ExtResource( 2 )
+anims/idle_down_menu = ExtResource( 3 )
 
 [node name="Cycle" type="Label" parent="Step2"]
 margin_left = 63.0
