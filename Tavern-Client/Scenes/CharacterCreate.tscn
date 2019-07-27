@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/CharacterCreate.gd" type="Script" id=1]
-[ext_resource path="res://Resources/Materials/SwapPalette.tres" type="Material" id=2]
-[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=3]
+[ext_resource path="res://Resources/Fonts/Alagard.tres" type="DynamicFont" id=2]
+[ext_resource path="res://Resources/Materials/SwapPalette.tres" type="Material" id=3]
+[ext_resource path="res://Resources/Animations/idle_down_menu.tres" type="Animation" id=4]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
@@ -16,25 +17,27 @@ margin_left = 140.0
 margin_top = 90.0
 margin_right = 253.0
 margin_bottom = 104.0
+custom_fonts/font = ExtResource( 2 )
 text = "New Character"
 
 [node name="Step1" type="Control" parent="."]
-editor/display_folded = true
 margin_right = 40.0
 margin_bottom = 40.0
 
 [node name="Appearance" type="Button" parent="Step1"]
-margin_left = 141.181
-margin_top = 540.0
-margin_right = 237.181
-margin_bottom = 584.0
+margin_left = 133.017
+margin_top = 541.166
+margin_right = 229.017
+margin_bottom = 585.166
+custom_fonts/font = ExtResource( 2 )
 text = "Next"
 
 [node name="NameLabel" type="Label" parent="Step1"]
 margin_left = 160.0
-margin_top = 178.0
+margin_top = 174.501
 margin_right = 266.0
-margin_bottom = 215.0
+margin_bottom = 211.501
+custom_fonts/font = ExtResource( 2 )
 text = " Name:"
 
 [node name="Name" type="LineEdit" parent="Step1/NameLabel"]
@@ -44,10 +47,11 @@ margin_right = 135.0
 margin_bottom = 61.0
 
 [node name="GenderLabel" type="Label" parent="Step1"]
-margin_left = 160.0
-margin_top = 260.0
-margin_right = 275.0
-margin_bottom = 274.0
+margin_left = 155.335
+margin_top = 249.503
+margin_right = 270.335
+margin_bottom = 264.503
+custom_fonts/font = ExtResource( 2 )
 text = "Gender:"
 
 [node name="Gender" type="ItemList" parent="Step1/GenderLabel"]
@@ -56,7 +60,36 @@ margin_top = 25.0
 margin_right = 88.0
 margin_bottom = 70.0
 
+[node name="Race" type="Label" parent="Step1"]
+margin_left = 157.168
+margin_top = 335.507
+margin_right = 197.168
+margin_bottom = 352.507
+custom_fonts/font = ExtResource( 2 )
+text = "Race:"
+
+[node name="Races" type="ItemList" parent="Step1/Race"]
+margin_left = -31.7805
+margin_top = 31.7583
+margin_right = 77.2195
+margin_bottom = 72.7583
+
+[node name="Class" type="Label" parent="Step1"]
+margin_left = 159.669
+margin_top = 424.507
+margin_right = 209.669
+margin_bottom = 441.507
+custom_fonts/font = ExtResource( 2 )
+text = "Class:"
+
+[node name="ItemList" type="ItemList" parent="Step1/Class"]
+margin_left = -32.9469
+margin_top = 24.7602
+margin_right = 76.0531
+margin_bottom = 65.7602
+
 [node name="Stats" type="Label" parent="Step1"]
+visible = false
 margin_left = 170.0
 margin_top = 350.0
 margin_right = 210.0
@@ -78,13 +111,14 @@ margin_left = 11.0
 margin_top = 77.0
 margin_right = 80.0
 margin_bottom = 112.0
+custom_fonts/font = ExtResource( 2 )
 text = "Back"
 
 [node name="Step2" type="Node2D" parent="."]
 visible = false
 
 [node name="Body" type="Sprite" parent="Step2"]
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 position = Vector2( 242.702, 350 )
 scale = Vector2( 3, 3 )
 vframes = 4
@@ -92,32 +126,32 @@ hframes = 4
 frame = 15
 
 [node name="Hair" type="Sprite" parent="Step2/Body"]
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 15
 
 [node name="Eyes" type="Sprite" parent="Step2/Body"]
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 15
 
 [node name="TopClothes" type="Sprite" parent="Step2/Body"]
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 15
 
 [node name="BottomClothes" type="Sprite" parent="Step2/Body"]
-material = ExtResource( 2 )
+material = ExtResource( 3 )
 vframes = 4
 hframes = 4
 frame = 15
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Step2/Body"]
 root_node = NodePath("../..")
-anims/idle_down_menu = ExtResource( 3 )
+anims/idle_down_menu = ExtResource( 4 )
 
 [node name="Cycle" type="Label" parent="Step2"]
 margin_left = 63.0
@@ -163,6 +197,7 @@ text = "Create"
 [connection signal="visibility_changed" from="." to="." method="_on_CharacterCreate_visibility_changed"]
 [connection signal="button_up" from="Step1/Appearance" to="." method="_on_CreateButton_button_up"]
 [connection signal="item_selected" from="Step1/GenderLabel/Gender" to="." method="_on_Gender_item_selected"]
+[connection signal="item_selected" from="Step1/Race/Races" to="." method="_on_Races_item_selected"]
 [connection signal="request_completed" from="Create" to="." method="_on_Create_request_completed"]
 [connection signal="button_up" from="Back" to="." method="_on_Back_button_up"]
 [connection signal="visibility_changed" from="Step2" to="." method="_on_Step2_visibility_changed"]

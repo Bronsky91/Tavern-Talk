@@ -3,6 +3,7 @@ extends Control
 onready var menu: MainMenu = get_parent()
 onready var character_name: LineEdit = $Step1/NameLabel/Name
 onready var gender_list: ItemList = $Step1/GenderLabel/Gender
+onready var race_list: ItemList = $Step1/Race/Races
 onready var stat_tree: Tree = $Step1/Stats/Tree
 onready var animate: AnimationPlayer = $Step2/Body/AnimationPlayer
 
@@ -13,7 +14,7 @@ var con: TreeItem
 var wis: TreeItem
 var cha: TreeItem
 
-var race: String = "Human" # Hard coding human for now
+var race: String
 var gender: String
 var skin: int = 1
 var hair: int = 1
@@ -30,6 +31,9 @@ func _ready():
 		
 	gender_list.add_item("Male")
 	gender_list.add_item("Female")
+	
+	race_list.add_item("Human")
+	race_list.add_item("Elf")
 	
 	var root: TreeItem = stat_tree.create_item()
 	root.set_text(0, "Stats:")
@@ -114,6 +118,9 @@ func _on_Back_button_up():
 func _on_Gender_item_selected(index):
 	gender = gender_list.get_item_text(index)
 
+func _on_Races_item_selected(index):
+	race = race_list.get_item_text(index)
+
 func _on_Step2_visibility_changed():
 	if $Step2.visible == true:
 		$Step2/Body.material.set_shader_param("palette_swap", load('res://Assets/Palettes/Skintones/Skin_{skin}.png'.format({'skin': "%03d" % skin})))
@@ -126,7 +133,7 @@ func _on_Step2_visibility_changed():
 		animate.current_animation = "idle_down_menu"
 
 func _on_Skin_button_up():
-	if skin < 8:
+	if skin < g.count_files_in_dir("res://Assets/Palettes/Skintones/"):
 		skin += 1
 		$Step2/Body.material.set_shader_param("palette_swap", load('res://Assets/Palettes/Skintones/Skin_{skin}.png'.format({'skin': "%03d" % skin})))
 	else:
@@ -134,12 +141,11 @@ func _on_Skin_button_up():
 		$Step2/Body.material.set_shader_param("palette_swap", load('res://Assets/Palettes/Skintones/Skin_{skin}.png'.format({'skin': "%03d" % skin})))
 
 func _on_Hair_button_up():
-	if hair < 4:
+	if hair < g.count_files_in_dir("res://Assets/Palettes/Characters/{race}/{gender}/Hair/".format({'gender': gender, 'race': race})):
 		hair += 1
-		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(hair)+".png"))
 	else:
 		hair = 1
-		$Step2/Body/Hair.set_texture(load("res://Assets/Characters/"+gender+"_IdleHair_00"+str(hair)+".png"))
+	$Step2/Body/Hair.set_texture(load("res://Assets/Characters/{race}/{gender}/Hair/{gender}_IdleHair_{hair}.png".format({'gender': gender, 'race': race, 'hair': "%03d" % hair})))
 
 func _on_Eyes_button_up():
 	if eyes < 3:
@@ -202,4 +208,4 @@ func _on_CharacterCreate_visibility_changed():
 			hair = 1
 			eyes = 1
 			top_clothes = 1
-			
+

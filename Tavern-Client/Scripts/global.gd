@@ -123,3 +123,17 @@ func roll(num_of_dice, dice_sides) -> Array:
 		randomize()
 		roll_result.append(randi() % int(dice_sides) + 1)
 	return roll_result
+	
+func count_files_in_dir(path: String) -> int:
+	var files = []
+	var dir = Directory.new()
+	dir.open(path)
+	dir.list_dir_begin()
+	while true:
+		var file = dir.get_next()
+		if file == "":
+			break
+		elif not file.begins_with(".") and not file.ends_with(".import"):
+			files.append(file)
+	dir.list_dir_end()
+	return len(files)
