@@ -1,38 +1,39 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Table.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/ArmWrestle.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Backgrounds/TableBG_001.png" type="Texture" id=3]
-[ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=5]
-[ext_resource path="res://Resources/Fonts/OpenSans-Italic.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Resources/Fonts/Alagard.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Resources/Fonts/alagard.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Scripts/ChatCommands.gd" type="Script" id=6]
+[ext_resource path="res://Resources/Fonts/OpenSans-Italic.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="StyleBoxEmpty" id=1]
 
 [sub_resource type="DynamicFont" id=2]
 use_filter = true
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="StyleBoxFlat" id=3]
 bg_color = Color( 0.121569, 0.0392157, 0, 0.756863 )
 
 [sub_resource type="DynamicFont" id=4]
-font_data = ExtResource( 6 )
+font_data = ExtResource( 7 )
 
 [sub_resource type="DynamicFont" id=5]
 use_filter = true
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="DynamicFont" id=6]
 use_filter = true
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [sub_resource type="StyleBoxFlat" id=7]
 bg_color = Color( 1, 1, 1, 0.917647 )
 
 [sub_resource type="DynamicFont" id=8]
 use_filter = true
-font_data = ExtResource( 4 )
+font_data = ExtResource( 5 )
 
 [node name="Table" type="Node2D"]
 z_index = 4
@@ -45,9 +46,10 @@ position = Vector2( 180, 320 )
 texture = ExtResource( 3 )
 
 [node name="Leave" type="Button" parent="."]
-margin_left = 270.0
+margin_left = 260.0
 margin_right = 357.0
 margin_bottom = 45.0
+custom_fonts/font = ExtResource( 4 )
 text = "Leave Table"
 
 [node name="PatronList" type="ItemList" parent="."]
@@ -59,7 +61,7 @@ custom_styles/bg = SubResource( 1 )
 custom_fonts/font = SubResource( 2 )
 
 [node name="Commands" type="Node" parent="."]
-script = ExtResource( 5 )
+script = ExtResource( 6 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -86,9 +88,9 @@ override_selected_font_color = true
 
 [node name="ChatInput" type="LineEdit" parent="."]
 margin_left = 1.0
-margin_top = 598.0
+margin_top = 600.0
 margin_right = 361.0
-margin_bottom = 638.0
+margin_bottom = 640.0
 custom_styles/normal = SubResource( 7 )
 custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )

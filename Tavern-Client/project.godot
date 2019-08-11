@@ -79,7 +79,7 @@ config/quit_on_go_back=false
 [autoload]
 
 g="*res://Scripts/global.gd"
-Audio="*res://Scenes/Audio.tscn"
+a="*res://Scripts/Audio.gd"
 
 [display]
 

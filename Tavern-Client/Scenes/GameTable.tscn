@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/GameTable.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/BarrelRoll.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Assets/Backgrounds/TableBG_002.png" type="Texture" id=3]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_Icon.png" type="Texture" id=4]
 
 [node name="GameTable" type="Node2D"]
 z_index = 4
@@ -21,10 +22,11 @@ margin_bottom = 55.0
 text = "Leave Table"
 
 [node name="Game1" type="Button" parent="."]
-margin_left = 70.0
-margin_top = 130.0
-margin_right = 82.0
-margin_bottom = 150.0
+margin_left = 125.598
+margin_top = 236.912
+margin_right = 237.598
+margin_bottom = 275.912
 text = "Barrel Roll"
+icon = ExtResource( 4 )
 [connection signal="button_up" from="Leave" to="." method="_on_Leave_button_up"]
 [connection signal="button_up" from="Game1" to="." method="_on_Game1_button_up"]

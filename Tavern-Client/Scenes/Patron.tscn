@@ -268,14 +268,14 @@ tracks/3/keys = {
 "values": [ 6, 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="StyleBoxFlat" id=9]
+[sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0, 0.105882, 0.619608, 0.121569 )
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
 corner_radius_bottom_left = 10
 
-[sub_resource type="CapsuleShape2D" id=8]
+[sub_resource type="CapsuleShape2D" id=9]
 radius = 12.0901
 height = 42.8873
 
@@ -338,7 +338,7 @@ margin_right = 50.0
 margin_bottom = -55.0
 rect_min_size = Vector2( 0, 15 )
 mouse_filter = 2
-custom_styles/normal = SubResource( 9 )
+custom_styles/normal = SubResource( 8 )
 bbcode_enabled = true
 scroll_active = false
 
@@ -350,7 +350,7 @@ collision_mask = 2
 
 [node name="SoftCollision" type="CollisionShape2D" parent="FullBody"]
 position = Vector2( 0, -0.669907 )
-shape = SubResource( 8 )
+shape = SubResource( 9 )
 
 [node name="LowerBody" type="CollisionShape2D" parent="."]
 visible = false
@@ -361,10 +361,10 @@ shape = SubResource( 10 )
 one_shot = true
 
 [node name="NamePlate" type="RichTextLabel" parent="."]
-margin_left = -29.0536
-margin_top = -50.9464
-margin_right = 30.9464
-margin_bottom = -37.9464
+margin_left = -30.0
+margin_top = -50.946
+margin_right = 30.0
+margin_bottom = -37.946
 custom_fonts/normal_font = ExtResource( 9 )
 bbcode_enabled = true
 scroll_active = false
