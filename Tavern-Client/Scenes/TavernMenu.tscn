@@ -55,17 +55,18 @@ margin_bottom = 112.0
 text = "Back"
 
 [node name="Visited" type="Label" parent="."]
-margin_left = 114.469
-margin_top = 179.341
-margin_right = 232.469
-margin_bottom = 198.341
-text = "Previously Visited:"
+margin_left = 115.469
+margin_top = 174.341
+margin_right = 233.469
+margin_bottom = 205.341
+text = "Available Taverns:
+-----------------------"
 
 [node name="TavernList" type="ItemList" parent="Visited"]
 margin_left = -23.0
-margin_top = 37.0
+margin_top = 31.0
 margin_right = 150.0
-margin_bottom = 116.0
+margin_bottom = 120.0
 custom_styles/bg = SubResource( 1 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
 

@@ -10,10 +10,6 @@ var login: Dictionary
 func _ready():
 	login = g.load_login()
 	
-func example():
-	var test = 'Git GUIs are great!'
-	return test
-	
 func _process(delta):
 	if g.is_lower_than_keyboard(get_focus_owner()):
 		get_parent().position.y = g.distance_to_raise(get_focus_owner())

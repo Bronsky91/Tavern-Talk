@@ -1,8 +1,9 @@
 Tavern = require("../models/tavernModel");
 const cmd = require("node-cmd");
+const _ = require("lodash");
 const { spawnSync } = require('child_process');
 
-const PORTS = [3000, 3001, 3002, 3003];
+const PORTS = _.range(3000, 3101);
 const IP_ADDRESSSES = ["178.128.184.201"];
 
 // var godot_servers = {};

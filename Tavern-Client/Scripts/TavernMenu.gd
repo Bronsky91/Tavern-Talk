@@ -8,6 +8,11 @@ var all_taverns: Array
 var tavern_list_data: Array
 var selected_tavern
 var selected_tavern_index: int
+var bow_and_barrel: Dictionary = {
+	'_id': '5cf5d8647484f248d4a1e5a6',
+	'code': 'dr4Jj',
+	'name': 'The Bow and Barrel'
+	}
 
 func _ready():
 	get_tree().set_auto_accept_quit(false)
@@ -27,8 +32,6 @@ func find_tavern(t: Dictionary) -> bool:
 func _on_TavernMenu_visibility_changed():
 	if visible == true and g.player_data.user_id != null:
 		g.make_get_request($AllTaverns, 'tavern/taverns')
-		tavern_list_data = []
-		all_taverns = []
 
 func _on_AllTaverns_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())
@@ -41,6 +44,13 @@ func _on_HTTPRequestTaverns_request_completed(result, response_code, headers, bo
 
 func populate_tavern_list(taverns: Array) -> void:
 	tavern_list.clear()
+	# if bow and barrel not in taverns add it.
+	var has_bow_and_barrel: bool = false
+	for tavern in taverns:
+		if tavern._id == '5cf5d8647484f248d4a1e5a6':
+			has_bow_and_barrel = true
+	if !has_bow_and_barrel:
+		taverns.append(bow_and_barrel)
 	for tavern in taverns:
 		for t in all_taverns:
 			if t._id == tavern._id:
@@ -60,7 +70,7 @@ func _on_HTTPRequestTavernCheck_request_completed(result, response_code, headers
 			tavern_list_data.append(tavern)
 			tavern_list.add_item(tavern.name)
 			g.make_post_request($HTTPRequestAddTavern, 'users/'+g.player_data.user_id+'/taverns', tavern)
-
+			
 func _on_TavernList_item_selected(index):
 	selected_tavern_index = index
 	var t_name: String = tavern_list.get_item_text(index)
