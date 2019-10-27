@@ -11,5 +11,5 @@ dest_files=[ "res://.import/LuteJams_Ambiance_S.ogg-ee6b68cbff338821c6e170661dfa
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

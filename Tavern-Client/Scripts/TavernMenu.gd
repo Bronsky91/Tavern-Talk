@@ -113,6 +113,7 @@ func _on_SpinTavern_request_completed(result, response_code, headers, body):
 	if json.result.data != null:
 		get_parent().call_deferred("free")	
 		get_tree().change_scene('Scenes/Tavern.tscn')
+		a.turn_off('menu')
 
 func _on_BoardPostCheck_request_completed(result, response_code, headers, body):
 	var json = JSON.parse(body.get_string_from_utf8())

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/LuteJams_Song.ogg-36a799710f375d595655e2e359950ae2.o
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

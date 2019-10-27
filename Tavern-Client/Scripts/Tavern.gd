@@ -62,6 +62,7 @@ var stool_count: Dictionary = {
 }
 
 func _ready():
+	a.turn_on('song')
 	get_tree().set_auto_accept_quit(false)
 	get_tree().connect("connected_to_server", self, "entered_tavern")
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
@@ -171,10 +172,10 @@ remote func configure_player() -> void:
 	#barmaid.receive_tavern_chat("Welcome!", barmaid.name)
 				
 func change_scene_manually() -> void:
+	a.turn_off('song')
     # Remove tavern
 	var root = get_tree().get_root()
 	queue_free()
-	
 	# Add the proper menu
 	var tavern_menu_resource: PackedScene = load("res://Scenes/MainMenu.tscn")
 	var tavern_menu: MainMenu = tavern_menu_resource.instance()
@@ -185,6 +186,7 @@ func change_scene_manually() -> void:
 func leave_tavern() -> void:
 	get_tree().set_network_peer(null)
 	change_scene_manually()
+	
 	## Let tavern API know the character left the tavern
 
 func _server_disconnected() -> void:
