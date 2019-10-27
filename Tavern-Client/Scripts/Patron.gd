@@ -33,7 +33,8 @@ onready var chat_bubble: RichTextLabel = $ChatBubble
 func _ready():
 	if npc:
 		default_npc_animation()
-		name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
+		#name_plate.bbcode_text = "[center][color=#66ccff]"+npc_type.name
+		# No NPC name plate for now
 		#receive_tavern_chat("Welcome!", npc_type.name)
 	if not npc:
 		name_plate.bbcode_text = "[center][color=#66ccff]"+character_name
@@ -213,6 +214,7 @@ func sit_down(t: Vector2, _stool: int, table_id: int) -> void:
 	sat_down = false
 	sitting = true
 	busy = true
+	name_plate.hide()
 	
 func stand_up(_stool: int, table_id: int) -> void:
 	# Called from Tavern when leaving a table
@@ -221,6 +223,7 @@ func stand_up(_stool: int, table_id: int) -> void:
 	movement_buffer = 30 # Reverts the buffer to 30 since not directing player to stool
 	animate.play_backwards(animate.current_animation)
 	busy = true
+	name_plate.show()
 	$AnimationTimer.start(.7) # timer for z-index of stool
 	if is_network_master():
 		rpc_unreliable("update_pos", get_tree().get_network_unique_id(), position, target, {'current':animate.current_animation, 'backwards': true, 'stool_dict': stool_dict, 'timer': .7, 'texture': a_texture, 'sat_down': sat_down, 'sitting': sitting, 'h_sit_anim': h_sit_anim, 'v_sit_anim':v_sit_anim, 'stop': false})

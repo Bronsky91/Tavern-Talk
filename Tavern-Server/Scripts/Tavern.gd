@@ -48,8 +48,8 @@ var stool_count = {
 		6: null
 	},
 	4: { # table_id
-		1: null, # stool number: patron.name
-		2: null
+		1: null # stool number: patron.name
+		# Only one stool is available until multiplayer games
 	}
 }
 

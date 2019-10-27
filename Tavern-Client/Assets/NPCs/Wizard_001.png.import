@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Wizard_Idle_001.png-a429925814a27a9b5ef53198aa76b375.stex"
+path="res://.import/Wizard_001.png-83e4c1261c2461c5ba0e6e455ecb8863.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/NPCs/Wizard_Idle_001.png"
-dest_files=[ "res://.import/Wizard_Idle_001.png-a429925814a27a9b5ef53198aa76b375.stex" ]
+source_file="res://Assets/NPCs/Wizard_001.png"
+dest_files=[ "res://.import/Wizard_001.png-83e4c1261c2461c5ba0e6e455ecb8863.stex" ]
 
 [params]
 

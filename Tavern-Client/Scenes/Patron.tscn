@@ -299,19 +299,19 @@ region_filter_clip = true
 position = Vector2( 7.45058e-009, -1.19209e-007 )
 vframes = 4
 hframes = 9
-frame = 12
+frame = 27
 region_filter_clip = true
 
 [node name="Eyes" type="Sprite" parent="Body"]
 vframes = 4
 hframes = 9
-frame = 12
+frame = 27
 region_filter_clip = true
 
 [node name="Clothes" type="Sprite" parent="Body"]
 vframes = 4
 hframes = 9
-frame = 12
+frame = 27
 region_filter_clip = true
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -339,6 +339,7 @@ margin_bottom = -55.0
 rect_min_size = Vector2( 0, 15 )
 mouse_filter = 2
 custom_styles/normal = SubResource( 8 )
+custom_fonts/normal_font = ExtResource( 9 )
 bbcode_enabled = true
 scroll_active = false
 

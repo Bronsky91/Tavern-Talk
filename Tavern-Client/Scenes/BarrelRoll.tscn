@@ -1,17 +1,18 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scripts/BarrelRoll.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/Barrel.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Barricade.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Assets/NPCs/Barmaid_001.png" type="Texture" id=4]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_001.png" type="Texture" id=5]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_003.png" type="Texture" id=6]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_002.png" type="Texture" id=7]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_005.png" type="Texture" id=8]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_004.png" type="Texture" id=9]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Heart_001.png" type="Texture" id=10]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_Icon.png" type="Texture" id=11]
-[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barricade_Icon.png" type="Texture" id=12]
+[ext_resource path="res://Assets/NPCs/Wizard_001.png" type="Texture" id=4]
+[ext_resource path="res://Resources/Animations/idle_down.tres" type="Animation" id=5]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_001.png" type="Texture" id=6]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_003.png" type="Texture" id=7]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_002.png" type="Texture" id=8]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_005.png" type="Texture" id=9]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_004.png" type="Texture" id=10]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Heart_001.png" type="Texture" id=11]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barrel_Icon.png" type="Texture" id=12]
+[ext_resource path="res://Assets/MiniGames/BarrelRoll_Barricade_Icon.png" type="Texture" id=13]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 46.8496
@@ -36,21 +37,25 @@ script = ExtResource( 1 )
 barrel_scene = ExtResource( 2 )
 barricade_scene = ExtResource( 3 )
 
-[node name="Enemy" type="Sprite" parent="."]
-position = Vector2( 172.919, 99.5122 )
+[node name="Body" type="Sprite" parent="."]
+position = Vector2( 177.206, 99.5122 )
 scale = Vector2( 3, 3 )
 z_index = -1
 texture = ExtResource( 4 )
 hframes = 4
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Body"]
+anims/idle_down = ExtResource( 5 )
 
 [node name="BarrelRoll_001" type="Sprite" parent="."]
 position = Vector2( 180, 320 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="BarrelRoll_003" type="Sprite" parent="."]
 position = Vector2( 180, 320 )
 z_index = 1
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -64,17 +69,17 @@ shape = SubResource( 1 )
 
 [node name="BarrelRoll_002" type="Sprite" parent="Paths"]
 position = Vector2( 180, 360 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="BarrelRoll_005" type="Sprite" parent="Paths"]
 position = Vector2( 180, 320 )
 z_index = 2
-texture = ExtResource( 8 )
+texture = ExtResource( 9 )
 
 [node name="BarrelRoll_004" type="Sprite" parent="Paths"]
 position = Vector2( 180, 321.703 )
 z_index = 1
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="Middle" type="Path2D" parent="Paths"]
 position = Vector2( 184.703, 366.208 )
@@ -165,53 +170,53 @@ editor/display_folded = true
 
 [node name="Heart_1" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 20, 610 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_2" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 51.7313, 610 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_3" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 80, 610 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_4" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 110, 610 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_5" type="Sprite" parent="UI/Bottom_Player"]
 position = Vector2( 140, 610 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Top_Player" type="Node2D" parent="UI"]
 editor/display_folded = true
 
 [node name="Heart_1" type="Sprite" parent="UI/Top_Player"]
 position = Vector2( 222.5, 122 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_2" type="Sprite" parent="UI/Top_Player"]
 position = Vector2( 252.5, 122 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_3" type="Sprite" parent="UI/Top_Player"]
 position = Vector2( 282.5, 122 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_4" type="Sprite" parent="UI/Top_Player"]
 position = Vector2( 312.5, 122 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="Heart_5" type="Sprite" parent="UI/Top_Player"]
 position = Vector2( 340, 122 )
-texture = ExtResource( 10 )
+texture = ExtResource( 11 )
 
 [node name="BarrelButton" type="Button" parent="UI"]
 margin_left = 315.535
 margin_top = 551.994
 margin_right = 359.535
 margin_bottom = 590.994
-icon = ExtResource( 11 )
+icon = ExtResource( 12 )
 flat = true
 
 [node name="BarricadeButton" type="Button" parent="UI"]
@@ -219,16 +224,16 @@ margin_left = 271.175
 margin_top = 560.094
 margin_right = 314.175
 margin_bottom = 590.094
-icon = ExtResource( 12 )
+icon = ExtResource( 13 )
 flat = true
 
 [node name="Barrel" type="Sprite" parent="UI"]
 visible = false
-texture = ExtResource( 11 )
+texture = ExtResource( 12 )
 
 [node name="Barricade" type="Sprite" parent="UI"]
 visible = false
-texture = ExtResource( 12 )
+texture = ExtResource( 13 )
 
 [node name="Start" type="Button" parent="UI"]
 margin_left = 19.3951

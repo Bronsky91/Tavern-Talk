@@ -12,7 +12,7 @@ var bottom_heart_count: int = 5
 var round_started: bool = false
 
 func _ready():
-	pass
+	$Body/AnimationPlayer.play()
 		
 func _process(delta):
 	if barrel_count == 3:

@@ -56,8 +56,8 @@ var stool_count: Dictionary = {
 		6: null
 	},
 	4: { # table_id
-		1: null, # stool number: patron.name
-		2: null
+		1: null # stool number: patron.name
+		# Only one stool is available until multiplayer games
 	}
 }
 
@@ -69,6 +69,7 @@ func _ready():
 	if g.player_data.tavern.ip != null and g.player_data.tavern.port != null:
 		barmaid = instance_npc({'name': 'Barmaid', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'}, $NPC_Barmaid.position)
 		bard = instance_npc({'name': 'Bard', 'style': '001', 'default_animation': 'npc_play_down', 'texture_default': 'play'}, $NPC_Bard.position)
+		bard = instance_npc({'name': 'Wizard', 'style': '001', 'default_animation': 'npc_idle_down', 'texture_default': 'idle'}, $NPC_Wizard.position)
 		set_board_texture(g.player_data.tavern.post_number)
 		character_name = g.player_data.character.name
 		create_table_scenes()
@@ -167,7 +168,7 @@ remote func configure_player() -> void:
 			new_player.set_npc(false)
 			$YSort.add_child(new_player)
 			barmaid.wave()
-	barmaid.receive_tavern_chat("Welcome!", barmaid.name)
+	#barmaid.receive_tavern_chat("Welcome!", barmaid.name)
 				
 func change_scene_manually() -> void:
     # Remove tavern
@@ -192,6 +193,7 @@ func _server_disconnected() -> void:
 ### Tables ###
 sync func update_stool_count(_stool_count) -> void:
 	stool_count = _stool_count
+	print(stool_count)
 
 func get_min(arr) -> int:
 	arr.sort()
@@ -201,6 +203,7 @@ func find_closest_stool(table_id: int, patron: Patron) -> int:
 	# dictionary of available stools and their positions
 	var stool_pos_dict = {}
 	# loop through all stools for availablity
+	print(stool_count[table_id])
 	for stool in stool_count[table_id]:
 		var stool_node = get_node("YSort/Table_00"+str(table_id)+"/Stool_00"+str(stool))
 		stool_count[table_id][stool]
@@ -234,13 +237,7 @@ func _on_Table_button_up(table_id: int):
 			patron.v_sit_anim = 'back'
 		# if stool is empty 
 	else:
-		if stool > (stool_count[table_id].size()/2):
-			# if the stool is on the bottom row use back animation
-			patron.v_sit_anim = 'front'
-		else:
-			# Else it's the top row and use the front animation
-			patron.v_sit_anim = 'back'
-		# if stool is empty 
+		patron.v_sit_anim = 'back'
 		
 	if patron.position.x > stool_node.get_global_position().x:
 		patron.h_sit_anim = 'Right'
