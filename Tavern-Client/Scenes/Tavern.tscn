@@ -449,7 +449,7 @@ texture = ExtResource( 15 )
 position = Vector2( -143.233, -32.731 )
 frames = SubResource( 1 )
 animation = "Blink"
-frame = 26
+frame = 28
 playing = true
 
 [node name="Stool_001" type="Sprite" parent="YSort/Table_000"]
@@ -984,7 +984,7 @@ position = Vector2( 241.207, 118.322 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Balloon_002" type="AnimatedSprite" parent="YSort"]
@@ -993,7 +993,7 @@ position = Vector2( 87.9096, 117.773 )
 z_index = 5
 frames = SubResource( 19 )
 animation = "Float"
-frame = 2
+frame = 3
 playing = true
 
 [node name="Shelf_001" type="Sprite" parent="YSort"]
@@ -1014,6 +1014,7 @@ texture = ExtResource( 12 )
 position = Vector2( 30.7153, -5.68802 )
 frames = SubResource( 20 )
 animation = "Sleeping"
+frame = 3
 playing = true
 
 [node name="Wall" type="TileMap" parent="."]

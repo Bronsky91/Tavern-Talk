@@ -6,7 +6,6 @@ func _ready():
 	pass # Replace with function body.
 
 func turn_on(music):
-	print(Tree)
 	if music == 'menu':
 		menu_start = true
 		$MenuMusic.play()
@@ -23,7 +22,7 @@ func turn_off(music):
 		$SoftAmbience.stop()
 
 func _on_TavernSong1_finished():
-	turn_on('menu')
+	$MenuMusic.play()
 
 func _on_MenuMusic_finished():
 	if menu_start:

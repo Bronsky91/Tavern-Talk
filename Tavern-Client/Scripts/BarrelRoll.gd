@@ -161,7 +161,7 @@ func new_round() -> void:
 		$UI/ConfirmationDialog.window_title = "You Win!"
 		$UI/ConfirmationDialog.popup()
 	elif bottom_heart_count == 0 and top_heart_count != 0:
-		$UI/ConfirmationDialog.window_title = "Barmaid Wins!"
+		$UI/ConfirmationDialog.window_title = "Wizard Wins!"
 		$UI/ConfirmationDialog.popup()
 	$UI/Start.disabled = false
 	$UI/BarrelButton.disabled = false
